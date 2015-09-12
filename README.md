@@ -2,4 +2,4 @@
 My eiffel code
 
 This repository contains my public eiffel code. Enjoy!
-If interested have a look at [my wiki pages]()
+If interested have a look at [my wiki pages](https://github.com/lucapaganotti/eiffel/wiki)
