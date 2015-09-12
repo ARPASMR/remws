@@ -1,0 +1,149 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="Summary description for {STATION_STATUS_LIST_RESPONSE}."/>
+<meta name="author" content=""/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>station_status_list_response Contracts</TITLE>
+<LINK REL="stylesheet" HREF="../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="station_status_list_response"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/station_status_list_response_short.html">STATION_STATUS_LIST_RESPONSE</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> <SPAN CLASS="ekeyword">interface</SPAN>
+	<A CLASS="eclass" HREF="../msg/station_status_list_response_short.html">STATION_STATUS_LIST_RESPONSE</A>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_make">make</A>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+
+	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_id">Id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+
+	<A NAME="f_parameters_number"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_parameters_number">parameters_number</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+
+	<A NAME="f_outcome"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_outcome">outcome</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+
+	<A NAME="f_message"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_message">message</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+
+	<A NAME="f_token"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_token">token</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/token_short.html">TOKEN</A>
+
+	<A NAME="f_status_list"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_status_list">status_list</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><A CLASS="eclass" HREF="../msg/meteo/station_status_short.html">STATION_STATUS</A><SPAN CLASS="esymbol">]</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+
+	<A NAME="f_set_parameters_number"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_set_parameters_number">set_parameters_number</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">pn</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_parameters_number">parameters_number</A>
+
+	<A NAME="f_set_outcome"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_set_outcome">set_outcome</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_outcome">outcome</A>
+
+	<A NAME="f_set_message"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_set_message">set_message</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">m</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_message">message</A>
+
+	<A NAME="f_set_logger"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_set_logger">set_logger</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_logger</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LOG_LOGGING_FACILITY</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets the logger</SPAN>
+		<SPAN CLASS="ekeyword">require</SPAN>
+			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">a_logger</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+		<SPAN CLASS="ekeyword">ensure</SPAN>
+			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="efeature" HREF="../msg/interfaces/logging_i_short.html#f_logger">logger</A> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status report</SPAN>
+
+	<A NAME="f_is_error_response"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_is_error_response">is_error_response</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Tells wether the response contains an error</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Conversion</SPAN>
+
+	<A NAME="f_to_json"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_to_json">to_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json representation</SPAN>
+
+	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse XML message</SPAN>
+
+	<A NAME="f_to_xml"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_to_xml">to_xml</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> xml representation</SPAN>
+
+	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse json message</SPAN>
+		<SPAN CLASS="ekeyword">require else</SPAN>
+			<SPAN CLASS="etag">json_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="elocal">json</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML Callbacks</SPAN>
+
+	<A NAME="f_on_start"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_start">on_start</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Called when parsing starts.</SPAN>
+
+	<A NAME="f_on_finish"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_finish">on_finish</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Called when parsing finished.</SPAN>
+
+	<A NAME="f_on_xml_declaration"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_xml_declaration">on_xml_declaration</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_version</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">an_encoding</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_standalone</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML declaration.</SPAN>
+
+	<A NAME="f_on_error"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_error">on_error</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_message</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Event producer detected an error.</SPAN>
+
+	<A NAME="f_on_processing_instruction"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_processing_instruction">on_processing_instruction</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Processing instruction.</SPAN>
+
+	<A NAME="f_on_comment"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_comment">on_comment</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Processing a comment.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Atomic: single comment produces single event</SPAN>
+
+	<A NAME="f_on_start_tag"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_start_tag">on_start_tag</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Start of start tag.</SPAN>
+
+	<A NAME="f_on_attribute"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_attribute">on_attribute</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Start of attribute.</SPAN>
+
+	<A NAME="f_on_start_tag_finish"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_start_tag_finish">on_start_tag_finish</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> End of start tag.</SPAN>
+
+	<A NAME="f_on_end_tag"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_end_tag">on_end_tag</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> End tag.</SPAN>
+
+	<A NAME="f_on_content"></A><A CLASS="efeature" HREF="../msg/station_status_list_response_short.html#f_on_content">on_content</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Text content.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> NOT atomic: two on_content events may follow each other</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> without a markup event in between.</SPAN>
+	
+<SPAN CLASS="ekeyword">invariant</SPAN>
+	<SPAN CLASS="etag">invariant_clause</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">True</SPAN>
+
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../msg/station_status_list_response_short.html">STATION_STATUS_LIST_RESPONSE</A><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="station_status_list_response_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="station_status_list_response"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

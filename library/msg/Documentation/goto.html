@@ -1,0 +1,77 @@
+<!--
+	classList = new Array (
+		"APPLICATION",
+		"DEFAULTS",
+		"ERROR_CODES",
+		"ERROR_RESPONSE",
+		"LOGGING_I",
+		"LOGIN_REQUEST",
+		"LOGIN_RESPONSE",
+		"LOGOUT_REQUEST",
+		"LOGOUT_RESPONSE",
+		"MSG",
+		"MSG_CONSTANTS",
+		"MUNICIPALITY",
+		"MUNICIPALITY_LIST_REQUEST",
+		"MUNICIPALITY_LIST_RESPONSE",
+		"PROVINCE",
+		"PROVINCE_LIST_REQUEST",
+		"PROVINCE_LIST_RESPONSE",
+		"REMWS_CONSTANTS",
+		"REQUEST_I",
+		"RESPONSE_I",
+		"STATION_STATUS",
+		"STATION_STATUS_LIST_REQUEST",
+		"STATION_STATUS_LIST_RESPONSE",
+		"STATION_TYPE",
+		"STATION_TYPES_LIST_REQUEST",
+		"STATION_TYPES_LIST_RESPONSE",
+		"TOKEN"
+	);
+
+	locationList = new Array (
+		"msg/application_chart.html",
+		"msg/constants/defaults_chart.html",
+		"msg/constants/error_codes_chart.html",
+		"msg/error_response_chart.html",
+		"msg/interfaces/logging_i_chart.html",
+		"msg/login_request_chart.html",
+		"msg/login_response_chart.html",
+		"msg/logout_request_chart.html",
+		"msg/logout_response_chart.html",
+		"msg/msg_chart.html",
+		"msg/constants/msg_constants_chart.html",
+		"msg/meteo/municipality_chart.html",
+		"msg/municipality_list_request_chart.html",
+		"msg/municipality_list_response_chart.html",
+		"msg/meteo/province_chart.html",
+		"msg/province_list_request_chart.html",
+		"msg/province_list_response_chart.html",
+		"msg/constants/remws_constants_chart.html",
+		"msg/interfaces/request_i_chart.html",
+		"msg/interfaces/response_i_chart.html",
+		"msg/meteo/station_status_chart.html",
+		"msg/station_status_list_request_chart.html",
+		"msg/station_status_list_response_chart.html",
+		"msg/meteo/station_type_chart.html",
+		"msg/station_types_list_request_chart.html",
+		"msg/station_types_list_response_chart.html",
+		"msg/token_chart.html"
+	);
+
+	function indexOfClass (name) {
+		for (i = 0; i < classList.length; i++) {
+			if (name == classList[i]) return i;
+		}
+		return -1;
+	};
+
+	function go_to (baseLocation, className) {
+		var index = indexOfClass (className.toUpperCase ());
+		if (index >= 0) {
+			window.location = baseLocation + locationList[index];
+		} else {
+			alert ("Class " + className.toUpperCase () + " does not exist in system");
+		}
+	}
+// -->
