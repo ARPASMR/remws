@@ -1,8 +1,8 @@
 note
 	description : "[
 						curl_test_client application root class
-						user     = wsMeteo
-    					password = wsMeteo
+						user     = a_usr
+    					password = a_pwd
     					host     = remws.arpa.local
 					]"
 	date        : "$Date$"
@@ -37,18 +37,6 @@ feature {NONE} -- Initialization
 
 			initialize
 
-			-- 43,185676575
-
---			station.set_latitude (43.18567489)
---			station.set_longitude (10.36849354)
-
---			print ("lat degrees: " + station.latitude_degrees.out + "%N")
---			print ("lat minutes: " + station.latitude_minutes.out + "%N")
---			print ("lat seconds: " + station.latitude_seconds.out + "%N")
-
-
-
-
 			create r.make_empty
 
 			from i := 0
@@ -58,6 +46,8 @@ feature {NONE} -- Initialization
 				io.put_new_line
 				--io.put_string ("{CURL_TEST_CLIENT} >>> " + login_request)
 				--io.put_new_line
+				login_request.replace_substring_all ("$usr", username)
+				login_request.replace_substring_all ("$pwd", password)
 				response := post (login_request)
 				if attached response as resp then
 					io.put_string ("{CURL_TEST_CLIENT} <<< " + resp)
@@ -237,6 +227,8 @@ feature {NONE} -- Initialization
 
 	initialize
 			-- object creation
+		local
+			l_path: STRING
 		do
 			create headers
 			create curl_buffer.make_empty
@@ -255,6 +247,41 @@ feature {NONE} -- Initialization
 			create token_id.make_empty
 			create expiry.make_now
 			create station.make
+
+			create username.make_empty
+			create password.make_empty
+
+			if not cfg_file_path.is_empty then
+				l_path := cfg_file_path
+			else
+				l_path := "/etc/curl_test_client/credentials.conf"
+			end
+
+			create cfg_file.make_with_name (l_path)
+
+			read_cfg
+		end
+
+	cfg_file_path: STRING
+			-- format cfg file name full path
+		do
+			create Result.make_empty
+			if attached home_directory_path as l_home then
+				Result := l_home.out + "/.curl_test_client/" + cfg_file_name
+			end
+		end
+
+	read_cfg
+			-- Trivial config file --> switch to preferences library
+		do
+			cfg_file.open_read
+
+			cfg_file.read_line
+			username := cfg_file.last_string
+			cfg_file.read_line
+			password := cfg_file.last_string
+
+			cfg_file.close
 		end
 
 feature -- Basic operations
@@ -376,6 +403,14 @@ feature {NONE} -- Implementation
 
 	one_second: INTEGER = 1000000000
 
+	cfg_file_name: STRING = "credentials.conf"
+
+feature -- Configuration
+
+	username: STRING
+	password: STRING
+	cfg_file: PLAIN_TEXT_FILE
+
 feature -- msg data
 
 	login_res:               LOGIN_RESPONSE
@@ -399,8 +434,8 @@ feature -- msg data
 	        "parameters_number": 2
 	      },
 	      "data": {
-	        "username": "wsMeteo",
-	        "password": "wsMeteo"
+	        "username": "$usr",
+	        "password": "$pwd"
 	      }
 	    }
 	]"

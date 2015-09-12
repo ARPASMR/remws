@@ -495,8 +495,8 @@ end
 --		do
 --			create amsg.make
 
---			amsg.set_username ("wsMeteo")
---			amsg.set_password ("wsMeteo")
+--			amsg.set_username ("a_usr")
+--			amsg.set_password ("a_pwd")
 
 --			-- print ("Login message as json string: " + amsg.to_json)
 --			print ("Login message as xml  string: " + amsg.to_xml)
