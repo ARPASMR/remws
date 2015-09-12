@@ -1,0 +1,10 @@
+{
+  "header": {
+    "message_id": 1,
+    "parameters_number": 2
+  },
+  "data": {
+    "username": "wsMeteo",
+    "password": "wsMeteo"
+  }
+}

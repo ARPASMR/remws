@@ -1,0 +1,1 @@
+curl -v --request POST --header "content-type: text/xml;charset=utf-8" --header "SOAPAction: http://tempuri.org/IAutenticazione/Login" --header "Accept-Encoding: gzip, deflate" --data "@authws_login_req2.xml" http://remws.arpa.local/Autenticazione.svc
