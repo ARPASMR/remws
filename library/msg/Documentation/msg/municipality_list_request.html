@@ -67,7 +67,7 @@
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Build a </SPAN>`MUNICIPALITY_LIST_REQUEST'<SPAN CLASS="ecomment"> with </SPAN><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_token_id">token_id</A><SPAN CLASS="ecomment"> = </SPAN>`a_token'
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_token_id">token_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_token</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_parnum">parnum</A> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_province_list_request_parnum_token">Province_list_request_parnum_token</A>
+			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_parnum">parnum</A> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_municipality_list_request_parnum_token">Municipality_list_request_parnum_token</A>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_xml_representation">xml_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_provinces_list">provinces_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
@@ -78,7 +78,7 @@
 	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_id">Id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message id</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
-			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_province_list_request_id">Province_list_request_id</A>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_municipality_list_request_id">Municipality_list_request_id</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_parameters_number"></A><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_parameters_number">parameters_number</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
@@ -129,8 +129,11 @@
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML representation</SPAN>
 		<SPAN CLASS="ekeyword">local</SPAN>
 			<SPAN CLASS="elocal">l_token_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="elocal">l_p_list</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_token_id</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_token_id">token_id</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_p_list</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_xml_request_template">Xml_request_template</A><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_token_id">token_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
 				<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">replace_substring_all</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;&lt;Token&gt;&quot;<SPAN CLASS="esymbol">,</SPAN> &quot;&quot;<SPAN CLASS="esymbol">)</SPAN>
@@ -142,6 +145,17 @@
 				<SPAN CLASS="elocal">l_token_id</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">replace_substring_all</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;-&quot;<SPAN CLASS="esymbol">,</SPAN> &quot;&quot;<SPAN CLASS="esymbol">)</SPAN>
 				<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">replace_substring_all</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;$tokenid&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">l_token_id</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">from</SPAN>
+				<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+			<SPAN CLASS="ekeyword">until</SPAN>
+				<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_provinces_list">provinces_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">count</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+			<SPAN CLASS="ekeyword">loop</SPAN>
+				<SPAN CLASS="elocal">l_p_list</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;&lt;Provincia&gt;&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">l_p_list</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_provinces_list">provinces_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">i_th</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">l_p_list</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;&lt;/Provincia&gt;%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">replace_substring_all</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;$provinces_list&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">l_p_list</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_xml_representation">xml_representation</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">Result</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
@@ -151,10 +165,15 @@
 			<SPAN CLASS="etag">json_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="elocal">json</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
 		<SPAN CLASS="ekeyword">local</SPAN>
 			<SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_STRING</SPAN>
+			<SPAN CLASS="elocal">key1</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_STRING</SPAN>
 			<SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_PARSER</SPAN>
+			<SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="elocal">l_p</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="elocal">l_count</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_with_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">key1</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;province&quot;<SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">key</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;header&quot;<SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parse_content</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_valid</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parsed_json_value</SPAN> <SPAN CLASS="ekeyword">as</SPAN> jv <SPAN CLASS="ekeyword">then</SPAN>
@@ -165,17 +184,32 @@
 					<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;The header was not found!%N&quot;<SPAN CLASS="esymbol">)</SPAN>
 				<SPAN CLASS="ekeyword">end</SPAN>
 				<SPAN CLASS="ekeyword">check</SPAN>
-						<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_parameters_number">parameters_number</A> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_province_list_request_parnum_no_token">Province_list_request_parnum_no_token</A> <SPAN CLASS="ekeyword">or</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_parameters_number">parameters_number</A> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_province_list_request_parnum_token">Province_list_request_parnum_token</A>
+						<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_parameters_number">parameters_number</A> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_municipality_list_request_parnum_no_token">Municipality_list_request_parnum_no_token</A> <SPAN CLASS="ekeyword">or</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_parameters_number">parameters_number</A> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_municipality_list_request_parnum_token">Municipality_list_request_parnum_token</A>
 				<SPAN CLASS="ekeyword">end</SPAN>
 				<SPAN CLASS="elocal">key</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;data&quot;<SPAN CLASS="esymbol">)</SPAN>
-				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">jv</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_object <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_object</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_data <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_data</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;tokenid&quot;<SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_tokenid <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">jv</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_object <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_object</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_data <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_data</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;tokenid&quot;<SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_tokenid <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_ARRAY</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_data</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;provinces_list&quot;<SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_provinces <SPAN CLASS="ekeyword">then</SPAN>
 					<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_token_id">token_id</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">j_tokenid</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN>
+					<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_provinces_list">provinces_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
+					<SPAN CLASS="elocal">l_count</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">j_provinces</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">count</SPAN>
+					<SPAN CLASS="ekeyword">from</SPAN>
+						<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+					<SPAN CLASS="ekeyword">until</SPAN>
+						<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="elocal">l_count</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+					<SPAN CLASS="ekeyword">loop</SPAN>
+						<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_provinces</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">i_th</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_prov <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_prov</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key1</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_p <SPAN CLASS="ekeyword">then</SPAN>
+							<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_p</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">j_p</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol">)</SPAN>
+							<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_provinces_list">provinces_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">extend</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_p</SPAN><SPAN CLASS="esymbol">)</SPAN>
+						<SPAN CLASS="ekeyword">end</SPAN>
+						<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
 				<SPAN CLASS="ekeyword">end</SPAN>
 			<SPAN CLASS="ekeyword">end</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_to_json"></A><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_to_json">to_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json representation</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
@@ -184,7 +218,19 @@
 			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;id%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_station_status_list_request_id">Station_status_list_request_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,%&quot;parameters_number%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_station_status_list_request_parnum_token">Station_status_list_request_parnum_token</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
 			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,%&quot;data%&quot;: {&quot;<SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;tokenid%&quot;: %&quot;&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_token_id">token_id</A> <SPAN CLASS="esymbol">+</SPAN> &quot;%&quot;}}&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;tokenid%&quot;: %&quot;&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_token_id">token_id</A> <SPAN CLASS="esymbol">+</SPAN> &quot;%&quot;},&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;provinces_list%&quot;: [&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">from</SPAN>
+				<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+			<SPAN CLASS="ekeyword">until</SPAN>
+				<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_provinces_list">provinces_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">count</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+			<SPAN CLASS="ekeyword">loop</SPAN>
+				<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{%&quot;province%&quot;: %&quot;&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_provinces_list">provinces_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">i_th</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;%&quot;&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">&gt;</SPAN> <SPAN CLASS="enumber">1</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;]}&quot;<SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
@@ -220,19 +266,22 @@
 	<A NAME="f_name"></A><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_name">Name</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Request </SPAN><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_name">Name</A><SPAN CLASS="ecomment"> to be passed to remws</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
-			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;ElencoProvince&quot;
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;ElencoComuni&quot;
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_xml_request_template"></A><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_xml_request_template">Xml_request_template</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;[
 				&lt;s:Envelope xmlns:s=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
 		          &lt;s:Body&gt;
-		            &lt;ElencoProvince xmlns=&quot;http://tempuri.org/&quot;&gt;
+		            &lt;ElencoComuni xmlns=&quot;http://tempuri.org/&quot;&gt;
 		              &lt;xInput&gt;
 		                &lt;Token&gt;
 		                  &lt;Id&gt;$tokenid&lt;/Id&gt;
 		                &lt;/Token&gt;
+		                &lt;Province&gt;
+		                	$provinces_list
+		                &lt;/Province&gt;
 		              &lt;/xInput&gt;
-		            &lt;/ElencoProvince&gt;
+		            &lt;/ElencoComuni&gt;
 		          &lt;/s:Body&gt;
 		        &lt;/s:Envelope&gt;
 	]<SPAN CLASS="estring">&quot;</SPAN>

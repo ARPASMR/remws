@@ -55,8 +55,8 @@
 	<A NAME="f_make_from_parameters"></A><A CLASS="efeature" HREF="../../msg/meteo/municipality_flat.html#f_make_from_parameters">make_from_parameters</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">an_id</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">an_istat_code</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">a_province</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization for </SPAN>`Current'<SPAN CLASS="ecomment"> based upon </SPAN>`an_id'<SPAN CLASS="ecomment"> and </SPAN>`a_name'
 		<SPAN CLASS="ekeyword">require</SPAN>
-			<SPAN CLASS="etag">attached_an_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">an_id</SPAN>
 			<SPAN CLASS="etag">attached_a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_name</SPAN>
+			<SPAN CLASS="etag">attached_a_province</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_province</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../../msg/meteo/municipality_flat.html#f_id">id</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">an_id</SPAN>
 			<A CLASS="efeature" HREF="../../msg/meteo/municipality_flat.html#f_istat_code">istat_code</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">an_istat_code</SPAN>
@@ -413,16 +413,6 @@
 			<SPAN CLASS="etag">io_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
-	<A NAME="f_out"></A><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> New string containing terse printable representation</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> of current object</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
-		<SPAN CLASS="ekeyword">do</SPAN>
-			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">tagged_out</SPAN>
-		<SPAN CLASS="ekeyword">ensure</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
-			<SPAN CLASS="etag">out_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
-		<SPAN CLASS="ekeyword">end</SPAN>
-
 	<A NAME="f_print"></A><SPAN CLASS="nefeature">print</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Write terse external representation of </SPAN>`o'
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> on standard output.</SPAN>
@@ -452,6 +442,17 @@
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN>
 		<SPAN CLASS="ekeyword">ensure</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
 			<SPAN CLASS="etag">operating_environment_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Reporting</SPAN>
+
+	<A NAME="f_out"></A><A CLASS="efeature" HREF="../../msg/meteo/municipality_flat.html#f_out">out</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN>`STATION_TYPE'<SPAN CLASS="ecomment"> as string</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;{id: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/municipality_flat.html#f_id">id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;, name: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/municipality_flat.html#f_name">name</A> <SPAN CLASS="esymbol">+</SPAN> &quot;, province: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/municipality_flat.html#f_province">province</A> <SPAN CLASS="esymbol">+</SPAN> &quot;}&quot;
+		<SPAN CLASS="ekeyword">ensure</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
+			<SPAN CLASS="etag">out_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Retrieval</SPAN>

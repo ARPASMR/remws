@@ -32,6 +32,12 @@
 <SPAN CLASS="ekeyword">class</SPAN> 
 	<A CLASS="eclass" HREF="../../msg/meteo/station_type.html">STATION_TYPE</A>
 
+<SPAN CLASS="ekeyword">inherit</SPAN>
+	<SPAN CLASS="neclass">ANY</SPAN>
+		<SPAN CLASS="ekeyword">redefine</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/station_type.html#f_out">out</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
 <SPAN CLASS="ekeyword">create</SPAN> 
 	<A CLASS="efeature" HREF="../../msg/meteo/station_type.html#f_make">make</A><SPAN CLASS="esymbol">,</SPAN>
 	<A CLASS="efeature" HREF="../../msg/meteo/station_type.html#f_make_from_id_and_name">make_from_id_and_name</A>
@@ -81,6 +87,15 @@
 			<A CLASS="efeature" HREF="../../msg/meteo/station_type.html#f_name">name</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">ensure</SPAN>
 			<SPAN CLASS="etag">name_equals_a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/station_type.html#f_name">name</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_equal</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Reporting</SPAN>
+
+	<A NAME="f_out"></A><A CLASS="efeature" HREF="../../msg/meteo/station_type.html#f_out">out</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN>`STATION_TYPE'<SPAN CLASS="ecomment"> as string</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;{id: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/station_type.html#f_id">id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;, name: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/station_type.html#f_name">name</A> <SPAN CLASS="esymbol">+</SPAN> &quot;}&quot;
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
 <SPAN CLASS="ekeyword">invariant</SPAN>
