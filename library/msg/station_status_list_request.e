@@ -18,7 +18,7 @@ note
 --|     "parameters_number": <station_status_list_msg_parnum>
 --|   },
 --|   "data": {
---|     "tokenid": "a_token_id",
+--|     "tokenid": "a_token_id"
 --|   }
 --| }
 --|
@@ -74,7 +74,7 @@ feature -- Access
 	id: INTEGER
 			-- message id
 		once
-			Result := station_types_list_request_id
+			Result := station_status_list_request_id
 		end
 
 	parameters_number: INTEGER

@@ -28,7 +28,6 @@
 				<exclude>^common_1$</exclude>
 			</file_rule>
 			<cluster name="common" location="\home\buck\dev\eiffel\collect\common\"/>
-			<cluster name="messages" location="\home\buck\dev\eiffel\collect\messages\"/>
 		</cluster>
 	</target>
 </system>

@@ -118,4 +118,19 @@ feature -- Constants
 			-- Message parameters number for `STATION_LIST_RESPONSE'
 			-- Lists after the parameter can be void or containing n elements
 
+	--| ---------------------------------------------------------------------------
+	--| SENSOR TYPE LIST request and response constants
+	--| ---------------------------------------------------------------------------
+	sensor_type_list_request_id:                 INTEGER = 8
+			-- Message id for `SENSOR_TYPE_LIST_REQUEST'
+	sensor_type_list_request_parnum_no_token:    INTEGER = 1
+			-- Message parameters number when no token is used
+	sensor_type_list_request_parnum_token:       INTEGER = 2
+			-- Message parameters number when token is used
+	sensor_type_list_response_id:                INTEGER once Result := response_id_offset + sensor_type_list_request_id end
+			-- Message id for `SENSOR_TYPE_LIST_RESPONSE'
+	sensor_type_list_response_parnum:            INTEGER = 1
+			-- Message parameters number for `SENsOR_TYPE_LIST_RESPONSE'
+			-- Lists after the parameter can be void or containing elements
+
 end
