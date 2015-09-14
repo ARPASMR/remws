@@ -272,6 +272,15 @@ feature -- Basic operations
 						l_val := myres.to_json
 					end
 				end
+			elseif l_result = {REQUEST_I}.sensor_type_list_request_id then
+				l_req := create {SENSOR_TYPE_LIST_REQUEST}.make
+				if attached l_req as myreq then
+					myreq.from_json (l_raw)
+					l_res := do_post (myreq)
+					if attached l_res as myres then
+						l_val := myres.to_json
+					end
+				end
 			else
 				l_val := internal_error.to_json
 			end

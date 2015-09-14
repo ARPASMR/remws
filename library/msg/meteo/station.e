@@ -174,7 +174,7 @@ feature -- Reporting
 			-- `STATION_TYPE' as string
 		do
 			create Result.make_empty
-			Result := "{id: " + id.out + ", name: " + name + ", municipality: " + municipality.name + "}"
+			Result := "{id: " + id.out + ", name: " + name + "}"
 		end
 
 end

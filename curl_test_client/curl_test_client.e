@@ -44,8 +44,7 @@ feature {NONE} -- Initialization
 			loop
 				io.put_string ("{CURL_TEST_CLIENT} - Trying to login --> attempt: " + (i + 1).out)
 				io.put_new_line
-				--io.put_string ("{CURL_TEST_CLIENT} >>> " + login_request)
-				--io.put_new_line
+
 				login_request.replace_substring_all ("$usr", username)
 				login_request.replace_substring_all ("$pwd", password)
 				response := post (login_request)
@@ -70,22 +69,18 @@ feature {NONE} -- Initialization
 				r.copy (station_status_list_request)
 				r.replace_substring_all ("$tokenid", token_id)
 
-				--io.put_string ("{CURL_TEST_CLIENT} >>> " + r)
-				--io.put_new_line
-
 				response := post (r)
 				if attached response as res then
-					--io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
-					--io.put_new_line
 					station_status_list_res.status_list.wipe_out
 					station_status_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + station_status_list_res.status_list.count.out)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + station_status_list_res.status_list.count.out + " station status")
 					io.put_new_line
 					from j := 1
 					until j = station_status_list_res.status_list.count + 1
 					loop
 						io.put_string (station_status_list_res.status_list.i_th (j).out)
 						io.put_new_line
+						j := j + 1
 					end
 				end
 
@@ -96,22 +91,18 @@ feature {NONE} -- Initialization
 				r.copy (station_types_list_request)
 				r.replace_substring_all ("$tokenid", token_id)
 
-				--io.put_string ("{CURL_TEST_CLIENT} >>> " + r)
-				--io.put_new_line
-
 				response := post (r)
 				if attached response as res then
-					--io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
-					--io.put_new_line
 					station_types_list_res.types_list.wipe_out
 					station_types_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + station_types_list_res.types_list.count.out)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + station_types_list_res.types_list.count.out + " station types")
 					io.put_new_line
 					from j := 1
 					until j = station_types_list_res.types_list.count + 1
 					loop
 						io.put_string (station_types_list_res.types_list.i_th (j).out)
 						io.put_new_line
+						j := j + 1
 					end
 				end
 
@@ -122,22 +113,18 @@ feature {NONE} -- Initialization
 				r.copy (province_list_request)
 				r.replace_substring_all ("$tokenid", token_id)
 
-				--io.put_string ("{CURL_TEST_CLIENT} >>> " + r)
-				--io.put_new_line
-
 				response := post (r)
 				if attached response as res then
-					--io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
-					--io.put_new_line
 					province_list_res.provinces_list.wipe_out
 					province_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + province_list_res.provinces_list.count.out)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + province_list_res.provinces_list.count.out + " provinces")
 					io.put_new_line
 					from j := 1
 					until j = province_list_res.provinces_list.count + 1
 					loop
 						io.put_string (province_list_res.provinces_list.i_th (j).out)
 						io.put_new_line
+						j := j + 1
 					end
 				end
 
@@ -148,22 +135,18 @@ feature {NONE} -- Initialization
 				r.copy (municipalities_list_request)
 				r.replace_substring_all ("$tokenid", token_id)
 
-				--io.put_string ("{CURL_TEST_CLIENT} >>> " + r)
-				--io.put_new_line
-
 				response := post (r)
 				if attached response as res then
-					--io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
-					--io.put_new_line
 					municipality_list_res.municipalities_list.wipe_out
 					municipality_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + municipality_list_res.municipalities_list.count.out)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + municipality_list_res.municipalities_list.count.out + "municipalities")
 					io.put_new_line
 					from j := 1
 					until j = municipality_list_res.municipalities_list.count + 1
 					loop
 						io.put_string (municipality_list_res.municipalities_list.i_th (j).out)
 						io.put_new_line
+						j := j + 1
 					end
 				end
 
@@ -174,22 +157,40 @@ feature {NONE} -- Initialization
 				r.copy (station_list_request)
 				r.replace_substring_all ("$tokenid", token_id)
 
-				--io.put_string ("{CURL_TEST_CLIENT} >>> " + r)
-				--io.put_new_line
-
 				response := post (r)
 				if attached response as res then
-					--io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
-					--io.put_new_line
 					station_list_res.stations_list.wipe_out
 					station_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + station_list_res.stations_list.count.out)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + station_list_res.stations_list.count.out + " stations")
 					io.put_new_line
 					from j := 1
 					until j = station_list_res.stations_list.count + 1
 					loop
 						io.put_string (station_list_res.stations_list.i_th (j).out)
 						io.put_new_line
+						j := j + 1
+					end
+				end
+
+				-- Now try a sensor type list request
+				io.put_string ("{CURL_TEST_CLIENT} Ask for sensor types list")
+				io.put_new_line
+
+				r.copy (sensor_type_list_request)
+				r.replace_substring_all ("$tokenid", token_id)
+
+				response := post (r)
+				if attached response as res then
+					sensor_type_list_res.sensor_types_list.wipe_out
+					sensor_type_list_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + sensor_type_list_res.sensor_types_list.count.out + " sensor types")
+					io.put_new_line
+					from j := 1
+					until j = sensor_type_list_res.sensor_types_list.count + 1
+					loop
+						io.put_string (sensor_type_list_res.sensor_types_list.i_th (j).out)
+						io.put_new_line
+						j := j + 1
 					end
 				end
 
@@ -241,6 +242,7 @@ feature {NONE} -- Initialization
 			create province_list_res.make
 			create municipality_list_res.make
 			create station_list_res.make
+			create sensor_type_list_res.make
 
 			create response.make_empty
 
@@ -420,6 +422,7 @@ feature -- msg data
 	province_list_res:       PROVINCE_LIST_RESPONSE
 	municipality_list_res:   MUNICIPALITY_LIST_RESPONSE
 	station_list_res:        STATION_LIST_RESPONSE
+	sensor_type_list_res:    SENSOR_TYPE_LIST_RESPONSE
 
 	response:                STRING
 
@@ -555,6 +558,19 @@ feature -- msg data
             "stations_list":       [],
             "station_name":        ""
 		  } 
+		}
+	]"
+
+	sensor_type_list_request: STRING = "[
+		{
+		  "header": {
+		    "id":                8,
+		    "parameters_number": 2
+		  },
+		  "data": {
+		    "tokenid": "$tokenid",
+		    "stations_list": []
+		  }
 		}
 	]"
 

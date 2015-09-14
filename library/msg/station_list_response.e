@@ -397,7 +397,7 @@ feature -- XML Callbacks
 					if a_local_part.is_equal ("IdStato") then
 						stations_list.last.status.set_id (a_value.to_integer)
 					elseif a_local_part.is_equal ("NomeStato") then
-						stations_list.last.set_name (a_value)
+						stations_list.last.status.set_name (a_value)
 					end
 				elseif current_tag.is_equal ("TipoStazione") then
 					if a_local_part.is_equal ("idTipoStazione") then
