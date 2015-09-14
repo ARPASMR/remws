@@ -232,22 +232,6 @@ feature {NONE} -- Utilities implementation
 			Result := "ElencoStatiStazione"
 		end
 
---	xml_request_template: STRING = "[
---		  <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
---          <s:Body>
---            <ElencostatiStazione xmlns="http://tempuri.org/">
---              <xElInput>
---                <ElencoStatiStazione xmlns="">
---                  <Token>
---                    <Id>$tokenid</Id>
---                  </Token>
---                </ElencoStatiStazione>
---              </xElInput>
---            </ElencostatiStazione>
---          </s:Body>
---        </s:Envelope>
---	]"
-
 	xml_request_template: STRING = "[
 		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
           <s:Body>

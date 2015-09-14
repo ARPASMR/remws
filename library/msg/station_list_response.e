@@ -196,12 +196,6 @@ feature -- Conversion
 			l_key_gb_est:             JSON_STRING
 			l_key_latitude:           JSON_STRING
 			l_key_longitude:          JSON_STRING
---			l_key_latitude_degrees:   JSON_STRING
---			l_key_latitude_minutes:   JSON_STRING
---			l_key_latitude_seconds:   JSON_STRING
---			l_key_longitude_degrees:  JSON_STRING
---			l_key_longitude_minutes:  JSON_STRING
---			l_key_longitude_seconds:  JSON_STRING
 
 			l_status:                 STATION_STATUS
 			l_type:                   STATION_TYPE
@@ -229,12 +223,6 @@ feature -- Conversion
 			create l_key_gb_est.make_from_string ("gb_est")
 			create l_key_latitude.make_from_string ("latitude")
 			create l_key_longitude.make_from_string ("longitude")
---			create l_key_latitude_degrees.make_from_string ("latitude_degrees")
---			create l_key_latitude_minutes.make_from_string ("latitude_minutes")
---			create l_key_latitude_seconds.make_from_string ("latitude_seconds")
---			create l_key_longitude_degrees.make_from_string ("longitude_degrees")
---			create l_key_longitude_minutes.make_from_string ("longitude_minutes")
---			create l_key_longitude_seconds.make_from_string ("longitude_seconds")
 
 			create l_status.make
 			create l_type.make

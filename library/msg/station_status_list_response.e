@@ -150,22 +150,6 @@ feature -- Conversion
 			Result := json_representation
 		end
 
---  Login response example
---	<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
---	  <s:Body>
---		<Logout xmlns="http://tempuri.org/">
---		  <xElInput>
---			<Logout xmlns="">
---			  <Token>
---				<Id>68444712-A728-4C04-A367-38C47A4B1A6E</Id>
---              <Scadenza>2013-05-20 13:45:00</Scadenza>
---			  </Token>
---			</Logout>
---		  </xElInput>
---		</Logout>
---	  </s:Body>
---	</s:Envelope>
-
 	from_xml(xml: STRING)
 			-- Parse XML message
 	local

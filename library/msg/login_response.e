@@ -97,51 +97,8 @@ feature -- Conversion
 			json_representation.append ("}")
 			json_representation.append ("}")
 
---			if is_error_response then
---				json_representation.append ("{")
---				json_representation.append ("%"header%": {")
---				json_representation.append ("%"id%": " + login_response_id.out)
---				json_representation.append (",%"parameters_number%": " + login_response_error_parnum.out)
---				json_representation.append ("},")
---				json_representation.append ("%"data%": {")
---				json_representation.append ("%"outcome%": " + outcome.out)
---				json_representation.append (",%"message%": %"" + message + "%"")
---				json_representation.append ("}")
---				json_representation.append ("}")
---			else
---				parameters_number := login_response_success_parnum
---				json_representation.append ("{")
---				json_representation.append ("%"header%": {")
---				json_representation.append ("%"id%": " + login_response_id.out)
---				json_representation.append (",%"parameters_number%": " + login_response_error_parnum.out)
---				json_representation.append ("},")
---				json_representation.append ("%"data%": {")
---				json_representation.append ("%"tokenid%": %""  + token.id + "%"")
---				json_representation.append (",%"expiry%": %""  + token.expiry.formatted_out (default_date_time_format) + "%"")
---				json_representation.append (",%"outcome%": "   + outcome.out)
---				json_representation.append (",%"message%": %"" + message + "%"")
---				json_representation.append ("}")
---				json_representation.append ("}")
---			end
-
 			Result := json_representation
 		end
-
---  Login response example
---	<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
---	  <s:Body>
---		<Logout xmlns="http://tempuri.org/">
---		  <xElInput>
---			<Logout xmlns="">
---			  <Token>
---				<Id>68444712-A728-4C04-A367-38C47A4B1A6E</Id>
---              <Scadenza>2013-05-20 13:45:00</Scadenza>
---			  </Token>
---			</Logout>
---		  </xElInput>
---		</Logout>
---	  </s:Body>
---	</s:Envelope>
 
 	from_xml(xml: STRING)
 			-- Parse XML message
