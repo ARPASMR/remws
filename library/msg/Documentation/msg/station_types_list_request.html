@@ -24,7 +24,7 @@
 <TD CLASS="link2"><A CLASS="link2" HREF="station_types_list_request_flatshort.html">Flat contracts</A></TD>
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="station_types_list_request"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
-	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/station_types_list_request.html">STATION_TYPES_LIST_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">description</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">for</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/station_types_list_request.html">STATION_TYPES_LIST_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.</SPAN><SPAN CLASS="estring">&quot;</SPAN>
 	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
 	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
 	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
@@ -40,10 +40,10 @@
 	<A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_make_from_json_string">make_from_json_string</A><SPAN CLASS="esymbol">,</SPAN>
 	<A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_make_from_token">make_from_token</A>
 
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Initialization</SPAN>
 
 	<A NAME="f_make"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_make">make</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization for </SPAN>`Current'<SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Initialization</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">for</SPAN><SPAN CLASS="ecomment"> </SPAN>`Current'<SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
@@ -51,7 +51,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_make_from_json_string"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_make_from_json_string">make_from_json_string</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization of </SPAN>`Current'<SPAN CLASS="ecomment"> from a json string</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Initialization</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN>`Current'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">from</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">string</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN>
 			<SPAN CLASS="etag">json_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">json</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
@@ -62,7 +62,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_make_from_token"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_make_from_token">make_from_token</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_token</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Build a </SPAN>`STATION_TYPES_LIST_REQUEST'<SPAN CLASS="ecomment"> with </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A><SPAN CLASS="ecomment"> = </SPAN>`a_token'
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Build</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN>`STATION_TYPES_LIST_REQUEST'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">with</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">=</SPAN><SPAN CLASS="ecomment"> </SPAN>`a_token'
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_token</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_parnum">parnum</A> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_station_status_list_request_parnum_token">Station_status_list_request_parnum_token</A>
@@ -70,30 +70,30 @@
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_xml_representation">xml_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN>
 
 	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_id">Id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message id</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">id</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_station_types_list_request_id">Station_types_list_request_id</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_parameters_number"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_parameters_number">parameters_number</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message parameters number</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">parameters</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">number</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_parnum">parnum</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_token"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token">token</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access to </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Status</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">setting</SPAN>
 
 	<A NAME="f_set_logger"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_set_logger">set_logger</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_logger</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LOG_LOGGING_FACILITY</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Set the logger</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Set</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">logger</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN>
 			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">a_logger</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
@@ -103,21 +103,21 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_set_token"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_set_token">set_token</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_token</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Set </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Set</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_token</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_set_parameters_number"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_set_parameters_number">set_parameters_number</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_parameters_number</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Set </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_parameters_number">parameters_number</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Set</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_parameters_number">parameters_number</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_parnum">parnum</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_parameters_number</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Conversion</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Conversion</SPAN>
 
 	<A NAME="f_to_xml"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_to_xml">to_xml</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">XML</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
 		<SPAN CLASS="ekeyword">local</SPAN>
 			<SPAN CLASS="elocal">l_token_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
@@ -137,7 +137,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse json message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Parse</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 		<SPAN CLASS="ekeyword">require else</SPAN>
 			<SPAN CLASS="etag">json_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="elocal">json</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
 		<SPAN CLASS="ekeyword">local</SPAN>
@@ -166,7 +166,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_to_json"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_to_json">to_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 			<A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
@@ -179,43 +179,43 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse xml message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Parse</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">xml</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Basic operations</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Basic</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">operations</SPAN>
 
 	<A NAME="f_init_response"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_init_response">Init_response</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/interfaces/response_i.html">RESPONSE_I</A>
 		<SPAN CLASS="ekeyword">once</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/station_types_list_response.html">STATION_TYPES_LIST_RESPONSE</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_make">make</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Object implementation</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">implementation</SPAN>
 
 	<A NAME="f_token_id"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_token_id">token_id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 
 	<A NAME="f_parnum"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_parnum">parnum</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Utilities implementation</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Utilities</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">implementation</SPAN>
 
 	<A NAME="f_json_representation"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_json_representation">json_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 
 	<A NAME="f_xml_representation"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_xml_representation">xml_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 
 	<A NAME="f_ws_url"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_ws_url">Ws_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Web service URL</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Web</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">service</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">URL</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/remws_constants.html#f_anaws_url">Anaws_url</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_soap_action_header"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_soap_action_header">Soap_action_header</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> SOAP action header</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">SOAP</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">action</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">header</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;SOAPAction: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/constants/remws_constants.html#f_remws_uri">Remws_uri</A> <SPAN CLASS="esymbol">+</SPAN> &quot;/&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/constants/remws_constants.html#f_anaws_interface">Anaws_interface</A> <SPAN CLASS="esymbol">+</SPAN> &quot;/&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_name">Name</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_name"></A><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_name">Name</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Request </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_name">Name</A><SPAN CLASS="ecomment"> to be passed to remws</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Request</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_name">Name</A><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">be</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">passed</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">remws</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;ElencoTipiStazione&quot;
 		<SPAN CLASS="ekeyword">end</SPAN>

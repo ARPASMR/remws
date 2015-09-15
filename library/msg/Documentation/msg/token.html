@@ -24,7 +24,7 @@
 <TD CLASS="link2"><A CLASS="link2" HREF="token_flatshort.html">Flat contracts</A></TD>
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="token"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
-	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/token.html">TOKEN</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">description</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">for</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/token.html">TOKEN</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.</SPAN><SPAN CLASS="estring">&quot;</SPAN>
 	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
 	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
 	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
@@ -35,7 +35,7 @@
 <SPAN CLASS="ekeyword">create</SPAN> 
 	<A CLASS="efeature" HREF="../msg/token.html#f_make">make</A>
 
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Initialization</SPAN>
 
 	<A NAME="f_make"></A><A CLASS="efeature" HREF="../msg/token.html#f_make">make</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
@@ -43,18 +43,18 @@
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/token.html#f_expiry">expiry</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_fine</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">1900</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0.0</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN>
 
 	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 
 	<A NAME="f_expiry"></A><A CLASS="efeature" HREF="../msg/token.html#f_expiry">expiry</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN>
 
 	<A NAME="f_is_valid"></A><A CLASS="efeature" HREF="../msg/token.html#f_is_valid">is_valid</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Is </SPAN>`Current'<SPAN CLASS="ecomment"> a valid token?</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Is</SPAN><SPAN CLASS="ecomment"> </SPAN>`Current'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">valid</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">token?</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Status</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">setting</SPAN>
 
 	<A NAME="f_set_id"></A><A CLASS="efeature" HREF="../msg/token.html#f_set_id">set_id</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN>

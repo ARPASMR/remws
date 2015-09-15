@@ -24,7 +24,7 @@
 <TD CLASS="link2"><A CLASS="link2" HREF="request_i_flatshort.html">Flat contracts</A></TD>
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="request_i"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
-	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">description</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">for</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.</SPAN><SPAN CLASS="estring">&quot;</SPAN>
 	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
 	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
 	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
@@ -35,7 +35,7 @@
 <SPAN CLASS="ekeyword">inherit</SPAN>
 	<A CLASS="eclass" HREF="../../msg/msg.html">MSG</A>
 
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN>
 
 	<A NAME="f_ws_url"></A><A CLASS="efeature" HREF="../../msg/interfaces/request_i.html#f_ws_url">ws_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 		<SPAN CLASS="ekeyword">deferred</SPAN>
@@ -53,22 +53,22 @@
 		<SPAN CLASS="ekeyword">deferred</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Status</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">setting</SPAN>
 
 	<A NAME="f_set_parameters_number"></A><A CLASS="efeature" HREF="../../msg/interfaces/request_i.html#f_set_parameters_number">set_parameters_number</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">pn</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/msg.html#f_parameters_number">parameters_number</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/msg.html#f_parameters_number">parameters_number</A>
 		<SPAN CLASS="ekeyword">deferred</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Basic operations</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Basic</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">operations</SPAN>
 
 	<A NAME="f_init_response"></A><A CLASS="efeature" HREF="../../msg/interfaces/request_i.html#f_init_response">init_response</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/interfaces/response_i.html">RESPONSE_I</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Create the associated response message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Create</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">associated</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">response</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 		<SPAN CLASS="ekeyword">deferred</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_generate_http_headers"></A><A CLASS="efeature" HREF="../../msg/interfaces/request_i.html#f_generate_http_headers">generate_http_headers</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_curl</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CURL_EXTERNALS</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">POINTER</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Generate http header for the </SPAN>`Current'<SPAN CLASS="ecomment"> message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Generate</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">http</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">header</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">for</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN>`Current'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN>
 			<SPAN CLASS="etag">a_curl_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">a_curl</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>

@@ -24,7 +24,7 @@
 <TD CLASS="link2"><A CLASS="link2" HREF="error_codes_flatshort.html">Flat contracts</A></TD>
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="error_codes"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
-	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">description</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">for</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.</SPAN><SPAN CLASS="estring">&quot;</SPAN>
 	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
 	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
 	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
@@ -35,20 +35,20 @@
 <SPAN CLASS="ekeyword">create</SPAN> 
 	<SPAN CLASS="nefeature">default_create</SPAN>
 
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Initialization</SPAN>
 
 	<A NAME="f_default_create"></A><SPAN CLASS="nefeature">default_create</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Process instances of classes with no creation clause.</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> (Default: do nothing.)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Process</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">instances</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">classes</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">with</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">no</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">creation</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">clause</SPAN><SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">(Default:</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">do</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">nothing</SPAN><SPAN CLASS="ecomment">.</SPAN><SPAN CLASS="ecomment">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN>
 
 	<A NAME="f_generating_type"></A><SPAN CLASS="nefeature">generating_type</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">TYPE</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="ekeyword">detachable</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">]</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Type of current object</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> (type of which it is a direct instance)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Type</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">(type</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">which</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">it</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">is</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">direct</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">instance)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="ekeyword">detachable</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN>
@@ -57,8 +57,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_generator"></A><SPAN CLASS="nefeature">generator</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Name of current object's generating class</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> (base class of the type of which it is a direct instance)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Name</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment">'</SPAN><SPAN CLASS="ecomment">s</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">generating</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">class</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">(base</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">class</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">which</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">it</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">is</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">direct</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">instance)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">external</SPAN>
 			&quot;built_in&quot;
@@ -67,11 +67,11 @@
 			<SPAN CLASS="etag">generator_not_empty</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Comparison</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Comparison</SPAN>
 
 	<A NAME="f_deep_equal"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">deep_equal</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">b</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">like</SPAN> arg #<SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Are </SPAN>`a'<SPAN CLASS="ecomment"> and </SPAN>`b'<SPAN CLASS="ecomment"> either both void</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> or attached to isomorphic object structures?</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Are</SPAN><SPAN CLASS="ecomment"> </SPAN>`a'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">and</SPAN><SPAN CLASS="ecomment"> </SPAN>`b'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">either</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">both</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">void</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">or</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">attached</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">isomorphic</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">structures?</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">a</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
@@ -87,8 +87,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_equal"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">equal</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">b</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">like</SPAN> arg #<SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Are </SPAN>`a'<SPAN CLASS="ecomment"> and </SPAN>`b'<SPAN CLASS="ecomment"> either both void or attached</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> to objects considered equal?</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Are</SPAN><SPAN CLASS="ecomment"> </SPAN>`a'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">and</SPAN><SPAN CLASS="ecomment"> </SPAN>`b'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">either</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">both</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">void</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">or</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">attached</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">objects</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">considered</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">equal?</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">a</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
@@ -101,7 +101,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_is_deep_equal"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">is_deep_equal</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Are </SPAN>`Current'<SPAN CLASS="ecomment"> and </SPAN>`other'<SPAN CLASS="ecomment"> attached to isomorphic object structures?</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Are</SPAN><SPAN CLASS="ecomment"> </SPAN>`Current'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">and</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">attached</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">isomorphic</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">structures?</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
 			<SPAN CLASS="etag">other_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
@@ -114,8 +114,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_is_equal"></A><SPAN CLASS="nefeature">is_equal</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Is </SPAN>`other'<SPAN CLASS="ecomment"> attached to an object considered</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> equal to current object?</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Is</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">attached</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">an</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">considered</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">equal</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object?</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
 			<SPAN CLASS="etag">other_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
@@ -127,9 +127,9 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_standard_equal"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">standard_equal</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">b</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">like</SPAN> arg #<SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Are </SPAN>`a'<SPAN CLASS="ecomment"> and </SPAN>`b'<SPAN CLASS="ecomment"> either both void or attached to</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> field-by-field identical objects of the same type?</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Always uses default object comparison criterion.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Are</SPAN><SPAN CLASS="ecomment"> </SPAN>`a'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">and</SPAN><SPAN CLASS="ecomment"> </SPAN>`b'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">either</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">both</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">void</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">or</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">attached</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">field-by-field</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">identical</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">objects</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">same</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type?</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Always</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">uses</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">default</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">comparison</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">criterion</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">a</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
@@ -142,8 +142,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_standard_is_equal"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">standard_is_equal</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Is </SPAN>`other'<SPAN CLASS="ecomment"> attached to an object of the same type</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> as current object, and field-by-field identical to it?</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Is</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">attached</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">an</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">same</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">as</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object,</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">and</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">field-by-field</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">identical</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">it?</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
 			<SPAN CLASS="etag">other_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
@@ -154,11 +154,11 @@
 			<SPAN CLASS="etag">symmetric</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="ekeyword">implies</SPAN> <SPAN CLASS="elocal">other</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">standard_is_equal</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Current</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status report</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Status</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">report</SPAN>
 
 	<A NAME="f_conforms_to"></A><SPAN CLASS="nefeature">conforms_to</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Does type of current object conform to type</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> of </SPAN>`other'<SPAN CLASS="ecomment"> (as per Eiffel: The Language, chapter 13)?</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Does</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">conform</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">(as</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">per</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Eiffel:</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">The</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Language,</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">chapter</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">13)?</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
 			<SPAN CLASS="etag">other_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
@@ -167,7 +167,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_same_type"></A><SPAN CLASS="nefeature">same_type</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Is type of current object identical to type of </SPAN>`other'<SPAN CLASS="ecomment">?</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Is</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">identical</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment">?</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
 			<SPAN CLASS="etag">other_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
@@ -177,15 +177,15 @@
 			<SPAN CLASS="etag">definition</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">conforms_to</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">and</SPAN> <SPAN CLASS="elocal">other</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">conforms_to</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Current</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Duplication</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Duplication</SPAN>
 
 	<A NAME="f_clone"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">clone</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">like</SPAN> <SPAN CLASS="elocal">other</SPAN>
 		<SPAN CLASS="ekeyword">obsolete</SPAN> &quot;Use `twin' instead.&quot;
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Void if </SPAN>`other'<SPAN CLASS="ecomment"> is void; otherwise new object</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> equal to </SPAN>`other'
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Void</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">if</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">is</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">void;</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">otherwise</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">new</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">equal</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'
 			<SPAN CLASS="ecomment">--</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> For non-void </SPAN>`other'<SPAN CLASS="ecomment">, </SPAN><SPAN CLASS="nefeature">clone</SPAN><SPAN CLASS="ecomment"> calls </SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment">;</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> to change copying/cloning semantics, redefine </SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">For</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">non-void</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment">,</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="nefeature">clone</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">calls</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment">;</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">change</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">copying/cloning</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">semantics,</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">redefine</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
@@ -196,8 +196,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_copy"></A><SPAN CLASS="nefeature">copy</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Update current object using fields of object attached</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> to </SPAN>`other'<SPAN CLASS="ecomment">, so as to yield equal objects.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Update</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">using</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">fields</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">attached</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment">,</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">so</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">as</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">yield</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">equal</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">objects</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
 			<SPAN CLASS="etag">other_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
@@ -210,8 +210,8 @@
 
 	<A NAME="f_deep_clone"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">deep_clone</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">like</SPAN> <SPAN CLASS="elocal">other</SPAN>
 		<SPAN CLASS="ekeyword">obsolete</SPAN> &quot;Use `deep_twin' instead.&quot;
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Void if </SPAN>`other'<SPAN CLASS="ecomment"> is void: otherwise, new object structure</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> recursively duplicated from the one attached to </SPAN>`other'
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Void</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">if</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">is</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">void:</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">otherwise,</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">new</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">structure</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">recursively</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">duplicated</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">from</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">one</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">attached</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
@@ -222,8 +222,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_deep_copy"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">deep_copy</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Effect equivalent to that of:</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment">		</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment"> (</SPAN>`other'<SPAN CLASS="ecomment"> . </SPAN><SPAN CLASS="nefeature">deep_twin</SPAN><SPAN CLASS="ecomment">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Effect</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">equivalent</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">that</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of:</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment">		</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">(</SPAN>`other'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">.</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="nefeature">deep_twin</SPAN><SPAN CLASS="ecomment">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
 			<SPAN CLASS="etag">other_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
@@ -234,7 +234,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_deep_twin"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">deep_twin</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> New object structure recursively duplicated from Current.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">New</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">structure</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">recursively</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">duplicated</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">from</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Current</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">external</SPAN>
 			&quot;built_in&quot;
@@ -245,9 +245,9 @@
 
 	<A NAME="f_standard_clone"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">standard_clone</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">like</SPAN> <SPAN CLASS="elocal">other</SPAN>
 		<SPAN CLASS="ekeyword">obsolete</SPAN> &quot;Use `standard_twin' instead.&quot;
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Void if </SPAN>`other'<SPAN CLASS="ecomment"> is void; otherwise new object</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> field-by-field identical to </SPAN>`other'<SPAN CLASS="ecomment">.</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Always uses default copying semantics.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Void</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">if</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">is</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">void;</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">otherwise</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">new</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">field-by-field</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">identical</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Always</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">uses</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">default</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">copying</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">semantics</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
@@ -258,8 +258,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_standard_copy"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">standard_copy</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">other</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Copy every field of </SPAN>`other'<SPAN CLASS="ecomment"> onto corresponding field</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> of current object.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Copy</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">every</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">field</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">onto</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">corresponding</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">field</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">from </SPAN><SPAN CLASS="neclass">ANY</SPAN>
 			<SPAN CLASS="etag">other_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">other</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
@@ -271,8 +271,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_standard_twin"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">standard_twin</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> New object field-by-field identical to </SPAN>`other'<SPAN CLASS="ecomment">.</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Always uses default copying semantics.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">New</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">field-by-field</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">identical</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN>`other'<SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Always</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">uses</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">default</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">copying</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">semantics</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">external</SPAN>
 			&quot;built_in&quot;
@@ -282,8 +282,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_twin"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">twin</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> New object equal to </SPAN>`Current'
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="nefeature">twin</SPAN><SPAN CLASS="ecomment"> calls </SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment">; to change copying/twinning semantics, redefine </SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">New</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">equal</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN>`Current'
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="nefeature">twin</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">calls</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment">;</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">change</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">copying/twinning</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">semantics,</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">redefine</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">external</SPAN>
 			&quot;built_in&quot;
@@ -292,40 +292,40 @@
 			<SPAN CLASS="etag">is_equal</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">~</SPAN> <SPAN CLASS="ekeyword">Current</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Basic operations</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Basic</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">operations</SPAN>
 
 	<A NAME="f_as_attached"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">as_attached</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Attached version of Current</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> (Can be used during transitional period to convert</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> non-void-safe classes to void-safe ones.)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Attached</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">version</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Current</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">(Can</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">be</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">used</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">during</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">transitional</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">period</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">convert</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">non-void-safe</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">classes</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">void-safe</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">ones</SPAN><SPAN CLASS="ecomment">.</SPAN><SPAN CLASS="ecomment">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">Current</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_default"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">default</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <A CLASS="eclass" HREF="../../msg/constants/error_codes_flat.html">ERROR_CODES</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Default value of object's type</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Default</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">value</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN><SPAN CLASS="ecomment">'</SPAN><SPAN CLASS="ecomment">s</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_default_pointer"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">default_pointer</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">POINTER</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Default value of type </SPAN>`POINTER'
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> (Avoid the need to write </SPAN>`p'<SPAN CLASS="ecomment">.</SPAN><SPAN CLASS="nefeature">default</SPAN><SPAN CLASS="ecomment"> for</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> some </SPAN>`p'<SPAN CLASS="ecomment"> of type </SPAN>`POINTER'<SPAN CLASS="ecomment">.)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Default</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">value</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN><SPAN CLASS="ecomment"> </SPAN>`POINTER'
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">(Avoid</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">need</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">write</SPAN><SPAN CLASS="ecomment"> </SPAN>`p'<SPAN CLASS="ecomment">.</SPAN><SPAN CLASS="nefeature">default</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">for</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">some</SPAN><SPAN CLASS="ecomment"> </SPAN>`p'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN><SPAN CLASS="ecomment"> </SPAN>`POINTER'<SPAN CLASS="ecomment">.</SPAN><SPAN CLASS="ecomment">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_default_rescue"></A><SPAN CLASS="nefeature">default_rescue</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Process exception for routines with no Rescue clause.</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> (Default: do nothing.)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Process</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">exception</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">for</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">routines</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">with</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">no</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Rescue</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">clause</SPAN><SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">(Default:</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">do</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">nothing</SPAN><SPAN CLASS="ecomment">.</SPAN><SPAN CLASS="ecomment">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_do_nothing"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">do_nothing</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Execute a null action.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Execute</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">null</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">action</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
@@ -333,42 +333,42 @@
 <SPAN CLASS="ekeyword">feature</SPAN> 
 
 	<A NAME="f_err_internal"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_err_internal">Err_internal</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">-1</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> an internal application error happened error code</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">an</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">internal</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">application</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">happened</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">code</SPAN>
 
 	<A NAME="f_err_invalid_json"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_err_invalid_json">Err_invalid_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">2</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json parser failed, not a json message error code</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">parser</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">failed,</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">not</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">code</SPAN>
 
 	<A NAME="f_err_no_curl_easy_library"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_err_no_curl_easy_library">Err_no_curl_easy_library</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">3</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> curl easy dynamic library not present error code</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">curl</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">easy</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">dynamic</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">library</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">not</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">present</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">code</SPAN>
 
 	<A NAME="f_err_no_json_parser"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_err_no_json_parser">Err_no_json_parser</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">1</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> unable to create or reference a valid json parser error code</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">unable</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">create</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">or</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">reference</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">valid</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">parser</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">code</SPAN>
 
 	<A NAME="f_err_xml_parsing_failed"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_err_xml_parsing_failed">Err_xml_parsing_failed</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">4</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> xml parser failed error code</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">xml</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">parser</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">failed</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">code</SPAN>
 
 	<A NAME="f_msg_internal"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_msg_internal">Msg_internal</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;Unfortunately this is an internal error, you must read the log file&quot;
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> an internal application error happened error message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">an</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">internal</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">application</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">happened</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 
 	<A NAME="f_msg_invalid_json"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_msg_invalid_json">Msg_invalid_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;Json parser failed, not a json message&quot;
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json parser failed, not a json message error message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">parser</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">failed,</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">not</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 
 	<A NAME="f_msg_no_curl_easy_library"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_msg_no_curl_easy_library">Msg_no_curl_easy_library</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;Curl easy dynamic library not present&quot;
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> curl easy dynamic library not present error message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">curl</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">easy</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">dynamic</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">library</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">not</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">present</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 
 	<A NAME="f_msg_no_json_parser"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_msg_no_json_parser">Msg_no_json_parser</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;Unable to create or reference a valid json parser&quot;
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> unable to create or reference a valid json parser error message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">unable</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">create</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">or</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">reference</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">valid</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">parser</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 
 	<A NAME="f_msg_xml_parser_failed"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_msg_xml_parser_failed">Msg_xml_parser_failed</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;XML parser failed&quot;
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> xml parser failed error message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">xml</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">parser</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">failed</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 
 	<A NAME="f_success"></A><A CLASS="efeature" HREF="../../msg/constants/error_codes_flat.html#f_success">Success</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">0</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> succesfull operation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">succesfull</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">operation</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Output</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Output</SPAN>
 
 	<A NAME="f_io"></A><SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STD_FILES</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Handle to standard file setup</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Handle</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">standard</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">file</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">setup</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN>
@@ -378,8 +378,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_out"></A><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> New string containing terse printable representation</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> of current object</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">New</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">string</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">containing</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">terse</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">printable</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">tagged_out</SPAN>
@@ -388,8 +388,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_print"></A><SPAN CLASS="nefeature">print</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Write terse external representation of </SPAN>`o'
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> on standard output.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Write</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">terse</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">external</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN>`o'
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">on</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">standard</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">output</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">o</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
@@ -398,8 +398,8 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_tagged_out"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">tagged_out</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> New string containing terse printable representation</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> of current object</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">New</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">string</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">containing</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">terse</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">printable</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">current</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">object</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">external</SPAN>
 			&quot;built_in&quot;
@@ -407,10 +407,10 @@
 			<SPAN CLASS="etag">tagged_out_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Platform</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Platform</SPAN>
 
 	<A NAME="f_operating_environment"></A><SPAN CLASS="nefeature">Operating_environment</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">OPERATING_ENVIRONMENT</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Objects available from the operating system</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Objects</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">available</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">from</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">operating</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">system</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN>
@@ -418,11 +418,11 @@
 			<SPAN CLASS="etag">operating_environment_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Retrieval</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Retrieval</SPAN>
 
 	<A NAME="f_internal_correct_mismatch"></A><SPAN CLASS="ekeyword">frozen</SPAN> <SPAN CLASS="nefeature">internal_correct_mismatch</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Called from runtime to perform a proper dynamic dispatch on </SPAN>`correct_mismatch'
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> from MISMATCH_CORRECTOR.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Called</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">from</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">runtime</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">perform</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">proper</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">dynamic</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">dispatch</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">on</SPAN><SPAN CLASS="ecomment"> </SPAN>`correct_mismatch'
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">from</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">MISMATCH_CORRECTOR</SPAN><SPAN CLASS="ecomment">.</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">(from </SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="ecomment">)</SPAN>
 		<SPAN CLASS="ekeyword">local</SPAN>
 			<SPAN CLASS="elocal">l_msg</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
