@@ -24,7 +24,7 @@
 <TD CLASS="link2"><A CLASS="link2" HREF="login_request_flatshort.html">Flat contracts</A></TD>
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="login_request"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
-	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">description</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">for</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">{</SPAN><SPAN CLASS="estring">LOGIN_MSG</SPAN><SPAN CLASS="estring">}</SPAN><SPAN CLASS="estring">.</SPAN><SPAN CLASS="estring">&quot;</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="estring">{</SPAN><SPAN CLASS="estring">LOGIN_MSG</SPAN><SPAN CLASS="estring">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
 	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
 	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
 	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
@@ -36,56 +36,56 @@
 	<A CLASS="efeature" HREF="../msg/login_request_short.html#f_make">make</A><SPAN CLASS="esymbol">,</SPAN>
 	<A CLASS="efeature" HREF="../msg/login_request_short.html#f_make_from_json_string">make_from_json_string</A>
 
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
 
 	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_id">Id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 
 	<A NAME="f_parameters_number"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_parameters_number">parameters_number</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 
 	<A NAME="f_username"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_username">username</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_usr">usr</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access to </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_usr">usr</A>
 
 	<A NAME="f_password"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_password">password</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">to</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_pwd">pwd</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access to </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_pwd">pwd</A>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Status</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">setting</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
 
 	<A NAME="f_set_parameters_number"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_set_parameters_number">set_parameters_number</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">pn</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_parameters_number">parameters_number</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_parameters_number">parameters_number</A>
 
 	<A NAME="f_set_logger"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_set_logger">set_logger</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_logger</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LOG_LOGGING_FACILITY</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Set</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">logger</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Set the logger</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN>
 			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">a_logger</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">ensure</SPAN>
 			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="efeature" HREF="../msg/interfaces/logging_i_short.html#f_logger">logger</A> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 
 	<A NAME="f_set_username"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_set_username">set_username</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_username</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Set</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_usr">usr</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Set </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_usr">usr</A>
 
 	<A NAME="f_set_password"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_set_password">set_password</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_password</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Set</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_pwd">pwd</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Set </SPAN><A CLASS="efeature" HREF="../msg/login_request_short.html#f_pwd">pwd</A>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Conversion</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Conversion</SPAN>
 
 	<A NAME="f_to_xml"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_to_xml">to_xml</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">XML</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML representation</SPAN>
 		<SPAN CLASS="ekeyword">require else</SPAN>
 			<SPAN CLASS="etag">usr_not_empty</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <A CLASS="efeature" HREF="../msg/login_request_short.html#f_username">username</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
 			<SPAN CLASS="etag">pwd_not_empty</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <A CLASS="efeature" HREF="../msg/login_request_short.html#f_password">password</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
 
 	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Parse</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse json message</SPAN>
 		<SPAN CLASS="ekeyword">require else</SPAN>
 			<SPAN CLASS="etag">json_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="elocal">json</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
 
 	<A NAME="f_to_json"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_to_json">to_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json representation</SPAN>
 
 	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Parse</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">xml</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse xml message</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Basic</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">operations</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Basic operations</SPAN>
 
 	<A NAME="f_init_response"></A><A CLASS="efeature" HREF="../msg/login_request_short.html#f_init_response">Init_response</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/interfaces/response_i_short.html">RESPONSE_I</A>
 	
