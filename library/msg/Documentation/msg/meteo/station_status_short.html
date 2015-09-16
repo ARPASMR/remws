@@ -24,7 +24,7 @@
 <TD CLASS="link2"><A CLASS="link2" HREF="station_status_flatshort.html">Flat contracts</A></TD>
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="station_status"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
-	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/meteo/station_status_short.html">STATION_STATUS</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">description</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">for</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/meteo/station_status_short.html">STATION_STATUS</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.</SPAN><SPAN CLASS="estring">&quot;</SPAN>
 	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
 	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
 	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
@@ -36,31 +36,31 @@
 	<A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_make">make</A><SPAN CLASS="esymbol">,</SPAN>
 	<A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_make_from_id_and_name">make_from_id_and_name</A>
 
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN>
 
 	<A NAME="f_id"></A><A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_id">id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 
 	<A NAME="f_name"></A><A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_name">name</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Status</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">setting</SPAN>
 
 	<A NAME="f_set_id"></A><A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_set_id">set_id</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">an_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_id">id</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_id">id</A>
 		<SPAN CLASS="ekeyword">ensure</SPAN>
 			<SPAN CLASS="etag">id_equals_an_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_id">id</A> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="elocal">an_id</SPAN>
 
 	<A NAME="f_set_name"></A><A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_set_name">set_name</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_name">name</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_name">name</A>
 		<SPAN CLASS="ekeyword">require</SPAN>
 			<SPAN CLASS="etag">attached_a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_name</SPAN>
 			<SPAN CLASS="etag">attached_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_name">name</A>
 		<SPAN CLASS="ekeyword">ensure</SPAN>
 			<SPAN CLASS="etag">name_equals_a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_name">name</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_equal</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">)</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Reporting</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Reporting</SPAN>
 
 	<A NAME="f_out"></A><A CLASS="efeature" HREF="../../msg/meteo/station_status_short.html#f_out">out</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN>`STATION_TYPE'<SPAN CLASS="ecomment"> as string</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN>`STATION_TYPE'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">as</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">string</SPAN>
 	
 <SPAN CLASS="ekeyword">invariant</SPAN>
 	<SPAN CLASS="etag">invariant_clause</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">True</SPAN>

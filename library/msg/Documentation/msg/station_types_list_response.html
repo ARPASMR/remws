@@ -24,7 +24,7 @@
 <TD CLASS="link2"><A CLASS="link2" HREF="station_types_list_response_flatshort.html">Flat contracts</A></TD>
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="station_types_list_response"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
-	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/station_types_list_response.html">STATION_TYPES_LIST_RESPONSE</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">description</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">for</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/station_types_list_response.html">STATION_TYPES_LIST_RESPONSE</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.</SPAN><SPAN CLASS="estring">&quot;</SPAN>
 	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
 	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
 	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
@@ -38,10 +38,10 @@
 <SPAN CLASS="ekeyword">create</SPAN> 
 	<A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_make">make</A>
 
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Initialization</SPAN>
 
 	<A NAME="f_make"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_make">make</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization for </SPAN>`Current'<SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Initialization</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">for</SPAN><SPAN CLASS="ecomment"> </SPAN>`Current'<SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_xml_representation">xml_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
@@ -52,7 +52,7 @@
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_types_list">types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN>
 
 	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_id">Id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
@@ -69,28 +69,28 @@
 
 	<A NAME="f_types_list"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_types_list">types_list</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><A CLASS="eclass" HREF="../msg/meteo/station_type.html">STATION_TYPE</A><SPAN CLASS="esymbol">]</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Status</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">setting</SPAN>
 
 	<A NAME="f_set_parameters_number"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_set_parameters_number">set_parameters_number</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">pn</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_parameters_number">parameters_number</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_parameters_number">parameters_number</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_parameters_number">parameters_number</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">pn</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_set_outcome"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_set_outcome">set_outcome</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_outcome">outcome</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_outcome">outcome</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_outcome">outcome</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">o</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_set_message"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_set_message">set_message</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">m</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_message">message</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_message">message</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_message">message</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">m</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_set_logger"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_set_logger">set_logger</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_logger</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LOG_LOGGING_FACILITY</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets the logger</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">logger</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN>
 			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">a_logger</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
@@ -99,18 +99,18 @@
 			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="efeature" HREF="../msg/interfaces/logging_i.html#f_logger">logger</A> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status report</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Status</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">report</SPAN>
 
 	<A NAME="f_is_error_response"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_is_error_response">is_error_response</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Tells wether the response contains an error</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Tells</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">wether</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">response</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">contains</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">an</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_outcome">outcome</A> <SPAN CLASS="esymbol">/=</SPAN> <A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_success">Success</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Conversion</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Conversion</SPAN>
 
 	<A NAME="f_to_json"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_to_json">to_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
 		<SPAN CLASS="ekeyword">local</SPAN>
 			<SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
@@ -156,7 +156,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse XML message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Parse</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">XML</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 		<SPAN CLASS="ekeyword">local</SPAN>
 			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_STANDARD_PARSER</SPAN>
 			<SPAN CLASS="elocal">factory</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_PARSER_FACTORY</SPAN>
@@ -170,13 +170,13 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_to_xml"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_to_xml">to_xml</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> xml representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">xml</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse json message</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Parse</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN>
 		<SPAN CLASS="ekeyword">require else</SPAN>
 			<SPAN CLASS="etag">json_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="elocal">json</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
 		<SPAN CLASS="ekeyword">local</SPAN>
@@ -225,22 +225,22 @@
 			<SPAN CLASS="ekeyword">end</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML Callbacks</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">XML</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Callbacks</SPAN>
 
 	<A NAME="f_on_start"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_start">on_start</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Called when parsing starts.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Called</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">when</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">parsing</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">starts</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_start called. It's the beginning of the whole parsing.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_finish"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_finish">on_finish</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Called when parsing finished.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Called</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">when</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">parsing</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">finished</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_finish called. The parsing has finished.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_xml_declaration"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_xml_declaration">on_xml_declaration</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_version</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">an_encoding</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_standalone</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML declaration.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">XML</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">declaration</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_xml_declaration called. Got xml declaration&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_version</SPAN> <SPAN CLASS="ekeyword">as</SPAN> version <SPAN CLASS="ekeyword">then</SPAN>
@@ -255,7 +255,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_error"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_error">on_error</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_message</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Event producer detected an error.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Event</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">producer</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">detected</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">an</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">error</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_outcome">outcome</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_err_xml_parsing_failed">err_xml_parsing_failed</A>
 			<A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_message">message</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_msg_xml_parser_failed">msg_xml_parser_failed</A>
@@ -264,7 +264,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_processing_instruction"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_processing_instruction">on_processing_instruction</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Processing instruction.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Processing</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">instruction</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_processing_instruction called.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tname;    &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
@@ -272,15 +272,15 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_comment"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_comment">on_comment</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Processing a comment.</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Atomic: single comment produces single event</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Processing</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">comment</SPAN><SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Atomic:</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">single</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">comment</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">produces</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">single</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">event</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_comment called. Got a comment.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tcontent: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_start_tag"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_start_tag">on_start_tag</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Start of start tag.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Start</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">start</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">tag</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_start_tag called. A tag is starting&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_namespace</SPAN> <SPAN CLASS="ekeyword">as</SPAN> namespace <SPAN CLASS="ekeyword">then</SPAN>
@@ -294,7 +294,7 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_attribute"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_attribute">on_attribute</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Start of attribute.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Start</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">attribute</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">local</SPAN>
 			<SPAN CLASS="elocal">a_type</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/meteo/station_type.html">STATION_TYPE</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
@@ -318,21 +318,21 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_start_tag_finish"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_start_tag_finish">on_start_tag_finish</A>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> End of start tag.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">End</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">of</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">start</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">tag</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_start_tag_finish called. The start tag is finished.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_end_tag"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_end_tag">on_end_tag</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> End tag.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">End</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">tag</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_end_tag called. Got the and tag.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_content"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_on_content">on_content</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Text content.</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> NOT atomic: two on_content events may follow each other</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> without a markup event in between.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Text</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">content</SPAN><SPAN CLASS="ecomment">.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">NOT</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">atomic:</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">two</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">on_content</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">events</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">may</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">follow</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">each</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">other</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">without</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">a</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">markup</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">event</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">in</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">between</SPAN><SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_content called. Got tag content&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tcontent: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
@@ -343,19 +343,19 @@
 			<SPAN CLASS="ekeyword">end</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Implementation</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Implementation</SPAN>
 
 	<A NAME="f_json_representation"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message json representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">json</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
 
 	<A NAME="f_xml_representation"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_xml_representation">xml_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message xml representation</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">message</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">xml</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">representation</SPAN>
 
 	<A NAME="f_current_tag"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_current_tag">current_tag</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> used by </SPAN>`XML_CALLBACKS'<SPAN CLASS="ecomment"> features</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">used</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">by</SPAN><SPAN CLASS="ecomment"> </SPAN>`XML_CALLBACKS'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">features</SPAN>
 
 	<A NAME="f_content"></A><A CLASS="efeature" HREF="../msg/station_types_list_response.html#f_content">content</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> used by </SPAN>`XML_CALLBACKS'<SPAN CLASS="ecomment"> features</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">used</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">by</SPAN><SPAN CLASS="ecomment"> </SPAN>`XML_CALLBACKS'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">features</SPAN>
 	
 <SPAN CLASS="ekeyword">invariant</SPAN>
 	<SPAN CLASS="etag">invariant_clause</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">True</SPAN>
