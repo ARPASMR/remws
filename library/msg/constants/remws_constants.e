@@ -15,7 +15,8 @@ feature -- Constants
 	remws_uri:        STRING = "http://tempuri.org"
 			-- remws URI
 
-	remws_url:        STRING = "http://remws.arpa.local"
+	remws_url:        STRING = "http://remwstest.arpa.local"
+			-- remws URL
 
 	authws_url:       STRING
 			-- authentication ws url

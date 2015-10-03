@@ -130,7 +130,21 @@ feature -- Constants
 	sensor_type_list_response_id:                INTEGER once Result := response_id_offset + sensor_type_list_request_id end
 			-- Message id for `SENSOR_TYPE_LIST_RESPONSE'
 	sensor_type_list_response_parnum:            INTEGER = 1
-			-- Message parameters number for `SENsOR_TYPE_LIST_RESPONSE'
+			-- Message parameters number for `SENSOR_TYPE_LIST_RESPONSE'
 			-- Lists after the parameter can be void or containing elements
+
+	--| ---------------------------------------------------------------------------
+	--| REALTIME DATA request and response constants
+	--| ---------------------------------------------------------------------------
+	realtime_data_request_id:                    INTEGER = 10
+			-- Message id for `REALTIME_DATA_REQUEST'
+	realtime_data_request_parnum_no_token:       INTEGER = 1
+			-- Message parameters number when no token is used
+	realtime_data_request_parnum_token:          INTEGER = 2
+			-- Message parameters number when token is used
+	realtime_data_response_id:                   INTEGER once Result := response_id_offset + realtime_data_request_id end
+			-- Message id for `REALTIME_DATA_RESPONSE'
+	realtime_data_response_parnum:               INTEGER = 1
+			-- Message parameters number for `REALTIME_DATA_RESPONSE'
 
 end

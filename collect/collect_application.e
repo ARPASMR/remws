@@ -108,7 +108,7 @@ feature -- Logging
 	init_log
 			-- Initialize log on file
 		do
-			create log_path.make_from_string ("/home/buck/dev/eiffel/collect/collect.log")
+			create log_path.make_from_string ("/home/$USER/dev/eiffel/collect/collect.log")
 			create logger.make
 			create file_logger.make_at_location (log_path)
 			file_logger.enable_debug_log_level
