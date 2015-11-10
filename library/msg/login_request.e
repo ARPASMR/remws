@@ -207,6 +207,12 @@ feature {NONE} -- Utilities implementation
 			Result := authws_url
 		end
 
+	ws_test_url: STRING
+			-- Testing web service URL
+		once
+			Result := authws_test_url
+		end
+
 	soap_action_header:  STRING
 			-- SOAP action header
 		once

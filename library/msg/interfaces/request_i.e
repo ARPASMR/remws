@@ -13,6 +13,7 @@ inherit
 feature -- Access
 
 	ws_url:               STRING deferred end
+	ws_test_url:          STRING deferred end
 	xml_request_template: STRING deferred end
 	soap_action_header:   STRING deferred end
 	name:                 STRING deferred end

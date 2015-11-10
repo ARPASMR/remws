@@ -80,6 +80,13 @@ feature {NONE} -- Initialization
 				log_level := log_error
 				file_logger.enable_error_log_level
 			end
+
+			idx := index_of_word_option ("t")
+			if idx > 0 then
+				use_testing_ws := true
+			else
+				use_testing_ws := false
+			end
 		end
 
 feature -- Usage
@@ -89,9 +96,10 @@ feature -- Usage
 		do
 			print ("collect network remws gateway%N")
 			print ("Agenzia Regionale per la Protezione Ambientale della Lombardia%N")
-			print ("collect [-p <port_number>][-l <log_level>][-h]%N%N")
+			print ("collect [-p <port_number>][-l <log_level>][-t][-h]%N%N")
 			print ("%T<port_number> is the network port on which collect will accept connections%N")
 			print ("%T<log_level>   is the logging level that will be used%N")
+			print ("%T<testws>      uses the testing wev servicw%N")
 			print ("%TThe available logging levels are:%N")
 			print ("%T%T " + log_debug.out       + " --> debug-level messages%N")
 			print ("%T%T " + log_information.out + " --> informational%N")
@@ -107,8 +115,24 @@ feature -- Logging
 
 	init_log
 			-- Initialize log on file
+		local
+			path: STRING
+			user: STRING
+			u:    STRING
 		do
-			create log_path.make_from_string ("/home/$USER/dev/eiffel/collect/collect.log")
+			create path.make_from_string ("/home/$USER/dev/eiffel/collect/collect.log")
+			create user.make_empty
+			create u.make_from_string ("USER")
+
+			if attached item("USER") as s_u then
+				user.copy (s_u.to_string_8)
+			else
+				path.copy ("/home/buck/dev/eiffel/collect/collect.log")
+			end
+
+			path.replace_substring_all ("$USER", user)
+
+			create log_path.make_from_string (path)
 			create logger.make
 			create file_logger.make_at_location (log_path)
 			file_logger.enable_debug_log_level
@@ -307,7 +331,12 @@ feature {NONE} -- Network IO
 			--create curl_function.make
 			if a_curl_easy.is_dynamic_library_exists then
 				Result := a_curl_easy.init
-				a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_url,           a_request.ws_url)
+				if use_testing_ws then
+					a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_url,       a_request.ws_test_url)
+				else
+					a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_url,       a_request.ws_url)
+				end
+
 				log ("ws_url: " + a_request.ws_url, log_debug)
 				--print ("ws_url: " + a_request.ws_url + "%N")
 				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
@@ -421,19 +450,21 @@ feature {NONE} -- Login management
 			Result := False
 		end
 
-	curl_easy:     CURL_EASY_EXTERNALS
+	curl_easy:      CURL_EASY_EXTERNALS
 			-- cURL easy externals
-	curl:          CURL_EXTERNALS
+	curl:           CURL_EXTERNALS
 			-- cURL externals
-	curl_handle:   POINTER
+	curl_handle:    POINTER
 			-- cURL handle
-	headers:       POINTER
+	headers:        POINTER
 			-- headers slist
 
-	error_code:    INTEGER
+	error_code:     INTEGER
 			-- Post error code
-	error_message: STRING
+	error_message:  STRING
 			-- Post error message
+	use_testing_ws: BOOLEAN
+			-- Must use the testing web service
 
 	internal_error: ERROR_RESPONSE once create Result.make end
 
