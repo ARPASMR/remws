@@ -39,184 +39,192 @@ feature {NONE} -- Initialization
 
 			create r.make_empty
 
+			-- Now try a station status list request
+			io.put_string ("{CURL_TEST_CLIENT} Asks for station status list")
+			io.put_new_line
+
+			r.copy (station_status_list_request)
+
+			response := post (r)
+			if attached response as res then
+				station_status_list_res.status_list.wipe_out
+				station_status_list_res.from_json (res)
+				io.put_string ("{CURL_TEST_CLIENT} Found " + station_status_list_res.status_list.count.out + " station status")
+				io.put_new_line
+				from j := 1
+				until j = station_status_list_res.status_list.count + 1
+				loop
+					io.put_string (station_status_list_res.status_list.i_th (j).out)
+					io.put_new_line
+					j := j + 1
+				end
+			end
+
+
+			-- Now try a station types list request
+			io.put_string ("{CURL_TEST_CLIENT} Ask for station types list")
+			io.put_new_line
+
+			r.copy (station_types_list_request)
+
+			response := post (r)
+			if attached response as res then
+				station_types_list_res.types_list.wipe_out
+				station_types_list_res.from_json (res)
+				io.put_string ("{CURL_TEST_CLIENT} Found " + station_types_list_res.types_list.count.out + " station types")
+				io.put_new_line
+				from j := 1
+				until j = station_types_list_res.types_list.count + 1
+				loop
+					io.put_string (station_types_list_res.types_list.i_th (j).out)
+					io.put_new_line
+					j := j + 1
+				end
+			end
+
+			-- Now try a province list request
+			io.put_string ("{CURL_TEST_CLIENT} Ask for provinces list")
+			io.put_new_line
+
+			r.copy (province_list_request)
+
+			response := post (r)
+			if attached response as res then
+				province_list_res.provinces_list.wipe_out
+				province_list_res.from_json (res)
+				io.put_string ("{CURL_TEST_CLIENT} Found " + province_list_res.provinces_list.count.out + " provinces")
+				io.put_new_line
+				from j := 1
+				until j = province_list_res.provinces_list.count + 1
+				loop
+					io.put_string (province_list_res.provinces_list.i_th (j).out)
+					io.put_new_line
+					j := j + 1
+				end
+			end
+
+			-- Now try a municipality list request
+			io.put_string ("{CURL_TEST_CLIENT} Ask for municipalities list")
+			io.put_new_line
+
+			r.copy (municipalities_list_request)
+
+			response := post (r)
+			if attached response as res then
+				municipality_list_res.municipalities_list.wipe_out
+				municipality_list_res.from_json (res)
+				io.put_string ("{CURL_TEST_CLIENT} Found " + municipality_list_res.municipalities_list.count.out + "municipalities")
+				io.put_new_line
+				from j := 1
+				until j = municipality_list_res.municipalities_list.count + 1
+				loop
+					io.put_string (municipality_list_res.municipalities_list.i_th (j).out)
+					io.put_new_line
+					j := j + 1
+				end
+			end
+
+			-- Now try a sensor type list request
+			io.put_string ("{CURL_TEST_CLIENT} Ask for sensor types list")
+			io.put_new_line
+
+			r.copy (sensor_type_list_request)
+
+			response := post (r)
+			if attached response as res then
+				sensor_type_list_res.sensor_types_list.wipe_out
+				sensor_type_list_res.from_json (res)
+				io.put_string ("{CURL_TEST_CLIENT} Found " + sensor_type_list_res.sensor_types_list.count.out + " sensor types")
+				io.put_new_line
+				from j := 1
+				until j = sensor_type_list_res.sensor_types_list.count + 1
+				loop
+					io.put_string (sensor_type_list_res.sensor_types_list.i_th (j).out)
+					io.put_new_line
+					j := j + 1
+				end
+			end
+
+
+
+
+
+
+
+
+
+
+			die(0)
+
+
+
+			-- Now try a station list request
+			io.put_string ("{CURL_TEST_CLIENT} Ask for stations list")
+			io.put_new_line
+
+			r.copy (station_list_request)
+
+			response := post (r)
+			if attached response as res then
+				station_list_res.stations_list.wipe_out
+				station_list_res.from_json (res)
+				io.put_string ("{CURL_TEST_CLIENT} Found " + station_list_res.stations_list.count.out + " stations")
+				io.put_new_line
+				from j := 1
+				until j = station_list_res.stations_list.count + 1
+				loop
+					io.put_string (station_list_res.stations_list.i_th (j).out)
+					io.put_new_line
+					j := j + 1
+				end
+			end
+
+
+
+
+
+
+
+			-- Now try a realtime data request
+			io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
+			io.put_new_line
+
+			r.copy (realtime_data_request)
+
+			response := post (r)
+			if attached response as res then
+				realtime_data_res.sensor_data_list.wipe_out
+				realtime_data_res.from_json (res)
+				io.put_string ("{CURL_TEST_CLIENT} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
+				io.put_new_line
+				from j := 1
+				until j = station_status_list_res.status_list.count + 1
+				loop
+					io.put_string (station_status_list_res.status_list.i_th (j).out)
+					io.put_new_line
+					j := j + 1
+				end
+			end
+
+			die(0)
+
+
+
+
+
+
+
 			from i := 0
-			until i = 100
+			until i = 2
 			loop
-				io.put_string ("{CURL_TEST_CLIENT} - Trying to login --> attempt: " + (i + 1).out)
-				io.put_new_line
 
-				login_request.replace_substring_all ("$usr", username)
-				login_request.replace_substring_all ("$pwd", password)
-				response := post (login_request)
-				if attached response as resp then
-					io.put_string ("{CURL_TEST_CLIENT} <<< " + resp)
-					io.put_new_line
-					login_res.from_json (resp)
-				end
 
-				token_id := login_res.token.id
-				expiry   := login_res.token.expiry
 
-				io.put_string ("{CURL_TEST_CLIENT} Acquired token: " + token_id)
-				io.put_new_line
-				io.put_string ("{CURL_TEST_CLIENT} Expiry date: " + expiry.formatted_out (default_date_time_format))
-				io.put_new_line
 
-				-- Now try a station status list request
-				io.put_string ("{CURL_TEST_CLIENT} Ask for station status list")
-				io.put_new_line
 
-				r.copy (station_status_list_request)
-				r.replace_substring_all ("$tokenid", token_id)
 
-				response := post (r)
-				if attached response as res then
-					station_status_list_res.status_list.wipe_out
-					station_status_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + station_status_list_res.status_list.count.out + " station status")
-					io.put_new_line
-					from j := 1
-					until j = station_status_list_res.status_list.count + 1
-					loop
-						io.put_string (station_status_list_res.status_list.i_th (j).out)
-						io.put_new_line
-						j := j + 1
-					end
-				end
 
-				-- Now try a station types list request
-				io.put_string ("{CURL_TEST_CLIENT} Ask for station types list")
-				io.put_new_line
 
-				r.copy (station_types_list_request)
-				r.replace_substring_all ("$tokenid", token_id)
-
-				response := post (r)
-				if attached response as res then
-					station_types_list_res.types_list.wipe_out
-					station_types_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + station_types_list_res.types_list.count.out + " station types")
-					io.put_new_line
-					from j := 1
-					until j = station_types_list_res.types_list.count + 1
-					loop
-						io.put_string (station_types_list_res.types_list.i_th (j).out)
-						io.put_new_line
-						j := j + 1
-					end
-				end
-
-				-- Now try a province list request
-				io.put_string ("{CURL_TEST_CLIENT} Ask for provinces list")
-				io.put_new_line
-
-				r.copy (province_list_request)
-				r.replace_substring_all ("$tokenid", token_id)
-
-				response := post (r)
-				if attached response as res then
-					province_list_res.provinces_list.wipe_out
-					province_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + province_list_res.provinces_list.count.out + " provinces")
-					io.put_new_line
-					from j := 1
-					until j = province_list_res.provinces_list.count + 1
-					loop
-						io.put_string (province_list_res.provinces_list.i_th (j).out)
-						io.put_new_line
-						j := j + 1
-					end
-				end
-
-				-- Now try a municipality list request
-				io.put_string ("{CURL_TEST_CLIENT} Ask for municipalities list")
-				io.put_new_line
-
-				r.copy (municipalities_list_request)
-				r.replace_substring_all ("$tokenid", token_id)
-
-				response := post (r)
-				if attached response as res then
-					municipality_list_res.municipalities_list.wipe_out
-					municipality_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + municipality_list_res.municipalities_list.count.out + "municipalities")
-					io.put_new_line
-					from j := 1
-					until j = municipality_list_res.municipalities_list.count + 1
-					loop
-						io.put_string (municipality_list_res.municipalities_list.i_th (j).out)
-						io.put_new_line
-						j := j + 1
-					end
-				end
-
-				-- Now try a station list request
-				io.put_string ("{CURL_TEST_CLIENT} Ask for stations list")
-				io.put_new_line
-
-				r.copy (station_list_request)
-				r.replace_substring_all ("$tokenid", token_id)
-
-				response := post (r)
-				if attached response as res then
-					station_list_res.stations_list.wipe_out
-					station_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + station_list_res.stations_list.count.out + " stations")
-					io.put_new_line
-					from j := 1
-					until j = station_list_res.stations_list.count + 1
-					loop
-						io.put_string (station_list_res.stations_list.i_th (j).out)
-						io.put_new_line
-						j := j + 1
-					end
-				end
-
-				-- Now try a sensor type list request
-				io.put_string ("{CURL_TEST_CLIENT} Ask for sensor types list")
-				io.put_new_line
-
-				r.copy (sensor_type_list_request)
-				r.replace_substring_all ("$tokenid", token_id)
-
-				response := post (r)
-				if attached response as res then
-					sensor_type_list_res.sensor_types_list.wipe_out
-					sensor_type_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + sensor_type_list_res.sensor_types_list.count.out + " sensor types")
-					io.put_new_line
-					from j := 1
-					until j = sensor_type_list_res.sensor_types_list.count + 1
-					loop
-						io.put_string (sensor_type_list_res.sensor_types_list.i_th (j).out)
-						io.put_new_line
-						j := j + 1
-					end
-				end
-
-				-- Now logout
-				io.put_string ("{CURL_TEST_CLIENT} - Trying to logout")
-				io.put_new_line
-
-				if attached token_id as tid and then not tid.is_empty then
-					r.copy (logout_request)
-					r.replace_substring_all ("$tokenid", token_id)
-
-					io.put_string ("{CURL_TEST_CLIENT} >>> " + r)
-					io.put_new_line
-
-					response := post(r)
-					if attached response as res then
-						io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
-						io.put_new_line
-						logout_res.from_json (res)
-					end
-				else
-					io.put_string ("{CURL_TEST_CLIENT} Not logged in")
-					io.put_new_line
-					io.put_string ("{CURL_TEST_CLIENT} Login attempt: " + (i + 1).out + " failed")
-					io.put_new_line
-				end
 
 				i := i + 1
 
@@ -243,6 +251,7 @@ feature {NONE} -- Initialization
 			create municipality_list_res.make
 			create station_list_res.make
 			create sensor_type_list_res.make
+			create realtime_data_res.make
 
 			create response.make_empty
 
@@ -423,6 +432,7 @@ feature -- msg data
 	municipality_list_res:   MUNICIPALITY_LIST_RESPONSE
 	station_list_res:        STATION_LIST_RESPONSE
 	sensor_type_list_res:    SENSOR_TYPE_LIST_RESPONSE
+	realtime_data_res:       REALTIME_DATA_RESPONSE
 
 	response:                STRING
 
@@ -430,11 +440,20 @@ feature -- msg data
 	expiry:                  DATE_TIME
 	station:                 STATION
 
+	query_token_request: STRING = "[
+		{
+	      "header": {
+	        "id":                0,
+	        "parameters_number": 0
+	      },
+	      "data": {}
+	    }
+	]"
+
 	login_request: STRING = "[
 		{
 	      "header": {
-	        "id":                1,
-	        "parameters_number": 2
+	        "id": 1
 	      },
 	      "data": {
 	        "username": "$usr",
@@ -467,12 +486,9 @@ feature -- msg data
 	logout_request: STRING = "[
 		{
 	      "header": {
-	        "id":                2,
-	        "parameters_number": 1
+	        "id": 2
 	      },
-	      "data": {
-	        "id": "$tokenid"
-	      }
+	      "data": {}
 	    }
 	]"
 
@@ -496,47 +512,36 @@ feature -- msg data
 	station_status_list_request: STRING = "[
 		{
 	      "header": {
-	        "id":                3,
-	        "parameters_number": 1
+	        "id": 3
 	      },
-	      "data": {
-	        "tokenid": "$tokenid"
-	      }
+	      "data": {}
 	    }
 	]"
 
 	station_types_list_request: STRING = "[
 		{
 	      "header": {
-	        "id":                4,
-	        "parameters_number": 1
+	        "id": 4
 	      },
-	      "data": {
-	        "tokenid": "$tokenid"
-	      }
+	      "data": {}
 	    }
 	]"
 
 	province_list_request: STRING = "[
 		{
 		  "header": {
-		    "id":                5,
-		    "parameters_number": 1
+		    "id": 5
 		  },
-		  "data": {
-		    "tokenid": "$tokenid"
-		  }
+		  "data": {}
 		}
 	]"
 
 	municipalities_list_request: STRING = "[
 		{
 		  "header": {
-		    "id":                6,
-		    "parameters_number": 2
+		    "id": 6
 		  },
 		  "data": {
-		    "tokenid": "$tokenid",
 		    "provinces_list": [ {"province": "MI"},
 		                        {"province": "BG"}]
 		  }
@@ -546,11 +551,9 @@ feature -- msg data
 	station_list_request: STRING = "[
 		{
 		  "header": {
-		    "id":                7,
-		    "parameters_number": 6
+		    "id": 7
 		  },
 		  "data": {
-		    "tokenid": "$tokenid",
             "municipalities_list": [],
             "provinces_list":      [],
             "types_list":          [],
@@ -564,15 +567,48 @@ feature -- msg data
 	sensor_type_list_request: STRING = "[
 		{
 		  "header": {
-		    "id":                8,
-		    "parameters_number": 2
+		    "id": 8
 		  },
 		  "data": {
-		    "tokenid": "$tokenid",
 		    "stations_list": []
 		  }
 		}
 	]"
+
+	sensor_list_request: STRING = "[
+		{
+          "header": {
+            "id": 9
+          },
+         "data": {
+                   "municipalities_list": [],
+                   "stations_list":       [],
+                   "sensor_types_list"    [],
+                   "sensors_list":        [],
+                   "sensor_name":         ""
+                 }
+        }
+    ]"
+
+	realtime_data_request: STRING = "[
+		{
+          "header": {
+          "id": 10
+        },
+        "data": {
+          "sensors_list": [ {
+                              "sensor_id": 4058,
+                              "function_id": 1,
+                              "operator_id": 1,
+                              "granularity": 1,
+                              "start": "2015-11-21 09:30:00",
+                              "finish": "2015-11-21 11:30:00"
+                            } ]
+                }    
+		}
+	]"
+
+
 
 end
 
@@ -641,3 +677,49 @@ end
 --		</LogoutResponse>
 --	</s:Body>
 --</s:Envelope>
+
+
+--				io.put_string ("{CURL_TEST_CLIENT} - Trying to login --> attempt: " + (i + 1).out)
+--				io.put_new_line
+
+--				login_request.replace_substring_all ("$usr", username)
+--				login_request.replace_substring_all ("$pwd", password)
+--				response := post (login_request)
+--				if attached response as resp then
+--					io.put_string ("{CURL_TEST_CLIENT} <<< " + resp)
+--					io.put_new_line
+--					login_res.from_json (resp)
+--				end
+
+--				token_id := login_res.token.id
+--				expiry   := login_res.token.expiry
+
+--				io.put_string ("{CURL_TEST_CLIENT} Acquired token: " + token_id)
+--				io.put_new_line
+--				io.put_string ("{CURL_TEST_CLIENT} Expiry date: " + expiry.formatted_out (default_date_time_format))
+--				io.put_new_line
+
+
+				-- Now logout
+--				io.put_string ("{CURL_TEST_CLIENT} - Trying to logout")
+--				io.put_new_line
+
+--				if attached token_id as tid and then not tid.is_empty then
+--					r.copy (logout_request)
+--					r.replace_substring_all ("$tokenid", token_id)
+
+--					io.put_string ("{CURL_TEST_CLIENT} >>> " + r)
+--					io.put_new_line
+
+--					response := post(r)
+--					if attached response as res then
+--						io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
+--						io.put_new_line
+--						logout_res.from_json (res)
+--					end
+--				else
+--					io.put_string ("{CURL_TEST_CLIENT} Not logged in")
+--					io.put_new_line
+--					io.put_string ("{CURL_TEST_CLIENT} Login attempt: " + (i + 1).out + " failed")
+--					io.put_new_line
+--				end

@@ -5,8 +5,8 @@ note
 	revision: "$Revision$"
 
 --| ----------------------------------------------------------------------------
---| This is the message structure for the login message, for the time being only
---| json is a supported format
+--| This is the message structure for the station status list message, for the
+--| time being only json is a supported format
 --| ----------------------------------------------------------------------------
 --| The message is an unnamed json object composed by a header and a data part
 --| for example:
@@ -15,11 +15,8 @@ note
 --| {
 --|   "header": {
 --|     "id":                <station_status_list_msg_id>
---|     "parameters_number": <station_status_list_msg_parnum>
 --|   },
---|   "data": {
---|     "tokenid": "a_token_id"
---|   }
+--|   "data": {}
 --| }
 --|
 --| ----------------------------------------------------------------------------
@@ -63,7 +60,7 @@ feature {NONE} -- Initialization
 			-- Build a `STATION_STATUS_LIST_REQUEST' with `token_id' = `a_token'
 		do
 			create token_id.make_from_string (a_token)
-			parnum := station_status_list_request_parnum_token
+			--parnum := station_status_list_request_parnum_token
 
 			create json_representation.make_empty
 			create xml_representation.make_empty
@@ -75,12 +72,6 @@ feature -- Access
 			-- message id
 		once
 			Result := station_status_list_request_id
-		end
-
-	parameters_number: INTEGER
-			-- message parameters number
-		do
-			Result := parnum
 		end
 
 	token: STRING
@@ -101,16 +92,10 @@ feature -- Status setting
 			logger_not_void: logger /= Void
 		end
 
-	set_token (a_token: STRING)
+	set_token_id (a_token: STRING)
 			-- Set `token_id'
 		do
 			token_id.copy (a_token)
-		end
-
-	set_parameters_number (a_parameters_number: INTEGER)
-			-- Set `parameters_number'
-		do
-			parnum := a_parameters_number
 		end
 
 feature -- Conversion
@@ -129,7 +114,8 @@ feature -- Conversion
 				Result.replace_substring_all ("</Id>",     "")
 				Result.replace_substring_all ("$tokenid", "")
 			else
-				l_token_id.replace_substring_all ("-", "")
+				------ Ma sono da togliere i trattini?
+				--l_token_id.replace_substring_all ("-", "")
 				Result.replace_substring_all ("$tokenid", l_token_id)
 			end
 			xml_representation := Result
@@ -151,25 +137,25 @@ feature -- Conversion
 			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
+					--and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
 				then
-					print ("Message: " + j_id.integer_64_item.out + ", " + j_parnum.integer_64_item.out + "%N")
-					set_parameters_number (j_parnum.integer_64_item.to_integer)
+					print ("Message: " + j_id.integer_64_item.out + "%N") --", " + j_parnum.integer_64_item.out + "%N")
+					--set_parameters_number (j_parnum.integer_64_item.to_integer)
 				else
 					print ("The header was not found!%N")
 				end
 
-				check
-					parameters_number = station_status_list_request_parnum_no_token or
-					parameters_number = station_status_list_request_parnum_token
-				end
+--				check
+--					parameters_number = station_status_list_request_parnum_no_token or
+--					parameters_number = station_status_list_request_parnum_token
+--				end
 
 				key := "data"
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
-					and then attached {JSON_STRING} j_data.item ("tokenid") as j_tokenid
-				then
-					token_id := j_tokenid.item
-				end
+--				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
+--					and then attached {JSON_STRING} j_data.item ("tokenid") as j_tokenid
+--				then
+--					token_id := j_tokenid.item
+--				end
 			end
 		end
 
@@ -185,7 +171,8 @@ feature -- Conversion
 			json_representation.append ("%"id%": " + station_status_list_request_id.out)
 			json_representation.append (",%"parameters_number%": " + station_status_list_request_parnum_token.out + "}")
 			json_representation.append (",%"data%": {")
-			json_representation.append ("%"tokenid%": %"" + token_id + "%"}}")
+			--json_representation.append ("%"tokenid%": %"" + token_id + "%"}}")
+			json_representation.append ("}}")
 		end
 
 	from_xml (xml: STRING)
@@ -206,7 +193,7 @@ feature {NONE} -- Object implementation
 
 	token_id: STRING
 			--
-	parnum:   INTEGER
+	--parnum:   INTEGER
 			--
 
 feature {NONE} -- Utilities implementation
@@ -243,9 +230,11 @@ feature {NONE} -- Utilities implementation
           <s:Body>
             <ElencoStatiStazione xmlns="http://tempuri.org/">
               <xInput>
-                <Token>
-                  <Id>$tokenid</Id>
-                </Token>
+                <ElencoStatiStazione xmlns="">
+                  <Token>
+                    <Id>$tokenid</Id>
+                  </Token>
+                </ElencoStatiStazione>
               </xInput>
             </ElencoStatiStazione>
           </s:Body>

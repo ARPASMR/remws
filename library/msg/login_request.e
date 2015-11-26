@@ -84,10 +84,9 @@ feature -- Access
 
 feature -- Status setting
 
-	set_parameters_number (pn: INTEGER)
-			-- Sets `parameters_number'
+	set_token_id (a_token: STRING)
+			-- dummy setter
 		do
-			parameters_number := pn
 		end
 
 	set_logger (a_logger: LOG_LOGGING_FACILITY)

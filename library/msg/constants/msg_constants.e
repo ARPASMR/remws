@@ -9,11 +9,33 @@ class
 
 feature -- Constants
 
+	--| ---------------------------------------------------------------------------
+	--| Token tag
+	--| ---------------------------------------------------------------------------
+	token_tag:                                   STRING = "$tokenid"
+			-- Token tag
+
+	--| ---------------------------------------------------------------------------
+	--| Is it worth to ask for the current token and so to define a message for
+	--| this?
+	--| ---------------------------------------------------------------------------
+	--| query_token_request_id:                      INTEGER = 0
+	--| query_token_request_parnum:                  INTEGER = 0
+	--| query_token_response_id:                     INTEGER = once Result := query_token_request_id + response_id_offset end
+	--| query_token_response_parnum                  INTEGER = 1
+
+	--| ---------------------------------------------------------------------------
+	--| Response id offset
+	--| ---------------------------------------------------------------------------
 	response_id_offset:                          INTEGER = 1000
 			-- Given a message request having `id' = 23
 			-- the associated response should have `id' = `id' + `response_id_offset'
 
+	--| ---------------------------------------------------------------------------
+	--| Internal error parameters number
+	--| ---------------------------------------------------------------------------
 	internal_error_parnum:                       INTEGER = 2
+
 
 	--| ---------------------------------------------------------------------------
 	--| LOGIN request and response constants
@@ -132,6 +154,21 @@ feature -- Constants
 	sensor_type_list_response_parnum:            INTEGER = 1
 			-- Message parameters number for `SENSOR_TYPE_LIST_RESPONSE'
 			-- Lists after the parameter can be void or containing elements
+
+	--| ---------------------------------------------------------------------------
+	--| SENSOR LIST request and response constants
+	--| ---------------------------------------------------------------------------
+	sensor_list_request_id:                      INTEGER = 9
+			-- Message id for `SENSOR_LIST_REQUEST'
+	sensor_list_request_parnum_no_token:         INTEGER = 6
+			-- Message parameters number when no token is used
+	sensor_list_request_parnum_token:            INTEGER = 5
+			-- Message parameters number when token is used
+	sensor_list_response_id:                     INTEGER once Result := response_id_offset + sensor_list_request_id end
+			-- Message id for `SENSOR_LIST_RESPONSE'
+	sensor_list_response_parnum:                 INTEGER = 1
+			-- Message parameters number for `SENSOR_LIST_RESPONSE'
+			-- Lists after the parameter can be voif or containing elements
 
 	--| ---------------------------------------------------------------------------
 	--| REALTIME DATA request and response constants

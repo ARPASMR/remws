@@ -7,6 +7,7 @@ class
 	COLLECT_APPLICATION
 
 inherit
+	MSG_CONSTANTS
 	ERROR_CODES
 	EXCEPTIONS
 	EXECUTION_ENVIRONMENT
@@ -32,12 +33,20 @@ feature {NONE} -- Initialization
 	init
 			-- internal initialization
 		do
+			-- login management
+			is_logged_in := false
+			create login_request.make
+			create logout_request.make
+
+			-- cURL objects
 			create curl
 			create curl_easy
 
 			create content_type.make_empty
 			create token.make
 			create error_message.make_empty
+
+			read_credentials
 		end
 
 	initialize
@@ -87,6 +96,21 @@ feature {NONE} -- Initialization
 			else
 				use_testing_ws := false
 			end
+
+			-- must check if `COLLECT_APPLICATION' is logged in remws
+			if not is_logged_in then
+				-- do login
+				if not do_login then
+					log ("{COLLECT_APPLICATION} >>> FATAL error: unable to login", log_critical)
+					io.put_string ("{COLLECT_APPLICATION} >>> FATAL error: unable to login"); io.put_new_line
+					die(0)
+				else
+					is_logged_in := true
+					log ("{COLLECT_APPLICATION} >>> logged in with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format), log_information)
+					io.put_string ("{COLLECT_APPLICATION} >>> logged in with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format))
+					io.put_new_line
+				end
+			end
 		end
 
 feature -- Usage
@@ -99,7 +123,7 @@ feature -- Usage
 			print ("collect [-p <port_number>][-l <log_level>][-t][-h]%N%N")
 			print ("%T<port_number> is the network port on which collect will accept connections%N")
 			print ("%T<log_level>   is the logging level that will be used%N")
-			print ("%T<testws>      uses the testing wev servicw%N")
+			print ("%T<testws>      uses the testing wev service%N")
 			print ("%TThe available logging levels are:%N")
 			print ("%T%T " + log_debug.out       + " --> debug-level messages%N")
 			print ("%T%T " + log_information.out + " --> informational%N")
@@ -109,6 +133,51 @@ feature -- Usage
 			print ("%T%T " + log_critical.out    + " --> critical conditions%N")
 			print ("%T%T " + log_alert.out       + " --> action must be taken immediately%N")
 			print ("%T%T " + log_emergency.out   + " --> system is unusable%N%N")
+		end
+
+feature -- Credentials
+
+	username:      detachable STRING
+	password:      detachable STRING
+	cfg_file:      PLAIN_TEXT_FILE
+	cfg_file_name: STRING = "credentials.conf"
+
+	cfg_file_path: STRING
+			-- format cfg file name full path
+		once
+			create Result.make_empty
+			if attached home_directory_path as l_home then
+				Result := l_home.out + "/.collect/" + cfg_file_name
+			end
+		end
+
+	read_cfg
+			-- Trivial config file --> switch to preferences library
+		do
+			cfg_file.open_read
+
+			cfg_file.read_line
+			username := cfg_file.last_string
+			cfg_file.read_line
+			password := cfg_file.last_string
+
+			cfg_file.close
+		end
+
+	read_credentials
+			-- Read wsrem credentials from file
+		local
+			l_path: STRING
+		do
+			if not cfg_file_path.is_empty then
+				l_path := cfg_file_path
+			else
+				l_path := "/etc/collect/credentials.conf"
+			end
+
+			create cfg_file.make_with_name (l_path)
+
+			read_cfg
 		end
 
 feature -- Logging
@@ -180,10 +249,8 @@ feature -- Basic operations
 			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
 				then
 					log ("id:                " + j_id.integer_64_item.out,     log_debug)
-					log ("parameters_number: " + j_parnum.integer_64_item.out, log_debug)
 					Result := j_id.integer_64_item.to_integer
 				else
 					log ("The message header was not found!",       log_error)
@@ -204,6 +271,7 @@ feature -- Basic operations
 	execute (req: WSF_REQUEST; res: WSF_RESPONSE)
 	    local
 	    	--l_page_response: STRING
+
 	    	l_val:           STRING
 	    	l_raw:           STRING
 	    	l_result:        INTEGER
@@ -219,10 +287,19 @@ feature -- Basic operations
 			-- the response headers.
 
 			if not check_login then
+				if is_logged_in then
+					io.put_string ("Currently logged in, but token expired, need to logout ...%N")
+					if do_logout then
+						io.put_string ("Logged out%N")
+					else
+						io.put_string ("Unable to logout, but session token expired, don't worry%N")
+					end
+				end
 				if do_login then
-					io.put_string ("Logged in%N")
+					io.put_string ("Logged in again%N")
 				else
 					io.put_string ("NOT logged in%N")
+					die(0)
 				end
 			end
 
@@ -232,6 +309,15 @@ feature -- Basic operations
 			io.put_new_line
 			-- parse the message header
 			l_result := parse_header (l_raw)
+			io.put_string ("Received message id: " + l_result.out)
+
+			-- manage token --
+			l_raw.replace_substring_all (token_tag, token.id)
+			-- end manage token
+
+			io.put_string ("{COLLECT_APPLICATION} <<< " + l_raw)
+			io.put_new_line
+
 
 			if l_result = {REQUEST_I}.login_request_id then
 				l_req := create {LOGIN_REQUEST}.make
@@ -255,6 +341,7 @@ feature -- Basic operations
 				l_req := create {STATION_STATUS_LIST_REQUEST}.make
 				if attached l_req as myreq then
 					myreq.from_json (l_raw)
+					myreq.set_token_id (token.id)
 					l_res := do_post (myreq)
 					if attached l_res as myres then
 						l_val := myres.to_json
@@ -264,6 +351,7 @@ feature -- Basic operations
 				l_req := create {STATION_TYPES_LIST_REQUEST}.make
 				if attached l_req as myreq then
 					myreq.from_json (l_raw)
+					myreq.set_token_id (token.id)
 					l_res := do_post (myreq)
 					if attached l_res as myres then
 						l_val := myres.to_json
@@ -273,6 +361,7 @@ feature -- Basic operations
 				l_req := create {PROVINCE_LIST_REQUEST}.make
 				if attached l_req as myreq then
 					myreq.from_json (l_raw)
+					myreq.set_token_id (token.id)
 					l_res := do_post (myreq)
 					if attached l_res as myres then
 						l_val := myres.to_json
@@ -282,6 +371,7 @@ feature -- Basic operations
 				l_req := create {MUNICIPALITY_LIST_REQUEST}.make
 				if attached l_req as myreq then
 					myreq.from_json (l_raw)
+					myreq.set_token_id (token.id)
 					l_res := do_post (myreq)
 					if attached l_res as myres then
 						l_val := myres.to_json
@@ -291,6 +381,7 @@ feature -- Basic operations
 				l_req := create {STATION_LIST_REQUEST}.make
 				if attached l_req as myreq then
 					myreq.from_json (l_raw)
+					myreq.set_token_id (token.id)
 					l_res := do_post (myreq)
 					if attached l_res as myres then
 						l_val := myres.to_json
@@ -300,6 +391,17 @@ feature -- Basic operations
 				l_req := create {SENSOR_TYPE_LIST_REQUEST}.make
 				if attached l_req as myreq then
 					myreq.from_json (l_raw)
+					myreq.set_token_id (token.id)
+					l_res := do_post (myreq)
+					if attached l_res as myres then
+						l_val := myres.to_json
+					end
+				end
+			elseif l_result = {REQUEST_I}.realtime_data_request_id then
+				l_req := create {REALTIME_DATA_REQUEST}.make
+				if attached l_req as myreq then
+					myreq.from_json (l_raw)
+					myreq.set_token_id (token.id)
 					l_res := do_post (myreq)
 					if attached l_res as myres then
 						l_val := myres.to_json
@@ -327,8 +429,7 @@ feature {NONE} -- Network IO
 			--curl_function: CURL_DEFAULT_FUNCTION
 			xml:           STRING
 		do
-			print( "cURL handle init%N")
-			--create curl_function.make
+			--print( "cURL handle init%N")
 			if a_curl_easy.is_dynamic_library_exists then
 				Result := a_curl_easy.init
 				if use_testing_ws then
@@ -401,9 +502,10 @@ feature {NONE} -- Network IO
 			Result := a_request.init_response
 			l_xml_str := post (a_request)
 			log ("Got: " + l_xml_str, log_debug)
-			--print ("Got: " + l_xml_str + "%N")
+			io.put_string ("Got: " + l_xml_str)
+			io.put_new_line
+
 			if error_code /= 0 then
-				Result.set_parameters_number ({MSG_CONSTANTS}.internal_error_parnum)
 				Result.set_outcome (error_code)
 				Result.set_message (error_message)
 			else
@@ -417,21 +519,76 @@ feature {NONE} -- Network IO
 
 feature {NONE} -- Login management
 
+	login_request: LOGIN_REQUEST
+			-- The login request
+	logout_request: LOGOUT_REQUEST
+			-- The logout request
+
+	check_day_light_time_saving (dt: DATE_TIME) : DATE_TIME_DURATION
+			-- Check for day light time savin on `dt'
+		local
+			l_date:        DATE
+			l_month:       INTEGER
+			l_day:         INTEGER
+			l_dow:         INTEGER
+			l_prev_sunday: INTEGER
+			l_one_hour:    DATE_TIME_DURATION
+			l_two_hours:   DATE_TIME_DURATION
+		do
+
+			create l_one_hour.make (0, 0, 0, 1, 0, 0)
+			create l_two_hours.make (0, 0, 0, 2, 0, 0)
+
+			l_day   := dt.day
+			l_month := dt.month
+
+			l_date  := dt.date;
+			l_dow   := dt.date.day_of_the_week
+
+
+			create Result.make (0, 0, 0, 1, 0, 0)
+
+			if l_month < 3 or l_month > 10 then
+				-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
+				Result := l_one_hour
+			elseif l_month > 3 or l_month < 10 then
+				-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
+				Result := l_two_hours
+			else
+				l_prev_sunday := dt.day - l_dow
+				if l_month = 3 then
+					if l_prev_sunday >= 25 then
+						Result := l_one_hour
+					end
+				end
+				if l_month = 10 then
+					if l_prev_sunday < 25 then
+						Result := l_two_hours
+					end
+				end
+			end
+		end
+
+
+
 	check_login: BOOLEAN
-			-- Is system logged in
+			-- Check if is system logged in using the current token `expiry'
 		local
 			l_current_dt: DATE_TIME
 			l_interval:   DATE_TIME_DURATION
+			l_offset:     DATE_TIME_DURATION
 		do
-			create l_current_dt.make_now
-			create l_interval.make_definite (0, 1, 0, 0)
+			create l_current_dt.make_now_utc
+
+			l_offset := check_day_light_time_saving (l_current_dt)
+
+			create l_interval.make_definite  (0, 0, 30, 0)
 
 			if attached token then
-				if l_current_dt > token.expiry + l_interval then
-					if not do_logout then
-						log ("Unable to logout", log_error)
-					end
-					result := False
+				if l_current_dt + l_offset >= token.expiry + l_interval then
+				        Result := False
+			    else
+			    	Result := True
 				end
 			else
 				Result := False
@@ -440,14 +597,50 @@ feature {NONE} -- Login management
 
 	do_login: BOOLEAN
 			-- Execute login
+		local
+			l_xml_str: STRING
+			l_res:     LOGIN_RESPONSE
 		do
-			Result := False
+			if attached username as l_username and attached password as l_password then
+--				login_request.set_parameters_number (login_request_parnum)
+				login_request.set_username (l_username)
+				login_request.set_password (l_password)
+
+				l_xml_str := post (login_request)
+				create l_res.make
+				l_res.from_xml (l_xml_str)
+				--token := l_res.token
+
+				token.id.copy (l_res.token.id)
+				token.expiry.copy (l_res.token.expiry)
+
+
+
+
+				is_logged_in := True
+				Result := true
+			else
+				is_logged_in := False
+				Result := false
+			end
 		end
 
 	do_logout: BOOLEAN
 			-- Execute logout
+		local
+			l_xml_str: STRING
+			l_res:     LOGOUT_RESPONSE
 		do
-			Result := False
+			if attached token as l_token then
+				logout_request.token_id.copy (token.id)
+
+				l_xml_str := post (logout_request)
+				create l_res.make
+				l_res.from_xml (l_xml_str)
+				Result := l_res.outcome = success
+			else
+				Result := false
+			end
 		end
 
 	curl_easy:      CURL_EASY_EXTERNALS
@@ -472,113 +665,18 @@ feature {NONE} -- Login management
 feature -- Attributes
 
 	port:         INTEGER
+			-- Listening port
 	log_level:    INTEGER
+			-- Log level
 	content_type: STRING
 
+	is_logged_in: BOOLEAN
+			-- is collect logged in remws?
 	token:        TOKEN
 
 	log_path:     PATH
+			-- log path
 	file_logger:  LOG_WRITER_FILE
+			-- the logger
 
 end
-
-
---			if curl_easy.is_dynamic_library_exists then
-
-
---				curl_handle := curl_easy.init
---				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_url,           "http://remws.arpa.local/Autenticazione.svc")
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_forbid_reuse,  1)
-
---				headers := curl.slist_append (headers.default_pointer, "")
---				headers := curl.slist_append (headers, "content-type: text/xml;charset=utf-8")
---				headers := curl.slist_append (headers, "SOAPAction: http://tempuri.org/IAutenticazione/Login")
---				headers := curl.slist_append (headers, "Accept-Encoding: gzip, deflate")
-
---				curl_easy.setopt_slist   (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_httpheader,    headers)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, a_msg.count)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_verbose,       1)
---				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "Eiffel curl testclient")
---				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfields,    a_msg)
---				curl_easy.set_curl_function (curl_function)
---				-- We pass our `curl_buffer''s object id to the callback function */
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_writedata,     curl_buffer.object_id)
-
---				io.put_string ("response: " + curl_buffer.string)
-
---				l_result := curl_easy.perform (curl_handle)
-
---				curl.slist_free_all (headers.item)
---				curl_easy.cleanup (curl_handle)
---			else
---				io.put_string ("cURL library not found")
---				io.put_new_line
---			end
-
-
--- test_xml_parser
---			-- Test XML parser
---		do
---			--create login_msg.make
-
---			--login_msg.set_logger (log_facility)
---			--login_msg.from_xml (login_msg.login_response)
---		end
-
---	test_parser
---		local
---			json_parser: JSON_PARSER
---			key:         JSON_STRING
---			amsg:        LOGIN_REQUEST
---		do
---			create amsg.make
-
---			amsg.set_username ("a_usr")
---			amsg.set_password ("a_pwd")
-
---			-- print ("Login message as json string: " + amsg.to_json)
---			print ("Login message as xml  string: " + amsg.to_xml)
-
---			create json_parser.make_with_string ("[
---				{
---					"interval": 34,
---					"expiry": "2015-08-07 23:45:13"
---				}
---			]")
-
---			create key.make_from_string ("interval")
---			json_parser.parse_content
---			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
---				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_NUMBER} j_object.item (key) as j_interval
---					and then attached {JSON_STRING} j_object.item ("expiry") as j_expiry
---				then
---					print ("interval: " + j_interval.integer_64_item.out + "%N")
---					print ("expiry:   " + j_expiry.unescaped_string_8 + "%N")
---				else
---					print ("The interval was not found!%N")
---				end
---			end
---		end
-
--- execute body example
---			create l_page_response.make_from_string (main_template)
-
---			io.put_string ("Server URL: " + req.server_url)
---			l_page_response.replace_substring_all ("$url", req.server_url)
---			io.put_new_line
---			if attached req.content_type as t then
---				l_val := "Content type: " + t.string
---				-- if content type is json give back info in json
---				-- only json supported for the time being
---			else
---				l_val := "No content type header"
---				-- must give back info in html
---			end
---			io.put_string(l_val)
---			l_page_response.replace_substring_all ("$ctype", l_val)
---			io.put_new_line
-
---			res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/html"], ["Content-Length", l_page_response.count.out]>>)
---			res.put_string (l_page_response)

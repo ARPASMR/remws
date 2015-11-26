@@ -7,6 +7,9 @@ note
 class
 	TOKEN
 
+inherit
+	ANY
+
 create make
 
 feature {NONE} -- Initialization

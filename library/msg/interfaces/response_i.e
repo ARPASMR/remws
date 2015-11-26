@@ -21,11 +21,11 @@ feature --Access
 
 feature -- Status setting
 
-	set_parameters_number (pn: INTEGER)
-			-- Sets `parameters_number'
-		deferred
-		end
-	
+--	set_parameters_number (pn: INTEGER)
+--			-- Sets `parameters_number'
+--		deferred
+--		end
+
 	set_outcome (o: INTEGER) deferred end
 	set_message (m: STRING)  deferred end
 

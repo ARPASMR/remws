@@ -18,7 +18,7 @@ feature -- Constants
 	remws_test_url:   STRING = "http://remwstest.arpa.local"
 			-- remwstest URL
 
-	remws_url:        STRING = "http://remwstest.arpa.local"
+	remws_url:        STRING = "http://remws.arpa.local"
 			-- remws URL
 
 	authws_service_url: STRING = "Autenticazione.svc"

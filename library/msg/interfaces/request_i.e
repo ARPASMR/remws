@@ -20,10 +20,15 @@ feature -- Access
 
 feature -- Status setting
 
-	set_parameters_number (pn: INTEGER)
-			-- Sets `parameters_number'
+	set_token_id (a_token_id: STRING)
+			-- Sets `token'
 		deferred
 		end
+
+--	set_parameters_number (pn: INTEGER)
+--			-- Sets `parameters_number'
+--		deferred
+--		end
 
 feature -- Basic operations
 

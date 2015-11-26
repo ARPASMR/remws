@@ -15,10 +15,8 @@ note
 --| {
 --|   "header": {
 --|     "id":                <municipality_list_request_id>
---|     "parameters_number": <municipality_list_request_parnum_token>
 --|   },
 --|   "data": {
---|     "tokenid": "a_token_id",
 --|     "provinces_list": [{"province": "P1"},
 --|                        {"province": "P2"},
 --|                        ...,
@@ -71,7 +69,7 @@ feature {NONE} -- Initialization
 			-- Build a `MUNICIPALITY_LIST_REQUEST' with `token_id' = `a_token'
 		do
 			create token_id.make_from_string (a_token)
-			parnum := municipality_list_request_parnum_token
+			--parnum := municipality_list_request_parnum_token
 
 			create json_representation.make_empty
 			create xml_representation.make_empty
@@ -87,11 +85,11 @@ feature -- Access
 			Result := municipality_list_request_id
 		end
 
-	parameters_number: INTEGER
-			-- message parameters number
-		do
-			Result := parnum
-		end
+--	parameters_number: INTEGER
+--			-- message parameters number
+--		do
+--			Result := parnum
+--		end
 
 	token: STRING
 			-- Access to `token_id'
@@ -117,17 +115,17 @@ feature -- Status setting
 			logger_not_void: logger /= Void
 		end
 
-	set_token (a_token: STRING)
+	set_token_id (a_token: STRING)
 			-- Set `token_id'
 		do
 			token_id.copy (a_token)
 		end
 
-	set_parameters_number (a_parameters_number: INTEGER)
-			-- Set `parameters_number'
-		do
-			parnum := a_parameters_number
-		end
+	--	set_parameters_number (a_parameters_number: INTEGER)
+	--			-- Set `parameters_number'
+	--		do
+	--			parnum := a_parameters_number
+	--		end
 
 feature -- Conversion
 
@@ -146,9 +144,9 @@ feature -- Conversion
 				Result.replace_substring_all ("</Token>",  "")
 				Result.replace_substring_all ("<Id>",      "")
 				Result.replace_substring_all ("</Id>",     "")
-				Result.replace_substring_all ("$tokenid", "")
+				Result.replace_substring_all ("$tokenid",  "")
 			else
-				l_token_id.replace_substring_all ("-", "")
+				--l_token_id.replace_substring_all ("-", "")
 				Result.replace_substring_all ("$tokenid", l_token_id)
 			end
 			from
@@ -187,17 +185,12 @@ feature -- Conversion
 			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
+					--and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
 				then
-					print ("Message: " + j_id.integer_64_item.out + ", " + j_parnum.integer_64_item.out + "%N")
-					set_parameters_number (j_parnum.integer_64_item.to_integer)
+					print ("Message: " + j_id.integer_64_item.out + "%N") --", " + j_parnum.integer_64_item.out + "%N")
+					--set_parameters_number (j_parnum.integer_64_item.to_integer)
 				else
 					print ("The header was not found!%N")
-				end
-
-				check
-					parameters_number = municipality_list_request_parnum_no_token or
-					parameters_number = municipality_list_request_parnum_token
 				end
 
 				key := "data"
@@ -305,12 +298,14 @@ feature {NONE} -- Utilities implementation
           <s:Body>
             <ElencoComuni xmlns="http://tempuri.org/">
               <xInput>
-                <Token>
-                  <Id>$tokenid</Id>
-                </Token>
-                <Province>
-                	$provinces_list
-                </Province>
+                <ElencoComuni xmlns="">
+                  <Token>
+                    <Id>$tokenid</Id>
+                  </Token>
+                  <Province>
+                    $provinces_list
+                  </Province>
+                </ElencoComuni>
               </xInput>
             </ElencoComuni>
           </s:Body>
@@ -321,7 +316,7 @@ feature {NONE} -- Implementation
 
 	token_id: STRING
 	provinces_list:ARRAYED_LIST[STRING]
-	parnum:   INTEGER
+	--parnum:   INTEGER
 
 invariant
 	invariant_clause: True -- Your invariant here

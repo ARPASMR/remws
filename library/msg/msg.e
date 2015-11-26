@@ -39,7 +39,7 @@ inherit
 feature -- Access
 
 	id:                INTEGER deferred end
-	parameters_number: INTEGER deferred end
+	--parameters_number: INTEGER deferred end
 
 feature -- Conversion
 
