@@ -137,25 +137,18 @@ feature -- Conversion
 			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					--and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
 				then
-					print ("Message: " + j_id.integer_64_item.out + "%N") --", " + j_parnum.integer_64_item.out + "%N")
-					--set_parameters_number (j_parnum.integer_64_item.to_integer)
+					print ("Message: " + j_id.integer_64_item.out + "%N")
+
 				else
 					print ("The header was not found!%N")
 				end
 
---				check
---					parameters_number = station_status_list_request_parnum_no_token or
---					parameters_number = station_status_list_request_parnum_token
---				end
-
 				key := "data"
---				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
---					and then attached {JSON_STRING} j_data.item ("tokenid") as j_tokenid
---				then
---					token_id := j_tokenid.item
---				end
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
+				then
+					-- found j_data object
+				end
 			end
 		end
 
@@ -163,7 +156,7 @@ feature -- Conversion
 			-- json representation
 		do
 			create Result.make_empty
-			-- TODO
+
 			json_representation.wipe_out
 
 			json_representation.append ("{")
@@ -171,8 +164,9 @@ feature -- Conversion
 			json_representation.append ("%"id%": " + station_status_list_request_id.out)
 			json_representation.append (",%"parameters_number%": " + station_status_list_request_parnum_token.out + "}")
 			json_representation.append (",%"data%": {")
-			--json_representation.append ("%"tokenid%": %"" + token_id + "%"}}")
 			json_representation.append ("}}")
+
+			Result.copy (json_representation)
 		end
 
 	from_xml (xml: STRING)

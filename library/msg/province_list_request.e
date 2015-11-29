@@ -60,7 +60,6 @@ feature {NONE} -- Initialization
 			-- Build a `PROVINCE_LIST_REQUEST' with `token_id' = `a_token'
 		do
 			create token_id.make_from_string (a_token)
-			--parnum := province_list_request_parnum_token
 
 			create json_representation.make_empty
 			create xml_representation.make_empty
@@ -137,25 +136,17 @@ feature -- Conversion
 			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					--and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
 				then
-					print ("Message: " + j_id.integer_64_item.out + "%N") -- ", " + j_parnum.integer_64_item.out + "%N")
-					--set_parameters_number (j_parnum.integer_64_item.to_integer)
+					print ("Message: " + j_id.integer_64_item.out + "%N")
 				else
 					print ("The header was not found!%N")
 				end
 
---				check
---					parameters_number = province_list_request_parnum_no_token or
---					parameters_number = province_list_request_parnum_token
---				end
-
---				key := "data"
---				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
---					and then attached {JSON_STRING} j_data.item ("tokenid") as j_tokenid
---				then
---					token_id := j_tokenid.item
---				end
+				key := "data"
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
+				then
+					-- do nothing
+				end
 			end
 		end
 

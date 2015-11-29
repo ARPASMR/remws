@@ -1,8 +1,46 @@
-note
+﻿note
 	description: "Summary description for {STATION_LIST_RESPONSE}."
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
+
+--| ----------------------------------------------------------------------------
+--| This is the message structure for the station_list response message,
+--| for the time being only json is a supported format
+--| ----------------------------------------------------------------------------
+--| The message is an unnamed json object composed by a header and a data part
+--| for example:
+--| ----------------------------------------------------------------------------
+--| {
+--|   "header": {
+--|     "id": <station_list_request_id> + 1000
+--|   },
+--|   "data": {
+--|     "outcome": a_number,
+--|     "message": "a_message",
+--|     "stations_list": [
+--|        {“id”: an_id,
+--|         "name": "a_name",
+--|         "status": {"id": an_id, "name": "a_name" },
+--|         "type": [T1, T2, ", Tn],
+--|         "municipality": {"id": an_id, "name": "a_name"},
+--|         "address": "an_address",
+--|         "altitude": an_altitude,
+--|         "cgb_north": a_coordinate,
+--|         "cgb_east": a_coordinate,
+--|         "latitude": a_latitude,
+--|         "longitude": a_longitude,
+--|         "latitude_degrees": a_degrees,
+--|         "latitude_minutes": a_minutes,
+--|         "latitude_seconds": a_seconds,
+--|         "longitude_degrees": a_degrees,
+--|         "longitude_minutes": a_minutes,
+--|         "longitude_seconds": a_seconds
+--|       }, ...
+--|     ]
+--|   }
+--| }
+
 
 class
 	STATION_LIST_RESPONSE
@@ -34,7 +72,6 @@ feature {NONE} -- Initialization
 feature -- Access
 
 	id:                  INTEGER once Result := station_list_response_id end
-	parameters_number:   INTEGER
 
 	outcome:             INTEGER
 	message:             STRING
@@ -45,11 +82,6 @@ feature -- Access
 
 feature -- Status setting
 
-	set_parameters_number (pn:INTEGER)
-			-- Sets `parameters_number'
-		do
-			parameters_number := pn
-		end
 
 	set_outcome (o: INTEGER)
 			-- Sets `outcome'
@@ -88,13 +120,14 @@ feature -- Conversion
 		local
 			i: INTEGER
 			j: INTEGER
+			l_name: STRING
+			l_address: STRING
 		do
 			json_representation.wipe_out
 			if is_error_response then
 				json_representation.append ("{")
 				json_representation.append ("%"header%": {")
 				json_representation.append ("%"id%": " + station_list_response_id.out)
-				json_representation.append (",%"parameters_number%": " + station_list_response_parnum.out)
 				json_representation.append ("},")
 				json_representation.append ("%"data%": {")
 				json_representation.append ("%"outcome%": " + outcome.out)
@@ -102,11 +135,9 @@ feature -- Conversion
 				json_representation.append ("}")
 				json_representation.append ("}")
 			else
-				parameters_number := station_list_response_parnum
 				json_representation.append ("{")
 				json_representation.append ("%"header%": {")
 				json_representation.append ("%"id%": " + station_list_response_id.out)
-				json_representation.append (",%"parameters_number%": " + station_list_response_parnum.out)
 				json_representation.append ("},")
 				json_representation.append ("%"data%": {")
 				json_representation.append ("%"outcome%": "   + outcome.out)
@@ -118,9 +149,28 @@ feature -- Conversion
 					if i /= 1 then
 						json_representation.append (",")
 					end
-					json_representation.append ("{%"id%": "        + stations_list.i_th (i).id.out           +
-					                            ",%"name%": %""  + stations_list.i_th (i).name        + "%"" +
+					-- Name and address strings must not contain " or \ chars, if so they must be escaped
+
+					create l_name.make_from_string (stations_list.i_th (i).name)
+					create l_address.make_from_string (stations_list.i_th (i).address)
+					-- escape back slash
+					l_name.replace_substring_all ("\", "-")
+					l_address.replace_substring_all ("\", "-")
+					-- escape double quotes
+					l_name.replace_substring_all ("%"", "\%"")
+					l_address.replace_substring_all ("%"", "\%"")
+
+
+--					json_representation.append ("{%"id%": "      + stations_list.i_th (i).id.out      +
+--					                            ",%"name%": %""  + stations_list.i_th (i).name        + "%"" +
+--					                            ",%"status%": "  + stations_list.i_th (i).status.id.out)
+
+					json_representation.append ("{%"id%": "      + stations_list.i_th (i).id.out      +
+					                            ",%"name%": %""  + l_name        + "%"" +
 					                            ",%"status%": "  + stations_list.i_th (i).status.id.out)
+
+
+
 					json_representation.append (",%"types%": [")
 					from j := 1
 					until j = stations_list.i_th (i).types.count + 1
@@ -135,7 +185,8 @@ feature -- Conversion
 					json_representation.append ("],")
 
 					json_representation.append ("%"municipality%": "      + stations_list.i_th (i).municipality.id.out   +   ",")
-					json_representation.append ("%"address%": %""         + stations_list.i_th (i).address               + "%",")
+					--json_representation.append ("%"address%": %""         + stations_list.i_th (i).address               + "%",")
+					json_representation.append ("%"address%": %""         + l_address               + "%",")
 					json_representation.append ("%"altitude%": "          + stations_list.i_th (i).altitude.out          +   ",")
 					json_representation.append ("%"gb_north%": "          + stations_list.i_th (i).gb_north.out          +   ",")
 					json_representation.append ("%"gb_est%": "            + stations_list.i_th (i).gb_est.out            +   ",")
@@ -146,7 +197,7 @@ feature -- Conversion
 					json_representation.append ("%"latitude_seconds%": "  + stations_list.i_th (i).latitude_seconds.out  +   ",")
 					json_representation.append ("%"longitude_degrees%": " + stations_list.i_th (i).longitude_degrees.out +   ",")
 					json_representation.append ("%"longitude_minutes%": " + stations_list.i_th (i).longitude_minutes.out +   ",")
-					json_representation.append ("%"longitude_seconds%": " + stations_list.i_th (i).longitude_seconds.out +   "}")
+					json_representation.append ("%"longitude_seconds%": " + stations_list.i_th (i).longitude_seconds.out +   "}%N")
 
 					i := i + 1
 				end
@@ -232,16 +283,10 @@ feature -- Conversion
 			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (l_key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
 				then
-					print ("Message: " + j_id.integer_64_item.out + ", " + j_parnum.integer_64_item.out + "%N")
-					set_parameters_number (j_parnum.integer_64_item.to_integer)
+					print ("Message: " + j_id.integer_64_item.out + "%N")
 				else
 					print ("The header was not found!%N")
-				end
-
-				check
-					parameters_number = station_list_response_parnum
 				end
 
 				l_key := "data"
@@ -286,8 +331,8 @@ feature -- Conversion
 								station.set_municipality (l_municipality)
 								station.set_address (j_address.item)
 								station.set_altitude (j_altitude.item.to_integer)
-								station.set_gb_north (j_gb_north.item.to_real)
-								station.set_gb_est (j_gb_est.item.to_real)
+								station.set_gb_north (j_gb_north.item.to_integer)
+								station.set_gb_est (j_gb_est.item.to_integer)
 								station.set_latitude (j_latitude.item.to_real)
 								station.set_longitude (j_longitude.item.to_real)
 
@@ -454,9 +499,9 @@ feature -- XML Callbacks
 				elseif current_tag.is_equal ("Quota") then
 					stations_list.last.set_altitude (a_content.to_integer)
 				elseif current_tag.is_equal ("CGB_nord") then
-					stations_list.last.set_gb_north (a_content.to_real)
+					stations_list.last.set_gb_north (a_content.to_integer)
 				elseif current_tag.is_equal ("CGB_est") then
-					stations_list.last.set_gb_est (a_content.to_real)
+					stations_list.last.set_gb_est (a_content.to_integer)
 				elseif current_tag.is_equal ("Lat_dec") then
 					stations_list.last.set_latitude (a_content.to_real)
 				elseif current_tag.is_equal ("Long_dec") then

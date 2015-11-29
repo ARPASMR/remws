@@ -52,10 +52,10 @@ feature -- Access
 	altitude:          INTEGER
 			-- Station altitude
 
-	gb_north:          REAL
+	gb_north:          INTEGER
 			-- Station Gauss Boaga north coordinate
 
-	gb_est:            REAL
+	gb_est:            INTEGER
 			-- Station Gauss Boaga et coordinate
 
 	latitude:          REAL
@@ -144,13 +144,13 @@ feature -- Status setting
 			altitude := an_altitude
 		end
 
-	set_gb_north (a_gb_north: REAL)
+	set_gb_north (a_gb_north: INTEGER)
 			-- Sets `gb_north'
 		do
 			gb_north := a_gb_north
 		end
 
-	set_gb_est (a_gb_est: REAL)
+	set_gb_est (a_gb_est: INTEGER)
 			-- Sets `gb_est'
 		do
 			gb_est := a_gb_est

@@ -156,15 +156,16 @@ feature -- Conversion
 			-- json representation
 		do
 			create Result.make_empty
-			-- TODO
+			
 			json_representation.wipe_out
 
 			json_representation.append ("{")
 			json_representation.append ("%"header%": {")
 			json_representation.append ("%"id%": " + station_status_list_request_id.out)
 			json_representation.append (",%"parameters_number%": " + station_status_list_request_parnum_token.out + "}")
-			json_representation.append (",%"data%": {")
-			--json_representation.append ("%"tokenid%": %"" + token_id + "%"}}")
+			json_representation.append (",%"data%": {}}")
+
+			Result.copy (json_representation)
 		end
 
 	from_xml (xml: STRING)

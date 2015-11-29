@@ -283,9 +283,6 @@ feature -- Basic operations
 			create l_raw.make (req.content_length_value.to_integer_32)
 			create l_val.make_empty
 
-			-- To send a response we need to setup, the status code and
-			-- the response headers.
-
 			if not check_login then
 				if is_logged_in then
 					io.put_string ("Currently logged in, but token expired, need to logout ...%N")
@@ -310,10 +307,11 @@ feature -- Basic operations
 			-- parse the message header
 			l_result := parse_header (l_raw)
 			io.put_string ("Received message id: " + l_result.out)
+			io.put_new_line
 
-			-- manage token --
-			l_raw.replace_substring_all (token_tag, token.id)
-			-- end manage token
+--			-- manage token --
+--			l_raw.replace_substring_all (token_tag, token.id)
+--			-- end manage token
 
 			io.put_string ("{COLLECT_APPLICATION} <<< " + l_raw)
 			io.put_new_line
@@ -385,6 +383,7 @@ feature -- Basic operations
 					l_res := do_post (myreq)
 					if attached l_res as myres then
 						l_val := myres.to_json
+						log ("**********%N" + l_val + "%N**********%N", log_debug)
 					end
 				end
 			elseif l_result = {REQUEST_I}.sensor_type_list_request_id then

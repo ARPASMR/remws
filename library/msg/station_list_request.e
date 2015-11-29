@@ -20,7 +20,7 @@ note
 --|
 --| {
 --|   "header": {
---|     "id":                <municipality_list_request_id>
+--|     "id": <station_list_request_id> =
 --|   },
 --|   "data": {
 --|     "municipalities_list": [{"municipality": "M1"},
@@ -104,7 +104,6 @@ feature {NONE} -- Initialization
 			-- Build a `MUNICIPALITY_LIST_REQUEST' with `token_id' = `a_token'
 		do
 			create token_id.make_from_string (a_token)
-			--parnum := station_list_request_parnum_token
 
 			create json_representation.make_empty
 			create xml_representation.make_empty
@@ -125,12 +124,6 @@ feature -- Access
 		once
 			Result := station_list_request_id
 		end
-
---	parameters_number: INTEGER
---			-- message parameters number
---		do
---			Result := parnum
---		end
 
 	token: STRING
 			-- Access to `token_id'
@@ -192,12 +185,6 @@ feature -- Status setting
 			token_id.copy (a_token)
 		end
 
---	set_parameters_number (a_parameters_number: INTEGER)
---			-- Set `parameters_number'
---		do
---			parnum := a_parameters_number
---		end
-
 feature -- Conversion
 
 	to_xml: STRING
@@ -220,13 +207,12 @@ feature -- Conversion
 			create Result.make_from_string (xml_request_template)
 
 			if token_id.is_empty then
-				Result.replace_substring_all ("<Token>",   "")
-				Result.replace_substring_all ("</Token>",  "")
-				Result.replace_substring_all ("<Id>",      "")
-				Result.replace_substring_all ("</Id>",     "")
+				Result.replace_substring_all ("<Token>",  "")
+				Result.replace_substring_all ("</Token>", "")
+				Result.replace_substring_all ("<Id>",     "")
+				Result.replace_substring_all ("</Id>",    "")
 				Result.replace_substring_all ("$tokenid", "")
 			else
-				--l_token_id.replace_substring_all ("-", "")
 				Result.replace_substring_all ("$tokenid", l_token_id)
 			end
 
@@ -239,6 +225,7 @@ feature -- Conversion
 				l_m_list.append ("<IdComune>")
 				l_m_list.append (municipalities_list.i_th (i).out)
 				l_m_list.append ("</IdComune>")
+				i := i + 1
 			end
 
 			-- provinces
@@ -249,7 +236,7 @@ feature -- Conversion
 			loop
 				l_p_list.append ("<Provincia>")
 				l_p_list.append (provinces_list.i_th (i))
-				l_p_list.append ("</Provincia>%N")
+				l_p_list.append ("</Provincia>")
 				i := i + 1
 			end
 
@@ -262,6 +249,7 @@ feature -- Conversion
 				l_t_list.append ("<IdTipo>")
 				l_t_list.append (types_list.i_th (i).out)
 				l_t_list.append ("</IdTipo>")
+				i := i + 1
 			end
 
 			-- status
@@ -273,6 +261,7 @@ feature -- Conversion
 				l_s_list.append ("<IdStato>")
 				l_s_list.append (status_list.i_th (i).out)
 				l_s_list.append ("</IdStato>")
+				i := i + 1
 			end
 
 			-- stations
@@ -284,6 +273,7 @@ feature -- Conversion
 				l_st_list.append ("<IdStazione>")
 				l_st_list.append (stations_list.i_th (i).out)
 				l_st_list.append ("</IdStazione>")
+				i := i + 1
 			end
 
 			Result.replace_substring_all ("$municipalities_list", l_m_list)
@@ -309,11 +299,11 @@ feature -- Conversion
 			key5:        JSON_STRING
 			json_parser: JSON_PARSER
 			i:           INTEGER
-			l_m:         STRING
+			l_m:         INTEGER
 			l_p:         STRING
-			l_t:         STRING
-			l_s:         STRING
-			l_st:        STRING
+			l_t:         INTEGER
+			l_s:         INTEGER
+			l_st:        INTEGER
 			l_count:     INTEGER
 		do
 			json_representation.copy (json)
@@ -330,17 +320,14 @@ feature -- Conversion
 			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					--and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
 				then
-					print ("Message: " + j_id.integer_64_item.out + "%N") --", " + j_parnum.integer_64_item.out + "%N")
-					--set_parameters_number (j_parnum.integer_64_item.to_integer)
+					print ("Message: " + j_id.integer_64_item.out + "%N")
 				else
 					print ("The header was not found!%N")
 				end
 
 				key := "data"
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
-					--and then attached {JSON_STRING} j_data.item ("tokenid") as j_tokenid
 					and then attached {JSON_ARRAY}  j_data.item ("municipalities_list") as j_municipalities
 					and then attached {JSON_ARRAY}  j_data.item ("provinces_list")      as j_provinces
 					and then attached {JSON_ARRAY}  j_data.item ("types_list")          as j_types
@@ -348,7 +335,6 @@ feature -- Conversion
 					and then attached {JSON_ARRAY}  j_data.item ("stations_list")       as j_stations
 					and then attached {JSON_STRING} j_data.item ("station_name")        as j_name
 				then
-					--token_id := j_tokenid.item
 
 					-- municipalities
 					municipalities_list.wipe_out
@@ -357,10 +343,11 @@ feature -- Conversion
 					until i = l_count + 1
 					loop
 						if attached {JSON_OBJECT} j_municipalities.i_th (i) as j_m
-							and then attached {JSON_STRING} j_m.item (key1) as j_mid
+							and then attached {JSON_NUMBER} j_m.item (key1) as j_mid
 						then
-							create l_m.make_from_string (j_mid.item)
-							municipalities_list.extend (l_m.to_integer)
+							--create l_m.make_from_string (j_mid.item)
+							l_m := j_mid.item.to_integer
+							municipalities_list.extend (l_m)
 						end
 						i := i + 1
 					end
@@ -387,10 +374,11 @@ feature -- Conversion
 					until i = l_count + 1
 					loop
 						if attached {JSON_OBJECT} j_types.i_th (i) as j_type
-							and then attached {JSON_STRING} j_type.item (key3) as j_t
+							and then attached {JSON_NUMBER} j_type.item (key3) as j_t
 						then
-							create l_t.make_from_string (j_t.item)
-							types_list.extend (l_t.to_integer)
+							--create l_t.make_from_string (j_t.item)
+							l_t := j_t.item.to_integer
+							types_list.extend (l_t)
 						end
 						i := i + 1
 					end
@@ -402,9 +390,10 @@ feature -- Conversion
 					until i = l_count + 1
 					loop
 						if attached {JSON_OBJECT} j_status.i_th (i) as j_st
-							and then attached {JSON_STRING} j_st.item (key4) as j_s
+							and then attached {JSON_NUMBER} j_st.item (key4) as j_s
 						then
-							create l_s.make_from_string (j_s.item)
+							--create l_s.make_from_string (j_s.item)
+							l_s := j_s.item.to_integer
 							status_list.extend (l_s.to_integer)
 						end
 						i := i + 1
@@ -417,9 +406,10 @@ feature -- Conversion
 					until i = l_count + 1
 					loop
 						if attached {JSON_OBJECT} j_stations.i_th (i) as j_station
-							and then attached {JSON_STRING} j_station.item (key5) as j_st
+							and then attached {JSON_NUMBER} j_station.item (key5) as j_st
 						then
-							create l_st.make_from_string (j_st.item)
+							--create l_st.make_from_string (j_st.item)
+							l_st := j_st.item.to_integer
 							status_list.extend (l_st.to_integer)
 						end
 						i := i + 1
@@ -439,10 +429,8 @@ feature -- Conversion
 
 			json_representation.append ("{")
 			json_representation.append ("%"header%": {")
-			json_representation.append ("%"id%": " + station_status_list_request_id.out)
-			--json_representation.append (",%"parameters_number%": " + station_status_list_request_parnum_token.out + "}")
+			json_representation.append ("%"id%": " + station_list_request_id.out)
 			json_representation.append (",%"data%": {")
-			--json_representation.append ("%"tokenid%": %"" + token_id + "%"},")
 
 			-- municipalities
 			json_representation.append ("%"municipalities_list%": [")
@@ -450,11 +438,12 @@ feature -- Conversion
 			from i := 1
 			until i = municipalities_list.count + 1
 			loop
-				json_representation.append ("{%"municipality%": %"" + municipalities_list.i_th (i).out + "%"")
-
 				if i > 1 then
 					json_representation.append (",")
 				end
+
+				json_representation.append ("{%"municipality%": %"" + municipalities_list.i_th (i).out + "%"")
+				i := i + 1
 			end
 			json_representation.append ("],")
 
@@ -464,11 +453,13 @@ feature -- Conversion
 			from i := 1
 			until i = provinces_list.count + 1
 			loop
-				json_representation.append ("{%"province%": %"" + provinces_list.i_th (i) + "%"")
-
 				if i > 1 then
 					json_representation.append (",")
 				end
+
+				json_representation.append ("{%"province%": %"" + provinces_list.i_th (i) + "%"")
+
+				i := i + 1
 			end
 			json_representation.append ("],")
 
@@ -478,11 +469,12 @@ feature -- Conversion
 			from i := 1
 			until i = types_list.count + 1
 			loop
-				json_representation.append ("{%"type%": %"" + types_list.i_th (i).out + "%"")
-
 				if i > 1 then
 					json_representation.append (",")
 				end
+
+				json_representation.append ("{%"type%": %"" + types_list.i_th (i).out + "%"")
+				i := i + 1
 			end
 			json_representation.append ("],")
 
@@ -492,11 +484,12 @@ feature -- Conversion
 			from i := 1
 			until i = status_list.count + 1
 			loop
-				json_representation.append ("{%"status%": %"" + status_list.i_th (i).out + "%"")
-
 				if i > 1 then
 					json_representation.append (",")
 				end
+
+				json_representation.append ("{%"status%": %"" + status_list.i_th (i).out + "%"")
+				i := i + 1
 			end
 			json_representation.append ("],")
 
@@ -506,17 +499,20 @@ feature -- Conversion
 			from i := 1
 			until i = stations_list.count + 1
 			loop
-				json_representation.append ("{%"station%": %"" + stations_list.i_th (i).out + "%"")
-
 				if i > 1 then
 					json_representation.append (",")
 				end
+
+				json_representation.append ("{%"station%": %"" + stations_list.i_th (i).out + "%"")
+				i := i + 1
 			end
 			json_representation.append ("],")
 
 			json_representation.append ("%"station_name%": " + station_name)
 
 			json_representation.append ("}")
+
+			Result.copy (json_representation)
 		end
 
 	from_xml (xml: STRING)
@@ -597,7 +593,6 @@ feature {NONE} -- Utilities implementation
 feature {NONE} -- Implementation
 
 	token_id:            STRING
-	--parnum:              INTEGER
 
 	municipalities_list: ARRAYED_LIST[INTEGER]
 	provinces_list:      ARRAYED_LIST[STRING]

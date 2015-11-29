@@ -69,7 +69,6 @@ feature {NONE} -- Initialization
 			-- Build a `MUNICIPALITY_LIST_REQUEST' with `token_id' = `a_token'
 		do
 			create token_id.make_from_string (a_token)
-			--parnum := municipality_list_request_parnum_token
 
 			create json_representation.make_empty
 			create xml_representation.make_empty
@@ -84,12 +83,6 @@ feature -- Access
 		once
 			Result := municipality_list_request_id
 		end
-
---	parameters_number: INTEGER
---			-- message parameters number
---		do
---			Result := parnum
---		end
 
 	token: STRING
 			-- Access to `token_id'
@@ -121,12 +114,6 @@ feature -- Status setting
 			token_id.copy (a_token)
 		end
 
-	--	set_parameters_number (a_parameters_number: INTEGER)
-	--			-- Set `parameters_number'
-	--		do
-	--			parnum := a_parameters_number
-	--		end
-
 feature -- Conversion
 
 	to_xml: STRING
@@ -146,7 +133,6 @@ feature -- Conversion
 				Result.replace_substring_all ("</Id>",     "")
 				Result.replace_substring_all ("$tokenid",  "")
 			else
-				--l_token_id.replace_substring_all ("-", "")
 				Result.replace_substring_all ("$tokenid", l_token_id)
 			end
 			from
@@ -195,10 +181,10 @@ feature -- Conversion
 
 				key := "data"
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
-					and then attached {JSON_STRING} j_data.item ("tokenid") as j_tokenid
+					--and then attached {JSON_STRING} j_data.item ("tokenid") as j_tokenid
 					and then attached {JSON_ARRAY} j_data.item ("provinces_list") as j_provinces
 				then
-					token_id := j_tokenid.item
+					--token_id := j_tokenid.item
 
 					provinces_list.wipe_out
 
@@ -231,23 +217,24 @@ feature -- Conversion
 
 			json_representation.append ("{")
 			json_representation.append ("%"header%": {")
-			json_representation.append ("%"id%": " + station_status_list_request_id.out)
-			json_representation.append (",%"parameters_number%": " + station_status_list_request_parnum_token.out + "}")
+			json_representation.append ("%"id%": " + municipality_list_request_id.out + "}")
+			--json_representation.append (",%"parameters_number%": " + station_status_list_request_parnum_token.out + "}")
 			json_representation.append (",%"data%": {")
-			json_representation.append ("%"tokenid%": %"" + token_id + "%"},")
+			--json_representation.append ("%"tokenid%": %"" + token_id + "%"},")
 
 			json_representation.append ("%"provinces_list%": [")
 
 			from i := 1
 			until i = provinces_list.count + 1
 			loop
-				json_representation.append ("{%"province%": %"" + provinces_list.i_th (i) + "%"")
-
 				if i > 1 then
 					json_representation.append (",")
 				end
+
+				json_representation.append ("{%"province%": %"" + provinces_list.i_th (i) + "%"}")
+
 			end
-			json_representation.append ("]}")
+			json_representation.append ("]}}")
 		end
 
 	from_xml (xml: STRING)

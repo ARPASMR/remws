@@ -15,7 +15,6 @@ note
 --| {
 --|   "header": {
 --|     "id":                <province_list_msg_id>
---|     "parameters_number": <province_list_msg_parnum>
 --|   },
 --|   "data": {
 --|     "outcome": a_number,
@@ -56,7 +55,7 @@ feature {NONE} -- Initialization
 feature -- Access
 
 	id:                  INTEGER once Result := province_list_response_id end
-	parameters_number:   INTEGER
+	--parameters_number:   INTEGER
 
 	outcome:             INTEGER
 	message:             STRING
@@ -66,12 +65,6 @@ feature -- Access
 	provinces_list:      ARRAYED_LIST [PROVINCE]
 
 feature -- Status setting
-
-	set_parameters_number (pn:INTEGER)
-			-- Sets `parameters_number'
-		do
-			parameters_number := pn
-		end
 
 	set_outcome (o: INTEGER)
 			-- Sets `outcome'
@@ -115,7 +108,6 @@ feature -- Conversion
 				json_representation.append ("{")
 				json_representation.append ("%"header%": {")
 				json_representation.append ("%"id%": " + province_list_response_id.out)
-				json_representation.append (",%"parameters_number%": " + province_list_response_parnum.out)
 				json_representation.append ("},")
 				json_representation.append ("%"data%": {")
 				json_representation.append ("%"outcome%": " + outcome.out)
@@ -123,11 +115,9 @@ feature -- Conversion
 				json_representation.append ("}")
 				json_representation.append ("}")
 			else
-				parameters_number := province_list_response_parnum
 				json_representation.append ("{")
 				json_representation.append ("%"header%": {")
 				json_representation.append ("%"id%": " + province_list_response_id.out)
-				json_representation.append (",%"parameters_number%": " + province_list_response_parnum.out)
 				json_representation.append ("},")
 				json_representation.append ("%"data%": {")
 				json_representation.append ("%"outcome%": "   + outcome.out)
@@ -195,16 +185,10 @@ feature -- Conversion
 			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
 				then
-					print ("Message: " + j_id.integer_64_item.out + ", " + j_parnum.integer_64_item.out + "%N")
-					set_parameters_number (j_parnum.integer_64_item.to_integer)
+					print ("Message: " + j_id.integer_64_item.out + "%N")
 				else
 					print ("The header was not found!%N")
-				end
-
-				check
-					parameters_number = station_types_list_response_parnum
 				end
 
 				key := "data"

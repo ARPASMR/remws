@@ -39,111 +39,7 @@ feature {NONE} -- Initialization
 
 			create r.make_empty
 
-			-- Now try a station status list request
-			io.put_string ("{CURL_TEST_CLIENT} Asks for station status list")
-			io.put_new_line
 
-			r.copy (station_status_list_request)
-
-			response := post (r)
-			if attached response as res then
-				station_status_list_res.status_list.wipe_out
-				station_status_list_res.from_json (res)
-				io.put_string ("{CURL_TEST_CLIENT} Found " + station_status_list_res.status_list.count.out + " station status")
-				io.put_new_line
-				from j := 1
-				until j = station_status_list_res.status_list.count + 1
-				loop
-					io.put_string (station_status_list_res.status_list.i_th (j).out)
-					io.put_new_line
-					j := j + 1
-				end
-			end
-
-
-			-- Now try a station types list request
-			io.put_string ("{CURL_TEST_CLIENT} Ask for station types list")
-			io.put_new_line
-
-			r.copy (station_types_list_request)
-
-			response := post (r)
-			if attached response as res then
-				station_types_list_res.types_list.wipe_out
-				station_types_list_res.from_json (res)
-				io.put_string ("{CURL_TEST_CLIENT} Found " + station_types_list_res.types_list.count.out + " station types")
-				io.put_new_line
-				from j := 1
-				until j = station_types_list_res.types_list.count + 1
-				loop
-					io.put_string (station_types_list_res.types_list.i_th (j).out)
-					io.put_new_line
-					j := j + 1
-				end
-			end
-
-			-- Now try a province list request
-			io.put_string ("{CURL_TEST_CLIENT} Ask for provinces list")
-			io.put_new_line
-
-			r.copy (province_list_request)
-
-			response := post (r)
-			if attached response as res then
-				province_list_res.provinces_list.wipe_out
-				province_list_res.from_json (res)
-				io.put_string ("{CURL_TEST_CLIENT} Found " + province_list_res.provinces_list.count.out + " provinces")
-				io.put_new_line
-				from j := 1
-				until j = province_list_res.provinces_list.count + 1
-				loop
-					io.put_string (province_list_res.provinces_list.i_th (j).out)
-					io.put_new_line
-					j := j + 1
-				end
-			end
-
-			-- Now try a municipality list request
-			io.put_string ("{CURL_TEST_CLIENT} Ask for municipalities list")
-			io.put_new_line
-
-			r.copy (municipalities_list_request)
-
-			response := post (r)
-			if attached response as res then
-				municipality_list_res.municipalities_list.wipe_out
-				municipality_list_res.from_json (res)
-				io.put_string ("{CURL_TEST_CLIENT} Found " + municipality_list_res.municipalities_list.count.out + "municipalities")
-				io.put_new_line
-				from j := 1
-				until j = municipality_list_res.municipalities_list.count + 1
-				loop
-					io.put_string (municipality_list_res.municipalities_list.i_th (j).out)
-					io.put_new_line
-					j := j + 1
-				end
-			end
-
-			-- Now try a sensor type list request
-			io.put_string ("{CURL_TEST_CLIENT} Ask for sensor types list")
-			io.put_new_line
-
-			r.copy (sensor_type_list_request)
-
-			response := post (r)
-			if attached response as res then
-				sensor_type_list_res.sensor_types_list.wipe_out
-				sensor_type_list_res.from_json (res)
-				io.put_string ("{CURL_TEST_CLIENT} Found " + sensor_type_list_res.sensor_types_list.count.out + " sensor types")
-				io.put_new_line
-				from j := 1
-				until j = sensor_type_list_res.sensor_types_list.count + 1
-				loop
-					io.put_string (sensor_type_list_res.sensor_types_list.i_th (j).out)
-					io.put_new_line
-					j := j + 1
-				end
-			end
 
 
 
@@ -158,26 +54,193 @@ feature {NONE} -- Initialization
 
 
 
-			-- Now try a station list request
-			io.put_string ("{CURL_TEST_CLIENT} Ask for stations list")
-			io.put_new_line
 
-			r.copy (station_list_request)
 
-			response := post (r)
-			if attached response as res then
-				station_list_res.stations_list.wipe_out
-				station_list_res.from_json (res)
-				io.put_string ("{CURL_TEST_CLIENT} Found " + station_list_res.stations_list.count.out + " stations")
+
+
+			from i := 0
+			until i > 200
+			loop
+				-- Now try a station status list request
+				io.put_string ("{CURL_TEST_CLIENT} Asks for station status list")
 				io.put_new_line
-				from j := 1
-				until j = station_list_res.stations_list.count + 1
-				loop
-					io.put_string (station_list_res.stations_list.i_th (j).out)
+
+				r.copy (station_status_list_request)
+
+				response := post (r)
+
+				if attached response as res then
+					station_status_list_res.status_list.wipe_out
+					station_status_list_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + station_status_list_res.status_list.count.out + " station status")
 					io.put_new_line
-					j := j + 1
+					from j := 1
+					until j = station_status_list_res.status_list.count + 1
+					loop
+						io.put_string (station_status_list_res.status_list.i_th (j).out)
+						io.put_new_line
+						j := j + 1
+					end
 				end
+
+
+				-- Now try a station types list request
+				io.put_string ("{CURL_TEST_CLIENT} Ask for station types list")
+				io.put_new_line
+
+				r.copy (station_types_list_request)
+
+				response := post (r)
+				if attached response as res then
+					station_types_list_res.types_list.wipe_out
+					station_types_list_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + station_types_list_res.types_list.count.out + " station types")
+					io.put_new_line
+					from j := 1
+					until j = station_types_list_res.types_list.count + 1
+					loop
+						io.put_string (station_types_list_res.types_list.i_th (j).out)
+						io.put_new_line
+						j := j + 1
+					end
+				end
+
+				-- Now try a province list request
+				io.put_string ("{CURL_TEST_CLIENT} Ask for provinces list")
+				io.put_new_line
+
+				r.copy (province_list_request)
+
+				response := post (r)
+				if attached response as res then
+					province_list_res.provinces_list.wipe_out
+					province_list_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + province_list_res.provinces_list.count.out + " provinces")
+					io.put_new_line
+					from j := 1
+					until j = province_list_res.provinces_list.count + 1
+					loop
+						io.put_string (province_list_res.provinces_list.i_th (j).out)
+						io.put_new_line
+						j := j + 1
+					end
+				end
+
+				-- Now try a municipality list request
+				io.put_string ("{CURL_TEST_CLIENT} Ask for municipalities list")
+				io.put_new_line
+
+				r.copy (municipalities_list_request)
+
+				io.put_string("{CURL_TEST_CLIENT} json request:%N" + municipalities_list_request)
+				io.put_new_line
+
+				response := post (r)
+
+				io.put_string("{CURL_TEST_CLIENT} json response:%N" + response)
+				io.put_new_line
+
+				if attached response as res then
+					municipality_list_res.municipalities_list.wipe_out
+					municipality_list_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + municipality_list_res.municipalities_list.count.out + "municipalities")
+					io.put_new_line
+					from j := 1
+					until j = municipality_list_res.municipalities_list.count + 1
+					loop
+						io.put_string (municipality_list_res.municipalities_list.i_th (j).out)
+						io.put_new_line
+						j := j + 1
+					end
+				end
+
+				-- Now try a sensor type list request
+				io.put_string ("{CURL_TEST_CLIENT} Ask for sensor types list")
+				io.put_new_line
+
+				r.copy (sensor_type_list_request)
+
+				response := post (r)
+				if attached response as res then
+					sensor_type_list_res.sensor_types_list.wipe_out
+					sensor_type_list_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + sensor_type_list_res.sensor_types_list.count.out + " sensor types")
+					io.put_new_line
+					from j := 1
+					until j = sensor_type_list_res.sensor_types_list.count + 1
+					loop
+						io.put_string (sensor_type_list_res.sensor_types_list.i_th (j).out)
+						io.put_new_line
+						j := j + 1
+					end
+				end
+
+				-- Now try a station list request
+				io.put_string ("{CURL_TEST_CLIENT} Ask for stations list")
+				io.put_new_line
+
+				r.copy (station_list_request)
+
+				io.put_string("{CURL_TEST_CLIENT} json request:%N" + station_list_request)
+				io.put_new_line
+
+				response := post (r)
+
+				io.put_string("{CURL_TEST_CLIENT} json response:%N" + response)
+				io.put_new_line
+
+
+				if attached response as res then
+					station_list_res.stations_list.wipe_out
+					station_list_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + station_list_res.stations_list.count.out + " stations")
+					io.put_new_line
+					from j := 1
+					until j = station_list_res.stations_list.count + 1
+					loop
+						io.put_string (station_list_res.stations_list.i_th (j).out)
+						io.put_new_line
+						j := j + 1
+					end
+				end
+
+
+
+
+
+
+				io.put_string ("----------------------------------------------------------------------%N")
+				io.put_string ("| iteration:" + i.out + "%N")
+				io.put_string ("----------------------------------------------------------------------%N")
+
+				i := i + 1
+
 			end
+
+			io.put_string ("Dieing happily!!!")
+			io.put_new_line
+			die(0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			die(0)
+
+
+
+
 
 
 
@@ -345,45 +408,6 @@ feature -- Basic operations
 			curl.global_cleanup
 
 			Result := curl_buffer.string
-		end
-
-	parse_response (res: STRING)
-			--
-		local
-			msg_id:      INTEGER
-			key:         JSON_STRING
-			json_parser: JSON_PARSER
-			dt:          DATE_TIME
-		do
-			create json_parser.make_with_string (res)
-
-			create key.make_from_string ("header")
-			json_parser.parse_content
-			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
-					and then attached {JSON_NUMBER} j_header.item ("message_id") as j_id
-					and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
-				then
-					print ("Message: " + j_id.integer_64_item.out + ", " + j_parnum.integer_64_item.out + "%N")
-					msg_id := j_id.integer_64_item.to_integer
-				else
-					print ("The header was not found!%N")
-				end
-
-				if msg_id = {MSG_CONSTANTS}.response_id_offset + {MSG_CONSTANTS}.login_request_id then
-					key := "data"
-					if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
-					    and then attached {JSON_STRING} j_data.item ("outcome") as j_outcome
-					    and then attached {JSON_STRING} j_data.item ("message") as j_message
-						and then attached {JSON_STRING} j_data.item ("id")      as j_token_id
-						and then attached {JSON_STRING} j_data.item ("expiry")  as j_expiry
-					then
-						token_id := j_token_id.item
-						create dt.make_from_string_default ({DEFAULTS}.default_date_time_format)
-						expiry := dt
-					end
-				end
-			end
 		end
 
 feature {NONE} -- Implementation
@@ -554,7 +578,7 @@ feature -- msg data
 		    "id": 7
 		  },
 		  "data": {
-            "municipalities_list": [],
+            "municipalities_list": [{"municipality": 362}],
             "provinces_list":      [],
             "types_list":          [],
             "status_list":         [],
@@ -571,7 +595,7 @@ feature -- msg data
 		  },
 		  "data": {
 		    "stations_list": []
-		  }
+		  }	
 		}
 	]"
 

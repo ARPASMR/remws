@@ -4,6 +4,31 @@ note
 	date: "$Date$"
 	revision: "$Revision$"
 
+--| ----------------------------------------------------------------------------
+--| This is the message structure for the municipalities_list response message,
+--| for the time being only json is a supported format
+--| ----------------------------------------------------------------------------
+--| The message is an unnamed json object composed by a header and a data part
+--| for example:
+--| token_id can be an empty string
+--|
+--| {
+--|   "header": {
+--|     "id": <municipality_list_request_id> + 1000
+--|   },
+--|   "data": {
+--|     "outcome": a_number,
+--|     "message": "a_message",
+--|     "municipalitiess_list": [{"id": a_id, "istat_code": a_code, "name": "a_name", "province": "a_province"},
+--|                              {"id": a_id, "istat_code": a_code, "name": "a_name", "province": "a_province"},
+--|                              ... ,
+--|                              {"id": a_id, "istat_code": a_code, "name": "a_name", "province": "a_province"}]
+--|   }
+--| }
+--|
+--| ----------------------------------------------------------------------------
+
+
 class
 	MUNICIPALITY_LIST_RESPONSE
 
@@ -33,7 +58,6 @@ feature {NONE} -- Initialization
 feature -- Access
 
 	id:                  INTEGER once Result := municipality_list_response_id end
-	parameters_number:   INTEGER
 
 	outcome:             INTEGER
 	message:             STRING
@@ -43,12 +67,6 @@ feature -- Access
 	municipalities_list: ARRAYED_LIST [MUNICIPALITY]
 
 feature -- Status setting
-
-	set_parameters_number (pn:INTEGER)
-			-- Sets `parameters_number'
-		do
-			parameters_number := pn
-		end
 
 	set_outcome (o: INTEGER)
 			-- Sets `outcome'
@@ -92,7 +110,6 @@ feature -- Conversion
 				json_representation.append ("{")
 				json_representation.append ("%"header%": {")
 				json_representation.append ("%"id%": " + municipality_list_response_id.out)
-				json_representation.append (",%"parameters_number%": " + municipality_list_response_parnum.out)
 				json_representation.append ("},")
 				json_representation.append ("%"data%": {")
 				json_representation.append ("%"outcome%": " + outcome.out)
@@ -100,11 +117,9 @@ feature -- Conversion
 				json_representation.append ("}")
 				json_representation.append ("}")
 			else
-				parameters_number := municipality_list_response_parnum
 				json_representation.append ("{")
 				json_representation.append ("%"header%": {")
 				json_representation.append ("%"id%": " + municipality_list_response_id.out)
-				json_representation.append (",%"parameters_number%": " + municipality_list_response_parnum.out)
 				json_representation.append ("},")
 				json_representation.append ("%"data%": {")
 				json_representation.append ("%"outcome%": "   + outcome.out)
@@ -177,16 +192,10 @@ feature -- Conversion
 			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
 				then
-					print ("Message: " + j_id.integer_64_item.out + ", " + j_parnum.integer_64_item.out + "%N")
-					set_parameters_number (j_parnum.integer_64_item.to_integer)
+					print ("Message: " + j_id.integer_64_item.out + "%N")
 				else
 					print ("The header was not found!%N")
-				end
-
-				check
-					parameters_number = municipality_list_response_parnum
 				end
 
 				key := "data"
