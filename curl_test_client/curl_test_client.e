@@ -39,7 +39,33 @@ feature {NONE} -- Initialization
 
 			create r.make_empty
 
+			-- Now try a realtime data request
+			io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
+			io.put_new_line
 
+			r.copy (realtime_data_request)
+			io.put_string ("{CURL_TEST_CLIENT} >>> " + realtime_data_request)
+			io.put_new_line
+
+			response := post (r)
+
+			io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
+			io.put_new_line
+
+
+			if attached response as res then
+				realtime_data_res.sensor_data_list.wipe_out
+				realtime_data_res.from_json (res)
+				io.put_string ("{CURL_TEST_CLIENT} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
+				io.put_new_line
+				from j := 1
+				until j = station_status_list_res.status_list.count + 1
+				loop
+					io.put_string (station_status_list_res.status_list.i_th (j).out)
+					io.put_new_line
+					j := j + 1
+				end
+			end
 
 
 
@@ -237,44 +263,6 @@ feature {NONE} -- Initialization
 
 
 			die(0)
-
-
-
-
-
-
-
-
-
-
-
-			-- Now try a realtime data request
-			io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
-			io.put_new_line
-
-			r.copy (realtime_data_request)
-
-			response := post (r)
-			if attached response as res then
-				realtime_data_res.sensor_data_list.wipe_out
-				realtime_data_res.from_json (res)
-				io.put_string ("{CURL_TEST_CLIENT} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
-				io.put_new_line
-				from j := 1
-				until j = station_status_list_res.status_list.count + 1
-				loop
-					io.put_string (station_status_list_res.status_list.i_th (j).out)
-					io.put_new_line
-					j := j + 1
-				end
-			end
-
-			die(0)
-
-
-
-
-
 
 
 			from i := 0
