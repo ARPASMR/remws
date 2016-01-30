@@ -25,12 +25,13 @@ create
 
 feature {NONE} -- Initialization
 
+
 	make
-			-- Run application.
+			--
 		local
-			i:         INTEGER
-			j:         INTEGER
-			r:         STRING
+			r:STRING
+			i,j,k:INTEGER
+			rt_res: REALTIME_DATA_RESPONSE
 		do
 			io.put_string ("cURL test client")
 			io.put_new_line
@@ -38,45 +39,50 @@ feature {NONE} -- Initialization
 			initialize
 
 			create r.make_empty
+			create rt_res.make
+
+			--rt_res.from_xml (xml1)
+
+			--die(0)
+
+
+
 
 			-- Now try a realtime data request
-			io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
-			io.put_new_line
+--			io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
+--			io.put_new_line
 
-			r.copy (realtime_data_request)
-			io.put_string ("{CURL_TEST_CLIENT} >>> " + realtime_data_request)
-			io.put_new_line
+--			r.copy (realtime_data_request)
+--			io.put_string ("{CURL_TEST_CLIENT} >>> " + realtime_data_request)
+--			io.put_new_line
 
-			response := post (r)
+--			response := post (r)
 
-			io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
-			io.put_new_line
-
-
-			if attached response as res then
-				realtime_data_res.sensor_data_list.wipe_out
-				realtime_data_res.from_json (res)
-				io.put_string ("{CURL_TEST_CLIENT} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
-				io.put_new_line
-				from j := 1
-				until j = station_status_list_res.status_list.count + 1
-				loop
-					io.put_string (station_status_list_res.status_list.i_th (j).out)
-					io.put_new_line
-					j := j + 1
-				end
-			end
+--			io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
+--			io.put_new_line
 
 
-
-
-
-
-
-
-
-
-			die(0)
+--			if attached response as res then
+--				realtime_data_res.sensor_data_list.wipe_out
+--				realtime_data_res.from_json (res)
+--				io.put_string ("{CURL_TEST_CLIENT} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
+--				io.put_new_line
+--				from j := 1
+--				until j = realtime_data_res.sensor_data_list.count + 1
+--				loop
+--					io.put_string (realtime_data_res.sensor_data_list.i_th (j).out)
+--					io.put_new_line
+--					from k := 1
+--					until k = realtime_data_res.sensor_data_list.i_th (j).data.count + 1
+--					loop
+--						io.put_string (realtime_data_res.sensor_data_list.i_th (j).data.i_th (k).out)
+--						io.put_new_line
+--						k := k + 1
+--					end
+--					j := j + 1
+--				end
+--			end
+--			die(0)
 
 
 
@@ -85,7 +91,7 @@ feature {NONE} -- Initialization
 
 
 			from i := 0
-			until i > 200
+			until i > 1000
 			loop
 				-- Now try a station status list request
 				io.put_string ("{CURL_TEST_CLIENT} Asks for station status list")
@@ -169,7 +175,7 @@ feature {NONE} -- Initialization
 				if attached response as res then
 					municipality_list_res.municipalities_list.wipe_out
 					municipality_list_res.from_json (res)
-					io.put_string ("{CURL_TEST_CLIENT} Found " + municipality_list_res.municipalities_list.count.out + "municipalities")
+					io.put_string ("{CURL_TEST_CLIENT} Found " + municipality_list_res.municipalities_list.count.out + " municipalities")
 					io.put_new_line
 					from j := 1
 					until j = municipality_list_res.municipalities_list.count + 1
@@ -229,6 +235,85 @@ feature {NONE} -- Initialization
 						j := j + 1
 					end
 				end
+
+
+				-- Now try a realtime data request
+				io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
+				io.put_new_line
+
+				r.copy (realtime_data_request)
+				io.put_string ("{CURL_TEST_CLIENT} >>> " + realtime_data_request)
+				io.put_new_line
+
+				response := post (r)
+
+				io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
+				io.put_new_line
+
+
+				if attached response as res then
+					realtime_data_res.sensor_data_list.wipe_out
+					realtime_data_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
+					io.put_new_line
+					from j := 1
+					until j = realtime_data_res.sensor_data_list.count + 1
+					loop
+						io.put_string (realtime_data_res.sensor_data_list.i_th (j).out)
+						io.put_new_line
+						from k := 1
+						until k = realtime_data_res.sensor_data_list.i_th (j).data.count + 1
+						loop
+							io.put_string (realtime_data_res.sensor_data_list.i_th (j).data.i_th (k).out)
+							io.put_new_line
+							k := k + 1
+						end
+						j := j + 1
+					end
+				end
+
+				-- Now try a realtime data request for one data
+				io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
+				io.put_new_line
+
+				r.copy (realtime_data_request_idro)
+				io.put_string ("{CURL_TEST_CLIENT} >>> " + realtime_data_request_idro)
+				io.put_new_line
+
+				response := post (r)
+
+				io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
+				io.put_new_line
+
+
+				if attached response as res then
+					realtime_data_res.sensor_data_list.wipe_out
+					realtime_data_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
+					io.put_new_line
+					from j := 1
+					until j = realtime_data_res.sensor_data_list.count + 1
+					loop
+						io.put_string (realtime_data_res.sensor_data_list.i_th (j).out)
+						io.put_new_line
+						from k := 1
+						until k = realtime_data_res.sensor_data_list.i_th (j).data.count + 1
+						loop
+							io.put_string (realtime_data_res.sensor_data_list.i_th (j).data.i_th (k).out)
+							io.put_new_line
+							k := k + 1
+						end
+						j := j + 1
+					end
+				end
+
+
+
+
+
+
+
+
 
 
 
@@ -613,12 +698,100 @@ feature -- msg data
                               "function_id": 1,
                               "operator_id": 1,
                               "granularity": 1,
-                              "start": "2015-11-21 09:30:00",
-                              "finish": "2015-11-21 11:30:00"
+                              "start": "2015-11-21 06:30:00",
+                              "finish": "2015-11-21 14:30:00"
                             } ]
                 }    
 		}
 	]"
+
+	realtime_data_request_idro: STRING = "[
+		{
+          "header": {
+          "id": 10
+        },
+        "data": {
+          "sensors_list": [ {
+                              "sensor_id": 14304,
+                              "function_id": 1,
+                              "operator_id": 1,
+                              "granularity": 1,
+                              "start": "2016-01-14 06:30:00",
+                              "finish": "2016-01-14 06:30:00"
+                            } ]
+                }
+		}
+	]"
+
+	realtime_data_request_multi: STRING = "[
+		{
+          "header": {
+          "id": 10
+        },
+        "data": {
+          "sensors_list": [ {
+                              "sensor_id": 14304,
+                              "function_id": 1,
+                              "operator_id": 1,
+                              "granularity": 1,
+                              "start": "2016-01-14 06:30:00",
+                              "finish": "2016-01-14 06:30:00"
+                            },
+                            {
+                              "sensor_id": 4058,
+                              "function_id": 1,
+                              "operator_id": 1,
+                              "granularity": 1,
+                              "start": "2015-11-21 06:30:00",
+                              "finish": "2015-11-21 14:30:00"
+                            } ]
+                }
+		}
+	]"
+
+
+
+
+feature -- cdata
+
+     xml: STRING = "[
+		<Esito>0</Esito>
+		<Sensore
+		  IdSensore=%"4058%"
+		  NomeSensore=%"Milano - Parco Nord  Temperatura%"
+		  UnitaMisura=%"°C%"
+		  IdFunzione=%"1%"
+		  Funzione=%"Dato Rilevato%"
+		  IdOperatore=%"1%"
+		  Operatore=%"Media%"
+		  IdPeriodo=%"1%"
+		  Periodo=%"10 minuti%">
+          <Dati>
+            <![CDATA[
+              2015-11-21 09:30:00;10.10000000;0
+		 	  2015-11-21 09:40:00;10.30000000;0
+		 	  2015-11-21 09:50:00;10.50000000;0
+              2015-11-21 10:00:00;10.70000000;0
+              2015-11-21 10:10:00;10.80000000;0
+              2015-11-21 10:20:00;10.90000000;0
+              2015-11-21 10:30:00;11.00000000;0
+              2015-11-21 10:40:00;11.00000000;0
+              2015-11-21 10:50:00;11.10000000;0
+              2015-11-21 11:00:00;11.00000000;0
+              2015-11-21 11:10:00;11.10000000;0
+              2015-11-21 11:20:00;11.10000000;0
+              2015-11-21 11:30:00;11.10000000;0
+            ]]>
+          </Dati>
+        </Sensore>
+]"
+
+
+
+
+	xml1: STRING = "<Esito>0</Esito><Sensore IdSensore=%"4058%" NomeSensore=%"Milano - Parco Nord  Temperatura%" UnitaMisura=%"°C%" IdFunzione=%"1%" Funzione=%"Dato Rilevato%" IdOperatore=%"1%" Operatore=%"Media%" IdPeriodo=%"1%" Periodo=%"10 minuti%"><Dati><![CDATA[2015-11-21 09:30:00;10.10000000;0%N2015-11-21 09:40:00;10.30000000;0%N2015-11-21 09:50:00;10.50000000;0%N2015-11-21 10:00:00;10.70000000;0%N2015-11-21 10:10:00;10.80000000;0%N2015-11-21 10:20:00;10.90000000;0]]></Dati></Sensore>"
+
+
 
 
 

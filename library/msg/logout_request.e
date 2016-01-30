@@ -100,7 +100,7 @@ feature -- Status setting
 	set_token_id (a_token_id: STRING)
 			-- Set `token_id'
 		do
-			token_id := a_token_id
+			token_id.copy (a_token_id)
 		end
 
 feature -- Conversion

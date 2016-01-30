@@ -37,6 +37,8 @@ feature {NONE} -- Initialization
 			is_logged_in := false
 			create login_request.make
 			create logout_request.make
+			create login_response.make
+			create logout_response.make
 
 			-- cURL objects
 			create curl
@@ -123,7 +125,7 @@ feature -- Usage
 			print ("collect [-p <port_number>][-l <log_level>][-t][-h]%N%N")
 			print ("%T<port_number> is the network port on which collect will accept connections%N")
 			print ("%T<log_level>   is the logging level that will be used%N")
-			print ("%T<testws>      uses the testing wev service%N")
+			print ("%T-t            uses the testing web service%N")
 			print ("%TThe available logging levels are:%N")
 			print ("%T%T " + log_debug.out       + " --> debug-level messages%N")
 			print ("%T%T " + log_information.out + " --> informational%N")
@@ -278,25 +280,61 @@ feature -- Basic operations
 
 	    	l_req:           REQUEST_I
 	    	l_res:           RESPONSE_I
+	    	i:               INTEGER
 		do
 
 			create l_raw.make (req.content_length_value.to_integer_32)
 			create l_val.make_empty
 
 			if not check_login then
+				log("{COLLECT_APPLICATION} >>> ##### Changing token #####", log_notice)
 				if is_logged_in then
 					io.put_string ("Currently logged in, but token expired, need to logout ...%N")
 					if do_logout then
 						io.put_string ("Logged out%N")
+						log("{COLLECT_APPLICATION} >>> Logged out", log_information)
+						sleep(1000000000)
 					else
 						io.put_string ("Unable to logout, but session token expired, don't worry%N")
+						log("{COLLECT_APPLICATION} >>> Unable to logout", log_notice)
+						io.put_string ("retry logout%N")
+
+						from i := 1
+						until do_logout or i = 10
+						loop
+							io.put_string ("Logout Attempt " + i.out)
+							io.put_new_line
+							i := i + 1
+							io.put_string ("Wait one second and retry...%N")
+							sleep(1000000000)
+						end
 					end
+				end
+				if use_testing_ws then
+					sleep (5000000000)
+				else
+					sleep (5000000000)
 				end
 				if do_login then
 					io.put_string ("Logged in again%N")
+					io.put_string ("{COLLECT_APPLICATION} >>> logged in again with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format))
+					log("{COLLECT_APPLICATION} >>> logged in again with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format), log_information)
 				else
 					io.put_string ("NOT logged in%N")
-					die(0)
+					io.put_string ("RETRY LOGIN ...%N")
+					from i := 1
+					until do_login or i = 10
+					loop
+						io.put_string ("Attempt " + i.out)
+						io.put_new_line
+						i := i + 1
+						io.put_string ("Wait one second and retry...%N")
+						sleep(1000000000)
+					end
+
+
+
+--					die(0)
 				end
 			end
 
@@ -437,12 +475,14 @@ feature {NONE} -- Network IO
 					a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_url,       a_request.ws_url)
 				end
 
-				log ("ws_url: " + a_request.ws_url, log_debug)
+				--log ("ws_url: " + a_request.ws_url, log_debug)
 				--print ("ws_url: " + a_request.ws_url + "%N")
 				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
 				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_forbid_reuse,  1)
 				xml := a_request.to_xml
 				log ("{COLLECT_APPLICATION} >>> " + xml, log_debug)
+				io.put_string ("{COLLECT_APPLICATION} >>> " + xml)
+				io.put_new_line
 				a_curl_easy.setopt_slist   (Result, {CURL_OPT_CONSTANTS}.curlopt_httpheader,    a_request.generate_http_headers (a_curl))
 				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
 				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, xml.count)
@@ -457,7 +497,7 @@ feature {NONE} -- Network IO
 		end
 
 	post(a_request: REQUEST_I): STRING
-			-- Post `a_msg' to remws
+			-- Post `a_request' to remws
 		local
 			l_result:    INTEGER
 			curl_buffer: CURL_STRING
@@ -522,6 +562,9 @@ feature {NONE} -- Login management
 			-- The login request
 	logout_request: LOGOUT_REQUEST
 			-- The logout request
+	login_response: LOGIN_RESPONSE
+			-- The login response
+	logout_response: LOGOUT_RESPONSE
 
 	check_day_light_time_saving (dt: DATE_TIME) : DATE_TIME_DURATION
 			-- Check for day light time savin on `dt'
@@ -581,11 +624,17 @@ feature {NONE} -- Login management
 
 			l_offset := check_day_light_time_saving (l_current_dt)
 
-			create l_interval.make_definite  (0, 0, 30, 0)
+			--create l_interval.make_definite  (0, 0, 30, 0)
+			if use_testing_ws then
+				create l_interval.make_definite  (0, 0, -28, 0)
+			else
+				create l_interval.make_definite  (0, 0, -58, 0)
+			end
 
 			if attached token then
+				--if l_current_dt + l_offset >= token.expiry + l_interval then
 				if l_current_dt + l_offset >= token.expiry + l_interval then
-				        Result := False
+				    Result := False
 			    else
 			    	Result := True
 				end
@@ -598,30 +647,49 @@ feature {NONE} -- Login management
 			-- Execute login
 		local
 			l_xml_str: STRING
-			l_res:     LOGIN_RESPONSE
+			--l_res:     LOGIN_RESPONSE
 		do
 			if attached username as l_username and attached password as l_password then
---				login_request.set_parameters_number (login_request_parnum)
 				login_request.set_username (l_username)
 				login_request.set_password (l_password)
 
 				l_xml_str := post (login_request)
-				create l_res.make
-				l_res.from_xml (l_xml_str)
-				--token := l_res.token
+				io.put_string ("do_login response: " + l_xml_str)
+				io.put_new_line
+				--create l_res.make
+				--l_res.from_xml (l_xml_str)
+				login_response.from_xml (l_xml_str)
 
-				token.id.copy (l_res.token.id)
-				token.expiry.copy (l_res.token.expiry)
+--				token.id.copy (l_res.token.id)
+--				token.expiry.copy (l_res.token.expiry)
+
+				if login_response.outcome = success then
+					token.id.copy (login_response.token.id)
+					token.expiry.copy (login_response.token.expiry)
+					if token.id.count > 0 then
+						is_logged_in := true
+					else
+						is_logged_in := false
+					end
+				else
+					is_logged_in := false
+				end
+
+--				token.id.copy (login_response.token.id)
+--				token.expiry.copy (login_response.token.expiry)
 
 
 
-
-				is_logged_in := True
-				Result := true
+--				if token.id.count > 0 then
+--					is_logged_in := True
+--				else
+--					is_logged_in := False
+--				end
 			else
 				is_logged_in := False
-				Result := false
 			end
+
+			Result := is_logged_in
 		end
 
 	do_logout: BOOLEAN
@@ -634,9 +702,15 @@ feature {NONE} -- Login management
 				logout_request.token_id.copy (token.id)
 
 				l_xml_str := post (logout_request)
-				create l_res.make
-				l_res.from_xml (l_xml_str)
-				Result := l_res.outcome = success
+				io.put_string ("{COLLECT_APPLICATION} do logout response <<<  " + l_xml_str)
+				io.put_new_line
+				--create l_res.make
+				--l_res.from_xml (l_xml_str)
+
+				logout_response.from_xml (l_xml_str)
+
+				--Result := l_res.outcome = success
+				Result := logout_response.outcome = success
 			else
 				Result := false
 			end
