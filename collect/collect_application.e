@@ -103,14 +103,15 @@ feature {NONE} -- Initialization
 			if not is_logged_in then
 				-- do login
 				if not do_login then
-					log ("{COLLECT_APPLICATION} >>> FATAL error: unable to login", log_critical)
-					io.put_string ("{COLLECT_APPLICATION} >>> FATAL error: unable to login"); io.put_new_line
+					log_display ("{FATAL error: unable to login", log_critical, true, true)
 					die(0)
 				else
 					is_logged_in := true
-					log ("{COLLECT_APPLICATION} >>> logged in with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format), log_information)
-					io.put_string ("{COLLECT_APPLICATION} >>> logged in with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format))
-					io.put_new_line
+					log_display ("logged in with token " +
+					             token.id +
+					             " expiring upon " +
+					             token.expiry.formatted_out (default_date_time_format),
+					             log_information, true, true)
 				end
 			end
 		end
@@ -209,7 +210,7 @@ feature -- Logging
 			file_logger.enable_debug_log_level
 			if attached logger as l_logger then
 				l_logger.register_log_writer (file_logger)
-				log ("Log system initialized", log_information)
+				log_display ("Log system initialized", log_information, true, true)
 			end
 
 		end
@@ -236,6 +237,27 @@ feature -- Logging
 			end
 		end
 
+	log_display(a_string: STRING; priority: INTEGER; to_file, to_display: BOOLEAN)
+			-- Combined file and display log
+		local
+			l_string: STRING
+		do
+			if attached current.class_name as cn then
+				l_string := "{" + cn + "} " + a_string
+			else
+				l_string := "{NO_CLASS_NAME} " + a_string
+			end
+
+			if to_file then
+				log (l_string, priority)
+			end
+			if to_display then
+				io.put_string (l_string)
+				io.put_new_line
+			end
+		end
+
+
 feature -- Basic operations
 
 	parse_header (json: STRING): INTEGER
@@ -252,18 +274,18 @@ feature -- Basic operations
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
 				then
-					log ("id:                " + j_id.integer_64_item.out,     log_debug)
+					log_display ("message id: " + j_id.integer_64_item.out, log_debug, true, false)
 					Result := j_id.integer_64_item.to_integer
 				else
-					log ("The message header was not found!",       log_error)
-					log ("%TThis is probably not a valid message.", log_error)
+					log_display ("The message header was not found!", log_error, true, true)
+					log_display ("%TThis is probably not a valid message.", log_error, true, true)
 					error_code    := {ERROR_CODES}.err_invalid_json
 					error_message := {ERROR_CODES}.msg_invalid_json
 				end
 			else
-				log ("json parser is not valid!!!", log_critical)
+				log_display ("json parser is not valid!!!", log_critical, true, true)
 				if json_parser.has_error then
-					log ("json parser error: " + json_parser.errors_as_string, log_critical)
+					log_display ("json parser error: " + json_parser.errors_as_string, log_critical, true, true)
 				end
 				error_code    := {ERROR_CODES}.err_no_json_parser
 				error_message := {ERROR_CODES}.msg_no_json_parser
@@ -272,185 +294,229 @@ feature -- Basic operations
 
 	execute (req: WSF_REQUEST; res: WSF_RESPONSE)
 	    local
-	    	--l_page_response: STRING
+	    	l_response:       STRING
+	    			-- Response as string
+	    	l_request:        STRING
+	    			-- Request as string
+	    	l_received_chars: INTEGER
+	    	l_msg_id:         INTEGER
+	    	l_current_time:   DATE_TIME
 
-	    	l_val:           STRING
-	    	l_raw:           STRING
-	    	l_result:        INTEGER
-
-	    	l_req:           REQUEST_I
-	    	l_res:           RESPONSE_I
-	    	i:               INTEGER
+	    	l_req_obj:        REQUEST_I
+	    	l_res_obj:        RESPONSE_I
+	    	i:                INTEGER
 		do
 
-			create l_raw.make (req.content_length_value.to_integer_32)
-			create l_val.make_empty
+			create l_request.make (req.content_length_value.to_integer_32)
+			create l_response.make_empty
+			create l_current_time.make_now
 
-			if not check_login then
-				log("{COLLECT_APPLICATION} >>> ##### Changing token #####", log_notice)
-				if is_logged_in then
-					io.put_string ("Currently logged in, but token expired, need to logout ...%N")
-					if do_logout then
-						io.put_string ("Logged out%N")
-						log("{COLLECT_APPLICATION} >>> Logged out", log_information)
-						sleep(1000000000)
-					else
-						io.put_string ("Unable to logout, but session token expired, don't worry%N")
-						log("{COLLECT_APPLICATION} >>> Unable to logout", log_notice)
-						io.put_string ("retry logout%N")
+			log_display ("is logged in    : " + is_logged_in.out, log_debug, true, true)
+			log_display ("token id        : " + token.id, log_debug, true, true)
+			log_display ("token expiry    : " + token.expiry.formatted_out (default_date_time_format), log_debug, true, true)
+			log_display ("current time    : " + l_current_time.formatted_out (default_date_time_format), log_debug, true, true)
+			log_display ("is token expired: " + is_token_expired.out, log_debug, true, true)
 
-						from i := 1
-						until do_logout or i = 10
-						loop
-							io.put_string ("Logout Attempt " + i.out)
-							io.put_new_line
-							i := i + 1
-							io.put_string ("Wait one second and retry...%N")
-							sleep(1000000000)
-						end
-					end
-				end
-				if use_testing_ws then
-					sleep (5000000000)
+			if is_token_expired then
+				sleep (1000000000)
+				if not do_login then
+					log_display("Unable to login", log_error, true, true)
+					log_display ("Outcome   : " + login_response.outcome.out, log_information, true, true)
+					log_display ("Message   : " + login_response.message, log_information, true, true)
 				else
-					sleep (5000000000)
+					is_logged_in := true
+					log_display ("logged in with new token " +
+					             token.id +
+					             " expiring upon " +
+					             token.expiry.formatted_out (default_date_time_format),
+					             log_information, true, true)
 				end
-				if do_login then
-					io.put_string ("Logged in again%N")
-					io.put_string ("{COLLECT_APPLICATION} >>> logged in again with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format))
-					log("{COLLECT_APPLICATION} >>> logged in again with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format), log_information)
-				else
-					io.put_string ("NOT logged in%N")
-					io.put_string ("RETRY LOGIN ...%N")
-					from i := 1
-					until do_login or i = 10
-					loop
-						io.put_string ("Attempt " + i.out)
-						io.put_new_line
-						i := i + 1
-						io.put_string ("Wait one second and retry...%N")
-						sleep(1000000000)
-					end
-
-
-
---					die(0)
-				end
+				sleep (1000000000)
 			end
 
+--*************************************************************************************************
+--			if not check_login then
+--				if not do_logout then
+--					io.put_string ("Unable to logout")
+--					io.put_new_line
+--					io.put_string ("Outcome   : " + logout_response.outcome.out)
+--					io.put_new_line
+--					io.put_string ("Message   : " + logout_response.message)
+--					io.put_new_line
+--				end
+
+--				sleep (1000000000)
+
+--				if not do_login then
+--					io.put_string ("Unable to login")
+--					io.put_new_line
+--					io.put_string ("Outcome   : " + login_response.outcome.out)
+--					io.put_new_line
+--					io.put_string ("Message   : " + login_response.message)
+--					io.put_new_line
+--				end
+
+--				sleep (1000000000)
+
+--			end
+--*************************************************************************************************
+
+
+--*************************************************************************************************
+--			if not check_login then
+--				log("{COLLECT_APPLICATION} >>> ##### Changing token #####", log_notice)
+--				if is_logged_in then
+--					io.put_string ("Currently logged in, need to logout ...%N")
+--					if do_logout then
+--						io.put_string ("Logged out%N")
+--						log("{COLLECT_APPLICATION} >>> Logged out", log_information)
+--						is_logged_in := false
+--						sleep(1000000000)
+--					else
+--						io.put_string ("Unable to logout, but session token expired, don't worry%N")
+--						log("{COLLECT_APPLICATION} >>> Unable to logout", log_notice)
+--						io.put_string ("retry logout%N")
+
+--						from i := 1
+--						until do_logout or i = 5
+--						loop
+--							io.put_string ("Logout Attempt " + i.out)
+--							io.put_new_line
+--							i := i + 1
+--							io.put_string ("Wait one second and retry...%N")
+--							sleep(1000000000)
+--						end
+--					end
+--				end
+--				if use_testing_ws then
+--					sleep (5000000000)
+--				else
+--					sleep (5000000000)
+--				end
+--				if do_login then
+--					io.put_string ("Logged in again%N")
+--					io.put_string ("{COLLECT_APPLICATION} >>> logged in again with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format))
+--					log("{COLLECT_APPLICATION} >>> logged in again with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format), log_information)
+--				else
+--					io.put_string ("NOT logged in%N")
+--					io.put_string ("RETRY LOGIN ...%N")
+--					from i := 1
+--					until do_login or i = 5
+--					loop
+--						io.put_string ("Attempt " + i.out)
+--						io.put_new_line
+--						i := i + 1
+--						io.put_string ("Wait one second and retry...%N")
+--						sleep(1000000000)
+--					end
+--				end
+--			end
+--*************************************************************************************************
+
 			-- read json input
-			l_result := req.input.read_to_string (l_raw, 1, req.content_length_value.to_integer_32)
-			io.put_string ("{COLLECT_APPLICATION} <<< " + l_raw)
-			io.put_new_line
+			l_received_chars := req.input.read_to_string (l_request, 1, req.content_length_value.to_integer_32)
+			log_display ("Received " + l_received_chars.out + " chars", log_debug, true, true)
+			log_display(" <<< " + l_request, log_debug, true, false)
 			-- parse the message header
-			l_result := parse_header (l_raw)
-			io.put_string ("Received message id: " + l_result.out)
-			io.put_new_line
+			l_msg_id := parse_header (l_request)
+			log_display ("Received message id: " + l_msg_id.out, log_debug, true, true)
 
---			-- manage token --
---			l_raw.replace_substring_all (token_tag, token.id)
---			-- end manage token
-
-			io.put_string ("{COLLECT_APPLICATION} <<< " + l_raw)
-			io.put_new_line
-
-
-			if l_result = {REQUEST_I}.login_request_id then
-				l_req := create {LOGIN_REQUEST}.make
-				if attached l_req as myreq then
-					myreq.from_json (l_raw)
-					l_res := do_post (myreq)
-					if attached l_res as myres then
-						l_val := myres.to_json
+			if l_msg_id = {REQUEST_I}.login_request_id then
+				l_req_obj := create {LOGIN_REQUEST}.make
+				if attached l_req_obj as myreq then
+					myreq.from_json (l_request)
+					l_res_obj := do_post (myreq)
+					if attached l_res_obj as myres then
+						l_response := myres.to_json
 					end
 				end
-			elseif l_result = {REQUEST_I}.logout_request_id then
-				l_req := create {LOGOUT_REQUEST}.make
-				if attached l_req as myreq then
-					myreq.from_json (l_raw)
-					l_res := do_post (myreq)
-					if attached l_res as myres then
-						l_val := myres.to_json
+			elseif l_msg_id = {REQUEST_I}.logout_request_id then
+				l_req_obj := create {LOGOUT_REQUEST}.make
+				if attached l_req_obj as myreq then
+					myreq.from_json (l_request)
+					l_res_obj := do_post (myreq)
+					if attached l_res_obj as myres then
+						l_response := myres.to_json
 					end
 				end
-			elseif l_result = {REQUEST_I}.station_status_list_request_id then
-				l_req := create {STATION_STATUS_LIST_REQUEST}.make
-				if attached l_req as myreq then
-					myreq.from_json (l_raw)
+			elseif l_msg_id = {REQUEST_I}.station_status_list_request_id then
+				l_req_obj := create {STATION_STATUS_LIST_REQUEST}.make
+				if attached l_req_obj as myreq then
+					myreq.from_json (l_request)
 					myreq.set_token_id (token.id)
-					l_res := do_post (myreq)
-					if attached l_res as myres then
-						l_val := myres.to_json
+					l_res_obj := do_post (myreq)
+					if attached l_res_obj as myres then
+						l_response := myres.to_json
 					end
 				end
-			elseif l_result = {REQUEST_I}.station_types_list_request_id then
-				l_req := create {STATION_TYPES_LIST_REQUEST}.make
-				if attached l_req as myreq then
-					myreq.from_json (l_raw)
+			elseif l_msg_id = {REQUEST_I}.station_types_list_request_id then
+				l_req_obj := create {STATION_TYPES_LIST_REQUEST}.make
+				if attached l_req_obj as myreq then
+					myreq.from_json (l_request)
 					myreq.set_token_id (token.id)
-					l_res := do_post (myreq)
-					if attached l_res as myres then
-						l_val := myres.to_json
+					l_res_obj := do_post (myreq)
+					if attached l_res_obj as myres then
+						l_response := myres.to_json
 					end
 				end
-			elseif l_result = {REQUEST_I}.province_list_request_id then
-				l_req := create {PROVINCE_LIST_REQUEST}.make
-				if attached l_req as myreq then
-					myreq.from_json (l_raw)
+			elseif l_msg_id = {REQUEST_I}.province_list_request_id then
+				l_req_obj := create {PROVINCE_LIST_REQUEST}.make
+				if attached l_req_obj as myreq then
+					myreq.from_json (l_request)
 					myreq.set_token_id (token.id)
-					l_res := do_post (myreq)
-					if attached l_res as myres then
-						l_val := myres.to_json
+					l_res_obj := do_post (myreq)
+					if attached l_res_obj as myres then
+						l_response := myres.to_json
 					end
 				end
-			elseif l_result = {REQUEST_I}.municipality_list_request_id then
-				l_req := create {MUNICIPALITY_LIST_REQUEST}.make
-				if attached l_req as myreq then
-					myreq.from_json (l_raw)
+			elseif l_msg_id = {REQUEST_I}.municipality_list_request_id then
+				l_req_obj := create {MUNICIPALITY_LIST_REQUEST}.make
+				if attached l_req_obj as myreq then
+					myreq.from_json (l_request)
 					myreq.set_token_id (token.id)
-					l_res := do_post (myreq)
-					if attached l_res as myres then
-						l_val := myres.to_json
+					l_res_obj := do_post (myreq)
+					if attached l_res_obj as myres then
+						l_response := myres.to_json
 					end
 				end
-			elseif l_result = {REQUEST_I}.station_list_request_id then
-				l_req := create {STATION_LIST_REQUEST}.make
-				if attached l_req as myreq then
-					myreq.from_json (l_raw)
+			elseif l_msg_id = {REQUEST_I}.station_list_request_id then
+				l_req_obj := create {STATION_LIST_REQUEST}.make
+				if attached l_req_obj as myreq then
+					myreq.from_json (l_request)
 					myreq.set_token_id (token.id)
-					l_res := do_post (myreq)
-					if attached l_res as myres then
-						l_val := myres.to_json
-						log ("**********%N" + l_val + "%N**********%N", log_debug)
+					l_res_obj := do_post (myreq)
+					if attached l_res_obj as myres then
+						l_response := myres.to_json
+						--log ("**********%N" + l_response + "%N**********%N", log_debug)
 					end
 				end
-			elseif l_result = {REQUEST_I}.sensor_type_list_request_id then
-				l_req := create {SENSOR_TYPE_LIST_REQUEST}.make
-				if attached l_req as myreq then
-					myreq.from_json (l_raw)
+			elseif l_msg_id = {REQUEST_I}.sensor_type_list_request_id then
+				l_req_obj := create {SENSOR_TYPE_LIST_REQUEST}.make
+				if attached l_req_obj as myreq then
+					myreq.from_json (l_request)
 					myreq.set_token_id (token.id)
-					l_res := do_post (myreq)
-					if attached l_res as myres then
-						l_val := myres.to_json
+					l_res_obj := do_post (myreq)
+					if attached l_res_obj as myres then
+						l_response := myres.to_json
 					end
 				end
-			elseif l_result = {REQUEST_I}.realtime_data_request_id then
-				l_req := create {REALTIME_DATA_REQUEST}.make
-				if attached l_req as myreq then
-					myreq.from_json (l_raw)
+			elseif l_msg_id = {REQUEST_I}.realtime_data_request_id then
+				l_req_obj := create {REALTIME_DATA_REQUEST}.make
+				if attached l_req_obj as myreq then
+					myreq.from_json (l_request)
 					myreq.set_token_id (token.id)
-					l_res := do_post (myreq)
-					if attached l_res as myres then
-						l_val := myres.to_json
+					l_res_obj := do_post (myreq)
+					if attached l_res_obj as myres then
+						l_response := myres.to_json
 					end
 				end
 			else
-				l_val := internal_error.to_json
+				l_response := internal_error.to_json
 			end
 
-			res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/json"], ["Content-Length", l_val.count.out]>>)
-			res.put_string (l_val)
-			io.put_string ("{COLLECT_APPLICATION} >>> " + l_val)
+			res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/json"], ["Content-Length", l_response.count.out]>>)
+			res.put_string (l_response)
+			log_display (" >>> " + l_response, log_information, true, false)
 			io.put_new_line
 		end
 
@@ -480,13 +546,11 @@ feature {NONE} -- Network IO
 				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
 				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_forbid_reuse,  1)
 				xml := a_request.to_xml
-				log ("{COLLECT_APPLICATION} >>> " + xml, log_debug)
-				io.put_string ("{COLLECT_APPLICATION} >>> " + xml)
-				io.put_new_line
+				log_display(" >>> " + xml, log_debug, true, false)
 				a_curl_easy.setopt_slist   (Result, {CURL_OPT_CONSTANTS}.curlopt_httpheader,    a_request.generate_http_headers (a_curl))
 				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
 				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, xml.count)
-				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_verbose,       1)
+				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_verbose,       0)
 				a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "Eiffel curl testclient")
 				a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_postfields,    xml)
 				--a_curl_easy.set_curl_function (curl_function)
@@ -540,9 +604,7 @@ feature {NONE} -- Network IO
 			create l_xml_str.make_empty
 			Result := a_request.init_response
 			l_xml_str := post (a_request)
-			log ("Got: " + l_xml_str, log_debug)
-			io.put_string ("Got: " + l_xml_str)
-			io.put_new_line
+			log_display(" <<< " + l_xml_str, log_debug, true, false)
 
 			if error_code /= 0 then
 				Result.set_outcome (error_code)
@@ -612,6 +674,19 @@ feature {NONE} -- Login management
 		end
 
 
+	is_token_expired: BOOLEAN
+			-- Tells if `token' is expired
+		local
+			l_current_dt: DATE_TIME
+			l_interval:   DATE_TIME_DURATION
+		do
+			create l_current_dt.make_now
+			--create l_interval.make_definite (0, 0, 0, 10)
+
+			Result := l_current_dt > token.expiry
+		end
+
+
 
 	check_login: BOOLEAN
 			-- Check if is system logged in using the current token `expiry'
@@ -624,7 +699,6 @@ feature {NONE} -- Login management
 
 			l_offset := check_day_light_time_saving (l_current_dt)
 
-			--create l_interval.make_definite  (0, 0, 30, 0)
 			if use_testing_ws then
 				create l_interval.make_definite  (0, 0, -28, 0)
 			else
@@ -632,7 +706,6 @@ feature {NONE} -- Login management
 			end
 
 			if attached token then
-				--if l_current_dt + l_offset >= token.expiry + l_interval then
 				if l_current_dt + l_offset >= token.expiry + l_interval then
 				    Result := False
 			    else
@@ -654,14 +727,11 @@ feature {NONE} -- Login management
 				login_request.set_password (l_password)
 
 				l_xml_str := post (login_request)
-				io.put_string ("do_login response: " + l_xml_str)
-				io.put_new_line
-				--create l_res.make
-				--l_res.from_xml (l_xml_str)
+				log_display("do_login_response: " + l_xml_str, log_debug, true, false)
 				login_response.from_xml (l_xml_str)
 
---				token.id.copy (l_res.token.id)
---				token.expiry.copy (l_res.token.expiry)
+				log_display("login outcome: " + login_response.outcome.out, log_debug, true, true)
+				log_display("login message: " + login_response.message,     log_debug, true, true)
 
 				if login_response.outcome = success then
 					token.id.copy (login_response.token.id)
@@ -674,17 +744,6 @@ feature {NONE} -- Login management
 				else
 					is_logged_in := false
 				end
-
---				token.id.copy (login_response.token.id)
---				token.expiry.copy (login_response.token.expiry)
-
-
-
---				if token.id.count > 0 then
---					is_logged_in := True
---				else
---					is_logged_in := False
---				end
 			else
 				is_logged_in := False
 			end
@@ -702,14 +761,13 @@ feature {NONE} -- Login management
 				logout_request.token_id.copy (token.id)
 
 				l_xml_str := post (logout_request)
-				io.put_string ("{COLLECT_APPLICATION} do logout response <<<  " + l_xml_str)
-				io.put_new_line
-				--create l_res.make
-				--l_res.from_xml (l_xml_str)
+				log_display("do_logout response " + l_xml_str, log_debug, true, false)
+
+				log_display("login outcome: " + logout_response.outcome.out, log_debug, true, true)
+				log_display("login message: " + logout_response.message,     log_debug, true, true)
 
 				logout_response.from_xml (l_xml_str)
 
-				--Result := l_res.outcome = success
 				Result := logout_response.outcome = success
 			else
 				Result := false

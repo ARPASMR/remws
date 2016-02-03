@@ -32,6 +32,17 @@ feature {NONE} -- Initialization
 			r:STRING
 			i,j,k:INTEGER
 			rt_res: REALTIME_DATA_RESPONSE
+
+			l_sensor: INTEGER
+			l_start:  DATE_TIME
+			l_finish: DATE_TIME
+			one_week: DATE_TIME_DURATION
+
+			l_line:   STRING
+			l_tokens: LIST[STRING]
+
+			fd:       FORMAT_DOUBLE
+
 		do
 			io.put_string ("cURL test client")
 			io.put_new_line
@@ -40,6 +51,12 @@ feature {NONE} -- Initialization
 
 			create r.make_empty
 			create rt_res.make
+			create l_line.make_empty
+
+
+
+
+
 
 			--rt_res.from_xml (xml1)
 
@@ -115,6 +132,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
+				sleep(1000000000)
 
 				-- Now try a station types list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for station types list")
@@ -137,6 +155,8 @@ feature {NONE} -- Initialization
 					end
 				end
 
+				sleep(1000000000)
+
 				-- Now try a province list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for provinces list")
 				io.put_new_line
@@ -157,6 +177,8 @@ feature {NONE} -- Initialization
 						j := j + 1
 					end
 				end
+
+				sleep(1000000000)
 
 				-- Now try a municipality list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for municipalities list")
@@ -186,6 +208,8 @@ feature {NONE} -- Initialization
 					end
 				end
 
+				sleep(1000000000)
+
 				-- Now try a sensor type list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for sensor types list")
 				io.put_new_line
@@ -206,6 +230,8 @@ feature {NONE} -- Initialization
 						j := j + 1
 					end
 				end
+
+				sleep(1000000000)
 
 				-- Now try a station list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for stations list")
@@ -236,6 +262,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
+				sleep(1000000000)
 
 				-- Now try a realtime data request
 				io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
@@ -272,6 +299,8 @@ feature {NONE} -- Initialization
 					end
 				end
 
+				sleep(1000000000)
+
 				-- Now try a realtime data request for one data
 				io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
 				io.put_new_line
@@ -307,6 +336,68 @@ feature {NONE} -- Initialization
 					end
 				end
 
+				sleep (1000000000)
+
+				-- Now try a realtime data request for one nmarzi sensor
+				io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data nmarzi")
+				io.put_new_line
+
+				l_sensor := 14313;
+				create l_finish.make_now
+				create l_start.make_now
+				create one_week.make (0, 0, -7, 0, 0, 0)
+				create fd.make (6, 1)
+				fd.right_justify
+
+				l_start := l_finish + one_week
+				realtime_data_request_nmarzi.replace_substring_all ("$sensor", l_sensor.out)
+				realtime_data_request_nmarzi.replace_substring_all ("$start",  l_start.formatted_out (default_date_time_format))
+				realtime_data_request_nmarzi.replace_substring_all ("$finish", l_finish.formatted_out (default_date_time_format))
+
+				r.copy (realtime_data_request_nmarzi)
+				io.put_string ("{CURL_TEST_CLIENT} >>> " + realtime_data_request_nmarzi)
+				io.put_new_line
+
+				response := post (r)
+
+				io.put_string ("{CURL_TEST_CLIENT} <<< " + response)
+				io.put_new_line
+
+
+				if attached response as res then
+					realtime_data_res.sensor_data_list.wipe_out
+					realtime_data_res.from_json (res)
+					io.put_string ("{CURL_TEST_CLIENT} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
+					io.put_new_line
+					from j := 1
+					until j = realtime_data_res.sensor_data_list.count + 1
+					loop
+						io.put_string (realtime_data_res.sensor_data_list.i_th (j).out)
+						io.put_new_line
+						from k := 1
+						until k = realtime_data_res.sensor_data_list.i_th (j).data.count + 1
+						loop
+							l_line := realtime_data_res.sensor_data_list.i_th (j).data.i_th (k).out
+							l_tokens := l_line.split (';')
+
+							k := k + 1
+
+	--						from i := 1
+	--						until i > l_tokens.count
+	--						loop
+	--							io.put_string (i.out + " " + l_tokens.i_th (i))
+	--							io.put_new_line
+	--							i := i + 1
+	--						end
+
+							io.put_string (l_sensor.out + "%T" + l_tokens.i_th (1) + ".000%T" +
+							                fd.formatted (l_tokens.i_th (2).to_double))
+							io.put_new_line
+
+						end
+						j := j + 1
+					end
+				end
 
 
 
@@ -744,6 +835,25 @@ feature -- msg data
                               "granularity": 1,
                               "start": "2015-11-21 06:30:00",
                               "finish": "2015-11-21 14:30:00"
+                            } ]
+                }
+		}
+	]"
+
+
+	realtime_data_request_nmarzi: STRING = "[
+		{
+          "header": {
+          "id": 10
+        },
+        "data": {
+          "sensors_list": [ {
+                              "sensor_id": $sensor,
+                              "function_id": 1,
+                              "operator_id": 1,
+                              "granularity": 1,
+                              "start": "$start",
+                              "finish": "$finish"
                             } ]
                 }
 		}
