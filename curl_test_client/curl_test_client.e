@@ -132,7 +132,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
-				sleep(1000000000)
+				--sleep(1000000000)
 
 				-- Now try a station types list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for station types list")
@@ -155,7 +155,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
-				sleep(1000000000)
+				--sleep(1000000000)
 
 				-- Now try a province list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for provinces list")
@@ -178,7 +178,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
-				sleep(1000000000)
+				--sleep(1000000000)
 
 				-- Now try a municipality list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for municipalities list")
@@ -208,7 +208,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
-				sleep(1000000000)
+				--sleep(1000000000)
 
 				-- Now try a sensor type list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for sensor types list")
@@ -231,7 +231,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
-				sleep(1000000000)
+				--sleep(1000000000)
 
 				-- Now try a station list request
 				io.put_string ("{CURL_TEST_CLIENT} Ask for stations list")
@@ -262,7 +262,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
-				sleep(1000000000)
+				--sleep(1000000000)
 
 				-- Now try a realtime data request
 				io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
@@ -299,7 +299,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
-				sleep(1000000000)
+				--sleep(1000000000)
 
 				-- Now try a realtime data request for one data
 				io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data")
@@ -336,7 +336,7 @@ feature {NONE} -- Initialization
 					end
 				end
 
-				sleep (1000000000)
+				--sleep (1000000000)
 
 				-- Now try a realtime data request for one nmarzi sensor
 				io.put_string ("{CURL_TEST_CLIENT} Asks for realtime data nmarzi")

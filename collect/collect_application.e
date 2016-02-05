@@ -99,6 +99,13 @@ feature {NONE} -- Initialization
 				use_testing_ws := false
 			end
 
+			idx := index_of_word_option ("u")
+			if idx > 0 then
+				is_utc_set := true
+			else
+				is_utc_set := false
+			end
+
 			-- must check if `COLLECT_APPLICATION' is logged in remws
 			if not is_logged_in then
 				-- do login
@@ -127,6 +134,7 @@ feature -- Usage
 			print ("%T<port_number> is the network port on which collect will accept connections%N")
 			print ("%T<log_level>   is the logging level that will be used%N")
 			print ("%T-t            uses the testing web service%N")
+			print ("%T-u            the box running collect is in UTC%N")
 			print ("%TThe available logging levels are:%N")
 			print ("%T%T " + log_debug.out       + " --> debug-level messages%N")
 			print ("%T%T " + log_information.out + " --> informational%N")
@@ -301,6 +309,7 @@ feature -- Basic operations
 	    	l_received_chars: INTEGER
 	    	l_msg_id:         INTEGER
 	    	l_current_time:   DATE_TIME
+	    	l_offset:         DATE_TIME_DURATION
 
 	    	l_req_obj:        REQUEST_I
 	    	l_res_obj:        RESPONSE_I
@@ -310,6 +319,11 @@ feature -- Basic operations
 			create l_request.make (req.content_length_value.to_integer_32)
 			create l_response.make_empty
 			create l_current_time.make_now
+
+			if is_utc_set then
+				l_offset       := check_day_light_time_saving (l_current_time)
+				l_current_time := l_current_time + l_offset
+			end
 
 			log_display ("is logged in    : " + is_logged_in.out, log_debug, true, true)
 			log_display ("token id        : " + token.id, log_debug, true, true)
@@ -447,6 +461,9 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
+						log_display("Sent message id:  " + myres.id.out + " Station status list", log_information, true, true)
+						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
+						log_display("Message message: " + myres.message, log_information, true, true)
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.station_types_list_request_id then
@@ -457,6 +474,9 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
+						log_display("Sent message id:  " + myres.id.out + " Station types list", log_information, true, true)
+						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
+						log_display("Message message: " + myres.message, log_information, true, true)
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.province_list_request_id then
@@ -467,6 +487,9 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
+						log_display("Sent message id:  " + myres.id.out + " Province list", log_information, true, true)
+						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
+						log_display("Message message: " + myres.message, log_information, true, true)
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.municipality_list_request_id then
@@ -477,6 +500,9 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
+						log_display("Sent message id:  " + myres.id.out + " Municipality list", log_information, true, true)
+						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
+						log_display("Message message: " + myres.message, log_information, true, true)
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.station_list_request_id then
@@ -488,6 +514,9 @@ feature -- Basic operations
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
 						--log ("**********%N" + l_response + "%N**********%N", log_debug)
+						log_display("Sent message id:  " + myres.id.out + " Station list", log_information, true, true)
+						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
+						log_display("Message message: " + myres.message, log_information, true, true)
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.sensor_type_list_request_id then
@@ -498,6 +527,9 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
+						log_display("Sent message id:  " + myres.id.out + " Sensor types list", log_information, true, true)
+						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
+						log_display("Message message: " + myres.message, log_information, true, true)
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.realtime_data_request_id then
@@ -508,6 +540,9 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
+						log_display("Sent message id:  " + myres.id.out + " Realtime data", log_information, true, true)
+						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
+						log_display("Message message: " + myres.message, log_information, true, true)
 					end
 				end
 			else
@@ -678,12 +713,18 @@ feature {NONE} -- Login management
 			-- Tells if `token' is expired
 		local
 			l_current_dt: DATE_TIME
-			l_interval:   DATE_TIME_DURATION
+			l_offset:   DATE_TIME_DURATION
 		do
 			create l_current_dt.make_now
 			--create l_interval.make_definite (0, 0, 0, 10)
 
-			Result := l_current_dt > token.expiry
+			l_offset := check_day_light_time_saving (l_current_dt)
+
+			if is_utc_set then
+				Result := l_current_dt + l_offset > token.expiry
+			else
+				Result := l_current_dt > token.expiry
+			end
 		end
 
 
@@ -803,8 +844,10 @@ feature -- Attributes
 
 	is_logged_in: BOOLEAN
 			-- is collect logged in remws?
+	is_utc_set:   BOOLEAN
+			-- is the running box in UTC?
 	token:        TOKEN
-
+			-- the current `TOKEN'
 	log_path:     PATH
 			-- log path
 	file_logger:  LOG_WRITER_FILE
