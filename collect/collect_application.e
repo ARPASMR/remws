@@ -110,7 +110,7 @@ feature {NONE} -- Initialization
 			if not is_logged_in then
 				-- do login
 				if not do_login then
-					log_display ("{FATAL error: unable to login", log_critical, true, true)
+					log_display ("FATAL error: unable to login", log_critical, true, true)
 					die(0)
 				else
 					is_logged_in := true
