@@ -29,4 +29,7 @@ feature -- Status setting
 	set_outcome (o: INTEGER) deferred end
 	set_message (m: STRING)  deferred end
 
+	reset deferred end
+
+
 end

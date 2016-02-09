@@ -87,6 +87,12 @@ feature -- Status setting
 		ensure
 			logger_not_void: logger /= Void
 		end
+	reset
+			-- reset contents
+		do
+			outcome := 0
+			message := ""
+		end
 
 feature -- Status report
 

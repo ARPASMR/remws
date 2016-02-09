@@ -333,6 +333,7 @@ feature -- Basic operations
 
 			if is_token_expired then
 				sleep (1000000000)
+				login_response.reset
 				if not do_login then
 					log_display("Unable to login", log_error, true, true)
 					log_display ("Outcome   : " + login_response.outcome.out, log_information, true, true)
@@ -461,7 +462,7 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
-						log_display("Sent message id:  " + myres.id.out + " Station status list", log_information, true, true)
+						log_display("Sent message id: " + myres.id.out + " Station status list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
 					end
@@ -474,7 +475,7 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
-						log_display("Sent message id:  " + myres.id.out + " Station types list", log_information, true, true)
+						log_display("Sent message id: " + myres.id.out + " Station types list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
 					end
@@ -487,7 +488,7 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
-						log_display("Sent message id:  " + myres.id.out + " Province list", log_information, true, true)
+						log_display("Sent message id: " + myres.id.out + " Province list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
 					end
@@ -500,7 +501,7 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
-						log_display("Sent message id:  " + myres.id.out + " Municipality list", log_information, true, true)
+						log_display("Sent message id: " + myres.id.out + " Municipality list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
 					end
@@ -514,7 +515,7 @@ feature -- Basic operations
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
 						--log ("**********%N" + l_response + "%N**********%N", log_debug)
-						log_display("Sent message id:  " + myres.id.out + " Station list", log_information, true, true)
+						log_display("Sent message id: " + myres.id.out + " Station list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
 					end
@@ -527,7 +528,7 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
-						log_display("Sent message id:  " + myres.id.out + " Sensor types list", log_information, true, true)
+						log_display("Sent message id: " + myres.id.out + " Sensor types list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
 					end
@@ -540,7 +541,7 @@ feature -- Basic operations
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
-						log_display("Sent message id:  " + myres.id.out + " Realtime data", log_information, true, true)
+						log_display("Sent message id: " + myres.id.out + " Realtime data", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
 					end

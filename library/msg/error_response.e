@@ -59,6 +59,11 @@ feature -- Status setting
 			logger_not_void: logger /= Void
 		end
 
+	reset
+			-- reset contents
+		do
+		end
+
 feature -- Status report
 
 	is_error_response: BOOLEAN

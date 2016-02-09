@@ -108,7 +108,7 @@ feature {NONE} -- Initialization
 
 
 			from i := 0
-			until i > 1000
+			until i > 10000
 			loop
 				-- Now try a station status list request
 				io.put_string ("{CURL_TEST_CLIENT} Asks for station status list")
