@@ -35,6 +35,7 @@ inherit
 	ERROR_CODES
 	DEFAULTS
 	LOGGING_I
+	MEMORY
 
 feature -- Access
 

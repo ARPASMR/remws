@@ -322,6 +322,7 @@ feature -- Basic operations
 
 			if is_utc_set then
 				l_offset       := check_day_light_time_saving (l_current_time)
+				log_display ("time_offset     : " + l_offset.second.out, log_debug, true, true);
 				l_current_time := l_current_time + l_offset
 			end
 
@@ -538,6 +539,7 @@ feature -- Basic operations
 				if attached l_req_obj as myreq then
 					myreq.from_json (l_request)
 					myreq.set_token_id (token.id)
+					
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
@@ -664,6 +666,15 @@ feature {NONE} -- Login management
 			-- The login response
 	logout_response: LOGOUT_RESPONSE
 
+	last_token_file_path: STRING
+			-- last token file name full path
+		once
+			create Result.make_empty
+			if attached home_directory_path as l_home then
+				Result := l_home.out + "/.collect/last_token"
+			end
+		end
+
 	check_day_light_time_saving (dt: DATE_TIME) : DATE_TIME_DURATION
 			-- Check for day light time savin on `dt'
 		local
@@ -675,7 +686,6 @@ feature {NONE} -- Login management
 			l_one_hour:    DATE_TIME_DURATION
 			l_two_hours:   DATE_TIME_DURATION
 		do
-
 			create l_one_hour.make (0, 0, 0, 1, 0, 0)
 			create l_two_hours.make (0, 0, 0, 2, 0, 0)
 
@@ -691,19 +701,23 @@ feature {NONE} -- Login management
 			if l_month < 3 or l_month > 10 then
 				-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
 				Result := l_one_hour
-			elseif l_month > 3 or l_month < 10 then
+			elseif l_month > 3 and l_month < 10 then
 				-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
 				Result := l_two_hours
 			else
 				l_prev_sunday := dt.day - l_dow
 				if l_month = 3 then
 					if l_prev_sunday >= 25 then
+						Result := l_two_hours
+					else
 						Result := l_one_hour
 					end
 				end
 				if l_month = 10 then
 					if l_prev_sunday < 25 then
 						Result := l_two_hours
+					else
+						Result := l_one_hour
 					end
 				end
 			end
@@ -763,6 +777,7 @@ feature {NONE} -- Login management
 		local
 			l_xml_str: STRING
 			--l_res:     LOGIN_RESPONSE
+			last_token_file: PLAIN_TEXT_FILE
 		do
 			if attached username as l_username and attached password as l_password then
 				login_request.set_username (l_username)
@@ -780,6 +795,13 @@ feature {NONE} -- Login management
 					token.expiry.copy (login_response.token.expiry)
 					if token.id.count > 0 then
 						is_logged_in := true
+						-- save token to text file
+						create last_token_file.make_create_read_write (last_token_file_path)
+						last_token_file.put_string (token.id)
+						last_token_file.put_new_line
+						last_token_file.put_string (token.expiry.formatted_out (default_date_time_format))
+						last_token_file.put_new_line
+						last_token_file.close
 					else
 						is_logged_in := false
 					end

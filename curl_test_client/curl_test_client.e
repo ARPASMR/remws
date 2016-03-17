@@ -12,6 +12,7 @@ class
 	CURL_TEST_CLIENT
 
 inherit
+	MEMORY
 	ARGUMENTS
 	DEFAULTS
 	EXCEPTIONS
@@ -53,6 +54,19 @@ feature {NONE} -- Initialization
 			create rt_res.make
 			create l_line.make_empty
 
+
+			-- GC
+			collection_on
+			io.put_string ("memory threshold: " + memory_threshold.out)
+			io.put_new_line
+			io.put_string ("collection period: " + collection_period.out)
+			io.put_new_line
+			io.put_string ("coalesce period: " + coalesce_period.out)
+			io.put_new_line
+			io.put_string ("collecting: " + collecting.out)
+			io.put_new_line
+			io.put_string ("max mem: " + max_mem.out)
+			io.put_new_line
 
 
 
