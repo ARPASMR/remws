@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+
+<!--
+description:
+
+"Installation"
+
+copyright: "Copyright (c) 2004-2005, Andreas Leitner and others"
+license: "Eiffel Forum License v2 (see forum.txt)"
+date: "$Date$"
+revision: "$Revision$"
+
+-->
+
+<chapter xmlns="http://www.gobosoft.com/eiffel/gobo/documentation" id="ewg/installation">
+  <chapterinfo>
+    <copyright>
+      <year>2004-2005</year>
+      <holder>Andreas Leitner</holder>
+    </copyright>
+    <author>
+      <firstname>Andreas</firstname><surname>Leitner</surname>
+    </author>
+    <email>aleitner@raboof.at</email>
+    <date>8 March 2005</date>
+  </chapterinfo>
+
+  <title>Installation</title>
+
+  <section>
+    <title>Getting EWG</title>
+    <itemizedlist>
+      <listitem>
+	 <para>
+	   Stable Versions -- 
+	   <ulink url="http://sourceforge.net/project/showfiles.php?group_id=71069">
+	   http://sourceforge.net/project/showfiles.php?group_id=71069</ulink>
+	 </para>
+      </listitem>
+      <listitem>
+	 <para>
+	   CVS -- 
+	   <ulink url="http://sourceforge.net/cvs/?group_id=71069">
+	     http://sourceforge.net/cvs/?group_id=71069
+	   </ulink>
+	 </para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      
+    </para>
+  </section>
+
+  <section>
+    <title>Setting EWG Up</title>
+    <para>
+      The following describes actions that should be taken to properly setup
+      EWG.
+    </para>
+    <note>
+      <para>
+	 In the following I am using the Unix notation for environment variables <literal>${FOOBAR}</literal>,
+	 even when talking about windows (where the notation is <literal>%FOOBAR%</literal>).
+      </para>
+    </note>      
+
+    <itemizedlist>
+      <listitem>
+	 <para>
+	   Set the environment variable <literal>${EWG}</literal> to the directory where you
+	   unpacked the EWG tar ball to or where you retrieved the CVS version to
+	 </para>
+      </listitem>
+      <listitem>
+	 <para>
+	   Put <literal>${EWG}/bin</literal> into your ${PATH} environment variable
+	 </para>
+      </listitem>
+      <listitem>
+	 <para>
+	   Set <literal>${GOBO_EIFFEL}</literal> to a supported Eiffel compiler.
+	   This compiler will then be used to generate wrappers for. The following is a list
+	   of supported values:
+	   <itemizedlist>
+	     <listitem><para>se</para></listitem>
+	     <listitem><para>ise</para></listitem>
+	   </itemizedlist>
+	 </para>
+      </listitem>
+      <listitem>
+	 <para>
+	   Set <literal>${GOBO_CC}</literal> to a supported C compiler.
+	   If your Eiffel compiler uses a C compiler as a backend, this option needs to be set
+	   to the C compiler you use as backend.
+	   The following is a list of supported values:
+	   <itemizedlist>
+	     <listitem><para>gcc ... Gnu Compiler Collection</para></listitem>
+	     <listitem><para>msc ... Visual C++</para></listitem>
+	     <listitem><para>bcb ... Borland C++</para></listitem>
+	     <listitem><para>lcc ... lcc-win32</para></listitem>
+	   </itemizedlist>
+	 </para>
+	 <para>
+	   Please note that only gcc and msc are officially supported.
+	   Lcc and bcb have some known problems, but you are welcome to help me fix them (;
+	 </para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+      The following example shows a possible setup for windows:
+    </para>
+    <informalexample>
+      <programlisting>
+	 set EWG=C:\ewg
+	 set PATH=%PATH%;%EWG%\bin
+	 set GOBO_EIFFEL=se
+	 set GOBO_CC=msc
+      </programlisting>
+    </informalexample>
+
+    <para>
+      The following example shows a possible setup for linux:
+    </para>
+    <informalexample>
+      <programlisting>
+	 export EWG=/home/aleitner/ewg
+	 export PATH=$PATH:$EWG\bin
+	 export GOBO_EIFFEL=ise
+	 export GOBO_CC=gcc
+      </programlisting>
+    </informalexample>
+
+    <note><para>
+      You have to make sure that whatever Eiffel compiler or C
+      compiler gets used can be located via the
+      <literal>PATH</literal> environment variable. For
+      <literal>Visual C</literal>, there is usually a special
+      command line window you can open, that automatically has
+      everything necessary set. <literal>ISE Eiffel</literal> and
+      <literal>SmartEiffel</literal> have to be added to
+      <literal>PATH</literal> by hand. <literal>GCC</literal> can (at
+      least on Unix like systems) usually be located via
+      <literal>PATH</literal> by default. If in doubt consult the
+      corresponding tool documentation. 
+    </para></note>
+
+  </section>
+
+</chapter>
+

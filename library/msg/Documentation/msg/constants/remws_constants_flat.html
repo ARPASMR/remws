@@ -3,6 +3,8 @@
 <META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
 <meta name="description" content="Summary description for {REMWS_CONSTANTS}."/>
 <meta name="author" content=""/>
+<meta name="date" content="$Date$"/>
+<meta name="revision" content="$Revision$"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <TITLE>remws_constants Flat</TITLE>
@@ -338,6 +340,12 @@
 	<A NAME="f_anaws_service_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_anaws_service_url">Anaws_service_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;Anagrafica.svc&quot;
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> anagraphic service url</SPAN>
 
+	<A NAME="f_anaws_test_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_anaws_test_url">Anaws_test_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> anagraphic testing ws url</SPAN>
+		<SPAN CLASS="ekeyword">once</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_remws_test_url">Remws_test_url</A> <SPAN CLASS="esymbol">+</SPAN> &quot;/&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_anaws_service_url">Anaws_service_url</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
 	<A NAME="f_anaws_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_anaws_url">Anaws_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> anagraphic ws url</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
@@ -349,6 +357,12 @@
 
 	<A NAME="f_authws_service_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_authws_service_url">Authws_service_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;Autenticazione.svc&quot;
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> authentication service url</SPAN>
+
+	<A NAME="f_authws_test_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_authws_test_url">Authws_test_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> authentication testing ws url</SPAN>
+		<SPAN CLASS="ekeyword">once</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_remws_test_url">Remws_test_url</A> <SPAN CLASS="esymbol">+</SPAN> &quot;/&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_authws_service_url">Authws_service_url</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_authws_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_authws_url">Authws_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> authentication ws url</SPAN>
@@ -362,6 +376,12 @@
 	<A NAME="f_dataws_service_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_dataws_service_url">Dataws_service_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;Dati.svc&quot;
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> data service url</SPAN>
 
+	<A NAME="f_dataws_test_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_dataws_test_url">Dataws_test_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> data testing ws url</SPAN>
+		<SPAN CLASS="ekeyword">once</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_remws_test_url">Remws_test_url</A> <SPAN CLASS="esymbol">+</SPAN> &quot;/&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_dataws_service_url">Dataws_service_url</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
 	<A NAME="f_dataws_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_dataws_url">Dataws_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> data ws url</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
@@ -371,10 +391,14 @@
 	<A NAME="f_remws_port"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_remws_port">Remws_port</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">80</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> remws listening port</SPAN>
 
+	<A NAME="f_remws_test_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_remws_test_url">Remws_test_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;http://remwstest.arpa.local&quot;
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> remwstest URL</SPAN>
+
 	<A NAME="f_remws_uri"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_remws_uri">Remws_uri</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;http://tempuri.org&quot;
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> remws URI</SPAN>
 
 	<A NAME="f_remws_url"></A><A CLASS="efeature" HREF="../../msg/constants/remws_constants_flat.html#f_remws_url">Remws_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;http://remws.arpa.local&quot;
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> remws URL</SPAN>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Output</SPAN>
 

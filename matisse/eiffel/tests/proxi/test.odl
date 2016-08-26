@@ -1,0 +1,198 @@
+//                         -*-c++-*-
+//
+// Matisse-Eiffel Test Schema 
+// 
+//
+
+interface Super : persistent {
+  attribute String<64> identifier;
+
+  mt_entry_point_dictionary "IdentifierDictionary" 
+    entry_point_of identifier;
+};
+
+interface Attrs_Class : Super : persistent {
+  attribute Double att_double;
+  attribute Double Nullable att_double_null;
+
+  attribute List<Double> att_double_list;
+  attribute List<Double> Nullable att_double_list_null;
+
+  attribute Float att_float;
+  attribute Float Nullable att_float_null;
+
+  attribute List<Float> att_float_list;
+  attribute List<Float> Nullable att_float_list_null;
+
+  attribute Date att_date;
+  attribute Date Nullable att_date_null;
+
+  attribute List<Date> att_date_list;
+  attribute List<Date> Nullable att_date_list_null;
+
+  attribute Timestamp att_ts;
+  attribute Timestamp Nullable att_ts_null;
+
+  attribute List<Timestamp> att_ts_list;
+  attribute List<Timestamp> Nullable att_ts_list_null;
+
+  attribute Interval att_ti;
+  attribute Interval Nullable att_ti_null;
+
+  attribute List<Interval> att_ti_list;
+  attribute List<Interval> Nullable att_ti_list_null;
+
+  attribute Byte att_byte;
+  attribute Byte Nullable att_byte_null;
+
+  attribute List<Byte> att_bytes;
+  attribute List<Byte> Nullable att_bytes_null;
+
+  attribute Image att_image;
+  attribute Image Nullable att_image_null;
+
+  attribute Audio att_audio;
+  attribute Audio Nullable att_audio_null;
+
+  attribute Video att_video;
+  attribute Video Nullable att_video_null;
+
+  attribute Char att_char;
+  attribute Char Nullable att_char_null;
+
+  attribute Short att_short;
+  attribute Short Nullable att_short_null;
+
+  attribute List<Short> att_short_list;
+  attribute List<Short> Nullable att_short_list_null;
+
+  attribute Integer att_integer;
+  attribute Integer Nullable att_integer_null;
+
+  attribute List<Integer> att_int_list;
+  attribute List<Integer> Nullable att_int_list_null;
+
+  attribute Long att_long;
+  attribute Long Nullable att_long_null;
+
+  attribute List<Long> att_long_list;
+  attribute List<Long> Nullable att_long_list_null;
+
+  attribute Numeric att_numeric;
+  attribute Numeric Nullable att_numeric_null;
+
+  attribute List<Numeric> att_numeric_list;
+  attribute List<Numeric> Nullable att_numeric_list_null;
+
+  attribute Boolean att_boolean;
+  attribute Boolean Nullable att_boolean_null;
+
+  attribute List<Boolean> att_boolean_list;
+  attribute List<Boolean> Nullable att_boolean_list_null;
+
+  attribute String att_string;
+  attribute String Nullable att_string_null;
+
+  attribute List<String> att_string_list;
+  attribute List<String> Nullable att_string_list_null;
+
+  attribute Array<String> att_string_array;
+  attribute Array<String> Nullable att_string_array_null;
+
+  attribute String UTF8 att_string_utf8;
+  attribute String UTF8 Nullable att_string_utf8_null;
+
+  attribute String UTF16 att_string_utf16;
+  attribute String UTF16 Nullable att_string_utf16_null;
+
+  attribute List<String UTF8> att_string_list_utf8;
+  attribute List<String UTF8> Nullable att_string_list_utf8_null;
+
+  attribute List<String UTF16> att_string_list_utf16;
+  attribute List<String UTF16> Nullable att_string_list_utf16_null;
+
+  attribute Text att_text;
+  attribute Text Nullable att_text_null;
+
+  attribute Text UTF8 att_text_utf8;
+  attribute Text UTF8 Nullable att_text_utf8_null;
+
+  attribute Text UTF16 att_text_utf16;
+  attribute Text UTF16 Nullable att_text_utf16_null;
+
+  attribute Any Nullable att_any;
+};
+
+
+interface Numeric_Class : Super : persistent {
+  attribute Numeric Nullable att_Numeric1;
+  attribute Numeric(10,4) Nullable att_Numeric2;
+  attribute Numeric(19,8) att_Numeric3;
+  attribute List<Numeric> Nullable att_NumericList;
+};
+
+
+interface Index_Class : Super : persistent {
+  attribute Numeric(19,8) idxnum;
+  attribute Integer idxint;
+  attribute String  idxstr;
+
+  mt_index test_index1
+    unique_key TRUE
+    criteria {Index_Class::identifier MT_ASCEND};
+  /*mt_index test_index2
+    criteria {Index_Class::identifier MT_ASCEND},
+             {Index_Class::idxnum     MT_ASCEND}; */
+  mt_index test_index3
+    criteria {Index_Class::identifier MT_ASCEND},
+           /*{Index_Class::idxnum     MT_ASCEND}, */
+             {Index_Class::idxint     MT_ASCEND};
+};
+
+interface Index_Sub_Class : Index_Class : persistent {
+
+};
+
+interface Eiffel_Class1 : Super : persistent {
+  relationship List<Eiffel_Class3> rs1 [0, -1]
+    inverse Eiffel_Class3::rs1_of;
+  relationship List<Eiffel_Class3> rs11 [0, 1]
+    inverse Eiffel_Class3::rs31;
+  relationship Set<Eiffel_Class3> rs12 [0, -1]
+    inverse Eiffel_Class3::rs32;
+};
+
+
+interface Eiffel_Class3 : Super : persistent {
+  attribute String Nullable att1_nullable;
+  readonly relationship Eiffel_Class1 rs1_of [0, 1]
+    inverse Eiffel_Class1::rs1;
+  relationship Eiffel_Class1 rs31 [0, 1]
+    inverse Eiffel_Class1::rs11;
+  relationship Eiffel_Class1 rs32 [0, 1]
+    inverse Eiffel_Class1::rs12;
+};
+
+
+interface Person : persistent
+{
+   attribute String<64> LastName;
+   attribute String FirstName;
+   attribute MtTimestamp CreationDate;
+   attribute Image Nullable FacePhoto;
+
+   relationship List<Person> spouse[0,1] inverse Person::spouse;
+   relationship Set<Car> Cars inverse Car::OwnedBy;
+
+   mt_entry_point_dictionary lname_dict 
+     entry_point_of LastName;
+
+   mt_index lname_index
+     criteria {Person::LastName MT_ASCEND};
+};
+
+interface Car : persistent
+{
+  attribute Integer Year;
+  readonly relationship Person OwnedBy[0,1] inverse Person::Cars;
+};

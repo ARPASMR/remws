@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+
+<library name="gtkglext_library">
+
+  <description>
+	description: "Xace file for the gtkglext wrapper library"
+	copyright: "Copyright (c) 2001-2002, Andreas Leitner and others"
+	license: "Eiffel Forum License v2 (see forum.txt)"
+	date: "$Date: 2003/10/25 19:26:08 $"
+	revision: "$Revision: 1.16 $"
+  </description>
+
+  <cluster name="ewg_gtkglext" location="${EWG}/example/gtkglext/library/manual_wrapper/eiffel" prefix="gtkglext">
+	<cluster name="gtk"/>
+	<cluster name="gdk"/>
+  </cluster>
+
+  <cluster name="ewg_opengl" location="${EWG}/example/opengl/library/manual_wrapper/eiffel"/>
+
+  <cluster name="ewg_gtk" location="${EWG}/example/gtk2/library/manual_wrapper/eiffel">
+	<cluster name="gtk">
+	<cluster name="agent" if="${GOBO_EIFFEL}=ise" prefix="gtk_"/>
+	<cluster name="agent" if="${GOBO_EIFFEL}=se" prefix="gtk_"/>
+	<cluster name="non_agent" if="${GOBO_EIFFEL}=ve" prefix="gtk_"/>
+	<cluster name="widget">
+	<cluster name="agent" if="${GOBO_EIFFEL}=ise" prefix="widget_"/>
+	<cluster name="agent" if="${GOBO_EIFFEL}=se" prefix="widget_"/>
+	<cluster name="non_agent" if="${GOBO_EIFFEL}=ve" prefix="widget_"/>
+	</cluster>
+	<cluster name="signal" prefix="gtk_">
+	<cluster name="agent" if="${GOBO_EIFFEL}=ise" prefix="signal_"/>
+	<cluster name="agent" if="${GOBO_EIFFEL}=se" prefix="signal_"/>
+	</cluster>
+	</cluster>
+	<cluster name="gdk">
+	<cluster name="event"/>
+	</cluster>
+	<cluster name="glib">
+	<cluster name="signal" prefix="glib_"/>
+	<cluster name="agent" if="${GOBO_EIFFEL}=ise" prefix="glib_"/>
+	<cluster name="agent" if="${GOBO_EIFFEL}=se" prefix="glib_"/>
+	<cluster name="non_agent" if="${GOBO_EIFFEL}=ve" prefix="glib_"/>
+	</cluster>
+  </cluster>
+
+  <cluster name="gtkglext_wrapper" location="${EWG}/example/gtkglext/library/generated_wrapper">
+	<option name="abstract" value="true"/>
+
+	<cluster name="eiffel" prefix="gtkgl_">
+	<option name="abstract" value="true"/>
+	<cluster name="external" prefix="gtkglext_external_">
+	<option name="abstract" value="true"/>
+	<cluster name="struct">
+	<cluster name="spec" prefix="gtkglext_external_struct_">
+		 <option name="abstract" value="true"/>
+		 <cluster name="${GOBO_EIFFEL}"/>
+	</cluster>
+	</cluster>
+	<cluster name="enum">
+	<cluster name="spec" prefix="gtkglext_external_enum_">
+		 <option name="abstract" value="true"/>
+		 <cluster name="${GOBO_EIFFEL}"/>
+	</cluster>
+	</cluster>
+	<cluster name="union">
+	<cluster name="spec" prefix="gtkglext_external_union_">
+		 <option name="abstract" value="true"/>
+		 <cluster name="${GOBO_EIFFEL}"/>
+	</cluster>
+	</cluster>
+	<cluster name="function">
+	<cluster name="spec" prefix="gtkglext_external_function_">
+		 <option name="abstract" value="true"/>
+		 <cluster name="${GOBO_EIFFEL}"/>
+	</cluster>
+	</cluster>
+	<cluster name="callback" prefix="gtkglext_external_callback_">
+	<cluster name="spec">
+		 <option name="abstract" value="true"/>
+		 <cluster name="${GOBO_EIFFEL}"/>
+	</cluster>
+	</cluster>
+	</cluster>
+	<cluster name="abstraction" prefix="gtkglext_abstraction_">
+	<option name="abstract" value="true"/>
+	<cluster name="struct"/>
+	<cluster name="enum"/>
+	<cluster name="union"/>
+	<cluster name="function"/>
+	<cluster name="callback"/>
+	</cluster>
+	</cluster>
+
+	<option name="header" value="${EWG}/example/gtkglext/library/generated_wrapper/c/include"/>
+	<option name="header" value="${EWG}/example/gtkglext/library/generated_wrapper/c/include/spec/${GOBO_EIFFEL}"/>
+
+	<option unless="${GOBO_OS}=windows">
+	<option name="link" value="${EWG}/example/gtkglext/library/gtkglext_c_eiffel_glue_library_${GOBO_EIFFEL}_${GOBO_CC}.a"/>
+	<option name="c_compiler_options" value="`pkg-config --cflags pango`"/>
+	<option name="c_compiler_options" value="`pkg-config --cflags atk`"/>
+	<option name="c_compiler_options" value="`pkg-config --cflags gtk+-2.0`"/>
+	<option name="c_compiler_options" value="`pkg-config --cflags glib-2.0`"/>
+	<option name="c_compiler_options" value="`pkg-config --cflags gtkglext-1.0`"/>
+<!-- Uncomment if GLUT is not in the standard location
+	<option name="c_compiler_options" value="-I${GLUT_INCLUDE}"/>
+-->
+
+	<option if="${GOBO_EIFFEL}=ve">
+	<option name="link" value="-lpango-1.0"/>
+	<option name="link" value="-lgobject-2.0"/>
+	<option name="link" value="-lgmodule-2.0"/>
+	<option name="link" value="-ldl"/>
+	<option name="link" value="-lglib-2.0"/>
+	<option name="link" value="-latk-1.0"/>
+	<option name="link" value="-lgtk-x11-2.0"/>
+	<option name="link" value="-lgdk-x11-2.0"/>
+	<option name="link" value="-latk-1.0"/>
+	<option name="link" value="-lgdk_pixbuf-2.0"/>
+	<option name="link" value="-lm"/>
+	<option name="link" value="-lpangoxft-1.0"/>
+	<option name="link" value="-lpangox-1.0"/>
+	<option name="link" value="-lpango-1.0"/>
+	<option name="link" value="-L/usr/X11R6/lib"/>
+	<option name="link" value="-lgtkglext-x11-1.0"/>
+	<option name="link" value="-lgdkglext-x11-1.0"/>
+	<option name="link" value="-lglut"/>
+	<option name="link" value="-lGLU"/>
+	<option name="link" value="-lGL"/>
+	<option name="link" value="-lXmu"/>
+	<option name="link" value="-lXt"/>
+	<option name="link" value="-lSM"/>
+	<option name="link" value="-lICE"/>
+	</option>
+	<option unless="${GOBO_EIFFEL}=ve">
+	<option name="link" value="`pkg-config --libs pango`"/>
+	<option name="link" value="`pkg-config --libs atk`"/>
+	<option name="link" value="`pkg-config --libs gtk+-2.0`"/>
+	<option name="link" value="`pkg-config --libs glib-2.0`"/>
+	<option name="link" value="`pkg-config --libs gtkglext-1.0`"/>
+	</option>
+	</option>
+
+	<option if="${GOBO_OS}=windows">
+	<option name="link" value="${EWG}/example/gtkglext/library/gtkglext_c_eiffel_glue_library_${GOBO_EIFFEL}_${GOBO_CC}.a"/>
+
+	<option name="header" value="${GTK}/include/gtk-2.0"/>
+	<option name="header" value="${GTK}/lib/gtk-2.0/include"/>
+	<option name="header" value="${GTK}/include/atk-1.0"/>
+	<option name="header" value="${GTK}/include/pango-1.0"/>
+	<option name="header" value="${GTK}/include/freetype2"/>
+	<option name="header" value="${GTK}/include/glib-2.0"/>
+	<option name="header" value="${GTK}/lib/glib-2.0/include"/>
+	
+	<option name="link" value="${GTK}/lib/gtk-win32-2.0.lib"/>
+	<option name="link" value="${GTK}/lib/gdk-win32-2.0.lib"/>
+	<option name="link" value="${GTK}/lib/atk-1.0.lib"/>
+	<option name="link" value="${GTK}/lib/gdk_pixbuf-2.0.lib"/>
+	<option name="link" value="${GTK}/lib/pangowin32-1.0.lib"/>
+	<option name="link" value="gdi32.lib"/>
+	<option name="link" value="${GTK}/lib/gobject-2.0.lib"/>
+	<option name="link" value="${GTK}/lib/gmodule-2.0.lib"/>
+	<option name="link" value="${GTK}/lib/glib-2.0.lib"/>
+	<option name="link" value="${GTK}/lib/iconv.lib"/>
+	<!-- TODO: add opengl and gtkglext link options -->
+	</option>
+
+  </cluster>
+
+</library>
+

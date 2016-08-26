@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ewg_config name="sdl">
+
+  <rule_list>
+    <!-- Ignore everything that starts with and underscore. -->
+    <!-- It often causes trouble and is usually not meant to be in the public interface -->
+    <rule>
+      <match>
+	 <identifier name="_.*"/>
+      </match>
+      <wrapper type="none">
+      </wrapper>
+    </rule>
+
+    <!-- The next two functions cause problems with VE/Win32 -->
+    <rule>
+      <match>
+	 <identifier name="SDL_main"/>
+      </match>
+      <wrapper type="none">
+      </wrapper>
+    </rule>
+
+    <rule>
+      <match>
+	 <identifier name="SDL_error"/>
+      </match>
+      <wrapper type="none">
+      </wrapper>
+    </rule>
+
+    <!-- The next rule will cause all SDL headers to be wrapped -->
+    <rule>
+      <match>
+	 <header name=".*SDL.*.h"/>
+      </match>
+      <wrapper type="default">
+      </wrapper>
+    </rule>
+    
+    <!-- This is a non SDL function we need from stdlib -->
+    <rule>
+      <match>
+	 <identifier name="atexit"/>
+      </match>
+      <wrapper type="default">
+      </wrapper>
+    </rule>
+
+    <!-- And the rest shall be ignored -->
+    <rule>
+      <match>
+      </match>
+      <wrapper type="none">
+      </wrapper>
+    </rule>
+  </rule_list>
+
+</ewg_config>

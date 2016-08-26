@@ -3,6 +3,8 @@
 <META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
 <meta name="description" content="Summary description for {STATION_STATUS_LIST_REQUEST}."/>
 <meta name="author" content=""/>
+<meta name="date" content="$Date$"/>
+<meta name="revision" content="$Revision$"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <TITLE>station_status_list_request Contracts</TITLE>
@@ -42,9 +44,6 @@
 	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/station_status_list_request_short.html#f_id">Id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message id</SPAN>
 
-	<A NAME="f_parameters_number"></A><A CLASS="efeature" HREF="../msg/station_status_list_request_short.html#f_parameters_number">parameters_number</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message parameters number</SPAN>
-
 	<A NAME="f_token"></A><A CLASS="efeature" HREF="../msg/station_status_list_request_short.html#f_token">token</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access to </SPAN><A CLASS="efeature" HREF="../msg/station_status_list_request_short.html#f_token_id">token_id</A>
 	
@@ -57,11 +56,8 @@
 		<SPAN CLASS="ekeyword">ensure</SPAN>
 			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="efeature" HREF="../msg/interfaces/logging_i_short.html#f_logger">logger</A> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
 
-	<A NAME="f_set_token"></A><A CLASS="efeature" HREF="../msg/station_status_list_request_short.html#f_set_token">set_token</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_token</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+	<A NAME="f_set_token_id"></A><A CLASS="efeature" HREF="../msg/station_status_list_request_short.html#f_set_token_id">set_token_id</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_token</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Set </SPAN><A CLASS="efeature" HREF="../msg/station_status_list_request_short.html#f_token_id">token_id</A>
-
-	<A NAME="f_set_parameters_number"></A><A CLASS="efeature" HREF="../msg/station_status_list_request_short.html#f_set_parameters_number">set_parameters_number</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_parameters_number</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Set </SPAN><A CLASS="efeature" HREF="../msg/station_status_list_request_short.html#f_parameters_number">parameters_number</A>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Conversion</SPAN>
 

@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+
+<project name="ewg_root" default="help">
+
+	<description>
+		description: "Eiffel Ant file for EWG"
+		copyright: "Copyright (c) 2001-2002, Andreas Leitner and others"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+		date: "$Date: 2006/03/04 14:21:35 $"
+		revision: "$Revision: 1.25 $"
+	</description>
+
+	<target name="help">
+		<echo message="usage:"/>
+		<echo message="   geant install"/>
+		<echo message="   geant install_examples"/>
+		<echo message="   geant clobber"/>
+		<echo message="   geant clean"/>
+		<echo message="   geant compile"/>
+		<echo message="   geant delivery"/>
+	</target>
+
+	<target name="install" depend="init">
+		<description>
+			Invokes gepp on .ge files.
+			Preprocesses header files for test cluster
+		</description>
+		<geant file="build.eant" target="install" dir="src"/>
+		<geant file="build.eant" target="install" dir="library"/>
+		<geant file="build.eant" target="install" dir="test"/>
+	</target>
+
+	<target name="install_examples" depend="init">
+		<geant file="build.eant" target="install" dir="example"/>
+	</target>
+
+	<target name="clean" depend="init">
+		<description>
+			Remove intermediary generated files.
+		</description>
+
+		<geant target="remove_backup_files"/>
+		<geant file="build.eant" target="clean" dir="src"/>
+		<geant file="build.eant" target="clean" dir="test"/>
+		<geant file="build.eant" target="clean" dir="library"/>
+		<geant file="build.eant" target="clean" dir="example"/>
+	</target>
+
+	<target name="compile" depend="init">
+		<description>
+			Compile EWG tools into ${EWG}/bin.
+		</description>
+		<geant file="${EWG}/src/ewg/build.eant" target="compile" dir="bin"/>
+		<geant file="${EWG}/src/ewg/build.eant" target="clean" dir="bin"/>
+		<geant file="${EWG}/src/drc/build.eant" target="compile" dir="bin" if="${EPOSIX}"/>
+		<geant file="${EWG}/src/drc/build.eant" target="clean" dir="bin" if="${EPOSIX}"/>
+		<geant file="build.eant" target="install" dir="src"/>
+	</target>
+
+	<target name="clobber" depend="init">
+		<description>
+			Remove all generated files.
+		</description>
+
+		<geant target="remove_backup_files"/>
+		<geant target="remove_ve_project_files"/>
+		<geant file="${EWG}/src/build.eant" target="clobber" dir="src"/>
+		<geant file="${EWG}/src/build.eant" target="clobber" dir="bin"/>
+		<geant file="${EWG}/test/build.eant" target="clobber" dir="test"/>
+		<geant file="${EWG}/library/build.eant" target="clobber" dir="library"/>
+		<geant file="${EWG}/example/build.eant" target="clobber" dir="example"/>
+		<geant file="${EWG}/doc/build.eant" target="clobber" dir="doc"/>
+	</target>
+
+	<target name="remove_backup_files" depend="init">
+		<description>
+			Remove backup files made by editors.
+		</description>
+		<delete>
+			<fileset directory="." include="**/*~"/>
+		</delete>
+	</target>
+
+	<target name="remove_ve_project_files" depend="init">
+		<description>
+			Remove project files made by ve.
+		</description>
+			  <exec executable="find . -type d -name eProject | xargs -n 1 rm -rf" unless="${GOBO_OS}=windows"/>
+			  <exec executable="find . -type d -name eCluster | xargs -n 1 rm -rf" unless="${GOBO_OS}=windows"/>
+		<delete>
+			<fileset directory="." include="**/*.xcp"/>
+		</delete>
+	</target>
+
+	<target name="delivery" depend="init">
+		<description>
+			Build delivery package.
+		</description>
+
+		<geant target="clobber"/>
+		<geant target="install"/>
+		<geant file="build.eant" target="install" dir="doc"/>
+		<geant target="clean"/>
+		<geant target="install"/>
+		<delete>
+			<fileset directory="." include="@(**/.cvsignore)"/>
+		</delete>
+		<delete>
+			<directoryset directory="." include="@(**/CVS)"/>
+		</delete>
+	</target>
+
+<!-- Implementation -->
+
+	<target name="init">
+		<geant target="init_os"/>
+	</target>
+
+	<target name="init_os">
+		<geant target="init_windows"/>
+		<geant target="init_unix"/>
+		<geant target="init_gobo_eiffel"/>
+	</target>
+
+	<target name="init_windows" if="${GOBO_OS}=windows">
+		<set name="exe" value=".exe"/>
+	</target>
+
+	<target name="init_unix" unless="${GOBO_OS}=windows">
+		<set name="exe" value=""/>
+	</target>
+
+	<target name="init_gobo_eiffel" unless="${GOBO_EIFFEL}">
+		<set name="GOBO_EIFFEL" value="se"/>
+	</target>
+
+</project>

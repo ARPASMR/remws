@@ -1,0 +1,46 @@
+
+/*
+ * Sample schema used for Relationship, Index, and EPDict examples
+ *
+ * Local Variables: ***
+ * mode:C++ ***
+ * End: ***
+*/
+
+interface Person : persistent 
+{
+  attribute String<32> firstName;
+  attribute String<32> lastName;
+  attribute String Nullable comment;
+  attribute Integer Nullable age;
+  attribute Image Nullable photo = NULL;
+  attribute Boolean Nullable collegeGrad;
+  attribute String Nullable gender;
+
+  relationship Person spouse[0,1] inverse Person::spouse;
+  readonly relationship Person father[0,1] inverse Person::children;
+  relationship Set<Person> children inverse Person::father;
+
+  mt_index personName
+    criteria {person::lastName MT_ASCEND},
+             {person::firstName MT_ASCEND};
+
+  mt_entry_point_dictionary commentDict entry_point_of comment
+    make_entry_function "make-full-text-entry";
+  mt_entry_point_dictionary collegeGradDict entry_point_of collegeGrad;
+  mt_entry_point_dictionary genderDict entry_point_of gender;
+};
+
+interface Employee : Person : persistent 
+{
+  attribute Date hireDate;
+  attribute Numeric salary;
+  readonly relationship Set<Manager> assistantOf inverse Manager::assistant;
+  relationship Manager reportsTo inverse Manager::team;
+};
+
+interface Manager : Employee : persistent 
+{
+  relationship Set<Employee> team[1,-1] inverse Employee::reportsTo;
+  relationship Employee assistant[0,1] inverse Employee::assistantOf;
+};

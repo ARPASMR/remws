@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<ewg_config name="bdb">
+
+  <rule_list>
+
+    <!-- Ignore everything that starts with and underscore. -->
+    <!-- It often causes trouble and is usually not meant to be in the public interface -->
+    <rule>
+      <match>
+	 <identifier name="_.*"/>
+      </match>
+      <wrapper type="none">
+      </wrapper>
+    </rule>
+
+    <!-- Unfortunately the following functions have a prototype -->
+    <!-- but no definition in bdb. -->
+    <!-- Until such cases can be configured, we need a dummy function -->
+
+    <rule>
+      <match>
+	 <identifier name="txn_abort"/>
+      </match>
+      <wrapper type="none">
+      </wrapper>
+    </rule>
+
+    <rule>
+      <match>
+	 <identifier name="txn_begin"/>
+      </match>
+      <wrapper type="none">
+      </wrapper>
+    </rule>
+
+    <rule>
+      <match>
+	 <identifier name="txn_commit"/>
+      </match>
+      <wrapper type="none">
+      </wrapper>
+    </rule>
+
+    <!-- Wrap everything from db.h -->
+    <rule>
+      <match>
+	 <header name=".*db.h"/>
+      </match>
+      <wrapper type="default">
+      </wrapper>
+    </rule>
+    
+    <!-- Everything else shall be ignored -->
+    <rule>
+      <match>
+      </match>
+      <wrapper type="none">
+      </wrapper>
+    </rule>
+  </rule_list>
+
+</ewg_config>

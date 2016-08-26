@@ -1,0 +1,201 @@
+note
+	description : "shman application root class"
+	date        : "$Date$"
+	revision    : "$Revision$"
+
+class
+	SHMAN_APPLICATION
+
+inherit
+
+	POSIX_SIGNAL_HANDLER
+
+    POSIX_CONSTANTS
+        export
+            {NONE} all
+        end
+
+	POSIX_DAEMON
+
+	SOCKET_RESOURCES
+
+	ARGUMENTS
+
+	STORABLE
+
+create
+	make
+
+feature {NONE} -- Initialization
+
+	make
+			-- Run application.
+		do
+			print ("sh man application%N")
+
+			create_preferences
+			load_preferences
+			setup_logger
+			preferences.save_preferences
+
+			-- Register start date time
+			create start_date_time.make_now
+			create scheduler.make
+
+			if argument_count = 1 and then argument (1).is_equal("-d") then
+            	detach
+            else
+                execute
+            end
+
+			print("Main process pid: " + pid.out + " >> " + start_date_time.formatted_out ("yyyy-[0]mm-[0]dd [0]hh:[0]mi:[0]ss.ff<6>") + "%N")
+			print("Last child pid:   " + last_child_pid.out + " >> " + start_date_time.formatted_out ("yyyy-[0]mm-[0]dd [0]hh:[0]mi:[0]ss.ff<6>") + "%N")
+
+		end
+
+feature -- Status
+
+     is_exit: BOOLEAN
+             -- Should we exit?
+
+feature {NONE} -- Callbacks
+
+     signalled (signal_value: INTEGER)
+     		-- We received a signal.
+        do
+        	if signal_value = SIGTERM then
+            	is_exit := True
+            end
+     end
+
+feature -- Operations
+
+	execute
+			--
+		local
+			now:            DATE_TIME
+			dt:             DATE_TIME_DURATION
+            signal_handler: POSIX_SIGNAL
+			count:          INTEGER
+		do
+			create signal_handler.make (SIGTERM)
+			signal_handler.set_handler (Current)
+            signal_handler.apply
+
+			create now.make_now
+			create dt.make_definite (0, 0, 0, 1)
+
+			print("Start date time: " + start_date_time.formatted_out ("yyyy-[0]mm-[0]dd [0]hh:[0]mi:[0]ss.ff<6>") + "Count: " + count.out + "%N")
+			print("Log path:        " + log_path_preference.value + "%N")
+			print("Listening on:    " + command_port_preference.value.out + "%N")
+
+
+			create command_channel.make_server_by_port (command_port_preference.value)
+			from
+                command_channel.listen (5)
+                count := 0
+            until
+                count = 3
+            loop
+            	print(pid.out + " >> " + now.formatted_out ("yyyy-[0]mm-[0]dd [0]hh:[0]mi:[0]ss.ff<6>") + "%N")
+                process_command_channel (command_channel) -- See below
+                count := count + 1
+            end
+            command_channel.cleanup
+        rescue
+            if command_channel /= Void then
+                command_channel.cleanup
+            end
+		end
+
+	process_command_channel (sock: NETWORK_STREAM_SOCKET)
+            -- Receive a message, extend it, and send it back
+        local
+        	s: STRING
+        do
+        	create s.make_empty
+            sock.accept
+            if attached sock.accepted as l_sock then
+
+				from
+				until
+					 s.is_equal ({STRING}"xxx%R")
+				loop
+					l_sock.read_line
+					s := l_sock.last_string
+                	print(s + "%N")
+
+				end
+
+
+--                if attached {MESSAGE} retrieved (l_sock) as l_new_msg then
+--                    io.putstring (l_new_msg.out)
+--                    io.new_line
+--                    l_new_msg.independent_store (l_sock)
+--                else
+--                	io.put_string ("Invalid message")
+--                	io.put_new_line
+--                end
+                l_sock.close
+            end
+        end
+
+
+feature {NONE} -- Implementation
+
+	scheduler:           SCHEDULER
+	logger:              LOG_LOGGING_FACILITY
+	writer:              LOG_WRITER_FILE
+	start_date_time:     DATE_TIME
+
+	setup_logger
+			--
+		local
+			filename: FILE_NAME
+		do
+			create filename.make_from_string ("/home/buck/shman.log")
+			create writer
+			create logger.make
+
+			writer.set_file_name (filename)
+			logger.register_log_writer (writer)
+			logger.write_information ("sh man application started%N")
+		end
+
+feature {NONE} -- Network communication
+
+	command_channel: detachable NETWORK_STREAM_SOCKET
+
+feature {NONE} -- Preferences
+
+	preferences_storage:     PREFERENCES_STORAGE_XML
+	preferences:             PREFERENCES
+	preference_manager:      PREFERENCE_MANAGER
+	preference_factory:      BASIC_PREFERENCE_FACTORY
+
+	log_path_preference:     STRING_PREFERENCE
+	command_port_preference: INTEGER_PREFERENCE
+
+	create_preferences
+			--
+		do
+			create preferences_storage.make_with_location ("/home/buck/pref.xml")
+			create preferences.make_with_storage (preferences_storage)
+			preference_manager := preferences.new_manager ("shman")
+			create preference_factory
+		end
+
+	load_preferences
+			--
+		require
+			storage_not_void:            preferences_storage /= void
+			preferences_not_void:        preferences         /= Void
+			preference_manager_not_void: preference_manager  /= Void
+			preference_factory_not_void: preference_factory  /= Void
+		do
+			log_path_preference     := preference_factory.new_string_preference_value (preference_manager, "log_path",     "~/shman.log")
+			command_port_preference := preference_factory.new_integer_preference_value (preference_manager, "command_port", 6250)
+		end
+
+
+end

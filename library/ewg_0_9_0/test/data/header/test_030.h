@@ -1,0 +1,6 @@
+
+
+struct foo
+{
+  int* pi;
+};

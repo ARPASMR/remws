@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<library name="parse" prefix="pr_">
+	<description>
+		description: "Xace file for the Gobo Eiffel Parse Library"
+		library: "Gobo Eiffel Parse Library"
+		copyright: "Copyright (c) 2001, Eric Bezault and others"
+		license: "MIT License"
+		date: "$Date: 2007-01-26 19:55:25 +0100 (Fri, 26 Jan 2007) $"
+		revision: "$Revision: 5877 $"
+	</description>
+
+	<cluster name="parse" location="${GOBO}/library/parse">
+		<option name="abstract" value="true"/>
+		<cluster name="error"/>
+		<cluster name="fsm"/>
+		<cluster name="generation"/>
+		<cluster name="grammar"/>
+		<cluster name="parser"/>
+		<cluster name="skeleton"/>
+		<cluster name="support"/>
+		<cluster name="yacc"/>
+	</cluster>
+</library>

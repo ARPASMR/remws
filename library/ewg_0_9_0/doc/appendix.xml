@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<!--
+description:
+
+"Appendix"
+
+copyright: "Copyright (c) 2004-2005, Andreas Leitner and others"
+license: "Eiffel Forum License v2 (see forum.txt)"
+date: "$Date$"
+revision: "$Revision$"
+
+-->
+
+<chapter xmlns="http://www.gobosoft.com/eiffel/gobo/documentation" id="ewg/appendix">
+  <chapterinfo>
+    <copyright>
+      <year>2004-2005</year>
+      <holder>Andreas Leitner</holder>
+    </copyright>
+    <author>
+      <firstname>Andreas</firstname><surname>Leitner</surname>
+    </author>
+    <email>aleitner@raboof.at</email>
+    <date>8 March 2005</date>
+  </chapterinfo>
+
+  <title>Appendix</title>
+
+
+  <title>Appendix</title>
+
+  <section id="ewg_faq">
+    <title>Frequently Asked Questions</title>
+    <section id="faq_001">
+      <title>Why is the Windows distribution of EWG so much bigger?</title>
+      <para>
+	 Because the Windows headers are so much bigger.
+	 The platform specific distributions already contain the generated
+	 wrapper code. The bigger the header, the bigger the resulting wrapper code.
+      </para>
+    </section>
+    
+    <section id="faq_002">
+      <title>Does EWG support C++ as well?</title>
+      <para>
+	 No, EWG does not support C++. It only supports C.  C and C++
+	 are two distinct languages and C++ is far more complex.
+	 <ulink
+	     url="http://sourceforge.net/projects/ceug/">WrapIt</ulink>
+	 is a tool that tries to wrap both C and C++
+	 libraries. WrapIt is not a fully automated wrapper generator
+	 as EWG is. It is my understanding that WrapIt does not parse
+	 the C/C++ header directly but instead reads an interface
+	 file, that the user needs to provide.
+      </para>
+    </section>
+
+    <section id="faq_003">
+      <title>Why does the generated C glue code produce C-compiler warnings?</title>
+      <para>
+	 There are a couple of areas where EWG doesn't have all
+	 information it would need to properly satisfy all C
+	 compilers. This is being worked on and the warnings will
+	 eventually disappear.
+      </para>
+    </section>
+
+  </section>
+
+</chapter>

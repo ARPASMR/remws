@@ -1,0 +1,65 @@
+		Matisse Eiffel Binding 9.1.x Release Notes
+		+----------------------------------------+
+
+
+
+1 - Test Suite Compilation
++------------------------+
+
+Problem:
+--------
+
+The test suite compilation fails with the following error:
+Error code: VTCT
+
+Error: type is based on unknown class.
+What to do: use an identifier that is the name of a class in the universe.
+
+Class: TS_SUMMARY
+Unknown class name: RX_REGULAR_EXPRESSION in gobo_test			
+
+
+Solution:
+---------
+
+Edit $ISE_LIBRARY/library/gobo/gobo_test.ecf
+Add line:
+<library name="gobo_regexp" location="$ISE_LIBRARY\library\gobo\gobo_regexp.ecf"/>
+
+
+
+2 - Missing Features
++------------------+
+
+- Features in MTINDEX do not work with all the datatypes only STRING and 
+  INTEGERs are supported. The way to extend it is describe in the feature's 
+  code. For all the missing types use a SQL select statement
+
+- MT_PREPARED_STATEMENT does not work with all the datatypes. Conversion 
+  of some value list types still need to be implemented
+
+- MT_OBJECT_ITERATOR does not implement all the features that developers are 
+  used to such as 'do_all', etc.
+
+
+3 - STORABLE binding
++------------------+
+
+The MT_STORABLE-based version of the Matisse-Eiffel binding is now deprecated.
+Existing applications based upon the STORABLE binding need to include 
+both the 'matisse' and 'matisse_storable' clusters and use the new 
+MT_STORABLE_DATABASE class to connect to a Matisse database.
+
+To re-generate, the MT_STORABLE-based class, use the --storable option as 
+follows:
+mt_sdl stubgen --lang eiffel --storable -f <ODL file>
+
+
+
+4 - Contribution
++--------------+
+
+We encourage you to become a contributor of the Matisse Eiffel open-source 
+interface. Please contact us at support@matisse.com and tell us what you
+would like to contribute to help with your project.
+

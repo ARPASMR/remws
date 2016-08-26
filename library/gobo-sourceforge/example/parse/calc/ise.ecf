@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-3-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-3-0 http://www.eiffel.com/developers/xml/configuration-1-3-0.xsd" name="calc">
+	<target name="calc">
+		<root class="CALC" feature="execute"/>
+		<option trace="false" profile="false" debug="false" warning="true">
+			<assertions precondition="false" postcondition="false" check="false" invariant="false" loop="false"/>
+		</option>
+		<setting name="console_application" value="true"/>
+		<library name="base" location="${ISE_EIFFEL}/library/base/base.ecf" readonly="true"/>
+		<library name="time" location="${ISE_EIFFEL}/library/time/time.ecf" readonly="true"/>
+		<cluster name="calc" location="${GOBO}/example/parse/calc"/>
+		<cluster name="pr_parse" location="${GOBO}/library/parse">
+			<cluster name="pr_error" location="$|error"/>
+			<cluster name="pr_fsm" location="$|fsm"/>
+			<cluster name="pr_generation" location="$|generation"/>
+			<cluster name="pr_grammar" location="$|grammar"/>
+			<cluster name="pr_parser" location="$|parser"/>
+			<cluster name="pr_skeleton" location="$|skeleton"/>
+			<cluster name="pr_support" location="$|support"/>
+			<cluster name="pr_yacc" location="$|yacc"/>
+		</cluster>
+		<cluster name="kl_kernel" location="${GOBO}/library/kernel">
+			<cluster name="kl_basic" location="$|basic"/>
+			<cluster name="kl_io" location="$|io"/>
+			<cluster name="kl_misc" location="$|misc"/>
+			<cluster name="kl_unicode" location="$|unicode"/>
+			<cluster name="kl_support" location="$|support"/>
+			<cluster name="kl_spec" location="$|spec">
+				<cluster name="kl_spec_ise" location="$|ise"/>
+			</cluster>
+		</cluster>
+	</target>
+</system>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<project name="do_nothing" default="help">
+
+	<description>
+		system: "Example for the Singleton pattern with does nothing"
+		copyright: "Copyright (c) 2003, Eric Bezault and others"
+		license: "MIT License"
+		date: "$Date: 2007-01-26 19:55:25 +0100 (Fri, 26 Jan 2007) $"
+		revision: "$Revision: 5877 $"
+	</description>
+
+	<inherit>
+		<parent location="${GOBO}/misc/eiffel.eant">
+			<redefine target="init_system"/>
+		</parent>
+	</inherit>
+
+
+<!-- Implementation -->
+
+	<target name="init_system">
+		<set name="system" value="do_nothing"/>
+		<set name="library" value="pattern"/>
+		<set name="system_dir" value="${GOBO}/example/${library}/singleton/${system}"/>
+	</target>
+
+</project>

@@ -1,0 +1,366 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="Summary description for {SENSOR_TYPE_LIST_RESPONSE}."/>
+<meta name="author" content=""/>
+<meta name="date" content="$Date$"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>sensor_type_list_response Text</TITLE>
+<LINK REL="stylesheet" HREF="../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="sensor_type_list_response"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/sensor_type_list_response.html">SENSOR_TYPE_LIST_RESPONSE</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> 
+	<A CLASS="eclass" HREF="../msg/sensor_type_list_response.html">SENSOR_TYPE_LIST_RESPONSE</A>
+
+<SPAN CLASS="ekeyword">inherit</SPAN>
+	<A CLASS="eclass" HREF="../msg/interfaces/response_i.html">RESPONSE_I</A>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_make">make</A>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization</SPAN>
+
+	<A NAME="f_make"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_make">make</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization for </SPAN>`Current'<SPAN CLASS="ecomment">.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_xml_representation">xml_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_current_tag">current_tag</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_content">content</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_message">message</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_make">make</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+
+	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_id">Id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+		<SPAN CLASS="ekeyword">once</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_sensor_type_list_response_id">Sensor_type_list_response_id</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_outcome"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_outcome">outcome</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+
+	<A NAME="f_message"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_message">message</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+
+	<A NAME="f_token"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_token">token</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/token.html">TOKEN</A>
+
+	<A NAME="f_sensor_types_list"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><A CLASS="eclass" HREF="../msg/meteo/sensor_type.html">SENSOR_TYPE</A><SPAN CLASS="esymbol">]</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+
+	<A NAME="f_set_outcome"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_set_outcome">set_outcome</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_outcome">outcome</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_outcome">outcome</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">o</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_message"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_set_message">set_message</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">m</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_message">message</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_message">message</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">m</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_logger"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_set_logger">set_logger</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_logger</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LOG_LOGGING_FACILITY</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets the logger</SPAN>
+		<SPAN CLASS="ekeyword">require</SPAN>
+			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">a_logger</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/interfaces/logging_i.html#f_logger">logger</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_logger</SPAN>
+		<SPAN CLASS="ekeyword">ensure</SPAN>
+			<SPAN CLASS="etag">logger_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="efeature" HREF="../msg/interfaces/logging_i.html#f_logger">logger</A> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status report</SPAN>
+
+	<A NAME="f_is_error_response"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_is_error_response">is_error_response</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Tells wether the response contains an error</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_outcome">outcome</A> <SPAN CLASS="esymbol">/=</SPAN> <A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_success">Success</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Conversion</SPAN>
+
+	<A NAME="f_to_json"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_to_json">to_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json representation</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_is_error_response">is_error_response</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;header%&quot;: {&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;id%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_sensor_type_list_response_id">Sensor_type_list_response_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;},&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;data%&quot;: {&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;outcome%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_outcome">outcome</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,%&quot;message%&quot;: %&quot;&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_message">message</A> <SPAN CLASS="esymbol">+</SPAN> &quot;%&quot;,&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;header%&quot;: {&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;id%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_sensor_type_list_response_id">Sensor_type_list_response_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;},&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;data%&quot;: {&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;outcome%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_outcome">outcome</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,%&quot;message%&quot;: %&quot;&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_message">message</A> <SPAN CLASS="esymbol">+</SPAN> &quot;%&quot;&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,%&quot;sensor_types_list%&quot;: [&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">from</SPAN>
+					<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+				<SPAN CLASS="ekeyword">until</SPAN>
+					<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">count</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+				<SPAN CLASS="ekeyword">loop</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="enumber">1</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+						<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
+					<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{%&quot;id%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">i_th</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/meteo/sensor_type.html#f_id">id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;,%&quot;name%&quot;: %&quot;&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">i_th</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/meteo/sensor_type.html#f_name">name</A> <SPAN CLASS="esymbol">+</SPAN> &quot;%&quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;]&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse XML message</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_STANDARD_PARSER</SPAN>
+			<SPAN CLASS="elocal">factory</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_PARSER_FACTORY</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">factory</SPAN>
+			<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
+			<SPAN CLASS="elocal">parser</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">factory</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">new_standard_parser</SPAN>
+			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">set_callbacks</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Current</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">set_associated_parser</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parse_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_to_xml"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_to_xml">to_xml</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> xml representation</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse json message</SPAN>
+		<SPAN CLASS="ekeyword">require else</SPAN>
+			<SPAN CLASS="etag">json_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="elocal">json</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_STRING</SPAN>
+			<SPAN CLASS="elocal">key1</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_STRING</SPAN>
+			<SPAN CLASS="elocal">key2</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_STRING</SPAN>
+			<SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_PARSER</SPAN>
+			<SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="elocal">sensor_type</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/meteo/sensor_type.html">SENSOR_TYPE</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_with_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">key</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;header&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">key1</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;id&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">key2</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;name&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parse_content</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_valid</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parsed_json_value</SPAN> <SPAN CLASS="ekeyword">as</SPAN> jv <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">jv</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_object <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_object</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_header <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_NUMBER</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_header</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;id&quot;<SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_id <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Message: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">j_id</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">integer_64_item</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;The header was not found!%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="elocal">key</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;data&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">jv</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_object <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_object</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_data <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">key</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;sensor_types_list&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_ARRAY</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_data</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_sensor_types_list <SPAN CLASS="ekeyword">then</SPAN>
+						<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
+						<SPAN CLASS="ekeyword">from</SPAN>
+							<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+						<SPAN CLASS="ekeyword">until</SPAN>
+							<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="elocal">j_sensor_types_list</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">count</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+						<SPAN CLASS="ekeyword">loop</SPAN>
+							<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_sensor_types_list</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">i_th</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_sensor_type <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_NUMBER</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_sensor_type</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key1</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_id <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_sensor_type</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key2</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_name <SPAN CLASS="ekeyword">then</SPAN>
+								<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">sensor_type</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/meteo/sensor_type.html#f_make_from_id_and_name">make_from_id_and_name</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">j_id</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">j_name</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol">)</SPAN>
+								<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">extend</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor_type</SPAN><SPAN CLASS="esymbol">)</SPAN>
+							<SPAN CLASS="ekeyword">end</SPAN>
+							<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+						<SPAN CLASS="ekeyword">end</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;json parser error: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">errors_as_string</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML Callbacks</SPAN>
+
+	<A NAME="f_on_start"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_start">on_start</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Called when parsing starts.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_start called. It's the beginning of the whole parsing.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_finish"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_finish">on_finish</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Called when parsing finished.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_finish called. The parsing has finished.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_xml_declaration"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_xml_declaration">on_xml_declaration</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_version</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">an_encoding</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_standalone</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML declaration.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_xml_declaration called. Got xml declaration&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_version</SPAN> <SPAN CLASS="ekeyword">as</SPAN> version <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%TVersion:    &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">version</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">an_encoding</SPAN> <SPAN CLASS="ekeyword">as</SPAN> encoding <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%TEncoding:   &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">encoding</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_standalone</SPAN> <SPAN CLASS="ekeyword">as</SPAN> standalone <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%TStandalone: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">standalone</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_error"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_error">on_error</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_message</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Event producer detected an error.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_outcome">outcome</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_err_xml_parsing_failed">err_xml_parsing_failed</A>
+			<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_message">message</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_msg_xml_parser_failed">msg_xml_parser_failed</A>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_error called.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Got an error: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_message</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_processing_instruction"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_processing_instruction">on_processing_instruction</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Processing instruction.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_processing_instruction called.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tname;    &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tcontent: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_comment"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_comment">on_comment</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Processing a comment.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Atomic: single comment produces single event</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_comment called. Got a comment.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tcontent: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_start_tag"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_start_tag">on_start_tag</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Start of start tag.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_start_tag called. A tag is starting&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_namespace</SPAN> <SPAN CLASS="ekeyword">as</SPAN> namespace <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tnamespace: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">namespace</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myprefix <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tprefix:    &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">myprefix</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tlocal part:  &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_current_tag">current_tag</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">as_string_8</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_attribute"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_attribute">on_attribute</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Start of attribute.</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">a_sensor_type</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/meteo/sensor_type.html">SENSOR_TYPE</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_attribute called. Got an attribute&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_namespace</SPAN> <SPAN CLASS="ekeyword">as</SPAN> namespace <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tnamespace: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">namespace</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myprefix <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tprefix:    &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">myprefix</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tlocal part:  &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tvalue:       &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_value</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_current_tag">current_tag</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_equal</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;TipoSensore&quot;<SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_equal</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;IdTipoSensore&quot;<SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">as_string_32</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">a_sensor_type</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/meteo/sensor_type.html#f_make_from_id_and_name">make_from_id_and_name</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_value</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">extend</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_sensor_type</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_equal</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;NomeTipoSensore&quot;<SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">as_string_32</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_sensor_types_list">sensor_types_list</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">last</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/meteo/sensor_type.html#f_set_name">set_name</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_value</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">as_string_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_start_tag_finish"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_start_tag_finish">on_start_tag_finish</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> End of start tag.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_start_tag_finish called. The start tag is finished.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_end_tag"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_end_tag">on_end_tag</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> End tag.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_end_tag called. Got the and tag.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_on_content"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_on_content">on_content</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Text content.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> NOT atomic: two on_content events may follow each other</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> without a markup event in between.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;XML callbacks on_content called. Got tag content&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../msg/msg.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%Tcontent: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_current_tag">current_tag</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_equal</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Esito&quot;<SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_outcome">outcome</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_current_tag">current_tag</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_equal</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Messaggio&quot;<SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_message">message</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_content</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">as_string_8</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Implementation</SPAN>
+
+	<A NAME="f_json_representation"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_json_representation">json_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message json representation</SPAN>
+
+	<A NAME="f_xml_representation"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_xml_representation">xml_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message xml representation</SPAN>
+
+	<A NAME="f_current_tag"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_current_tag">current_tag</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> used by </SPAN>`XML_CALLBACKS'<SPAN CLASS="ecomment"> features</SPAN>
+
+	<A NAME="f_content"></A><A CLASS="efeature" HREF="../msg/sensor_type_list_response.html#f_content">content</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> used by </SPAN>`XML_CALLBACKS'<SPAN CLASS="ecomment"> features</SPAN>
+	
+<SPAN CLASS="ekeyword">invariant</SPAN>
+	<SPAN CLASS="etag">invariant_clause</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">True</SPAN>
+
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../msg/sensor_type_list_response.html">SENSOR_TYPE_LIST_RESPONSE</A><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_type_list_response_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="sensor_type_list_response"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

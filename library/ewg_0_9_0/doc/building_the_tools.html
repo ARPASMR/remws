@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+ <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+   
+  <title>Building the tools Building the Tools</title>
+ </head>
+ <body bgcolor="#FFFFFF">
+  <table border="0" width="100%">
+   <tr>
+    <td>
+     <h1>Building the tools Building the Tools</h1>
+    </td>
+    <td align="right"><a href="installation.html"><img src="image/previous.png" alt="Previous" border="0"/></a><a href="using_the_examples.html"><img src="image/next.png" alt="Next" border="0"/></a></td>
+   </tr>
+  </table>
+  <hr size="1"/>
+  <p>
+   EWG (the package) contains two tools:
+   
+  </p>
+  <ul>
+   <li><i>EWG</i> -- The Eiffel Wrapper Generator command line tool
+   </li>
+   <li><i>Doctor C</i> -- A web application that explains C declarations in English
+   </li>
+  </ul>
+  <p>
+   The source to those tools is located in ${EWG}/src.
+   
+  </p>
+  <div>
+   
+   
+   <h2>Requirements</h2>
+   
+   
+   <p>
+    The following is a list of requirements that need to be fulfilled in order
+    to compile EWG (the tool). Please note that these are not necessarily the same as the 
+    requirements needed to compile applications and libraries using the EWG runtime,
+    or using the ewg tools.
+    
+   </p>
+   
+   <ul>
+    <li>Library
+     <ul>
+      <li>GOBO 3.4</li>
+     </ul>
+    </li>
+    <li>Compiler
+     <ul>
+      <li>Smart Eiffel (1.1)</li>
+      <li>ISE Eiffel (5.6)</li>
+      <li>Visual Eiffel (4.1)</li>
+     </ul>
+    </li>
+    <li>Platform
+     <ul>
+      <li>Everything supported by above requirements</li>
+     </ul>
+    </li>
+   </ul>
+   
+   
+  </div>
+  <div>
+   
+   <h2>Compiling the Tools</h2>
+   
+   
+   <p>
+    The following will use the <a href="http://www.gobosoft.com">Gobo</a> tools to setup and
+    install (gepp, lext and yacc) the source code and its test
+    cluster, then compile <i>ewg</i> and
+    <i>Doctor C</i> and put the binary into
+    ${EWG}/bin:
+    
+   </p>
+   
+   
+   <blockquote>
+    <pre>
+	 cd ${EWG}
+	 geant install
+	 geant compile
+      </pre>
+    </blockquote>
+   
+   
+  </div>
+  <hr size="1"/>
+  <table border="0" width="100%">
+   <tr>
+    <td>
+     <address><font size="2"><b>Copyright © 2004-2005, Andreas Leitner</b><br/><b>mailto:</b><a href="mailto:aleitner@raboof.at">aleitner@raboof.at</a><br/><b>http://</b><a href="http://ewg.sourceforge.net">ewg.sourceforge.net</a><br/><b>Last Updated: </b>8 March 2005</font></address>
+    </td>
+    <td align="right" valign="top"><a href="http://ewg.sourceforge.net"><img src="image/home.png" alt="Home" border="0"/></a><a href="introduction.html"><img src="image/toc.png" alt="Toc" border="0"/></a><a href="installation.html"><img src="image/previous.png" alt="Previous" border="0"/></a><a href="using_the_examples.html"><img src="image/next.png" alt="Next" border="0"/></a></td>
+   </tr>
+  </table>
+ </body>
+</html>

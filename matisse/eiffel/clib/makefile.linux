@@ -1,0 +1,38 @@
+#
+# C library for Matisse Eiffel binding
+#
+#
+# Makefile for Linux
+#
+
+CC = gcc
+
+# to build 32-bit on a 64-bit platform
+#CC = gcc -m32
+
+CFLAGS = -O1 -DLINUX -D_REENTRANT -Wall -I$(MATISSE_HOME)/eiffel/clib -I$(MATISSE_HOME)/include -I$(ISE_EIFFEL)/studio/spec/$(ISE_PLATFORM)/include -I$(ISE_EIFFEL)/bench/spec/$(ISE_PLATFORM)/include
+
+#
+# Debugging
+#
+# using the EIF_MT_LOGGING flag enables to trace the calls to the CECIL functions 
+# default trace file: /tmp/EiffelMatisse.log
+#
+
+#CFLAGS = -DEIF_MT_LOGGING -g -DLINUX -D_REENTRANT -Wall -I$(MATISSE_HOME)/eiffel/clib -I$(MATISSE_HOME)/include -I$(ISE_EIFFEL)/studio/spec/$(ISE_PLATFORM)/include -I$(ISE_EIFFEL)/bench/spec/$(ISE_PLATFORM)/include
+
+
+OBJ = mt_native.o mt_sql_native.o mt_exceptions.o mt_utils.o mt_trace.o
+
+EIF_LIB = libmatisseEIFFEL.a
+
+all: $(EIF_LIB)
+
+clean:
+	rm -f $(OBJ) $(EIF_LIB) 
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+$(EIF_LIB): $(OBJ)
+	ar cvr $(EIF_LIB) $(OBJ)

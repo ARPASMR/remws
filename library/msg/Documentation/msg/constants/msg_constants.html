@@ -3,6 +3,8 @@
 <META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
 <meta name="description" content="Summary description for {MSG_CONSTANTS}."/>
 <meta name="author" content=""/>
+<meta name="date" content="$Date$"/>
+<meta name="revision" content="$Revision$"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <TITLE>msg_constants Text</TITLE>
@@ -36,6 +38,9 @@
 	<SPAN CLASS="nefeature">default_create</SPAN>
 
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Constants</SPAN>
+
+	<A NAME="f_token_tag"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_token_tag">Token_tag</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;$tokenid&quot;
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Token tag</SPAN>
 
 	<A NAME="f_response_id_offset"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_response_id_offset">Response_id_offset</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">1000</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Given a message request having </SPAN>`id'<SPAN CLASS="ecomment"> = 23</SPAN>
@@ -184,8 +189,43 @@
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_sensor_type_list_response_parnum"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_sensor_type_list_response_parnum">Sensor_type_list_response_parnum</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">1</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message parameters number for </SPAN>`SENsOR_TYPE_LIST_RESPONSE'
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message parameters number for </SPAN>`SENSOR_TYPE_LIST_RESPONSE'
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Lists after the parameter can be void or containing elements</SPAN>
+
+	<A NAME="f_sensor_list_request_id"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_sensor_list_request_id">Sensor_list_request_id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">9</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message id for </SPAN>`SENSOR_LIST_REQUEST'
+
+	<A NAME="f_sensor_list_request_parnum_no_token"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_sensor_list_request_parnum_no_token">Sensor_list_request_parnum_no_token</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">6</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message parameters number when no token is used</SPAN>
+
+	<A NAME="f_sensor_list_request_parnum_token"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_sensor_list_request_parnum_token">Sensor_list_request_parnum_token</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">5</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message parameters number when token is used</SPAN>
+
+	<A NAME="f_sensor_list_response_id"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_sensor_list_response_id">Sensor_list_response_id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+		<SPAN CLASS="ekeyword">once</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_response_id_offset">Response_id_offset</A> <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_sensor_list_request_id">Sensor_list_request_id</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_sensor_list_response_parnum"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_sensor_list_response_parnum">Sensor_list_response_parnum</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message parameters number for </SPAN>`SENSOR_LIST_RESPONSE'
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Lists after the parameter can be voif or containing elements</SPAN>
+
+	<A NAME="f_realtime_data_request_id"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_realtime_data_request_id">Realtime_data_request_id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">10</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message id for </SPAN>`REALTIME_DATA_REQUEST'
+
+	<A NAME="f_realtime_data_request_parnum_no_token"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_realtime_data_request_parnum_no_token">Realtime_data_request_parnum_no_token</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message parameters number when no token is used</SPAN>
+
+	<A NAME="f_realtime_data_request_parnum_token"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_realtime_data_request_parnum_token">Realtime_data_request_parnum_token</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">2</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message parameters number when token is used</SPAN>
+
+	<A NAME="f_realtime_data_response_id"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_realtime_data_response_id">Realtime_data_response_id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+		<SPAN CLASS="ekeyword">once</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_response_id_offset">Response_id_offset</A> <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_realtime_data_request_id">Realtime_data_request_id</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_realtime_data_response_parnum"></A><A CLASS="efeature" HREF="../../msg/constants/msg_constants.html#f_realtime_data_response_parnum">Realtime_data_response_parnum</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Message parameters number for </SPAN>`REALTIME_DATA_RESPONSE'
 	
 <SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../../msg/constants/msg_constants.html">MSG_CONSTANTS</A><FORM ONSUBMIT="go_to('../../',this.c.value);return false;">
 <TABLE CELLSPACING="5" CELLPADDING="4"><TR>

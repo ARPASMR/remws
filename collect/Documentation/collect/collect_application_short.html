@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="collect application root class"/>
+<meta name="date" content="$Date$"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>collect_application Contracts</TITLE>
+<LINK REL="stylesheet" HREF="../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="collect_application"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;collect application root class&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> <SPAN CLASS="ekeyword">interface</SPAN>
+	<A CLASS="eclass" HREF="../collect/collect_application_short.html">COLLECT_APPLICATION</A>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<SPAN CLASS="nefeature">make_and_launch</SPAN>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Usage</SPAN>
+
+	<A NAME="f_usage"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_usage">usage</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> little help on usage</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Credentials</SPAN>
+
+	<A NAME="f_username"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_username">username</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+
+	<A NAME="f_password"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_password">password</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+
+	<A NAME="f_cfg_file"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_cfg_file">cfg_file</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PLAIN_TEXT_FILE</SPAN>
+
+	<A NAME="f_cfg_file_name"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_cfg_file_name">Cfg_file_name</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;credentials.conf&quot;
+
+	<A NAME="f_cfg_file_path"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_cfg_file_path">Cfg_file_path</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> format cfg file name full path</SPAN>
+
+	<A NAME="f_read_cfg"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_read_cfg">read_cfg</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Trivial config file --&gt; switch to preferences library</SPAN>
+
+	<A NAME="f_read_credentials"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_read_credentials">read_credentials</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Read wsrem credentials from file</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Logging</SPAN>
+
+	<A NAME="f_init_log"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_init_log">init_log</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialize log on file</SPAN>
+
+	<A NAME="f_is_logging_enabled"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_is_logging_enabled">is_logging_enabled</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Is logging enabled</SPAN>
+
+	<A NAME="f_log"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_log">log</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">priority</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Logs </SPAN>`a_string'
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Basic operations</SPAN>
+
+	<A NAME="f_parse_header"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_parse_header">parse_header</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Search message header for message id</SPAN>
+
+	<A NAME="f_execute"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_execute">execute</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">req</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">WSF_REQUEST</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">res</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">WSF_RESPONSE</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Execute the request</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> See </SPAN>`req.input'<SPAN CLASS="ecomment"> for input stream</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;</SPAN>`req.meta_variables'<SPAN CLASS="ecomment"> for the CGI meta variable</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> and </SPAN>`res'<SPAN CLASS="ecomment"> for output buffer</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Attributes</SPAN>
+
+	<A NAME="f_port"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_port">port</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Listening port</SPAN>
+
+	<A NAME="f_log_level"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_log_level">log_level</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Log level</SPAN>
+
+	<A NAME="f_content_type"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_content_type">content_type</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+
+	<A NAME="f_is_logged_in"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_is_logged_in">is_logged_in</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> is collect logged in remws?</SPAN>
+
+	<A NAME="f_token"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_token">token</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/token_short.html">TOKEN</A>
+
+	<A NAME="f_log_path"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_log_path">log_path</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PATH</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> log path</SPAN>
+
+	<A NAME="f_file_logger"></A><A CLASS="efeature" HREF="../collect/collect_application_short.html#f_file_logger">file_logger</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LOG_WRITER_FILE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> the logger</SPAN>
+	
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../collect/collect_application_short.html">COLLECT_APPLICATION</A><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="collect_application"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

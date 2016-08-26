@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<library name="sdl_library">
+
+	<description>
+		description: "Xace file for SDL Library"
+		copyright: "Copyright (c) 2001-2002, Andreas Leitner and others"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+		date: "$Date: 2004/10/25 09:27:15 $"
+		revision: "$Revision: 1.29 $"
+	</description>
+
+	<cluster name="simple_library_wrapper" location="${EWG}/example/sdl/library/generated_wrapper">
+		<option name="abstract" value="true"/>
+
+		<cluster name="eiffel" >
+			<option name="abstract" value="true"/>
+			<cluster name="external" prefix="sdl_external_">
+				<option name="abstract" value="true"/>
+				<cluster name="struct">
+					<cluster name="spec" prefix="sdl_external_struct_">
+						<option name="abstract" value="true"/>
+						<cluster name="${GOBO_EIFFEL}"/>
+					</cluster>
+				</cluster>
+				<cluster name="enum">
+					<cluster name="spec" prefix="sdl_external_enum_">
+						<option name="abstract" value="true"/>
+						<cluster name="${GOBO_EIFFEL}"/>
+					</cluster>
+				</cluster>
+				<cluster name="union">
+					<cluster name="spec" prefix="sdl_external_union_">
+						<option name="abstract" value="true"/>
+						<cluster name="${GOBO_EIFFEL}"/>
+					</cluster>
+				</cluster>
+				<cluster name="function">
+					<cluster name="spec" prefix="sdl_external_function_">
+						<option name="abstract" value="true"/>
+						<cluster name="${GOBO_EIFFEL}"/>
+					</cluster>
+				</cluster>
+				<cluster name="callback" prefix="sdl_external_callback_">
+					<cluster name="spec">
+						<option name="abstract" value="true"/>
+						<cluster name="${GOBO_EIFFEL}"/>
+					</cluster>
+				</cluster>
+			</cluster>
+			<cluster name="abstraction" prefix="sdl_abstraction_">
+				<option name="abstract" value="true"/>
+				<cluster name="struct"/>
+				<cluster name="enum"/>
+				<cluster name="union"/>
+				<cluster name="function"/>
+				<cluster name="callback"/>
+			</cluster>
+		</cluster>
+
+		<option name="header" value="${EWG}/example/sdl/library/generated_wrapper/c/include"/>
+		<option name="header" value="${EWG}/example/sdl/library/generated_wrapper/c/include/spec/${GOBO_EIFFEL}"/>
+
+		<option unless="${GOBO_OS}=windows">
+			<option name="link" value="-lSDL"/>
+			<option name="link" value="-lSDL_image"/>
+			<option name="link" value="-lpthread"/>
+			<option name="link" value="${EWG}/example/sdl/library/sdl_c_eiffel_glue_library_${GOBO_EIFFEL}_${GOBO_CC}.a"/>
+			<option if="${IS_MAC_OS_X}">
+			  <option name="link" value="-lSDLmain"/>
+			  <option name="link" value="-framework Cocoa"/>
+			  <option name="c_compiler_options" value="-Dmain=SDL_main_eiffel"/>
+			</option>
+		</option>
+		<option if="${GOBO_OS}=windows">
+			<option if="${GOBO_EIFFEL}=se">
+				<option name="c_compiler_options" value="-D_MT=1 -D_DLL=1"/>
+				<option name="link" value="/SUBSYSTEM:WINDOWS"/>
+				<option if="${GOBO_CC}=lcc">
+					<option name="link" value="${EWG}\example\sdl\library\src\sdl_main.obj"/>
+				</option>
+				<option if="${GOBO_CC}=msc">
+					<option name="link" value="/DEFAULTLIB:MSVCRT.LIB"/>
+					<option name="link" value="/NODEFAULTLIB:LIBC.LIB"/>
+				</option>
+			</option>
+			<option name="header" value="${SDL}\include"/>
+			<option name="link" value="${SDL}\lib\SDLmain.lib" if="${GOBO_CC}=msc"/>
+			<option name="link" value="${SDL}\lib\SDL.lib"/>
+			<option name="link" value="${SDL}\lib\SDL_image.lib"/>
+			<option name="link" value="${EWG}\example\sdl\library\sdl_c_eiffel_glue_library_${GOBO_EIFFEL}_${GOBO_CC}.lib"/>
+			<option name="console_application" value="false" if="${GOBO_EIFFEL}=ise"/>
+			<option if="${GOBO_EIFFEL}=ve">
+				<option name="link" value="oldnames.lib"/>
+				<!-- you probably need to put this option in your system.xace! -->
+				<option name="linker" value="microsoft"/>
+				<option name="link" value="MSVCRT.LIB"/>
+				<option name="link" value="/NODEFAULTLIB:LIBC.LIB"/>
+				<option name="console_application" value="false"/>
+			</option>
+		</option>
+
+	</cluster>
+
+</library>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<project name="gtk_hello_world" default="help">
+
+	<description>
+		description: "Eiffel Ant file for 'gtk_hello_world'"
+		system: "Eiffel Wrapper Generator Test with simple test cases"
+		copyright: "Copyright (c) 2001-2002, Andreas Leitner and others"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+		date: "$Date: 2003/05/21 23:46:55 $"
+		revision: "$Revision: 1.2 $"
+	</description>
+
+	<inherit>
+		<parent location="${EWG}/misc/ewg_application.eant">
+			<redefine target="init_system"/>
+		</parent>
+	</inherit>
+
+
+<!-- Implementation -->
+
+	<target name="init_system">
+		<set name="system" value="gtk_hello_world"/>
+		<set name="system_dir" value="${EWG}/example/gtk2/example/hello_world"/>
+	</target>
+
+</project>

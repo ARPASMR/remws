@@ -1,0 +1,154 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="Summary description for {SENSOR}."/>
+<meta name="author" content=""/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>sensor Contracts</TITLE>
+<LINK REL="stylesheet" HREF="../../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="sensor"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">description</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="estring">for</SPAN><SPAN CLASS="estring"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/meteo/sensor_short.html">SENSOR</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.</SPAN><SPAN CLASS="estring">&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> <SPAN CLASS="ekeyword">interface</SPAN>
+	<A CLASS="eclass" HREF="../../msg/meteo/sensor_short.html">SENSOR</A>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_make">make</A>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Access</SPAN>
+
+	<A NAME="f_id"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_id">id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sensor</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">id</SPAN>
+
+	<A NAME="f_name"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_name">name</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sensor</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">name</SPAN>
+
+	<A NAME="f_status"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_status">status</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/sensor_status_short.html">SENSOR_STATUS</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sensor</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">status</SPAN>
+
+	<A NAME="f_type"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_type">type</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/sensor_type_short.html">SENSOR_TYPE</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sensor</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">type</SPAN>
+
+	<A NAME="f_station"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_station">station</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/station_idname_short.html">STATION_IDNAME</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Station</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">which</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">have</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">installed</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">the</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">sensor</SPAN>
+
+	<A NAME="f_unit"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_unit">unit</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Measure</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">unit</SPAN>
+
+	<A NAME="f_sample_rate"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_sample_rate">sample_rate</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sample</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">rate</SPAN>
+
+	<A NAME="f_altitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_altitude">altitude</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sensor</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">altitude</SPAN>
+
+	<A NAME="f_gb_north"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_gb_north">gb_north</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sensor</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Gauss</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Boaga</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">north</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">coordinate</SPAN>
+
+	<A NAME="f_gb_est"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_gb_est">gb_est</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sensor</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Gauss</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Boaga</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">est</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">coordinate</SPAN>
+
+	<A NAME="f_latitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_latitude">latitude</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sensor</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">latitude</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">coordinate</SPAN>
+
+	<A NAME="f_longitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_longitude">longitude</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sensor</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">longitude</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">coordinate</SPAN>
+
+	<A NAME="f_latitude_degrees"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_latitude_degrees">latitude_degrees</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Station</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">latitude</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">degrees</SPAN>
+
+	<A NAME="f_latitude_minutes"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_latitude_minutes">latitude_minutes</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Station</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">latitude</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">minutes</SPAN>
+
+	<A NAME="f_latitude_seconds"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_latitude_seconds">latitude_seconds</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Station</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">latitude</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">seconds</SPAN>
+
+	<A NAME="f_longitude_degrees"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_longitude_degrees">longitude_degrees</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Station</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">longitude</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">degrees</SPAN>
+
+	<A NAME="f_longitude_minutes"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_longitude_minutes">longitude_minutes</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Station</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">longitude</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">minutes</SPAN>
+
+	<A NAME="f_longitude_seconds"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_longitude_seconds">longitude_seconds</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Station</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">longitude</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">seconds</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Status</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">setting</SPAN>
+
+	<A NAME="f_set_id"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_id">set_id</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">an_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_id">id</A>
+
+	<A NAME="f_set_name"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_name">set_name</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_name">name</A>
+
+	<A NAME="f_set_status"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_status">set_status</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_status</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/sensor_status_short.html">SENSOR_STATUS</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_status">status</A>
+
+	<A NAME="f_set_type"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_type">set_type</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_type</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/sensor_type_short.html">SENSOR_TYPE</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_type">type</A>
+
+	<A NAME="f_set_station"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_station">set_station</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_station</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/station_idname_short.html">STATION_IDNAME</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_status">status</A>
+
+	<A NAME="f_set_unit"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_unit">set_unit</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_unit</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_unit">unit</A>
+
+	<A NAME="f_set_sample_rate"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_sample_rate">set_sample_rate</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_rate</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_sample_rate">sample_rate</A>
+
+	<A NAME="f_set_altitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_altitude">set_altitude</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">an_altitude</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_altitude">altitude</A>
+
+	<A NAME="f_set_gb_north"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_gb_north">set_gb_north</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_gb_north</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_gb_north">gb_north</A>
+
+	<A NAME="f_set_gb_est"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_gb_est">set_gb_est</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_gb_est</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_gb_est">gb_est</A>
+
+	<A NAME="f_set_latitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_latitude">set_latitude</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_latitude</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_latitude">latitude</A>
+
+	<A NAME="f_set_longitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_set_longitude">set_longitude</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_longitude</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Sets</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_longitude">longitude</A>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">Reporting</SPAN>
+
+	<A NAME="f_out"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_short.html#f_out">out</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN>`SENSOR'<SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">as</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="ecomment">string</SPAN>
+	
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../../msg/meteo/sensor_short.html">SENSOR</A><FORM ONSUBMIT="go_to('../../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="sensor"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

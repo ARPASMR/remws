@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+
+<head>
+  <title>Matisse Eiffel binding Readme</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link href="eiffel.css" rel="stylesheet" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+
+<table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td height="18" colspan="3" class="bgd_dkgrey">
+       <span class="fontwhite">&nbsp;&nbsp;&nbsp;Getting started with Matisse Eiffel Binding</span>
+      </td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3" class="bgd_grey" align="right">
+        <a href="http://www.matisse.com/">
+           <img naturalsizeflag="3" height="30"
+           width="112" src="images/logo_matisse.gif" alt="Matisse Home"
+           border="0">
+        </a>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="1">
+        <img src="images/spacer.gif" width="1" height="1" naturalsizeflag="3"
+             align="bottom">
+      </td>
+      <td valign="top">                                        
+
+
+      <table width="800" height="1000" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td align="Left" valign="Top">
+               <p><br><br></p>
+               <span class="fontred">1. Before Starting with the Eiffel binding</span>
+               <p>If you are new to Matisse, we recommend you to take a
+               look at the <a href="http://www.matisse.com/developers/documentation/">
+               Getting Started with Matisse</a> manual from Matisse web site.<br>
+               This manual explains how to create and initialize a new database, how to define 
+               a database schema, what is the typical development process 
+               with Matisse, and more.<br>
+               <br>
+               The Matisse Eiffel binding consists of a set of Eiffel classes that provides 
+               persistence to Eiffel classes, and a C library that supports these classes.
+               The programmer's guide for the Eiffel binding can be obtained from the 
+	       <a href="http://www.matisse.com/developers/documentation/">Matisse Documentation</a> page.<br>
+               <br>
+               <span class="fontred">NOTE:</span> <br>
+	       If you plan to develop a .NET Eiffel application with Eiffel for .NET Framework, 
+               you may skip this version of the Matisse Eiffel binding and instead directly use the <b>Matisse .NET binding</b>.<br>
+	       The Matisse .NET binding allows you to create your own Eiffel class stubs generator using 
+               the Eiffel CodeDOM provider. Please refer to Section 18 <code>'Generating Class Stubs with a CodeDOM Provider'</code> 
+               of the <a href="http://www.matisse.com/developers/documentation/">Matisse .NET Programmer's Guide</a> for more details.
+               <br>
+               <br>
+               </p>
+               <span class="fontred">2. Requirements</span>
+	       <p>  
+		<ul>
+    		<li class="Bullet1">Windows Vista/7/8, or Linux.</li>
+    		<li class="Bullet1">Matisse <b>9.1.x</b> or higher.</li>
+    		<li class="Bullet1">EiffelStudio <b>7.0</b> or higher (Either GNU gcc compiler or Microsoft C/C++ complier).</li>
+    		<li class="Bullet1">Check the <b>MATISSE_HOME</b> environment
+                variable. It should be set to the Matisse installation directory<br>
+                (<code>C:\Program Files\Matisse</code> by default on Windows or<br>
+                 <code>/usr/local/matisse</code> by default on Linux).</li>
+    		<li class="Bullet1">Review the <a href="RELEASE_NOTES.txt">RELEASE NOTES</a> prior to compiling the binding.</li>
+                </ul>
+               <br>
+               <br>
+               </p>
+
+               <span class="fontred">3. Installation</span>
+               <p>In the following instructions, MATISSE_HOME refers to the top
+		  directory of the Matisse installation (i.e. C:\Program Files\Matisse) and
+		  $MATISSE_HOME\eiffel is the top directory of the Matisse Eiffel Binding.<br>
+               </p>
+               <span class="fontred">3.1 Installing the binding</span>
+               <p>Extract the <code>matisse-eiffel-9.x.x.zip</code> file and save the files in the 
+		  <code>$MATISSE_HOME</code> directory. You'll see the following directory
+                  tree:<br>
+                  <br>
+                  <img src="images/dir.jpg" title="" alt="Eiffel binding directory"
+			style="width: 186px; height: 227px;"><br>
+		  <br>
+               </p>
+               <span class="fontred">3.2 Compiling the binding</span><br>
+	       <br>
+               <span class="fontred">3.2.1 Building the C support libraries on Windows with Microsoft C/C++ compiler</span>
+	       <p>
+		    <ol>
+		      <li>Open a command line window</li>
+		      <li>Go to <code>%MATISSE_HOME%\eiffel\clib</code></li>
+		      <li>Clean up the directory<br>
+			<code>&nbsp; % del *.lib</code><br>
+		      </li>
+		      <li>Build the libraries<br>
+			<code>&nbsp; % nmake /f makefile.msc</code><br>			
+		      </li>
+		    </ol>
+               </p>
+               <span class="fontred">3.2.2 Building the C support libraries on Linux</span>
+	       <p>
+		    <ol>
+		      <li>Open a terminal window</li>
+		      <li>Go to <code>$MATISSE_HOME/eiffel/clib</code></li>
+		      <li>Clean up the directory<br>
+			<code>&nbsp; % make -f makefile.linux clean</code><br>
+		      </li>
+		      <li>Build the libraries<br>
+			<code>&nbsp; % make -f makefile.linux</code><br>
+		      </li>
+		    </ol>
+               </p>
+               <span class="fontred">4. Examples</span>
+               <p>This installation includes example programs for both Windows and Linux located in the
+                  sub directories of <code>$MATISSE_HOME\eiffel\examples</code>:<br>
+		    <ol>
+		      <li>Be sure that your environment variable path includes
+			<code>$MATISSE_HOME\bin</code>.</li>
+		      <li>Start a new Matisse database using the Enterprise Manager.<br>
+			<br>
+			<img src="images/EMbindingFigure01.gif" title="" alt="Start a new Matisse database"
+			  style="width: 242px; height: 414px;"><br>
+			<br>
+		      </li>
+		      <li>Import the database schema for the example into the the
+			database using the ODL file located in the example directory:<br>
+			<br>
+			<img src="images/EMbindingFigure02.gif" title=""
+			  alt="Import the ODL file into the database"
+			  style="width: 282px; height: 379px;"><br>
+			&nbsp; <br>
+		      </li>
+		      <li>Generate the Eiffel persistent classes using the command-line
+			utility in a sub directory of <code>$MATISSE_HOME\eiffel\examples</code>:<br>
+			<code>&nbsp; % mt_sdl stubgen --lang eiffel -f example.odl</code><br>
+		      </li>
+		      <li>Start the EiffelStudio and select the <code>example.ecf</code> file.</li>
+		      <li>Compile and run the application.<br>
+			<b>NOTE</b>: one of the sample routines shows how to handle a
+			Matisse run-time error, so the execution pauses and EiffelStudio shows
+			the developer exception. Then, click the <b>Launch</b> button to resume the
+			execution.<br>
+		      </li>
+		    </ol>
+               </p>
+               <span class="fontred">5. Documentation</span>
+               <p>
+  		<ul>
+    		<li><a href="http://www.matisse.com/pdf/developers/eiffel_pg.pdf">
+                Matisse Eiffel Programmer's Guide</a> explains how to use the binding.</li>
+               </ul>
+               <br>
+               <br>
+               </p>
+               <span class="fontred">6. New Features</span>
+               <p>For the information about the new Eiffel Binding features in this release, 
+               please refer to the <a href="http://www.matisse.com/developers/documentation/">
+               Release Notes</a> from the Matisse web site.<br>
+               <br>
+               <br>
+               </p>
+               <span class="fontred">Appendix-1: How to generate Eiffel source code with mt_sdl</span>
+               <p>You can write your database schema in an ODL (Object Definition
+		      Language) file, in SQL DDL, or in UML using Matisse Database modeler. 
+		      If you use UML or SQL to define your schema, you need to generate the corresponding 
+		      ODL file from the database. Using the ODL file, you can
+		      generate the Eiffel source code that works as stub classes to manipulate persistent classes in the
+		      database. For additional information, see the 
+		      <a href="http://www.matisse.com/developers/documentation/">Matisse ODL Programming Guide</a>, 
+		      <a href="http://www.matisse.com/developers/documentation/">Matisse Database Modeler User's Guide</a>,
+		      <a href="http://www.matisse.com/developers/documentation/">Matisse SQL Language Reference</a>.<br>
+		    </p>
+		    To generate Eiffel source code from an ODL file, use the following command
+		    (where <code>dbschema.odl</code> is the name of the ODL file containing your schema):<br>
+		    <br>
+		    <code>&nbsp; % mt_sdl stubgen --lang eiffel -f dbschema.odl</code><br>
+		    <br>
+		    This generates Eiffel persistent class files in the directory where the command is executed.<br>
+               <br>
+               <br>
+               </p>
+               <span class="fontred">Appendix-2: Unicode String Classes</span>
+               <p>The Matisse Eiffel binding requires a Unicode String classes. You may
+		  use the <code>UCSTRING</code> classes from <b>Gobo</b> class libraries.<br>
+               <br>
+               <br>
+               </p>
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
+            </td>
+          </tr>
+        </tbody>                                                        
+      </table>
+
+
+      </td>
+    </tr>
+
+    <tr>
+       <td height="1" colspan="3" class="bgd_grey">
+         <img src="images/spacer.gif" width="1" height="1" naturalsizeflag="3"
+           align="bottom">
+      </td>
+    </tr>
+    <tr>
+      <td width="1" height="50" class="bgd_grey">
+        <img src="images/spacer.gif" width="1" height="1" naturalsizeflag="3"
+             align="bottom">
+      </td>
+      <td align="Left" valign="Top">
+        <p>
+        <span class="fontblack">
+          &nbsp;&nbsp; <b>Matisse Software, Inc.</b><br>
+          &nbsp;&nbsp; 930 San Marcos Circle <br>
+          &nbsp;&nbsp; Mountain View, CA 94043<br>
+          &nbsp;&nbsp;<b><a href="http://www.matisse.com/">www.matisse.com</a></b><br>
+        </span>
+        </p>
+      </td>
+      <td width="1" class="bgd_grey">
+        <img src="images/spacer.gif" width="1" height="1" naturalsizeflag="3"
+             align="bottom">
+      </td>
+    </tr>
+    <tr>
+      <td height="8" colspan="3" class="bgd_grey">
+        <img src="images/spacer.gif" width="1" height="1" naturalsizeflag="3"
+             align="bottom">
+      </td>
+    </tr>
+    <tr>
+      <td height="18" colspan="3" class="bgd_dkgrey">
+        <img src="images/spacer.gif" width="1" height="1" naturalsizeflag="3"
+             align="bottom">
+      </td>
+    </tr>
+  </tbody>        
+</table>
+
+
+</body>
+
+
+</html>              
+

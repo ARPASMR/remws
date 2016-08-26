@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<project name="ap_example" default="help">
+
+	<description>
+		system: "Argument parsing example"
+		copyright: "Copyright (c) 2006, Bernd Schoeller and others"
+		license: "MIT License"
+		date: "$Date: 2007-01-26 19:55:25 +0100 (Fri, 26 Jan 2007) $"
+		revision: "$Revision: 5877 $"
+	</description>
+
+	<inherit>
+		<parent location="${GOBO}/misc/eiffel.eant">
+			<redefine target="init_system"/>
+		</parent>
+	</inherit>
+
+<!-- Implementation -->
+
+	<target name="init_system">
+		<set name="system" value="ap_example"/>
+		<set name="library" value="argument"/>
+		<set name="system_dir" value="${GOBO}/example/${library}"/>
+	</target>
+
+</project>

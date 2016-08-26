@@ -1,0 +1,33 @@
+-- system:     "VCFG-3 test #9"
+-- library:    "Gobo Eiffel Tools Library"
+-- compiler:   "Halstenbach ISS-BASE 3.0"
+-- author:     "Eric Bezault <ericb@gobosoft.com>"
+-- copyright:  "Copyright (c) 2001, Eric Bezault and others"
+-- license:    "MIT License"
+-- date:       "$Date: 2007-01-26 19:55:25 +0100 (Fri, 26 Jan 2007) $"
+-- revision:   "$Revision: 5877 $"
+
+system
+
+	aa
+
+root
+
+	AA: "make"
+
+default
+
+	--debug (yes);
+	--assertion (all);
+	--precompiled ("$ISS_BASE/spec/$PLATFORM/precomp/base")
+
+cluster
+
+	test9:	"$GOBO/test/gelint/validity/vcfg3/test9"
+
+component
+
+		-- ISS-Baselib
+	base: "$ISS_BASE/spec/$PLATFORM/component/base.cl"
+
+end

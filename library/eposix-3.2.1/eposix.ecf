@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-13-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-13-0 http://www.eiffel.com/developers/xml/configuration-1-13-0.xsd" name="eposix" uuid="70ED4FF9-249E-42E0-B9EC-F424CFA5FB89" library_target="eposix">
+	<target name="eposix">
+		<root all_classes="true"/>
+		<option full_class_checking="false" is_attached_by_default="false" void_safety="none" syntax="obsolete">
+		</option>
+		<external_object location="${EPOSIX}\lib\libeposix.lib">
+			<condition>
+				<platform value="windows"/>
+				<concurrency value="none"/>
+			</condition>
+		</external_object>
+		<external_object location="${EPOSIX}\lib\libeposixmt.lib">
+			<condition>
+				<platform value="windows"/>
+				<concurrency excluded_value="none"/>
+			</condition>
+		</external_object>
+		<external_object location="${EPOSIX}/lib/libeposix_ise.a">
+			<condition>
+				<platform excluded_value="windows"/>
+				<concurrency value="none"/>
+			</condition>
+		</external_object>
+		<external_object location="${EPOSIX}/lib/libeposixmt_ise.a">
+			<condition>
+				<platform excluded_value="windows"/>
+				<concurrency excluded_value="none"/>
+			</condition>
+		</external_object>
+		<external_object location="-lpthread">
+			<condition>
+				<platform excluded_value="windows"/>
+				<concurrency excluded_value="none"/>
+			</condition>
+		</external_object>
+		<external_object location="-lrt">
+			<condition>
+				<platform excluded_value="windows"/>
+				<concurrency excluded_value="none"/>
+			</condition>
+		</external_object>
+		<library name="base" location="$ISE_LIBRARY/library/base/base.ecf"/>
+		<library name="gobo" location="$ISE_LIBRARY/library/gobo/gobo_all.ecf"/>
+		<library name="gobo_argument" location="$ISE_LIBRARY/library/gobo/gobo_argument.ecf"/>
+		<library name="gobo_kernel" location="$ISE_LIBRARY/library/gobo/gobo_kernel.ecf"/>
+		<library name="gobo_lexical" location="$ISE_LIBRARY/library/gobo/gobo_lexical.ecf"/>
+		<library name="gobo_math" location="$ISE_LIBRARY/library/gobo/gobo_math.ecf"/>
+		<library name="gobo_parse" location="$ISE_LIBRARY/library/gobo/gobo_parse.ecf"/>
+		<library name="gobo_pattern" location="$ISE_LIBRARY/library/gobo/gobo_pattern.ecf"/>
+		<library name="gobo_regexp" location="$ISE_LIBRARY/library/gobo/gobo_regexp.ecf"/>
+		<library name="gobo_string" location="$ISE_LIBRARY/library/gobo/gobo_string.ecf"/>
+		<library name="gobo_structure" location="$ISE_LIBRARY/library/gobo/gobo_structure.ecf"/>
+		<library name="gobo_time" location="$ISE_LIBRARY/library/gobo/gobo_time.ecf"/>
+		<library name="gobo_tools" location="$ISE_LIBRARY/library/gobo/gobo_tools.ecf"/>
+		<library name="gobo_utility" location="$ISE_LIBRARY/library/gobo/gobo_utility.ecf"/>
+		<library name="gobo_xml" location="$ISE_LIBRARY/library/gobo/gobo_xml.ecf"/>
+
+		<cluster name="unix" location=".\src\" recursive="true">
+			<condition>
+				<platform excluded_value="windows"/>
+			</condition>
+			<file_rule>
+				<exclude>/sapi/spec/ve$</exclude>
+				<exclude>/sapi/spec/ge$</exclude>
+				<exclude>/windows$</exclude>
+				<exclude>/papi/spec/se$</exclude>
+				<exclude>/spec/lapi$</exclude>
+				<exclude>/capi/spec/se$</exclude>
+				<exclude>/papi/spec/ve$</exclude>
+				<exclude>/sapi/spec/se$</exclude>
+				<exclude>/capi/spec/ve$</exclude>
+				<exclude>/supportc$</exclude>
+				<exclude>/capi/spec/ge$</exclude>
+				<exclude>/wapi$</exclude>
+				<exclude>/spec/ve$</exclude>
+				<exclude>/wapi5$</exclude>
+				<exclude>/spec/ge$</exclude>
+				<exclude>/papi/spec/ge$</exclude>
+				<exclude>/spec/se$</exclude>
+				<exclude>/epxw$</exclude>
+			</file_rule>
+			<visible class="STDC_SIGNAL_SWITCH" feature="switcher"/>
+			<visible class="STDC_EXIT_SWITCH" feature="at_exit"/>
+		</cluster>
+		<cluster name="windows" location=".\src\" recursive="true">
+			<condition>
+				<platform value="windows"/>
+			</condition>
+			<file_rule>
+				<exclude>/spec/se$</exclude>
+				<exclude>/epxs$</exclude>
+				<exclude>/wapi/spec/ve$</exclude>
+				<exclude>/spec/lapi$</exclude>
+				<exclude>/sus$</exclude>
+				<exclude>/sapi$</exclude>
+				<exclude>/supportc$</exclude>
+				<exclude>/papi$</exclude>
+				<exclude>/wapi/spec/se$</exclude>
+				<exclude>/wapi/spec/ge$</exclude>
+				<exclude>/epxp$</exclude>
+				<exclude>/spec/ve$</exclude>
+				<exclude>/wapi5$</exclude>
+				<exclude>/spec/ge$</exclude>
+				<exclude>/posix$</exclude>
+			</file_rule>
+			<visible class="STDC_SIGNAL_SWITCH" feature="switcher"/>
+			<visible class="STDC_EXIT_SWITCH" feature="at_exit"/>
+		</cluster>
+	</target>
+</system>

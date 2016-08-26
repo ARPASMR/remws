@@ -1,0 +1,10 @@
+//                         -*-c++-*-
+//
+// Matisse-Eiffel Test Schema 
+// 
+//
+
+interface UndefClass1 : persistent {
+  attribute String<64> id;
+};
+

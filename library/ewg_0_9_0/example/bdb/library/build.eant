@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<project name="bdb" default="help">
+
+	<description>
+		description: "ewg example: Berkeley DB wrapper"
+		copyright: "Copyright (c) 2002, Andreas Leitner and others"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+		date: "$Date: 2004/07/27 13:07:18 $"
+		revision: "$Revision: 1.13 $"
+	</description>
+
+	<inherit>
+		<parent location="${EWG}/misc/ewg_library.eant">
+			<redefine target="init_ewg"/>
+		</parent>
+	</inherit>
+
+<!-- Implementation -->
+
+	<target name="init_ewg">
+		<set name="system_dir" value="${EWG}/example/bdb/library"/>
+		<set name="ewg.library_name" value="bdb"/>
+		<set name="ewg.short_header_name" value="ewg_bdb.h"/>
+		<set name="ewg.full_header_name" value="${system_dir}/manual_wrapper/c/include/ewg_bdb.h"/>
+                <set name="ewg.use_config_file" value="True"/>
+		<geant target="init_sdl_linux"/>
+		<geant target="init_sdl_windows"/>
+		<set name="ewg.c_link_options" value=""/>
+	</target>
+
+	<target name="init_sdl_linux" unless="${GOBO_OS}=windows">
+		<set name="ewg.c_compile.options" value="-I/opt/local/include/db4" if="${ewg.is_mac_os_x}"/>
+	</target>
+
+	<target name="init_sdl_windows" if="${GOBO_OS}=windows">
+		<set name="ewg.c_compile.options" value="/I${BDB}\dbinc /I${BDB}\build_win32"/>
+	</target>
+
+</project>

@@ -1,0 +1,32 @@
+/*
+ * Sample schema used for Objects and Values examples
+ *
+ * Local Variables: ***
+ * mode:C++ ***
+ * End: ***
+*/
+
+interface PostalAddress : persistent 
+{
+  attribute String Nullable City;
+  attribute String<16> Nullable PostalCode;
+};
+
+interface Person : persistent
+{
+  attribute String firstName;
+  attribute String lastName;
+  attribute String Nullable comment;
+  attribute Integer Nullable age;
+  attribute Date Nullable birthdate;
+  attribute Integer dependents = 0;
+  attribute Image Nullable photo = NULL;
+
+  relationship PostalAddress Address [0,1];
+};
+
+interface Employee : Person : persistent 
+{
+  attribute Date hireDate;
+  attribute Numeric salary;
+};

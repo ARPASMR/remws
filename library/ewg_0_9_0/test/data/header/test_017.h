@@ -1,0 +1,3 @@
+
+
+typedef (*foofunc) (int a);

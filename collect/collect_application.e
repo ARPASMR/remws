@@ -130,11 +130,12 @@ feature -- Usage
 		do
 			print ("collect network remws gateway%N")
 			print ("Agenzia Regionale per la Protezione Ambientale della Lombardia%N")
-			print ("collect [-p <port_number>][-l <log_level>][-t][-h]%N%N")
+			print ("collect [-p <port_number>][-l <log_level>][-t][-u][-h]%N%N")
 			print ("%T<port_number> is the network port on which collect will accept connections%N")
 			print ("%T<log_level>   is the logging level that will be used%N")
 			print ("%T-t            uses the testing web service%N")
 			print ("%T-u            the box running collect is in UTC%N")
+			print ("%T-h			prints this text%N")
 			print ("%TThe available logging levels are:%N")
 			print ("%T%T " + log_debug.out       + " --> debug-level messages%N")
 			print ("%T%T " + log_information.out + " --> informational%N")
@@ -197,20 +198,21 @@ feature -- Logging
 			-- Initialize log on file
 		local
 			path: STRING
-			user: STRING
-			u:    STRING
+			home: STRING
+			h:    STRING
 		do
-			create path.make_from_string ("/home/$USER/dev/eiffel/collect/collect.log")
-			create user.make_empty
-			create u.make_from_string ("USER")
+			create path.make_from_string ("$HOME/log/collect.log")
+			create home.make_empty
+			create h.make_from_string ("HOME")
 
-			if attached item("USER") as s_u then
-				user.copy (s_u.to_string_8)
+			if attached item("HOME") as s_h then
+				if not s_h.is_empty then
+					home.copy (s_h.to_string_8)
+					path.replace_substring_all ("$HOME", home)
+				end
 			else
-				path.copy ("/home/buck/dev/eiffel/collect/collect.log")
+				path.copy ("/var/log/collect.log")
 			end
-
-			path.replace_substring_all ("$USER", user)
 
 			create log_path.make_from_string (path)
 			create logger.make
@@ -539,7 +541,7 @@ feature -- Basic operations
 				if attached l_req_obj as myreq then
 					myreq.from_json (l_request)
 					myreq.set_token_id (token.id)
-					
+
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
 						l_response := myres.to_json
@@ -703,19 +705,19 @@ feature {NONE} -- Login management
 				Result := l_one_hour
 			elseif l_month > 3 and l_month < 10 then
 				-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
-				Result := l_two_hours
+				Result := l_one_hour
 			else
 				l_prev_sunday := dt.day - l_dow
 				if l_month = 3 then
 					if l_prev_sunday >= 25 then
-						Result := l_two_hours
+						Result := l_one_hour
 					else
 						Result := l_one_hour
 					end
 				end
 				if l_month = 10 then
 					if l_prev_sunday < 25 then
-						Result := l_two_hours
+						Result := l_one_hour
 					else
 						Result := l_one_hour
 					end

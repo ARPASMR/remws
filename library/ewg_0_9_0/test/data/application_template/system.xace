@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<system name="test_application">
+	<description>
+		system: "test case application"
+		copyright: "Copyright (c) 2002, Andreas Leitner and others"
+		license: "Eiffel Forum License v2 (see forum.txt)"
+		date: "$Date: 2003/10/25 19:26:10 $"
+		revision: "$Revision: 1.2 $"
+	</description>
+	<root class="TEST_APPLICATION" creation="make"/>
+	<option unless="${DEBUG}">
+		<option name="assertion" value="none"/>
+		<option name="garbage_collector" value="none"/>
+		<option name="finalize" value="true" unless="${GOBO_EIFFEL}=ve"/>
+	</option>
+	<option if="${DEBUG}">
+		<option name="assertion" value="all"/>
+		<option name="garbage_collector" value="none"/>
+		<option name="finalize" value="false"/>
+	</option>
+	<option if="${GOBO_EIFFEL}=se">
+		<option name="warning" value="none"/>
+	</option>
+	<option if="${GOBO_OS}=windows">
+		<option if="${GOBO_EIFFEL}=ve">
+			<option name="linker" value="microsoft"/>
+		 </option>
+	 </option>
+
+	<cluster name="test_application" location="${EWG}/test/test_application"/>
+
+
+	<mount location="${GOBO}/library/library.xace"/>
+	<mount location="${GOBO}/library/kernel.xace"/>
+	<mount location="${EWG}/library/runtime/eiffel/library.xace"/>
+	<mount location="${EWG}/test/test_library/library.xace"/>
+
+</system>

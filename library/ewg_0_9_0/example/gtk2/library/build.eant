@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<project name="gtk2" default="help">
+
+  <description>
+    description: "ewg example: gtk2 wrapper"
+    copyright: "Copyright (c) 2002, Andreas Leitner and others"
+    license: "Eiffel Forum License v2 (see forum.txt)"
+    date: "$Date: 2004/07/13 19:59:44 $"
+    revision: "$Revision: 1.26 $"
+  </description>
+
+  <inherit>
+    <parent location="${EWG}/misc/ewg_library.eant">
+      <redefine target="init_ewg"/>
+    </parent>
+  </inherit>
+
+  <!-- Implementation -->
+
+  <target name="init_ewg">
+    <set name="system_dir" value="${EWG}/example/gtk2/library"/>
+    <set name="ewg.library_name" value="gtk2"/>
+    <set name="ewg.short_header_name" value="ewg_gtk.h"/>
+    <set name="ewg.full_header_name" value="${system_dir}/manual_wrapper/c/include/ewg_gtk.h"/>
+    <set name="ewg.use_config_file" value="True"/>
+    <geant target="init_gtk_linux"/>
+    <geant target="init_gtk_windows"/>
+  </target>
+
+  <target name="init_gtk_linux" unless="${GOBO_OS}=windows">
+    <set name="ewg.c_compile.options" value="`pkg-config --cflags gtk+-2.0`"/>
+  </target>
+
+  <target name="init_gtk_windows" if="${GOBO_OS}=windows">
+    <set name="ewg.c_compile.options" value="/I${GTK}\include\gtk-2.0"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\lib\gtk-2.0\include"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\include\atk-1.0"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\include\pango-1.0"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\include\freetype2"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\include\glib-2.0"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\lib\glib-2.0\include"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\include\freetype2"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\include\glib-2.0"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\lib\glib-2.0\include"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\include\freetype2"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\include\glib-2.0"/>
+    <set name="ewg.c_compile.options" value="${ewg.c_compile.options} /I${GTK}\lib\glib-2.0\include"/>
+  </target>
+
+</project>

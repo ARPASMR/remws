@@ -1,0 +1,750 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="collect application root class"/>
+<meta name="date" content="$Date$"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>collect_application Text</TITLE>
+<LINK REL="stylesheet" HREF="../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="collect_application"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;collect application root class&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> 
+	<A CLASS="eclass" HREF="../collect/collect_application.html">COLLECT_APPLICATION</A>
+
+<SPAN CLASS="ekeyword">inherit</SPAN>
+	<A CLASS="eclass" HREF="../msg/constants/msg_constants.html">MSG_CONSTANTS</A>
+
+	<A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A>
+
+	<SPAN CLASS="neclass">EXCEPTIONS</SPAN>
+
+	<SPAN CLASS="neclass">EXECUTION_ENVIRONMENT</SPAN>
+		<SPAN CLASS="ekeyword">rename</SPAN>
+			<SPAN CLASS="nefeature">Command_line</SPAN> <SPAN CLASS="ekeyword">as</SPAN> <SPAN CLASS="nefeature">Env_command_line</SPAN><SPAN CLASS="esymbol">,</SPAN>
+			<SPAN CLASS="nefeature">launch</SPAN> <SPAN CLASS="ekeyword">as</SPAN> <SPAN CLASS="nefeature">env_launch</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<SPAN CLASS="neclass">ARGUMENTS</SPAN>
+
+	<SPAN CLASS="neclass">LOG_PRIORITY_CONSTANTS</SPAN>
+
+	<A CLASS="eclass" HREF="../msg/interfaces/logging_i.html">LOGGING_I</A>
+
+	<SPAN CLASS="neclass">PAGE_TEMPLATES</SPAN>
+
+	<A CLASS="eclass" HREF="../msg/constants/defaults.html">DEFAULTS</A>
+
+	<SPAN CLASS="neclass">WSF_DEFAULT_SERVICE</SPAN>
+		<SPAN CLASS="ekeyword">redefine</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_initialize">initialize</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<SPAN CLASS="nefeature">make_and_launch</SPAN>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization</SPAN>
+
+	<A NAME="f_init"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_init">init</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> internal initialization</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_login_request">login_request</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/login_request.html#f_make">make</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_logout_request">logout_request</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/logout_request.html#f_make">make</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_login_response">login_response</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/login_response.html#f_make">make</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_logout_response">logout_response</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/logout_response.html#f_make">make</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_curl">curl</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_easy">curl_easy</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_content_type">content_type</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_make">make</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_error_message">error_message</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_read_credentials">read_credentials</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_initialize"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_initialize">initialize</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialize current service</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">idx</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_init">init</A>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_init_log">init_log</A>
+			<SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">index_of_word_option</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;h&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">&gt;</SPAN> <SPAN CLASS="enumber">0</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_usage">usage</A>
+				<SPAN CLASS="nefeature">die</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">index_of_word_option</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;p&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">&gt;</SPAN> <SPAN CLASS="enumber">0</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_port">port</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">argument</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_port">port</A> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/defaults.html#f_default_port">Default_port</A>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="nefeature">set_service_option</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;port&quot;<SPAN CLASS="esymbol">,</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_port">port</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">index_of_word_option</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;l&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">&gt;</SPAN> <SPAN CLASS="enumber">0</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">argument</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_debug_log_level</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_information</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_information_log_level</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_notice</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_notice_log_level</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_warning</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_warning_log_level</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_error</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_error_log_level</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_critical</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_critical_log_level</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_alert</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_alert_log_level</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_emergency</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_emergency_log_level</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_error_log_level</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">log_error</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_error_log_level</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">index_of_word_option</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;t&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">&gt;</SPAN> <SPAN CLASS="enumber">0</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_use_testing_ws">use_testing_ws</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">True</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_use_testing_ws">use_testing_ws</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_login">do_login</A> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; FATAL error: unable to login&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_critical</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; FATAL error: unable to login&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+					<SPAN CLASS="nefeature">die</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">True</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; logged in with token &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A> <SPAN CLASS="esymbol">+</SPAN> &quot; expiring upon &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_expiry">expiry</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">formatted_out</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/constants/defaults.html#f_default_date_time_format">Default_date_time_format</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_information</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; logged in with token &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A> <SPAN CLASS="esymbol">+</SPAN> &quot; expiring upon &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_expiry">expiry</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">formatted_out</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/constants/defaults.html#f_default_date_time_format">Default_date_time_format</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Usage</SPAN>
+
+	<A NAME="f_usage"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_usage">usage</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> little help on usage</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;collect network remws gateway%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Agenzia Regionale per la Protezione Ambientale della Lombardia%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;collect [-p &lt;port_number&gt;][-l &lt;log_level&gt;][-t][-h]%N%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T&lt;port_number&gt; is the network port on which collect will accept connections%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T&lt;log_level&gt;   is the logging level that will be used%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T-t            uses the testing web service%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%TThe available logging levels are:%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T%T &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; --&gt; debug-level messages%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T%T &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="nefeature">log_information</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; --&gt; informational%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T%T &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="nefeature">log_notice</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; --&gt; normal but significant condition%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T%T &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="nefeature">log_warning</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; --&gt; warning conditions%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T%T &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="nefeature">log_error</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; --&gt; error conditions%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T%T &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="nefeature">log_critical</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; --&gt; critical conditions%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T%T &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="nefeature">log_alert</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; --&gt; action must be taken immediately%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%T%T &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="nefeature">log_emergency</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; --&gt; system is unusable%N%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Credentials</SPAN>
+
+	<A NAME="f_username"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_username">username</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+
+	<A NAME="f_password"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_password">password</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+
+	<A NAME="f_cfg_file"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file">cfg_file</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PLAIN_TEXT_FILE</SPAN>
+
+	<A NAME="f_cfg_file_name"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file_name">Cfg_file_name</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN> <SPAN CLASS="esymbol">=</SPAN> &quot;credentials.conf&quot;
+
+	<A NAME="f_cfg_file_path"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file_path">Cfg_file_path</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> format cfg file name full path</SPAN>
+		<SPAN CLASS="ekeyword">once</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="nefeature">Home_directory_path</SPAN> <SPAN CLASS="ekeyword">as</SPAN> l_home <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_home</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;/.collect/&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file_name">Cfg_file_name</A>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_read_cfg"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_read_cfg">read_cfg</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Trivial config file --&gt; switch to preferences library</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file">cfg_file</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">open_read</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file">cfg_file</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">read_line</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_username">username</A> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file">cfg_file</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">last_string</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file">cfg_file</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">read_line</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_password">password</A> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file">cfg_file</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">last_string</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file">cfg_file</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">close</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_read_credentials"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_read_credentials">read_credentials</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Read wsrem credentials from file</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_path</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file_path">Cfg_file_path</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_path</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file_path">Cfg_file_path</A>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="elocal">l_path</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;/etc/collect/credentials.conf&quot;
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_cfg_file">cfg_file</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_with_name</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_path</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_read_cfg">read_cfg</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Logging</SPAN>
+
+	<A NAME="f_init_log"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_init_log">init_log</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialize log on file</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">path</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="elocal">user</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="elocal">u</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">path</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;/home/$USER/dev/eiffel/collect/collect.log&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">user</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">u</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;USER&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;USER&quot;<SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> s_u <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">user</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">s_u</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_string_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="elocal">path</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;/home/buck/dev/eiffel/collect/collect.log&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="elocal">path</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">replace_substring_all</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;$USER&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">user</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_log_path">log_path</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">path</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/interfaces/logging_i.html#f_logger">logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_at_location</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_log_path">log_path</A><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">enable_debug_log_level</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../msg/interfaces/logging_i.html#f_logger">logger</A> <SPAN CLASS="ekeyword">as</SPAN> l_logger <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_logger</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">register_log_writer</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Log system initialized&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_information</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_is_logging_enabled"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logging_enabled">is_logging_enabled</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Is logging enabled</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../msg/interfaces/logging_i.html#f_logger">logger</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_log"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">priority</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Logs </SPAN>`a_string'
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../msg/interfaces/logging_i.html#f_logger">logger</A> <SPAN CLASS="ekeyword">as</SPAN> l_logger <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">priority</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_logger</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">write_debug</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">priority</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_emergency</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_logger</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">write_emergency</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">priority</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_alert</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_logger</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">write_alert</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">priority</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_critical</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_logger</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">write_critical</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">priority</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_error</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_logger</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">write_error</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">priority</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_information</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_logger</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">write_information</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">priority</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_notice</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_logger</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">write_notice</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">priority</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">log_warning</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_logger</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">write_warning</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Basic operations</SPAN>
+
+	<A NAME="f_parse_header"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_parse_header">parse_header</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Search message header for message id</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_STRING</SPAN>
+			<SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_PARSER</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_with_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">key</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;header&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parse_content</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_valid</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parsed_json_value</SPAN> <SPAN CLASS="ekeyword">as</SPAN> jv <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">jv</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_object <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_object</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_header <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_NUMBER</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_header</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;id&quot;<SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_id <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;id:                &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">j_id</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">integer_64_item</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">j_id</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">integer_64_item</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;The message header was not found!&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_error</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%TThis is probably not a valid message.&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_error</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_code">error_code</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_err_invalid_json">err_invalid_json</A>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_message">error_message</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_msg_invalid_json">msg_invalid_json</A>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;json parser is not valid!!!&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_critical</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">has_error</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;json parser error: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">errors_as_string</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_critical</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_code">error_code</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_err_no_json_parser">err_no_json_parser</A>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_message">error_message</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_msg_no_json_parser">msg_no_json_parser</A>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_execute"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_execute">execute</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">req</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">WSF_REQUEST</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">res</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">WSF_RESPONSE</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Execute the request</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> See </SPAN>`req.input'<SPAN CLASS="ecomment"> for input stream</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;</SPAN>`req.meta_variables'<SPAN CLASS="ecomment"> for the CGI meta variable</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> and </SPAN>`res'<SPAN CLASS="ecomment"> for output buffer</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_val</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="elocal">l_result</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="elocal">l_req</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A>
+			<SPAN CLASS="elocal">l_res</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/interfaces/response_i.html">RESPONSE_I</A>
+			<SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">req</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">content_length_value</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_val</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_check_login">check_login</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; ##### Changing token #####&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_notice</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Currently logged in, but token expired, need to logout ...%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_logout">do_logout</A> <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Logged out%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+						<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; Logged out&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_information</SPAN><SPAN CLASS="esymbol">)</SPAN>
+						<A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+						<SPAN CLASS="nefeature">sleep</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">1000000000</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer_64</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">else</SPAN>
+						<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Unable to logout, but session token expired, don't worry%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+						<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; Unable to logout&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_notice</SPAN><SPAN CLASS="esymbol">)</SPAN>
+						<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;retry logout%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+						<SPAN CLASS="ekeyword">from</SPAN>
+							<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+						<SPAN CLASS="ekeyword">until</SPAN>
+							<A CLASS="efeature" HREF="../collect/collect_application.html#f_do_logout">do_logout</A> <SPAN CLASS="ekeyword">or</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">5</SPAN>
+						<SPAN CLASS="ekeyword">loop</SPAN>
+							<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Logout Attempt &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">i</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
+							<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+							<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+							<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Wait one second and retry...%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+							<SPAN CLASS="nefeature">sleep</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">1000000000</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer_64</SPAN><SPAN CLASS="esymbol">)</SPAN>
+						<SPAN CLASS="ekeyword">end</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_use_testing_ws">use_testing_ws</A> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="nefeature">sleep</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">5000000000</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<SPAN CLASS="nefeature">sleep</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">5000000000</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_login">do_login</A> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Logged in again%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; logged in again with token &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A> <SPAN CLASS="esymbol">+</SPAN> &quot; expiring upon &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_expiry">expiry</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">formatted_out</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/constants/defaults.html#f_default_date_time_format">Default_date_time_format</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; logged in again with token &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A> <SPAN CLASS="esymbol">+</SPAN> &quot; expiring upon &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_expiry">expiry</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">formatted_out</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/constants/defaults.html#f_default_date_time_format">Default_date_time_format</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_information</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;NOT logged in%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;RETRY LOGIN ...%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">from</SPAN>
+						<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="enumber">1</SPAN>
+					<SPAN CLASS="ekeyword">until</SPAN>
+						<A CLASS="efeature" HREF="../collect/collect_application.html#f_do_login">do_login</A> <SPAN CLASS="ekeyword">or</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">5</SPAN>
+					<SPAN CLASS="ekeyword">loop</SPAN>
+						<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Attempt &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">i</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
+						<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+						<SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">i</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="enumber">1</SPAN>
+						<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Wait one second and retry...%N&quot;<SPAN CLASS="esymbol">)</SPAN>
+						<SPAN CLASS="nefeature">sleep</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">1000000000</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer_64</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">req</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">input</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">read_to_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">req</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">content_length_value</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &lt;&lt;&lt; &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+			<SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_parse_header">parse_header</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Received message id: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &lt;&lt;&lt; &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_login_request_id">login_request_id</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/login_request.html">LOGIN_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/login_request.html#f_make">make</A>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myreq <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_json">from_json</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myres <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">myres</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_json">to_json</A>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_logout_request_id">logout_request_id</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/logout_request.html">LOGOUT_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/logout_request.html#f_make">make</A>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myreq <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_json">from_json</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myres <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">myres</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_json">to_json</A>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_station_status_list_request_id">station_status_list_request_id</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/station_status_list_request.html">STATION_STATUS_LIST_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/station_status_list_request.html#f_make">make</A>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myreq <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_json">from_json</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_set_token_id">set_token_id</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myres <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">myres</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_json">to_json</A>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_station_types_list_request_id">station_types_list_request_id</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/station_types_list_request.html">STATION_TYPES_LIST_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/station_types_list_request.html#f_make">make</A>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myreq <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_json">from_json</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_set_token_id">set_token_id</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myres <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">myres</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_json">to_json</A>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_province_list_request_id">province_list_request_id</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/province_list_request.html">PROVINCE_LIST_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/province_list_request.html#f_make">make</A>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myreq <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_json">from_json</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_set_token_id">set_token_id</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myres <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">myres</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_json">to_json</A>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_municipality_list_request_id">municipality_list_request_id</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/municipality_list_request.html">MUNICIPALITY_LIST_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/municipality_list_request.html#f_make">make</A>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myreq <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_json">from_json</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_set_token_id">set_token_id</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myres <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">myres</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_json">to_json</A>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_station_list_request_id">station_list_request_id</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/station_list_request.html">STATION_LIST_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/station_list_request.html#f_make">make</A>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myreq <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_json">from_json</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_set_token_id">set_token_id</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myres <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">myres</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_json">to_json</A>
+						<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;**********%N&quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;%N**********%N&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_sensor_type_list_request_id">sensor_type_list_request_id</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/sensor_type_list_request.html">SENSOR_TYPE_LIST_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/sensor_type_list_request.html#f_make">make</A>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myreq <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_json">from_json</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_set_token_id">set_token_id</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myres <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">myres</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_json">to_json</A>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_realtime_data_request_id">realtime_data_request_id</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/realtime_data_request.html">REALTIME_DATA_REQUEST</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/realtime_data_request.html#f_make">make</A>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_req</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myreq <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_json">from_json</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_raw</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_set_token_id">set_token_id</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">myreq</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myres <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">myres</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_json">to_json</A>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="elocal">l_val</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_internal_error">Internal_error</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/error_response.html#f_to_json">to_json</A>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="elocal">res</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_header</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">HTTP_STATUS_CODE</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">ok</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">&lt;&lt;</SPAN> <SPAN CLASS="esymbol">[</SPAN>&quot;Content-Type&quot;<SPAN CLASS="esymbol">,</SPAN> &quot;text/json&quot;<SPAN CLASS="esymbol">]</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">[</SPAN>&quot;Content-Length&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">l_val</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">count</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">]</SPAN> <SPAN CLASS="esymbol">&gt;&gt;</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="elocal">res</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_val</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_val</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Network IO</SPAN>
+
+	<A NAME="f_init_curl_handle"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_init_curl_handle">init_curl_handle</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CURL_EASY_EXTERNALS</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_curl</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CURL_EXTERNALS</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">POINTER</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Create a curl handle and setup it</SPAN>
+		<SPAN CLASS="ekeyword">require</SPAN>
+			<SPAN CLASS="etag">a_curl_easy_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">a_curl_easy</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+			<SPAN CLASS="etag">a_curl_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">a_curl</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+			<SPAN CLASS="etag">a_request_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">a_request</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_dynamic_library_exists</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">init</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_use_testing_ws">use_testing_ws</A> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_url</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_ws_test_url">ws_test_url</A><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_url</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_ws_url">ws_url</A><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_integer</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_fresh_connect</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_integer</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_forbid_reuse</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">xml</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_to_xml">to_xml</A>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} &gt;&gt;&gt; &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+				<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_slist</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_httpheader</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_generate_http_headers">generate_http_headers</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_curl</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_integer</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_post</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_integer</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_postfieldsize</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">count</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_integer</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_verbose</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_useragent</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;Eiffel curl testclient&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">a_curl_easy</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_postfields</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_code">error_code</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_err_no_curl_easy_library">err_no_curl_easy_library</A>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_message">error_message</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/constants/error_codes.html">ERROR_CODES</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_msg_no_curl_easy_library">msg_no_curl_easy_library</A>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_post"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_post">post</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Post </SPAN>`a_request'<SPAN CLASS="ecomment"> to remws</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_result</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="elocal">curl_buffer</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CURL_STRING</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_headers">headers</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">curl_buffer</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="elocal">curl_buffer</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_curl">curl</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">global_init</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_handle">curl_handle</A> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_init_curl_handle">init_curl_handle</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_easy">curl_easy</A><SPAN CLASS="esymbol">,</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_curl">curl</A><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_handle">curl_handle</A> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="nefeature">default_pointer</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_easy">curl_easy</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">setopt_integer</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_handle">curl_handle</A><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">CURL_OPT_CONSTANTS</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">curlopt_writedata</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">curl_buffer</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">object_id</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_easy">curl_easy</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">set_write_function</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_handle">curl_handle</A><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_easy">curl_easy</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">perform</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_handle">curl_handle</A><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">l_result</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="enumber">0</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_code">error_code</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_result</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_message">error_message</A> <SPAN CLASS="esymbol">:=</SPAN> &quot;This is a cURL error code, refer to cURL docs&quot;
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_easy">curl_easy</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">cleanup</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_handle">curl_handle</A><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_curl">curl</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">global_cleanup</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">curl_buffer</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_string_32</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">as_string_8</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_do_post"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_do_post">do_post</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/interfaces/request_i.html">REQUEST_I</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/interfaces/response_i.html">RESPONSE_I</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Do a post to remws</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse the XML response</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Convert the response in json</SPAN>
+		<SPAN CLASS="ekeyword">require</SPAN>
+			<SPAN CLASS="etag">a_request_attached</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_request</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/request_i.html#f_init_response">init_response</A>
+			<SPAN CLASS="elocal">l_xml_str</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_post">post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_log">log</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Got: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_debug</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Got: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_error_code">error_code</A> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="enumber">0</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/response_i.html#f_set_outcome">set_outcome</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_error_code">error_code</A><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/interfaces/response_i.html#f_set_message">set_message</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_error_message">error_message</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/msg.html#f_from_xml">from_xml</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_code">error_code</A> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_success">Success</A>
+			<A CLASS="efeature" HREF="../collect/collect_application.html#f_error_message">error_message</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
+		<SPAN CLASS="ekeyword">ensure</SPAN>
+			<SPAN CLASS="etag">result_attached</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="ekeyword">Result</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Login management</SPAN>
+
+	<A NAME="f_login_request"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_login_request">login_request</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/login_request.html">LOGIN_REQUEST</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> The login request</SPAN>
+
+	<A NAME="f_logout_request"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_logout_request">logout_request</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/logout_request.html">LOGOUT_REQUEST</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> The logout request</SPAN>
+
+	<A NAME="f_login_response"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_login_response">login_response</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/login_response.html">LOGIN_RESPONSE</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> The login response</SPAN>
+
+	<A NAME="f_logout_response"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_logout_response">logout_response</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/logout_response.html">LOGOUT_RESPONSE</A>
+
+	<A NAME="f_check_day_light_time_saving"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_check_day_light_time_saving">check_day_light_time_saving</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">dt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Check for day light time savin on </SPAN>`dt'
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE</SPAN>
+			<SPAN CLASS="elocal">l_month</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="elocal">l_day</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="elocal">l_dow</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="elocal">l_prev_sunday</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="elocal">l_one_hour</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+			<SPAN CLASS="elocal">l_two_hours</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_one_hour</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_two_hours</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">2</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="elocal">l_day</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">dt</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">day</SPAN>
+			<SPAN CLASS="elocal">l_month</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">dt</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">month</SPAN>
+			<SPAN CLASS="elocal">l_date</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">dt</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">date</SPAN>
+			<SPAN CLASS="elocal">l_dow</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">dt</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">date</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">day_of_the_week</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">l_month</SPAN> <SPAN CLASS="esymbol">&lt;</SPAN> <SPAN CLASS="enumber">3</SPAN> <SPAN CLASS="ekeyword">or</SPAN> <SPAN CLASS="elocal">l_month</SPAN> <SPAN CLASS="esymbol">&gt;</SPAN> <SPAN CLASS="enumber">10</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_one_hour</SPAN>
+			<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="elocal">l_month</SPAN> <SPAN CLASS="esymbol">&gt;</SPAN> <SPAN CLASS="enumber">3</SPAN> <SPAN CLASS="ekeyword">or</SPAN> <SPAN CLASS="elocal">l_month</SPAN> <SPAN CLASS="esymbol">&lt;</SPAN> <SPAN CLASS="enumber">10</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_two_hours</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="elocal">l_prev_sunday</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">dt</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">day</SPAN> <SPAN CLASS="esymbol">-</SPAN> <SPAN CLASS="elocal">l_dow</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">l_month</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">3</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">l_prev_sunday</SPAN> <SPAN CLASS="esymbol">&gt;=</SPAN> <SPAN CLASS="enumber">25</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_one_hour</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">l_month</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">10</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">l_prev_sunday</SPAN> <SPAN CLASS="esymbol">&lt;</SPAN> <SPAN CLASS="enumber">25</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_two_hours</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_check_login"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_check_login">check_login</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Check if is system logged in using the current token </SPAN>`expiry'
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_current_dt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN>
+			<SPAN CLASS="elocal">l_interval</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+			<SPAN CLASS="elocal">l_offset</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_current_dt</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_now_utc</SPAN>
+			<SPAN CLASS="elocal">l_offset</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_check_day_light_time_saving">check_day_light_time_saving</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_current_dt</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_use_testing_ws">use_testing_ws</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_interval</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_definite</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">-28</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">l_interval</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_definite</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">-58</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="enumber">0</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">l_current_dt</SPAN> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_offset</SPAN> <SPAN CLASS="esymbol">&gt;=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_expiry">expiry</A> <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_interval</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">True</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_do_login"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_do_login">do_login</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Execute login</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_username">username</A> <SPAN CLASS="ekeyword">as</SPAN> l_username <SPAN CLASS="ekeyword">and</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_password">password</A> <SPAN CLASS="ekeyword">as</SPAN> l_password <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_login_request">login_request</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/login_request.html#f_set_username">set_username</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_username</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_login_request">login_request</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/login_request.html#f_set_password">set_password</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_password</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">l_xml_str</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_post">post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_login_request">login_request</A><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;do_login response: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_login_response">login_response</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/login_response.html#f_from_xml">from_xml</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_login_response">login_response</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/login_response.html#f_outcome">outcome</A> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_success">Success</A> <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_login_response">login_response</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/login_response.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">)</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_expiry">expiry</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_login_response">login_response</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/login_response.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_expiry">expiry</A><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">count</SPAN> <SPAN CLASS="esymbol">&gt;</SPAN> <SPAN CLASS="enumber">0</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+						<A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">True</SPAN>
+					<SPAN CLASS="ekeyword">else</SPAN>
+						<A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_do_logout"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_do_logout">do_logout</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Execute logout</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="elocal">l_res</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/logout_response.html">LOGOUT_RESPONSE</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A> <SPAN CLASS="ekeyword">as</SPAN> l_token <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_logout_request">logout_request</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/logout_request.html#f_token_id">token_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/token.html#f_id">id</A><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="elocal">l_xml_str</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_post">post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../collect/collect_application.html#f_logout_request">logout_request</A><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{COLLECT_APPLICATION} do logout response &lt;&lt;&lt;  &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+				<A CLASS="efeature" HREF="../collect/collect_application.html#f_logout_response">logout_response</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/logout_response.html#f_from_xml">from_xml</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../collect/collect_application.html#f_logout_response">logout_response</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/logout_response.html#f_outcome">outcome</A> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_success">Success</A>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_curl_easy"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_easy">curl_easy</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CURL_EASY_EXTERNALS</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> cURL easy externals</SPAN>
+
+	<A NAME="f_curl"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_curl">curl</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CURL_EXTERNALS</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> cURL externals</SPAN>
+
+	<A NAME="f_curl_handle"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_curl_handle">curl_handle</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">POINTER</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> cURL handle</SPAN>
+
+	<A NAME="f_headers"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_headers">headers</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">POINTER</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> headers slist</SPAN>
+
+	<A NAME="f_error_code"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_error_code">error_code</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Post error code</SPAN>
+
+	<A NAME="f_error_message"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_error_message">error_message</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Post error message</SPAN>
+
+	<A NAME="f_use_testing_ws"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_use_testing_ws">use_testing_ws</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Must use the testing web service</SPAN>
+
+	<A NAME="f_internal_error"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_internal_error">Internal_error</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/error_response.html">ERROR_RESPONSE</A>
+		<SPAN CLASS="ekeyword">once</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../msg/error_response.html#f_make">make</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Attributes</SPAN>
+
+	<A NAME="f_port"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_port">port</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Listening port</SPAN>
+
+	<A NAME="f_log_level"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_log_level">log_level</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Log level</SPAN>
+
+	<A NAME="f_content_type"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_content_type">content_type</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+
+	<A NAME="f_is_logged_in"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_is_logged_in">is_logged_in</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> is collect logged in remws?</SPAN>
+
+	<A NAME="f_token"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_token">token</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/token.html">TOKEN</A>
+
+	<A NAME="f_log_path"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_log_path">log_path</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PATH</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> log path</SPAN>
+
+	<A NAME="f_file_logger"></A><A CLASS="efeature" HREF="../collect/collect_application.html#f_file_logger">file_logger</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LOG_WRITER_FILE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> the logger</SPAN>
+	
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../collect/collect_application.html">COLLECT_APPLICATION</A><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="collect_application_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="collect_application"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

@@ -1,0 +1,202 @@
+system
+
+	gtk_entries_demo
+
+root
+
+	GTK_ENTRIES_DEMO
+
+creation
+
+	make
+
+cluster
+
+	[gtk_entries_demo "$EWG/example/gtk2/example/entries_demo"] end
+	[ewg_runtime "$EWG/library/runtime/eiffel"] end
+	[ewg_runtime_spec_ve "$EWG/library/runtime/eiffel/spec/ve"] end
+	[ewg "$EWG/example/gtk2/library/manual_wrapper/eiffel"] end
+	[gtk "$EWG/example/gtk2/library/manual_wrapper/eiffel/gtk"] end
+	[gtk_non_agent "$EWG/example/gtk2/library/manual_wrapper/eiffel/gtk/non_agent"] end
+	[widget "$EWG/example/gtk2/library/manual_wrapper/eiffel/gtk/widget"] end
+	[widget_non_agent "$EWG/example/gtk2/library/manual_wrapper/eiffel/gtk/widget/non_agent"] end
+	[gtk_signal "$EWG/example/gtk2/library/manual_wrapper/eiffel/gtk/signal"] end
+	[gdk "$EWG/example/gtk2/library/manual_wrapper/eiffel/gdk"] end
+	[event "$EWG/example/gtk2/library/manual_wrapper/eiffel/gdk/event"] end
+	[glib "$EWG/example/gtk2/library/manual_wrapper/eiffel/glib"] end
+	[glib_signal "$EWG/example/gtk2/library/manual_wrapper/eiffel/glib/signal"] end
+	[glib_non_agent "$EWG/example/gtk2/library/manual_wrapper/eiffel/glib/non_agent"] end
+	[gtk2_external_struct "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/struct"] end
+	[gtk2_external_struct_ve "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/struct/spec/ve"] end
+	[gtk2_external_enum "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/enum"] end
+	[gtk2_external_enum_ve "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/enum/spec/ve"] end
+	[gtk2_external_union "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/union"] end
+	[gtk2_external_union_ve "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/union/spec/ve"] end
+	[gtk2_external_function "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/function"] end
+	[gtk2_external_function_ve "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/function/spec/ve"] end
+	[gtk2_external_callback_callback "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/callback"] end
+	[gtk2_external_callback_ve "$EWG/example/gtk2/library/generated_wrapper/eiffel/external/callback/spec/ve"] end
+	[gtk2_abstraction_struct "$EWG/example/gtk2/library/generated_wrapper/eiffel/abstraction/struct"] end
+	[gtk2_abstraction_enum "$EWG/example/gtk2/library/generated_wrapper/eiffel/abstraction/enum"] end
+	[gtk2_abstraction_union "$EWG/example/gtk2/library/generated_wrapper/eiffel/abstraction/union"] end
+	[gtk2_abstraction_function "$EWG/example/gtk2/library/generated_wrapper/eiffel/abstraction/function"] end
+	[gtk2_abstraction_callback "$EWG/example/gtk2/library/generated_wrapper/eiffel/abstraction/callback"] end
+	[kl_basic "$GOBO/library/kernel/basic"] end
+	[kl_elks "$GOBO/library/kernel/elks"] end
+	[kl_io "$GOBO/library/kernel/io"] end
+	[kl_misc "$GOBO/library/kernel/misc"] end
+	[kl_unicode "$GOBO/library/kernel/unicode"] end
+	[kl_support "$GOBO/library/kernel/support"] end
+	[kl_spec_ve "$GOBO/library/kernel/spec/ve"] end
+	[lx_automaton "$GOBO/library/lexical/automaton"] end
+	[lx_error "$GOBO/library/lexical/error"] end
+	[lx_generation "$GOBO/library/lexical/generation"] end
+	[lx_lex "$GOBO/library/lexical/lex"] end
+	[lx_regexp "$GOBO/library/lexical/regexp"] end
+	[lx_scanner "$GOBO/library/lexical/scanner"] end
+	[lx_skeleton "$GOBO/library/lexical/skeleton"] end
+	[lx_support "$GOBO/library/lexical/support"] end
+	[pr_error "$GOBO/library/parse/error"] end
+	[pr_fsm "$GOBO/library/parse/fsm"] end
+	[pr_generation "$GOBO/library/parse/generation"] end
+	[pr_grammar "$GOBO/library/parse/grammar"] end
+	[pr_parser "$GOBO/library/parse/parser"] end
+	[pr_skeleton "$GOBO/library/parse/skeleton"] end
+	[pr_support "$GOBO/library/parse/support"] end
+	[pr_yacc "$GOBO/library/parse/yacc"] end
+	[dp_bridge "$GOBO/library/pattern/bridge"] end
+	[dp_command "$GOBO/library/pattern/command"] end
+	[rx_interface "$GOBO/library/regexp/interface"] end
+	[rx_pcre "$GOBO/library/regexp/pcre"] end
+	[rx_support "$GOBO/library/regexp/support"] end
+	[ds_container "$GOBO/library/structure/container"] end
+	[ds_dispenser "$GOBO/library/structure/dispenser"] end
+	[ds_list "$GOBO/library/structure/list"] end
+	[ds_set "$GOBO/library/structure/set"] end
+	[ds_sort "$GOBO/library/structure/sort"] end
+	[ds_support "$GOBO/library/structure/support"] end
+	[ds_table "$GOBO/library/structure/table"] end
+	[st_collation "$GOBO/library/string/collation"] end
+	[st_support "$GOBO/library/string/support"] end
+	[ts_generation "$GOBO/library/test/generation"] end
+	[ts_harness "$GOBO/library/test/harness"] end
+	[dt_clock "$GOBO/library/time/clock"] end
+	[dt_date "$GOBO/library/time/date"] end
+	[dt_time_zone "$GOBO/library/time/time_zone"] end
+	[et_eiffel_assertion "$GOBO/library/tools/eiffel/ast/assertion"] end
+	[et_eiffel_class "$GOBO/library/tools/eiffel/ast/class"] end
+	[et_eiffel_cluster "$GOBO/library/tools/eiffel/ast/cluster"] end
+	[et_eiffel_constant "$GOBO/library/tools/eiffel/ast/constant"] end
+	[et_eiffel_dynamic "$GOBO/library/tools/eiffel/ast/dynamic"] end
+	[et_eiffel_expression "$GOBO/library/tools/eiffel/ast/expression"] end
+	[et_eiffel_feature "$GOBO/library/tools/eiffel/ast/feature"] end
+	[et_eiffel_instruction "$GOBO/library/tools/eiffel/ast/instruction"] end
+	[et_eiffel_misc "$GOBO/library/tools/eiffel/ast/misc"] end
+	[et_eiffel_name "$GOBO/library/tools/eiffel/ast/name"] end
+	[et_eiffel_type "$GOBO/library/tools/eiffel/ast/type"] end
+	[et_eiffel_compilation "$GOBO/library/tools/eiffel/compilation"] end
+	[et_eiffel_error "$GOBO/library/tools/eiffel/error"] end
+	[et_eiffel_parser "$GOBO/library/tools/eiffel/parser"] end
+	[et_eiffel_processor "$GOBO/library/tools/eiffel/processor"] end
+	[et_lace_ast "$GOBO/library/tools/lace/ast"] end
+	[et_lace_error "$GOBO/library/tools/lace/error"] end
+	[et_lace_parser "$GOBO/library/tools/lace/parser"] end
+	[et_xace_ast "$GOBO/library/tools/xace/ast"] end
+	[et_xace_error "$GOBO/library/tools/xace/error"] end
+	[et_xace_generator "$GOBO/library/tools/xace/generator"] end
+	[et_xace_parser "$GOBO/library/tools/xace/parser"] end
+	[et_xace_support "$GOBO/library/tools/xace/support"] end
+	[et_xace_universe "$GOBO/library/tools/xace/universe"] end
+	[ut_error "$GOBO/library/utility/error"] end
+	[ut_formatter "$GOBO/library/utility/formatter"] end
+	[ut_command "$GOBO/library/utility/command"] end
+	[ut_support "$GOBO/library/utility/support"] end
+	[ut_uri "$GOBO/library/utility/uri"] end
+	[xm_position "$GOBO/library/xml/position"] end
+	[xm_source "$GOBO/library/xml/source"] end
+	[xm_general "$GOBO/library/xml/general"] end
+	[xm_event "$GOBO/library/xml/event"] end
+	[xm_tree "$GOBO/library/xml/tree"] end
+	[xm_formatter "$GOBO/library/xml/formatter"] end
+	[xm_resolver_interface "$GOBO/library/xml/resolver/interface"] end
+	[xm_catalog "$GOBO/library/xml/resolver/catalog"] end
+	[xm_simple "$GOBO/library/xml/resolver/simple"] end
+	[xm_uri "$GOBO/library/xml/resolver/uri"] end
+	[xm_interface "$GOBO/library/xml/parser/interface"] end
+	[xm_eiffel "$GOBO/library/xml/parser/eiffel"] end
+	[xm_no_expat "$GOBO/library/xml/parser/no_expat"] end
+	[xm_xpath "$GOBO/library/xml/xpath"] end
+	[xm_data_model "$GOBO/library/xml/xpath/data_model"] end
+	[xm_tinytree "$GOBO/library/xml/xpath/tinytree"] end
+	[xm_xpath_tree "$GOBO/library/xml/xpath/tree"] end
+	[xm_values "$GOBO/library/xml/xpath/values"] end
+	[xm_expressions "$GOBO/library/xml/xpath/expressions"] end
+	[xm_events "$GOBO/library/xml/xpath/events"] end
+	[xm_exslt "$GOBO/library/xml/xpath/exslt"] end
+	[xm_functions "$GOBO/library/xml/xpath/functions"] end
+	[xm_sort "$GOBO/library/xml/xpath/sort"] end
+	[xm_stand_alone "$GOBO/library/xml/xpath/stand_alone"] end
+	[xm_node_tests "$GOBO/library/xml/xpath/node_tests"] end
+	[xm_types "$GOBO/library/xml/xpath/types"] end
+	[xm_xslt "$GOBO/library/xml/xslt"] end
+	[xm_patterns "$GOBO/library/xml/xslt/patterns"] end
+	[xm_xslt_functions "$GOBO/library/xml/xslt/functions"] end
+	[xm_instructions "$GOBO/library/xml/xslt/instructions"] end
+	[xm_style "$GOBO/library/xml/xslt/style"] end
+	[xm_tracing "$GOBO/library/xml/xslt/tracing"] end
+	[xm_number "$GOBO/library/xml/xslt/number"] end
+	[xm_xslt_sort "$GOBO/library/xml/xslt/sort"] end
+	[xm_xslt_events "$GOBO/library/xml/xslt/events"] end
+	[xm_transformation_support "$GOBO/library/xml/xslt/transformation_support"] end
+
+link
+
+	"$VE_Bin\comctl32.imp"
+	"$VE_Bin\ole32.imp"
+	"$VE_Bin\oleaut32.imp"
+	"$EWG/example/gtk2/library/gtk2_c_eiffel_glue_library_ve_gcc.a"
+	"-lgtk-x11-2.0"
+	"-lgdk-x11-2.0"
+	"-latk-1.0"
+	"-lgdk_pixbuf-2.0"
+	"-lm"
+	"-lpangoxft-1.0"
+	"-lpangox-1.0"
+	"-lpango-1.0"
+	"-lgobject-2.0"
+	"-lgmodule-2.0"
+	"-ldl"
+	"-lglib-2.0"
+
+option
+
+	assertions off
+	require off
+	ensure off
+	class invariant off
+	loop invariant off
+	loop variant off
+	check off
+	optimize dead_code on
+	optimize calls on
+	optimize dyn_type on
+	debug instructions off
+	debug off
+	run_time_in_dll off
+	finalize off
+	optimize flat_fst off
+	FST_expansion_factor 2
+	optimize FST off
+	optimize inline off
+	optimize constants off
+	optimize once off
+	optimize jumps off
+	optimize layout off
+	optimize leaves off
+	linker default
+	map off
+	no_default_lib off
+	optimize reloads off
+	target exe console
+
+end

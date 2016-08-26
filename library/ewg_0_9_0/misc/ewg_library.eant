@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+
+<project name="ewg_library" default="help">
+
+  <description>
+    description: "targets for generating ewg wrappers"
+    copyright: "Copyright (c) 2003, Andreas Leitner and others"
+    license: "Eiffel Forum License v2 (see forum.txt)"
+    date: "$Date: 2005/05/20 07:24:54 $"
+    revision: "$Revision: 1.47 $"
+  </description>
+
+  <inherit>
+    <parent location="${EWG}/misc/ewg_c_compilation.eant">
+      <redefine target="init"/>
+      <redefine target="set_default_options_windows"/>
+      <redefine target="set_default_options_unix"/>
+      <redefine target="init_ewg"/>
+      <redefine target="help"/>
+    </parent>
+     
+  </inherit>
+
+  <target name="help">
+    <echo message="usage:"/>
+    <echo message="   geant install"/>
+    <echo message="   geant c_build_library"/>
+    <echo message="   geant c_build_library_all"/>
+    <echo message="   geant c_build_library_se"/>
+    <echo message="   geant c_build_library_ise"/>
+    <echo message="   geant c_build_library_ve"/>
+    <echo message="   geant clean"/>
+    <echo message="   geant clobber"/>
+    <echo message=""/>
+    <echo message="$${GOBO_EIFFEL} ... Eiffel Compiler (se|ise|ve)"/>
+    <echo message="$${GOBO_CC}     ... C Compiler (gcc|bcb|msc|lcc)"/>
+  </target>
+
+  <target name="install" depend="init">
+    <description>
+      Generate ewg wrappers for ${ewg.full_header_file_name}.
+    </description>
+    <echo message="Generating wrappers for ${ewg.library_name}" if="${ewg.verbose}=--verbose"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/struct"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/struct/spec/"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/struct/spec/ise"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/struct/spec/ve"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/struct/spec/se"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/union"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/union/spec/"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/union/spec/ise"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/union/spec/ve"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/union/spec/se"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/enum"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/enum/spec"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/enum/spec/ise"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/enum/spec/ve"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/enum/spec/se"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/function"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/function/spec"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/function/spec/ise"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/function/spec/ve"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/function/spec/se"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/callback"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/callback/spec"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/callback/spec/ise"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/callback/spec/ve"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/external/callback/spec/se"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/abstraction"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/abstraction/struct"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/abstraction/union"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/abstraction/enum"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/abstraction/function"/>
+    <mkdir directory="${ewg.wrapper_dir}/eiffel/abstraction/callback"/>
+    <geant target="copy_ewg_runtime"/>
+    <geant target="c_preprocess"/>
+    <set name="msc_extensions_flag" value=""/>
+    <set name="msc_extensions_flag" value="--enable-msc-extensions" if="${ewg.msc_extensions}"/>
+    <set name="ewg.config_file_option" value=""/>
+    <set name="ewg.config_file_option" value="--config=config.ewg" if="${ewg.use_config_file}=True"/>
+    <geant target="ewg"/>
+  </target>
+
+  <target name="ewg" depend="init">
+    <description>
+      Generate wrapper files
+    </description>
+    <exec executable="ewg ${ewg.verbose} ${msc_extensions_flag} --output-dir=${ewg.wrapper_dir} --cpp-full-header=${ewg.cpp_header_name} --include-header=${ewg.short_header_name} ${ewg.config_file_option}"/>
+  </target>
+
+  <target name="copy_ewg_runtime" depend="init">
+    <description>
+      Copy EWG runtime C library into the wrapper libraries C directory.
+    </description>
+    <copy to_directory="${ewg.wrapper_dir}/c/" dir="${EWG}/library/runtime/c">
+      <fileset include="@(**/*.c|**/*.h)"/>
+    </copy>
+    <!-- TODO: As soon as GOBO > 3.0 is released, copy only if "${system_dir}/manual_wrapper/c" exists -->
+    <!-- Use <available> to implmement it -->
+    <copy to_directory="${ewg.wrapper_dir}/c" dir="${system_dir}/manual_wrapper/c">
+      <fileset include="@(**/*)"/>
+    </copy>
+  </target>
+
+  <target name="clean" depend="init">
+    <description>
+      Remove intermediary generated files.
+    </description>
+    <delete file="${ewg.c_preprocess.cpp_header_name}"/>
+    <delete>
+      <fileset dir="${system_dir}" include="*.BAK"/>
+    </delete>
+    <delete>
+      <fileset dir="${system_dir}" include="*${ewg.obj}"/>
+    </delete>
+    <geant target="other_clean" />
+  </target>
+
+  <target name="clobber" depend="init">
+    <description>
+      Remove all generated files.
+    </description>
+
+    <geant target="clean"/>
+    <delete directory="${ewg.wrapper_dir}"/>
+    <delete>
+      <fileset dir="${system_dir}" include="*${ewg.lib}"/>
+    </delete>
+    <geant target="other_clobber" />
+  </target>
+
+  <target name="init_ewg">
+    <!--
+    Values to be defined:
+    . ${system_dir} : directory for the compilation
+    . ${ewg.library_name} : short name for library to wrap
+    . ${ewg.full_header_file_name} : name of header file to parse with full path
+    . ${ewg.short_header_file_name} : name of header file to parse relative to include dir
+    . ${ewg.c_compile_options} : custom C compiler options
+    . ${ewg.c_link_options} : custom C link options
+    . ${ewg.use_config_file} : If set to "True", "config.ewg" will be read
+    -->
+  </target>
+
+  <!-- Implementation -->
+
+  <target name="init">
+    <precursor/>
+    <set name="ewg.verbose" value="--verbose"/>
+    <set name="ewg.c_compile_options" value=""/>
+    <set name="ewg.c_link_options" value=""/>
+    <geant target="init_ewg"/>
+    <set name="ewg.c_preprocess.full_header_file_name" value="${ewg.full_header_file_name"/>
+    <set name="ewg.c_preprocess.cpp_header_name" value="${system_dir}${path_separator}${ewg.library_name}_cpp.h"/>
+    <set name="ewg.wrapper_dir" value="${system_dir}${path_separator}generated_wrapper"/>
+    <set name="ewg.c_compile.dir_name" value="${ewg.wrapper_dir}/c/src"/>
+    <set name="ewg.c_build_library.dir_name" value="${ewg.wrapper_dir}/c/src"/>
+    <set name="ewg.c_build_library.lib_name" value="${ewg.library_name}_c_eiffel_glue_library"/>
+    <set name="ewg.cpp_header_name" value="${ewg.library_name}_cpp.h"/>
+    <set name="ewg.msc_extensions" value="true" if="${cc}=bcb"/>
+    <set name="ewg.msc_extensions" value="true" if="${cc}=msc"/>
+    <set name="ewg.msc_extensions" value="true" if="${cc}=lcc"/>
+  </target>
+
+  <target name="set_default_options_windows" if="${GOBO_OS}=windows">
+    <precursor/>
+    <set name="ewg.c_compile.options.default" value="${ewg.c_compile.options.default} /I${system_dir}\generated_wrapper\c\include"/>
+    <set name="ewg.c_compile.options.default" value="${ewg.c_compile.options.default} /I${system_dir}\generated_wrapper\c\include\spec\${eiffel}"/>
+  </target>
+
+  <target name="set_default_options_unix" unless="${GOBO_OS}=windows">
+    <precursor/>
+    <set name="ewg.c_compile.options.default" value="${ewg.c_compile.options.default} -I${system_dir}/generated_wrapper/c/include"/>
+    <set name="ewg.c_compile.options.default" value="${ewg.c_compile.options.default} -I${system_dir}/generated_wrapper/c/include/spec/${eiffel}"/>
+  </target>
+
+  <target name="other_clean" depend="init">
+    <description>
+      Remove other intermediary generated files.
+    </description>
+    
+    <!-- To be redefined in descendant if necessary -->
+  </target>
+  
+  <target name="other_clobber" depend="init">
+    <description>
+      Remove other generated files.
+    </description>
+    
+    <!-- To be redefined in descendant if necessary -->
+  </target>
+
+</project>

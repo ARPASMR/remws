@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-6-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-6-0 http://www.eiffel.com/developers/xml/configuration-1-6-0.xsd" name="readwrite" uuid="94A796BF-70AA-4C48-A6BB-D5639D85D082">
+	<target name="readwrite">
+		<description>-- Database Read Write Objects Examples
+-- Matisse Eiffel Binding
+-- Eiffel Base</description>
+		<root class="READWRITE_EXAMPLES" feature="make"/>
+		<option trace="false" debug="false" warning="true">
+			<debug name="__unnamed_debug__" enabled="false"/>
+			<assertions precondition="true"/>
+			<warning name="export_class_missing" enabled="false"/>
+			<warning name="syntax" enabled="false"/>
+			<warning name="vjrv" enabled="false"/>
+		</option>
+		<setting name="array_optimization" value="false"/>
+		<setting name="check_vape" value="true"/>
+		<setting name="console_application" value="true"/>
+		<setting name="dead_code_removal" value="true"/>
+		<setting name="exception_trace" value="false"/>
+		<setting name="inlining" value="false"/>
+		<setting name="line_generation" value="false"/>
+		<setting name="multithreaded" value="true"/>
+		<external_include location="$ISE_EIFFEL/library/time/Clib"/>
+		<external_include location="$MATISSE_HOME/include"/>
+		<external_object location="-L$(MATISSE_HOME)/lib -lmatisse">
+			<condition>
+				<platform excluded_value="windows"/>
+			</condition>
+		</external_object>
+		<external_object location="$(MATISSE_HOME)/eiffel/clib/libmatisseEIFFEL.a">
+			<condition>
+				<platform excluded_value="windows"/>
+			</condition>
+		</external_object>
+		<external_object location="$(MATISSE_HOME)\eiffel\clib\matisseEIFFEL.lib">
+			<condition>
+				<platform value="windows"/>
+			</condition>
+		</external_object>
+		<external_object location="$(MATISSE_HOME)\lib\matisse.lib">
+			<description>matisse library</description>
+			<condition>
+				<platform value="windows"/>
+			</condition>
+		</external_object>
+		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf">
+			<visible class="ARRAY"/>
+		</library>
+		<library name="thread" location="$ISE_LIBRARY\library\thread\thread.ecf"/>
+		<library name="time" location="$ISE_LIBRARY\library\time\time.ecf"/>
+		<library name="gobo_kernel" location="$ISE_LIBRARY\library\gobo\gobo_kernel.ecf"/>
+		<library name="gobo_structure" location="$ISE_LIBRARY\library\gobo\gobo_structure.ecf"/>
+		<library name="gobo_utility" location="$ISE_LIBRARY\library\gobo\gobo_utility.ecf"/>
+		<cluster name="readwrite_examples" location="$MATISSE_HOME\eiffel\examples\readwrite\"/>
+		<cluster name="matisse_binding" location="$MATISSE_HOME\eiffel\matisse\" recursive="true">
+			<option>
+				<assertions/>
+			</option>
+			<visible class="MT_EXCEPTIONS"/>
+		</cluster>
+	</target>
+</system>

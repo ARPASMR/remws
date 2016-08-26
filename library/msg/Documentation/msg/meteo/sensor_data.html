@@ -1,0 +1,232 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="Summary description for {SENSOR_DATA}."/>
+<meta name="author" content=""/>
+<meta name="date" content="$Date$"/>
+<meta name="revision" content="$Revision$"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>sensor_data Text</TITLE>
+<LINK REL="stylesheet" HREF="../../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="sensor_data"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/meteo/sensor_data.html">SENSOR_DATA</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> 
+	<A CLASS="eclass" HREF="../../msg/meteo/sensor_data.html">SENSOR_DATA</A>
+
+<SPAN CLASS="ekeyword">inherit</SPAN>
+	<SPAN CLASS="neclass">ANY</SPAN>
+		<SPAN CLASS="ekeyword">redefine</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_out">out</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_make">make</A>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization</SPAN>
+
+	<A NAME="f_make"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_make">make</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization for </SPAN>`Current'<SPAN CLASS="ecomment">.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_unit">unit</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_station">station</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../../msg/meteo/station_idname.html#f_make">make</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_type">type</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_type.html#f_make">make</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_status">status</A><SPAN CLASS="edot">.</SPAN><A CLASS="efeature" HREF="../../msg/meteo/station_status.html#f_make">make</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_name">name</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+
+	<A NAME="f_id"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_id">id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor id</SPAN>
+
+	<A NAME="f_name"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_name">name</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor name</SPAN>
+
+	<A NAME="f_status"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_status">status</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/sensor_status.html">SENSOR_STATUS</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor status</SPAN>
+
+	<A NAME="f_type"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_type">type</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/sensor_type.html">SENSOR_TYPE</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor type</SPAN>
+
+	<A NAME="f_station"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_station">station</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/station_idname.html">STATION_IDNAME</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Station which have installed the sensor</SPAN>
+
+	<A NAME="f_unit"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_unit">unit</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Measure unit</SPAN>
+
+	<A NAME="f_sample_rate"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_sample_rate">sample_rate</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sample rate</SPAN>
+
+	<A NAME="f_altitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_altitude">altitude</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor altitude</SPAN>
+
+	<A NAME="f_gb_north"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_gb_north">gb_north</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor Gauss Boaga north coordinate</SPAN>
+
+	<A NAME="f_gb_est"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_gb_est">gb_est</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor Gauss Boaga est coordinate</SPAN>
+
+	<A NAME="f_latitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude">latitude</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor latitude coordinate</SPAN>
+
+	<A NAME="f_longitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude">longitude</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor longitude coordinate</SPAN>
+
+	<A NAME="f_latitude_degrees"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude_degrees">latitude_degrees</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Station latitude degrees</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude">latitude</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">floor</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_latitude_minutes"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude_minutes">latitude_minutes</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Station latitude minutes</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude">latitude</A> <SPAN CLASS="esymbol">-</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude">latitude</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">floor</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_real</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">*</SPAN> <SPAN CLASS="enumber">60.0</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">truncated_to_real</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">floor</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_latitude_seconds"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude_seconds">latitude_seconds</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Station latitude seconds</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude">latitude</A> <SPAN CLASS="esymbol">-</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude">latitude</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">floor</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_real</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">*</SPAN> <SPAN CLASS="enumber">60.0</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">truncated_to_real</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">-</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude_minutes">latitude_minutes</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_real</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">*</SPAN> <SPAN CLASS="enumber">60.0</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">truncated_to_real</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_longitude_degrees"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude_degrees">longitude_degrees</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Station longitude degrees</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude">longitude</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">floor</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_longitude_minutes"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude_minutes">longitude_minutes</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Station longitude minutes</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude">longitude</A> <SPAN CLASS="esymbol">-</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude">longitude</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">floor</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_real</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">*</SPAN> <SPAN CLASS="enumber">60.0</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">truncated_to_real</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">floor</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_longitude_seconds"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude_seconds">longitude_seconds</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Station longitude seconds</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude">longitude</A> <SPAN CLASS="esymbol">-</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude">longitude</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">floor</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_real</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">*</SPAN> <SPAN CLASS="enumber">60.0</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">truncated_to_real</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">-</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude_minutes">longitude_minutes</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_real</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">*</SPAN> <SPAN CLASS="enumber">60.0</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">truncated_to_real</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+
+	<A NAME="f_set_id"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_id">set_id</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">an_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_id">id</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_id">id</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">an_id</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_name"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_name">set_name</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_name">name</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_name">name</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_name</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_status"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_status">set_status</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_status</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/sensor_status.html">SENSOR_STATUS</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_status">status</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_status">status</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_status</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_type"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_type">set_type</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_type</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/sensor_type.html">SENSOR_TYPE</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_type">type</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_type">type</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_type</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_station"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_station">set_station</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_station</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../../msg/meteo/station_idname.html">STATION_IDNAME</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_status">status</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_station">station</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_station</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_unit"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_unit">set_unit</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_unit</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_unit">unit</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_unit">unit</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_unit</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_sample_rate"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_sample_rate">set_sample_rate</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_rate</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_sample_rate">sample_rate</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_sample_rate">sample_rate</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_rate</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_altitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_altitude">set_altitude</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">an_altitude</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_altitude">altitude</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_altitude">altitude</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">an_altitude</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_gb_north"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_gb_north">set_gb_north</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_gb_north</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_gb_north">gb_north</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_gb_north">gb_north</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_gb_north</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_gb_est"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_gb_est">set_gb_est</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_gb_est</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_gb_est">gb_est</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_gb_est">gb_est</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_gb_est</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_latitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_latitude">set_latitude</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_latitude</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude">latitude</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_latitude">latitude</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_latitude</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_longitude"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_set_longitude">set_longitude</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_longitude</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude">longitude</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_longitude">longitude</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_longitude</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Reporting</SPAN>
+
+	<A NAME="f_out"></A><A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_out">out</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN>`SENSOR'<SPAN CLASS="ecomment"> as string</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;{id: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_id">id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;, name: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/sensor_data.html#f_name">name</A> <SPAN CLASS="esymbol">+</SPAN> &quot;}&quot;
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../../msg/meteo/sensor_data.html">SENSOR_DATA</A><FORM ONSUBMIT="go_to('../../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="sensor_data_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="sensor_data"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

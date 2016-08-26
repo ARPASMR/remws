@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<project name="acceptance" default="help">
+
+	<description>
+		system: "Gobo Eiffel Math Library Tester"
+		copyright: "Copyright (c) 2005, Eric Bezault and others"
+		license: "MIT License"
+		date: "$Date: 2007-01-26 19:55:25 +0100 (Fri, 26 Jan 2007) $"
+		revision: "$Revision: "
+	</description>
+
+	<inherit>
+		<parent location="${GOBO}/misc/test.eant">
+			<redefine target="init_system"/>
+		</parent>
+	</inherit>
+
+
+<!-- Implementation -->
+
+	<target name="init_system">
+		<set name="system" value="xacceptance"/>
+		<set name="library" value="math"/>
+		<set name="system_dir" value="${GOBO}/test/${library}/decimal/acceptance"/>
+	</target>
+
+</project>

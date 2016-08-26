@@ -1,0 +1,23 @@
+-- system:     "GAGP test #1"
+-- library:    "Gobo Eiffel Tools Library"
+-- compiler:   "gelint"
+-- author:     "Eric Bezault <ericb@gobosoft.com>"
+-- copyright:  "Copyright (c) 2001, Eric Bezault and others"
+-- license:    "MIT License"
+-- date:       "$Date: 2007-01-26 19:55:25 +0100 (Fri, 26 Jan 2007) $"
+-- revision:   "$Revision: 5877 $"
+
+system
+
+	aa
+
+root
+
+	AA: "make"
+
+cluster
+
+	test1:	"$GOBO/test/gelint/validity/gagp/test1"
+	kernel:	"$GOBO/test/gelint/kernel"
+
+end

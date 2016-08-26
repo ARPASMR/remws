@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<library name="ewg" prefix="ewg_">
+  <description>
+    library: "Eiffel Wrapper Generator Library"
+    copyright: "Copyright (c) 2002, Andreas Leitner and others"
+    license: "Eiffel Forum License v2 (see forum.txt)"
+    date: "$Date: 2004/06/24 23:12:32 $"
+    revision: "$Revision: 1.5 $"
+  </description>
+  
+  <cluster name="library" location="${EWG}/library">
+    <cluster name="printer"/>
+    <cluster name="support"/>
+    <cluster name="error"/>
+    <cluster name="processor"/>
+    <cluster name="config" prefix="ewg_config">
+      <cluster name="ast"/>
+      <cluster name="parser"/>
+    </cluster>
+    <cluster name="parser">
+      <cluster name="c_parser"/>
+      <cluster name="c_macro_parser"/>
+    </cluster>
+    <cluster name="ast">
+      <cluster name="c_ast">
+	 <cluster name="phase_1"/>
+	 <cluster name="phase_2">
+	   <cluster name="type"/>
+	   <cluster name="declaration"/>
+	 </cluster>
+      </cluster>
+      <cluster name="eiffel_ast"/>
+    </cluster>
+    <cluster name="generator">
+      <cluster name="c_glue_code"/>
+      <cluster name="eiffel_external"/>
+      <cluster name="eiffel_abstraction"/>
+    </cluster>
+  </cluster>
+  
+</library>

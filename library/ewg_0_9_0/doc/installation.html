@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+ <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+   
+  <title>Installation</title>
+ </head>
+ <body bgcolor="#FFFFFF">
+  <table border="0" width="100%">
+   <tr>
+    <td>
+     <h1>Installation</h1>
+    </td>
+    <td align="right"><a href="introduction.html"><img src="image/previous.png" alt="Previous" border="0"/></a><a href="building_the_tools.html"><img src="image/next.png" alt="Next" border="0"/></a></td>
+   </tr>
+  </table>
+  <hr size="1"/>
+  <div>
+   
+   <h2>Getting EWG</h2>
+   
+   <ul>
+    <li>
+     	   Stable Versions -- 
+     	   <a href="http://sourceforge.net/project/showfiles.php?group_id=71069">
+      	   http://sourceforge.net/project/showfiles.php?group_id=71069</a>
+     	 
+    </li>
+    <li>
+     	   CVS -- 
+     	   <a href="http://sourceforge.net/cvs/?group_id=71069">
+      	     http://sourceforge.net/cvs/?group_id=71069
+      	   </a>
+     	 
+    </li>
+   </ul>
+   
+   <p>
+    
+    
+   </p>
+   
+  </div>
+  <div>
+   
+   <h2>Setting EWG Up</h2>
+   
+   <p>
+    The following describes actions that should be taken to properly setup
+    EWG.
+    
+   </p>
+   
+   
+   <p>
+    	 In the following I am using the Unix notation for environment variables ${FOOBAR},
+    	 even when talking about windows (where the notation is %FOOBAR%).
+    
+   </p>
+         
+   
+   
+   <ul>
+    <li>
+     	   Set the environment variable ${EWG} to the directory where you
+     	   unpacked the EWG tar ball to or where you retrieved the CVS version to
+     	 
+    </li>
+    <li>
+     	   Put ${EWG}/bin into your ${PATH} environment variable
+     	 
+    </li>
+    <li>
+     	   Set ${GOBO_EIFFEL} to a supported Eiffel compiler.
+     	   This compiler will then be used to generate wrappers for. The following is a list
+     	   of supported values:
+     	   
+     <ul>
+      <li>se</li>
+      <li>ise</li>
+     </ul>
+     	 
+    </li>
+    <li>
+     	   Set ${GOBO_CC} to a supported C compiler.
+     	   If your Eiffel compiler uses a C compiler as a backend, this option needs to be set
+     	   to the C compiler you use as backend.
+     	   The following is a list of supported values:
+     	   
+     <ul>
+      <li>gcc ... Gnu Compiler Collection</li>
+      <li>msc ... Visual C++</li>
+      <li>bcb ... Borland C++</li>
+      <li>lcc ... lcc-win32</li>
+     </ul>
+     	 
+     <p>
+      	   Please note that only gcc and msc are officially supported.
+      	   Lcc and bcb have some known problems, but you are welcome to help me fix them (;
+      	 
+     </p>
+    </li>
+   </ul>
+   
+   
+   <p>
+    The following example shows a possible setup for windows:
+    
+   </p>
+   
+   <blockquote>
+    <pre>
+	 set EWG=C:\ewg
+	 set PATH=%PATH%;%EWG%\bin
+	 set GOBO_EIFFEL=se
+	 set GOBO_CC=msc
+      </pre>
+    </blockquote>
+   
+   
+   <p>
+    The following example shows a possible setup for linux:
+    
+   </p>
+   
+   <blockquote>
+    <pre>
+	 export EWG=/home/aleitner/ewg
+	 export PATH=$PATH:$EWG\bin
+	 export GOBO_EIFFEL=ise
+	 export GOBO_CC=gcc
+      </pre>
+    </blockquote>
+   
+   
+   <p>
+    You have to make sure that whatever Eiffel compiler or C
+    compiler gets used can be located via the
+    PATH environment variable. For
+    Visual C, there is usually a special
+    command line window you can open, that automatically has
+    everything necessary set. ISE Eiffel and
+    SmartEiffel have to be added to
+    PATH by hand. GCC can (at
+    least on Unix like systems) usually be located via
+    PATH by default. If in doubt consult the
+    corresponding tool documentation. 
+    
+   </p>
+   
+   
+  </div>
+  <hr size="1"/>
+  <table border="0" width="100%">
+   <tr>
+    <td>
+     <address><font size="2"><b>Copyright © 2004-2005, Andreas Leitner</b><br/><b>mailto:</b><a href="mailto:aleitner@raboof.at">aleitner@raboof.at</a><br/><b>http://</b><a href="http://ewg.sourceforge.net">ewg.sourceforge.net</a><br/><b>Last Updated: </b>8 March 2005</font></address>
+    </td>
+    <td align="right" valign="top"><a href="http://ewg.sourceforge.net"><img src="image/home.png" alt="Home" border="0"/></a><a href="introduction.html"><img src="image/toc.png" alt="Toc" border="0"/></a><a href="introduction.html"><img src="image/previous.png" alt="Previous" border="0"/></a><a href="building_the_tools.html"><img src="image/next.png" alt="Next" border="0"/></a></td>
+   </tr>
+  </table>
+ </body>
+</html>

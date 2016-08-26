@@ -3,6 +3,8 @@
 <META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
 <meta name="description" content="Summary description for {LOGOUT_REQUEST}."/>
 <meta name="author" content=""/>
+<meta name="date" content="$Date$"/>
+<meta name="revision" content="$Revision$"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <TITLE>logout_request Text</TITLE>
@@ -106,7 +108,7 @@
 	<A NAME="f_set_token_id"></A><A CLASS="efeature" HREF="../msg/logout_request.html#f_set_token_id">set_token_id</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_token_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Set </SPAN><A CLASS="efeature" HREF="../msg/logout_request.html#f_token_id">token_id</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<A CLASS="efeature" HREF="../msg/logout_request.html#f_token_id">token_id</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_token_id</SPAN>
+			<A CLASS="efeature" HREF="../msg/logout_request.html#f_token_id">token_id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">copy</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_token_id</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Conversion</SPAN>
@@ -183,6 +185,12 @@
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Web service URL</SPAN>
 		<SPAN CLASS="ekeyword">once</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/remws_constants.html#f_authws_url">Authws_url</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_ws_test_url"></A><A CLASS="efeature" HREF="../msg/logout_request.html#f_ws_test_url">Ws_test_url</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Testing web service URL</SPAN>
+		<SPAN CLASS="ekeyword">once</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/remws_constants.html#f_anaws_test_url">Anaws_test_url</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_soap_action_header"></A><A CLASS="efeature" HREF="../msg/logout_request.html#f_soap_action_header">Soap_action_header</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
