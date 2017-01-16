@@ -71,7 +71,7 @@ feature {NONE} -- Initialization
 			create xml_representation.make_empty
 		end
 
-	make_from_json_string (json: STRING)
+	make_from_json_string (json: STRING; parser: JSON_PARSER)
 			-- Initialization for `Current' from json string
 		do
 			create token_id.make_empty
@@ -80,7 +80,7 @@ feature {NONE} -- Initialization
 			create json_representation.make_empty
 			create xml_representation.make_empty
 
-			from_json (json)
+			from_json (json, parser)
 		end
 
 	make_from_token (a_token: STRING)
@@ -98,7 +98,7 @@ feature -- Access
 
 	id: INTEGER
 			-- message id
-		once
+		do
 			Result := realtime_data_request_id
 		end
 
@@ -167,16 +167,19 @@ feature -- Conversion
 			Result.replace_substring_all ("$sensors", l_sensors_list)
 
 			xml_representation := Result
+			l_token_id.wipe_out
+			l_sensors_list.wipe_out
 		end
 
-	from_json(json: STRING)
+	from_json(json: STRING; parser: JSON_PARSER)
 			-- Parse json message
 		require else
 			json_valid: attached json and then not json.is_empty
+			json_parser_valid: attached parser and then parser.is_valid
 		local
 			i:           INTEGER
 			key:         JSON_STRING
-			json_parser: JSON_PARSER
+			--json_parser: JSON_PARSER
 			l_rt_req_data: SENSOR_REALTIME_REQUEST_DATA
 			l_start_time: DATE_TIME
 			l_finish_time: DATE_TIME
@@ -184,11 +187,14 @@ feature -- Conversion
 			sensors_list.wipe_out
 
 			json_representation.copy (json)
-		 	create json_parser.make_with_string (json)
+		 	--create json_parser.make_with_string (json)
+		 	parser.reset_reader
+		 	parser.reset
+		 	parser.set_representation (json)
 
 			create key.make_from_string ("header")
-			json_parser.parse_content
-			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
+			parser.parse_content
+			if parser.is_valid and then attached parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
 				then
@@ -230,6 +236,9 @@ feature -- Conversion
 					end
 				end
 			end
+			parser.reset_reader
+			parser.reset
+			key.item.wipe_out
 		end
 
 	to_json: STRING
@@ -265,7 +274,7 @@ feature -- Conversion
 			json_representation.append ("]}}")
 		end
 
-	from_xml (xml: STRING)
+	from_xml (xml: STRING; parser: XML_STANDARD_PARSER)
 			-- Parse xml message
 		do
 			-- should never be called from request messages
@@ -275,8 +284,18 @@ feature -- Basic operations
 
 	init_response: RESPONSE_I
 			--
-		once
+		do
 			Result := create {REALTIME_DATA_RESPONSE}.make
+		end
+
+feature -- Dispose
+
+	dispose
+			--
+		do
+			json_representation.wipe_out
+			xml_representation.wipe_out
+			sensors_list.wipe_out
 		end
 
 feature {NONE} -- Object implementation
@@ -293,25 +312,25 @@ feature {NONE} -- Utilities implementation
 
 	ws_url: STRING
 			-- Web service URL
-		once
+		do
 			Result := dataws_url
 		end
 
 	ws_test_url: STRING
 			-- Testing web service URL
-		once
+		do
 			Result := dataws_test_url
 		end
 
 	soap_action_header:  STRING
 			-- SOAP action header
-		once
+		do
 			Result := "SOAPAction: " + remws_uri + "/" + dataws_interface + "/" + name
 		end
 
 	name: STRING
 			-- Request `name' to be passed to remws
-		once
+		do
 			Result := "RendiDatiTempoReale"
 		end
 

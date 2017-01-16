@@ -74,7 +74,7 @@ feature {NONE} -- Initialization
 			create sensor_name.make_empty
 		end
 
-	make_from_json_string (json: STRING)
+	make_from_json_string (json: STRING; parser: JSON_PARSER)
 			-- Initialization of `Current' from a json string
 		require
 			json_not_void: json /= Void
@@ -91,7 +91,7 @@ feature {NONE} -- Initialization
 
 			create sensor_name.make_empty
 
-			from_json (json)
+			from_json (json, parser)
 		end
 
 	make_from_token (a_token: STRING)
@@ -257,12 +257,21 @@ feature -- Conversion
 			Result.replace_substring_all ("$sensor_name", sensor_name)
 
 			xml_representation := Result
+
+			l_token_id.wipe_out
+			l_m_list.wipe_out
+			l_p_list.wipe_out
+			l_t_list.wipe_out
+			l_s_list.wipe_out
+			l_st_list.wipe_out
+
 		end
 
-	from_json(json: STRING)
+	from_json(json: STRING; parser: JSON_PARSER)
 			-- Parse json message
 		require else
 			json_valid: attached json and then not json.is_empty
+			json_parser_valid: attached parser and then parser.is_valid
 		local
 			key:         JSON_STRING
 			key1:        JSON_STRING
@@ -270,7 +279,7 @@ feature -- Conversion
 			key3:        JSON_STRING
 			key4:        JSON_STRING
 			key5:        JSON_STRING
-			json_parser: JSON_PARSER
+			--json_parser: JSON_PARSER
 			i:           INTEGER
 			l_m:         STRING
 			l_p:         INTEGER
@@ -280,7 +289,10 @@ feature -- Conversion
 			l_count:     INTEGER
 		do
 			json_representation.copy (json)
-		 	create json_parser.make_with_string (json)
+		 	--create json_parser.make_with_string (json)
+		 	parser.reset_reader
+		 	parser.reset
+		 	parser.set_representation (json)
 
 			create key.make_from_string  ("header")
 			create key1.make_from_string ("municipality")
@@ -289,8 +301,8 @@ feature -- Conversion
 			create key4.make_from_string ("sensor")
 			create key5.make_from_string ("name")
 
-			json_parser.parse_content
-			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
+			parser.parse_content
+			if parser.is_valid and then attached parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
 				then
@@ -321,6 +333,7 @@ feature -- Conversion
 						then
 							create l_m.make_from_string (j_mid.item)
 							municipalities_list.extend (l_m.to_integer)
+							l_m.wipe_out
 						end
 						i := i + 1
 					end
@@ -336,6 +349,7 @@ feature -- Conversion
 						then
 							create l_st.make_from_string (j_st.item)
 							stations_list.extend (l_st.to_integer)
+							l_st.wipe_out
 						end
 						i := i + 1
 					end
@@ -371,8 +385,17 @@ feature -- Conversion
 						end
 						i := i + 1
 					end
+
 				end
 			end
+			parser.reset_reader
+			parser.reset
+			key.item.wipe_out
+			key1.item.wipe_out
+			key2.item.wipe_out
+			key3.item.wipe_out
+			key4.item.wipe_out
+			key5.item.wipe_out
 		end
 
 	to_json: STRING
@@ -452,7 +475,7 @@ feature -- Conversion
 			json_representation.append ("}")
 		end
 
-	from_xml (xml: STRING)
+	from_xml (xml: STRING; parser: XML_STANDARD_PARSER)
 			-- Parse xml message
 		do
 			-- should never be called from request messages
@@ -462,8 +485,21 @@ feature -- Basic operations
 
 	init_response: RESPONSE_I
 			--
-		once
+		do
 			Result := create {SENSOR_LIST_RESPONSE}.make
+		end
+
+feature {DISPOSANLE}
+
+	dispose
+			--
+		do
+			json_representation.wipe_out
+			xml_representation.wipe_out
+			municipalities_list.wipe_out
+			stations_list.wipe_out
+			sensor_types_list.wipe_out
+			sensors_list.wipe_out
 		end
 
 feature {NONE} -- Utilities implementation
@@ -473,25 +509,25 @@ feature {NONE} -- Utilities implementation
 
 	ws_url: STRING
 			-- Web service URL
-		once
+		do
 			Result := anaws_url
 		end
 
 	ws_test_url: STRING
 			-- Testing web service URL
-		once
+		do
 			Result := anaws_test_url
 		end
 
 	soap_action_header:  STRING
 			-- SOAP action header
-		once
+		do
 			Result := "SOAPAction: " + remws_uri + "/" + anaws_interface + "/" + name
 		end
 
 	name: STRING
 			-- Request `name' to be passed to remws
-		once
+		do
 			Result := "ElencoSensori"
 		end
 

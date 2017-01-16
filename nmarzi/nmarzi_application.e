@@ -30,7 +30,6 @@ feature {NONE} -- Initialization
 			init
 			init_preferences
 			init_sensors_list
-			init_default_sensors_list
 
 			if not write_files then
 				io.put_string ("{NMARZI} Error writing files")
@@ -65,13 +64,16 @@ feature -- Initialization
 
 			create sensors_list.make (0)
 			create not_found_sensor_list.make (0)
+
+			-- Parsing
+			create json_parser.make_with_string ("{}")
 		end
 
 	init_preferences
 			-- Init `PREFERENCES' object
 		local
 			factory: BASIC_PREFERENCE_FACTORY
-			i, n: INTEGER
+			--i, n: INTEGER
 		do
 			io.put_string ("{NMARZI} Init preferences ...")
 			io.put_new_line
@@ -137,210 +139,6 @@ feature -- Initialization
 
 
 			l_file.close
-		end
-
-	init_default_sensors_list
-			-- Default sensors list
-		local
-			s: SENSOR_PARAMETERS
-		do
-			create default_sensors_list.make (0)
-
-			create s.make_with_parameters (1, 1, 1, 1);     default_sensors_list.extend (s)
-			--default_sensors_list.extend ("2")
-			create s.make_with_parameters (3, 1, 1, 1);     default_sensors_list.extend (s)
-			--default_sensors_list.extend ("4")
-			--default_sensors_list.extend ("5")
-			create s.make_with_parameters (6, 1, 1, 1);     default_sensors_list.extend (s)
-			create s.make_with_parameters (7, 1, 1, 1);     default_sensors_list.extend (s)
-			--default_sensors_list.extend ("8")
-			create s.make_with_parameters (15, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (16, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (17, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (18, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("24")
-			--default_sensors_list.extend ("63")
-			create s.make_with_parameters (64, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("65")
-			create s.make_with_parameters (66, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (67, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (68, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("69")
-			create s.make_with_parameters (70, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("71")
-			--default_sensors_list.extend ("72")
-			create s.make_with_parameters (73, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (74, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("81")
-			create s.make_with_parameters (84, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("87")
-			create s.make_with_parameters (92, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("95")
-			create s.make_with_parameters (98, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (101, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (104, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (106, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (109, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (111, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (114, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (117, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (120, 1, 1, 1);   default_sensors_list.extend (s)
-			--default_sensors_list.extend ("123")
-			create s.make_with_parameters (139, 1, 1, 1);   default_sensors_list.extend (s)
-			--default_sensors_list.extend ("151")
-			--default_sensors_list.extend ("180")
-			create s.make_with_parameters (203, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (205, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (207, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (1326, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1368, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1399, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1422, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1434, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1437, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1438, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (2270, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (2270, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (2414, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3002, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3003, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3019, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3032, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3033, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3046, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3049, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3092, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3093, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3106, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3109, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3118, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3119, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (5969, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (6175, 1, 1, 1);  default_sensors_list.extend (s)
-
---			default_sensors_list.extend ("6992")
---			default_sensors_list.extend ("8007")
---			default_sensors_list.extend ("8009")
---			default_sensors_list.extend ("8014")
---			default_sensors_list.extend ("8017")
---			default_sensors_list.extend ("8020")
---			default_sensors_list.extend ("8024")
---			default_sensors_list.extend ("8028")
---			--default_sensors_list.extend ("8056")
---			--default_sensors_list.extend ("8082")
---			default_sensors_list.extend ("8093")
---			default_sensors_list.extend ("8099")
---			default_sensors_list.extend ("8101")
---			default_sensors_list.extend ("8105")
---			default_sensors_list.extend ("8107")
---			default_sensors_list.extend ("8110")
---			default_sensors_list.extend ("8112")
---			default_sensors_list.extend ("8113")
---			default_sensors_list.extend ("8114")
---			--default_sensors_list.extend ("8116")
---			--default_sensors_list.extend ("8117")
---			default_sensors_list.extend ("8118")
---			default_sensors_list.extend ("8119")
---			default_sensors_list.extend ("8120")
---			default_sensors_list.extend ("8121")
---			default_sensors_list.extend ("8124")
---			default_sensors_list.extend ("8125")
---			default_sensors_list.extend ("8128")
---			default_sensors_list.extend ("8129")
---			--default_sensors_list.extend ("8132")
---			default_sensors_list.extend ("8141")
---			--default_sensors_list.extend ("8142")
---			default_sensors_list.extend ("8143")
---			--default_sensors_list.extend ("8144")
---			default_sensors_list.extend ("8147")
---			default_sensors_list.extend ("8148")
---			default_sensors_list.extend ("8153")
---			default_sensors_list.extend ("8154")
---			--default_sensors_list.extend ("8156")
---			default_sensors_list.extend ("8158")
---			default_sensors_list.extend ("8164")
---			--default_sensors_list.extend ("8175")
---			default_sensors_list.extend ("8177")
---			default_sensors_list.extend ("8180")
---			default_sensors_list.extend ("8181")
---			--default_sensors_list.extend ("8186")
---			default_sensors_list.extend ("8192")
---			default_sensors_list.extend ("8196")
---			--default_sensors_list.extend ("8203")
---			--default_sensors_list.extend ("8205")
---			default_sensors_list.extend ("8207")
---			default_sensors_list.extend ("8210")
---			default_sensors_list.extend ("8223")
---			default_sensors_list.extend ("8380")
---			--default_sensors_list.extend ("8381")
---			default_sensors_list.extend ("8382")
---			default_sensors_list.extend ("8383")
---			default_sensors_list.extend ("8384")
---			default_sensors_list.extend ("8385")
---			default_sensors_list.extend ("8386")
---			--default_sensors_list.extend ("8389")
---			--default_sensors_list.extend ("8391")
---			default_sensors_list.extend ("8394")
---			--default_sensors_list.extend ("8481")
---			--default_sensors_list.extend ("8511")
---			--default_sensors_list.extend ("8512")
---			--default_sensors_list.extend ("8513")
---			default_sensors_list.extend ("8521")
---			default_sensors_list.extend ("8522")
---			default_sensors_list.extend ("8545")
---			default_sensors_list.extend ("8546")
---			default_sensors_list.extend ("8573")
---			default_sensors_list.extend ("8574")
---			default_sensors_list.extend ("8576")
---			default_sensors_list.extend ("8581")
---			--default_sensors_list.extend ("8593")
---			default_sensors_list.extend ("8618")
---			--default_sensors_list.extend ("8693")
---			--default_sensors_list.extend ("8701")
---			default_sensors_list.extend ("9035")
---			--default_sensors_list.extend ("9036")
---			--default_sensors_list.extend ("9037")
---			--default_sensors_list.extend ("9038")
---			--default_sensors_list.extend ("9039")
---			default_sensors_list.extend ("9040")
---			default_sensors_list.extend ("9041")
---			default_sensors_list.extend ("9042")
---			default_sensors_list.extend ("9043")
---			default_sensors_list.extend ("9044")
---			default_sensors_list.extend ("9079")
---			--default_sensors_list.extend ("9081")
---			default_sensors_list.extend ("9082")
---			default_sensors_list.extend ("9083")
---			default_sensors_list.extend ("9084")
---			--default_sensors_list.extend ("9086")
---			default_sensors_list.extend ("9087")
---			default_sensors_list.extend ("9842")
---			default_sensors_list.extend ("11099")
---			default_sensors_list.extend ("11165")
---			default_sensors_list.extend ("11988")
---			default_sensors_list.extend ("14021")
---			default_sensors_list.extend ("14024")
---			default_sensors_list.extend ("14129")
---			default_sensors_list.extend ("14170")
---			default_sensors_list.extend ("14178")
---			default_sensors_list.extend ("14205")
---			default_sensors_list.extend ("14227")
---			default_sensors_list.extend ("14252")
---			default_sensors_list.extend ("14279")
---			default_sensors_list.extend ("14301")
---			default_sensors_list.extend ("14304")
---			default_sensors_list.extend ("14307")
---			default_sensors_list.extend ("14310")
---			default_sensors_list.extend ("14313")
---			default_sensors_list.extend ("14364")
---			default_sensors_list.extend ("14497")
---			default_sensors_list.extend ("14565")
---			default_sensors_list.extend ("14624")
---			default_sensors_list.extend ("14758")
---			default_sensors_list.extend ("14759")
---			default_sensors_list.extend ("14760")
---			default_sensors_list.extend ("30523")
-
 		end
 
 feature -- Operations
@@ -455,7 +253,7 @@ feature -- Operations
 
 			if attached response as res then
 				realtime_data_res.sensor_data_list.wipe_out
-				realtime_data_res.from_json (res)
+				realtime_data_res.from_json (res, json_parser)
 				io.put_string ("{NMARZI} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
 				io.put_new_line
 				if realtime_data_res.sensor_data_list.count = 0 then
@@ -509,7 +307,7 @@ feature -- Operations
 			l_row:    STRING
 			l_tokens: LIST[STRING]
 		do
-			create fd.make (6, 1)
+			create fd.make (6, 2)
 			filepath := make_output_filepath (sensor, last24)
 			create file.make_create_read_write (filepath)
 
@@ -689,15 +487,15 @@ feature -- Implementation
 	one_hour:  DATE_TIME_DURATION
 	two_hours: DATE_TIME_DURATION
 
+feature -- Parsing
+
+	json_parser: JSON_PARSER
+
 
 feature {NONE} -- sensors list
 
 	sensors_list: ARRAYED_LIST[SENSOR_PARAMETERS]
 			-- sensors list
-
-	--default_sensors_list: ARRAYED_LIST[STRING]
-	default_sensors_list: ARRAYED_LIST[SENSOR_PARAMETERS]
-		-- default sensors list
 
 	not_found_sensor_list: ARRAYED_LIST[STRING]
 		-- sensors with no data

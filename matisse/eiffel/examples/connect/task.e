@@ -29,6 +29,7 @@ class
 inherit
 	THREAD
 
+
 create
 	make
 

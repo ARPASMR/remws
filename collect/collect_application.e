@@ -24,6 +24,7 @@ inherit
 		redefine
 			initialize
 		end
+	MEMORY
 
 create
 	make_and_launch
@@ -43,12 +44,25 @@ feature {NONE} -- Initialization
 			-- cURL objects
 			create curl
 			create curl_easy
+			create curl_buffer.make_empty
 
 			create content_type.make_empty
 			create token.make
 			create error_message.make_empty
 
 			read_credentials
+
+			-- Parsing
+			create xml_parser_factory
+			xml_parser := xml_parser_factory.new_standard_parser
+			create json_parser.make_with_string ("{}")
+
+			-- garbage collection
+			collection_on
+			set_memory_threshold (40000000)
+			set_collection_period (5)
+			set_coalesce_period (5)
+			set_max_mem (80000000)
 		end
 
 	initialize
@@ -76,20 +90,20 @@ feature {NONE} -- Initialization
 			idx := index_of_word_option ("l")
 			if idx > 0 then
 				log_level := argument (idx + 1).to_integer
-				if     log_level = log_debug       then file_logger.enable_debug_log_level
-				elseif log_level = log_information then file_logger.enable_information_log_level
-				elseif log_level = log_notice      then file_logger.enable_notice_log_level
-				elseif log_level = log_warning     then file_logger.enable_warning_log_level
-				elseif log_level = log_error       then file_logger.enable_error_log_level
-				elseif log_level = log_critical    then file_logger.enable_critical_log_level
-				elseif log_level = log_alert       then file_logger.enable_alert_log_level
-				elseif log_level = log_emergency   then file_logger.enable_emergency_log_level
+				if     log_level = log_debug       then file_logger.enable_debug_log_level          -- 7
+				elseif log_level = log_information then file_logger.enable_information_log_level    -- 6
+				elseif log_level = log_notice      then file_logger.enable_notice_log_level         -- 5
+				elseif log_level = log_warning     then file_logger.enable_warning_log_level        -- 4
+				elseif log_level = log_error       then file_logger.enable_error_log_level          -- 3
+				elseif log_level = log_critical    then file_logger.enable_critical_log_level       -- 2
+				elseif log_level = log_alert       then file_logger.enable_alert_log_level          -- 1
+				elseif log_level = log_emergency   then file_logger.enable_emergency_log_level      -- 0
 				else
-					file_logger.enable_error_log_level
+					file_logger.enable_error_log_level -- 3
 				end
 			else
 				log_level := log_error
-				file_logger.enable_error_log_level
+				file_logger.enable_error_log_level -- 3
 			end
 
 			idx := index_of_word_option ("t")
@@ -156,7 +170,7 @@ feature -- Credentials
 
 	cfg_file_path: STRING
 			-- format cfg file name full path
-		once
+		do
 			create Result.make_empty
 			if attached home_directory_path as l_home then
 				Result := l_home.out + "/.collect/" + cfg_file_name
@@ -190,6 +204,8 @@ feature -- Credentials
 			create cfg_file.make_with_name (l_path)
 
 			read_cfg
+
+			l_path.wipe_out
 		end
 
 feature -- Logging
@@ -222,6 +238,10 @@ feature -- Logging
 				l_logger.register_log_writer (file_logger)
 				log_display ("Log system initialized", log_information, true, true)
 			end
+
+			path.wipe_out
+			home.wipe_out
+			h.wipe_out
 
 		end
 
@@ -265,6 +285,8 @@ feature -- Logging
 				io.put_string (l_string)
 				io.put_new_line
 			end
+
+			l_string.wipe_out
 		end
 
 
@@ -274,9 +296,11 @@ feature -- Basic operations
 			-- Search message header for message id
 		local
 			key:         JSON_STRING
-			json_parser: JSON_PARSER
+			--json_parser: JSON_PARSER
 		do
-			create json_parser.make_with_string (json)
+			json_parser.reset_reader
+			json_parser.reset
+			json_parser.set_representation (json)
 
 			create key.make_from_string ("header")
 			json_parser.parse_content
@@ -300,27 +324,38 @@ feature -- Basic operations
 				error_code    := {ERROR_CODES}.err_no_json_parser
 				error_message := {ERROR_CODES}.msg_no_json_parser
 			end
+
+			key.item.wipe_out
+			json_parser.reset_reader
+			json_parser.reset
 		end
 
 	execute (req: WSF_REQUEST; res: WSF_RESPONSE)
 	    local
-	    	l_response:       STRING
-	    			-- Response as string
-	    	l_request:        STRING
-	    			-- Request as string
 	    	l_received_chars: INTEGER
 	    	l_msg_id:         INTEGER
 	    	l_current_time:   DATE_TIME
 	    	l_offset:         DATE_TIME_DURATION
 
+	    	request:        STRING
+	    	response:       STRING
+
 	    	l_req_obj:        REQUEST_I
 	    	l_res_obj:        RESPONSE_I
-	    	i:                INTEGER
+	    	l_mem_stat:       MEM_INFO
+			l_gc_stat:        GC_INFO
+			l_qt_res:         QUERY_TOKEN_RESPONSE
 		do
 
-			create l_request.make (req.content_length_value.to_integer_32)
-			create l_response.make_empty
+			create request.make (req.content_length_value.to_integer_32)
+			--request.resize (req.content_length_value.to_integer_32)
+			create response.make_empty
 			create l_current_time.make_now
+
+			create l_qt_res.make
+
+			l_req_obj := create {LOGIN_REQUEST}.make
+			l_res_obj := create {LOGIN_RESPONSE}.make
 
 			if is_utc_set then
 				l_offset       := check_day_light_time_saving (l_current_time)
@@ -352,119 +387,40 @@ feature -- Basic operations
 				sleep (1000000000)
 			end
 
---*************************************************************************************************
---			if not check_login then
---				if not do_logout then
---					io.put_string ("Unable to logout")
---					io.put_new_line
---					io.put_string ("Outcome   : " + logout_response.outcome.out)
---					io.put_new_line
---					io.put_string ("Message   : " + logout_response.message)
---					io.put_new_line
---				end
-
---				sleep (1000000000)
-
---				if not do_login then
---					io.put_string ("Unable to login")
---					io.put_new_line
---					io.put_string ("Outcome   : " + login_response.outcome.out)
---					io.put_new_line
---					io.put_string ("Message   : " + login_response.message)
---					io.put_new_line
---				end
-
---				sleep (1000000000)
-
---			end
---*************************************************************************************************
-
-
---*************************************************************************************************
---			if not check_login then
---				log("{COLLECT_APPLICATION} >>> ##### Changing token #####", log_notice)
---				if is_logged_in then
---					io.put_string ("Currently logged in, need to logout ...%N")
---					if do_logout then
---						io.put_string ("Logged out%N")
---						log("{COLLECT_APPLICATION} >>> Logged out", log_information)
---						is_logged_in := false
---						sleep(1000000000)
---					else
---						io.put_string ("Unable to logout, but session token expired, don't worry%N")
---						log("{COLLECT_APPLICATION} >>> Unable to logout", log_notice)
---						io.put_string ("retry logout%N")
-
---						from i := 1
---						until do_logout or i = 5
---						loop
---							io.put_string ("Logout Attempt " + i.out)
---							io.put_new_line
---							i := i + 1
---							io.put_string ("Wait one second and retry...%N")
---							sleep(1000000000)
---						end
---					end
---				end
---				if use_testing_ws then
---					sleep (5000000000)
---				else
---					sleep (5000000000)
---				end
---				if do_login then
---					io.put_string ("Logged in again%N")
---					io.put_string ("{COLLECT_APPLICATION} >>> logged in again with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format))
---					log("{COLLECT_APPLICATION} >>> logged in again with token " + token.id + " expiring upon " + token.expiry.formatted_out (default_date_time_format), log_information)
---				else
---					io.put_string ("NOT logged in%N")
---					io.put_string ("RETRY LOGIN ...%N")
---					from i := 1
---					until do_login or i = 5
---					loop
---						io.put_string ("Attempt " + i.out)
---						io.put_new_line
---						i := i + 1
---						io.put_string ("Wait one second and retry...%N")
---						sleep(1000000000)
---					end
---				end
---			end
---*************************************************************************************************
-
 			-- read json input
-			l_received_chars := req.input.read_to_string (l_request, 1, req.content_length_value.to_integer_32)
+			l_received_chars := req.input.read_to_string (request, 1, req.content_length_value.to_integer_32)
 			log_display ("Received " + l_received_chars.out + " chars", log_debug, true, true)
-			log_display(" <<< " + l_request, log_debug, true, false)
+			log_display(" <<< " + request, log_debug, true, false)
 			-- parse the message header
-			l_msg_id := parse_header (l_request)
+			l_msg_id := parse_header (request)
 			log_display ("Received message id: " + l_msg_id.out, log_debug, true, true)
 
 			if l_msg_id = {REQUEST_I}.login_request_id then
 				l_req_obj := create {LOGIN_REQUEST}.make
 				if attached l_req_obj as myreq then
-					myreq.from_json (l_request)
+					myreq.from_json (request, json_parser)
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
-						l_response := myres.to_json
+						response := myres.to_json
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.logout_request_id then
 				l_req_obj := create {LOGOUT_REQUEST}.make
 				if attached l_req_obj as myreq then
-					myreq.from_json (l_request)
+					myreq.from_json (request, json_parser)
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
-						l_response := myres.to_json
+						response := myres.to_json
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.station_status_list_request_id then
 				l_req_obj := create {STATION_STATUS_LIST_REQUEST}.make
 				if attached l_req_obj as myreq then
-					myreq.from_json (l_request)
+					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
-						l_response := myres.to_json
+						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Station status list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
@@ -473,11 +429,11 @@ feature -- Basic operations
 			elseif l_msg_id = {REQUEST_I}.station_types_list_request_id then
 				l_req_obj := create {STATION_TYPES_LIST_REQUEST}.make
 				if attached l_req_obj as myreq then
-					myreq.from_json (l_request)
+					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
-						l_response := myres.to_json
+						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Station types list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
@@ -486,11 +442,11 @@ feature -- Basic operations
 			elseif l_msg_id = {REQUEST_I}.province_list_request_id then
 				l_req_obj := create {PROVINCE_LIST_REQUEST}.make
 				if attached l_req_obj as myreq then
-					myreq.from_json (l_request)
+					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
-						l_response := myres.to_json
+						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Province list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
@@ -499,11 +455,11 @@ feature -- Basic operations
 			elseif l_msg_id = {REQUEST_I}.municipality_list_request_id then
 				l_req_obj := create {MUNICIPALITY_LIST_REQUEST}.make
 				if attached l_req_obj as myreq then
-					myreq.from_json (l_request)
+					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
-						l_response := myres.to_json
+						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Municipality list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
@@ -512,11 +468,11 @@ feature -- Basic operations
 			elseif l_msg_id = {REQUEST_I}.station_list_request_id then
 				l_req_obj := create {STATION_LIST_REQUEST}.make
 				if attached l_req_obj as myreq then
-					myreq.from_json (l_request)
+					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
-						l_response := myres.to_json
+						response := myres.to_json
 						--log ("**********%N" + l_response + "%N**********%N", log_debug)
 						log_display("Sent message id: " + myres.id.out + " Station list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
@@ -526,11 +482,11 @@ feature -- Basic operations
 			elseif l_msg_id = {REQUEST_I}.sensor_type_list_request_id then
 				l_req_obj := create {SENSOR_TYPE_LIST_REQUEST}.make
 				if attached l_req_obj as myreq then
-					myreq.from_json (l_request)
+					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
-						l_response := myres.to_json
+						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Sensor types list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
@@ -539,25 +495,70 @@ feature -- Basic operations
 			elseif l_msg_id = {REQUEST_I}.realtime_data_request_id then
 				l_req_obj := create {REALTIME_DATA_REQUEST}.make
 				if attached l_req_obj as myreq then
-					myreq.from_json (l_request)
+					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
 
 					l_res_obj := do_post (myreq)
 					if attached l_res_obj as myres then
-						l_response := myres.to_json
+						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Realtime data", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
 					end
 				end
+			elseif l_msg_id = {REQUEST_I}.query_token_request_id then
+				l_qt_res.set_message ("Query token response")
+				l_qt_res.set_outcome (0)
+				l_qt_res.set_id (token.id)
+				l_qt_res.set_expiry(token.expiry)
+				response := l_qt_res.to_json
 			else
-				l_response := internal_error.to_json
+				response := internal_error.to_json
 			end
 
-			res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/json"], ["Content-Length", l_response.count.out]>>)
-			res.put_string (l_response)
-			log_display (" >>> " + l_response, log_information, true, false)
+			res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/json"], ["Content-Length", response.count.out]>>)
+			res.put_string (response)
+			log_display (" >>> " + response, log_information, true, false)
+
+			l_req_obj.dispose
+			l_res_obj.dispose
+
+			msg_number := msg_number + 1
+			log_display ("%T Managed message number " + msg_number.out, log_notice, true, true)
+			if msg_number = {INTEGER}.max_value then
+				msg_number := 1
+			end
+
+			if (msg_number \\ 1000) = 0 then
+				l_mem_stat := memory_statistics (Total_memory)
+				l_gc_stat  := gc_statistics (total_memory)
+
+				full_collect
+				full_coalesce
+				log_display ("MEMORY STATISTICS " + msg_number.out,              log_alert, true, true)
+				log_display ("Total 64:       "   + l_mem_stat.total64.out,      log_alert, true, true)
+				log_display ("Total memory:   "   + l_mem_stat.total_memory.out, log_alert, true, true)
+				log_display ("Free 64:        "   + l_mem_stat.free64.out,       log_alert, true, true)
+				log_display ("Used 64:        "   + l_mem_stat.used64.out,       log_alert, true, true)
+
+
+				log_display ("GC STATISTICS   "   + msg_number.out,              log_alert, true, true)
+				log_display ("Collected:      "   + l_gc_stat.collected.out,     log_alert, true, true)
+				log_display ("Total memory:   "   + l_gc_stat.total_memory.out,  log_alert, true, true)
+				log_display ("Eiffel memory:  "   + l_gc_stat.eiffel_memory.out, log_alert, true, true)
+				log_display ("Memory used:    "   + l_gc_stat.memory_used.out,   log_alert, true, true)
+
+				log_display ("C memory:       "   + l_gc_stat.c_memory.out,      log_alert, true, true)
+				log_display ("Cycle count:    "   + l_gc_stat.cycle_count.out,   log_alert, true, true)
+
+				io.put_new_line
+
+			end
 			io.put_new_line
+
+			request.wipe_out
+			response.wipe_out
+
 		end
 
 feature {NONE} -- Network IO
@@ -594,20 +595,21 @@ feature {NONE} -- Network IO
 				a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "Eiffel curl testclient")
 				a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_postfields,    xml)
 				--a_curl_easy.set_curl_function (curl_function)
+				xml.wipe_out
 			else
 				error_code    := {ERROR_CODES}.err_no_curl_easy_library
 				error_message := {ERROR_CODES}.msg_no_curl_easy_library
 			end
+
 		end
 
 	post(a_request: REQUEST_I): STRING
 			-- Post `a_request' to remws
 		local
 			l_result:    INTEGER
-			curl_buffer: CURL_STRING
+			--curl_buffer: CURL_STRING
 		do
 			create headers
-			create curl_buffer.make_empty
 
 			curl_buffer.wipe_out
 			curl.global_init
@@ -641,7 +643,7 @@ feature {NONE} -- Network IO
 		local
 			l_xml_str: STRING
 		do
-			create l_xml_str.make_empty
+			--create l_xml_str.make_empty
 			Result := a_request.init_response
 			l_xml_str := post (a_request)
 			log_display(" <<< " + l_xml_str, log_debug, true, false)
@@ -650,10 +652,12 @@ feature {NONE} -- Network IO
 				Result.set_outcome (error_code)
 				Result.set_message (error_message)
 			else
-				Result.from_xml (l_xml_str)
+				Result.from_xml (l_xml_str, xml_parser)
 			end
 			error_code := success
 			error_message.wipe_out
+			l_xml_str.wipe_out
+			curl_buffer.wipe_out
 		ensure
 			result_attached: attached Result
 		end
@@ -670,7 +674,7 @@ feature {NONE} -- Login management
 
 	last_token_file_path: STRING
 			-- last token file name full path
-		once
+		do
 			create Result.make_empty
 			if attached home_directory_path as l_home then
 				Result := l_home.out + "/.collect/last_token"
@@ -787,7 +791,7 @@ feature {NONE} -- Login management
 
 				l_xml_str := post (login_request)
 				log_display("do_login_response: " + l_xml_str, log_debug, true, false)
-				login_response.from_xml (l_xml_str)
+				login_response.from_xml (l_xml_str, xml_parser)
 
 				log_display("login outcome: " + login_response.outcome.out, log_debug, true, true)
 				log_display("login message: " + login_response.message,     log_debug, true, true)
@@ -810,6 +814,8 @@ feature {NONE} -- Login management
 				else
 					is_logged_in := false
 				end
+
+				l_xml_str.wipe_out
 			else
 				is_logged_in := False
 			end
@@ -821,7 +827,7 @@ feature {NONE} -- Login management
 			-- Execute logout
 		local
 			l_xml_str: STRING
-			l_res:     LOGOUT_RESPONSE
+			--l_res:     LOGOUT_RESPONSE
 		do
 			if attached token as l_token then
 				logout_request.token_id.copy (token.id)
@@ -832,12 +838,15 @@ feature {NONE} -- Login management
 				log_display("login outcome: " + logout_response.outcome.out, log_debug, true, true)
 				log_display("login message: " + logout_response.message,     log_debug, true, true)
 
-				logout_response.from_xml (l_xml_str)
+				logout_response.from_xml (l_xml_str, xml_parser)
+
+				l_xml_str.wipe_out
 
 				Result := logout_response.outcome = success
 			else
 				Result := false
 			end
+
 		end
 
 	curl_easy:      CURL_EASY_EXTERNALS
@@ -848,6 +857,8 @@ feature {NONE} -- Login management
 			-- cURL handle
 	headers:        POINTER
 			-- headers slist
+	curl_buffer: CURL_STRING
+			-- cURL buffer
 
 	error_code:     INTEGER
 			-- Post error code
@@ -877,5 +888,19 @@ feature -- Attributes
 			-- log path
 	file_logger:  LOG_WRITER_FILE
 			-- the logger
+	msg_number:   INTEGER
+			-- parsed messages number
+
+--	request:        STRING
+--    response:       STRING
+
+feature -- Parsing
+
+	xml_parser_factory: XML_PARSER_FACTORY
+			-- Global xml parser factory
+	xml_parser:         XML_STANDARD_PARSER
+			-- Global xml parser
+	json_parser:        JSON_PARSER
+			-- Global json parser
 
 end

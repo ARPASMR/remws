@@ -120,7 +120,7 @@ feature -- Status setting
 				operators.extend (average)
 			elseif typology.is_equal (rainfall) then
 				table.copy ("M_Pluviometri")
-				operators.extend (average)
+				--operators.extend (average)
 				operators.extend (cumulated)
 			elseif typology.is_equal (global_radiation) then
 				table.copy ("M_RadiometriG")

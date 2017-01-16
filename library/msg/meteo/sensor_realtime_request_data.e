@@ -8,6 +8,7 @@ class
 	SENSOR_REALTIME_REQUEST_DATA
 
 inherit
+
 	DEFAULTS
 
 	redefine

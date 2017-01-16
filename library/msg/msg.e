@@ -35,16 +35,15 @@ inherit
 	ERROR_CODES
 	DEFAULTS
 	LOGGING_I
-	MEMORY
+	DISPOSABLE
 
 feature -- Access
 
 	id:                INTEGER deferred end
-	--parameters_number: INTEGER deferred end
 
 feature -- Conversion
 
-	from_json(json: STRING)
+	from_json(json: STRING; parser: JSON_PARSER)
 			-- Parse json message
 		deferred
 		end
@@ -59,10 +58,14 @@ feature -- Conversion
 		deferred
 		end
 
-	from_xml(xml: STRING)
+	from_xml(xml: STRING; parser: XML_STANDARD_PARSER)
 			-- Parse XML message
 		deferred
 		end
+
+feature -- {DISPOSABLE}
+
+	dispose deferred end
 
 feature -- Logging
 

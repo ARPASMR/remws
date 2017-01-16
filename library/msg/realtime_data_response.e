@@ -145,14 +145,14 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	id:                  INTEGER once Result := realtime_data_response_id end
+	id:                  INTEGER do Result := realtime_data_response_id end
 
 	outcome:             INTEGER
 	message:             STRING
 
 	token:               TOKEN
 
-	sensor_data_list:   ARRAYED_LIST [SENSOR_REALTIME_RESPONSE_DATA]
+	sensor_data_list:    ARRAYED_LIST [SENSOR_REALTIME_RESPONSE_DATA]
 
 feature -- Status setting
 
@@ -283,18 +283,19 @@ feature -- Conversion
 			Result := json_representation
 		end
 
-	from_xml(xml: STRING)
+	from_xml(xml: STRING; parser: XML_STANDARD_PARSER)
 			-- Parse XML message
 	local
-		parser: XML_STANDARD_PARSER
-		factory: XML_PARSER_FACTORY
+		--parser: XML_STANDARD_PARSER
+		--factory: XML_PARSER_FACTORY
 	do
-		create factory
+		--create factory
 		sensor_data_list.wipe_out
-		parser := factory.new_standard_parser
+		--parser := factory.new_standard_parser
 		parser.set_callbacks (Current)
 		set_associated_parser (parser)
 		parser.parse_from_string (xml)
+		parser.reset
 	end
 
 	to_xml: STRING
@@ -304,28 +305,32 @@ feature -- Conversion
 			-- should never be called for response messages
 		end
 
-	from_json (json: STRING)
+	from_json (json: STRING; parser: JSON_PARSER)
 			-- Parse json message
 		require else
 			json_valid: attached json and then not json.is_empty
+			json_parser_valid: attached parser and then parser.is_valid
 		local
 			key:            JSON_STRING
 			key1:           JSON_STRING
 			key2:           JSON_STRING
 
-			json_parser:    JSON_PARSER
+			--json_parser:    JSON_PARSER
 			i,j:            INTEGER
 
 			sensor_rt_data: SENSOR_REALTIME_RESPONSE_DATA
 		do
-		 	create json_parser.make_with_string (json)
+		 	--create json_parser.make_with_string (json)
+		 	parser.reset_reader
+		 	parser.reset
+		 	parser.set_representation (json)
 
 			create key.make_from_string ("header")
 			create key1.make_from_string ("id")
 			create key2.make_from_string ("name")
 
-			json_parser.parse_content
-			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
+			parser.parse_content
+			if parser.is_valid and then attached parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
 				then
@@ -388,8 +393,13 @@ feature -- Conversion
 					end
 				end
 			else
-				print ("json parser error: " + json_parser.errors_as_string + "%N")
+				print ("json parser error: " + parser.errors_as_string + "%N")
 			end
+			parser.reset_reader
+			parser.reset
+			key.item.wipe_out
+			key1.item.wipe_out
+			key2.item.wipe_out
 		end
 
 feature -- XML Callbacks
@@ -576,9 +586,21 @@ feature -- XML Callbacks
 					sensor_data_list.last.data.extend (str)
 					i := i + 1
 				end
-
-
 			end
+		end
+
+feature -- Dispose
+
+	dispose
+			--
+		do
+			json_representation.wipe_out
+			xml_representation.wipe_out
+			current_tag.wipe_out
+			content.wipe_out
+			message.wipe_out
+			cdata_segment.wipe_out
+			sensor_data_list.wipe_out
 		end
 
 feature {NONE} -- Implementation

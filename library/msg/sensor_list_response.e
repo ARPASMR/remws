@@ -33,7 +33,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	id:                  INTEGER once Result := station_list_response_id end
+	id:                  INTEGER do Result := station_list_response_id end
 
 	outcome:             INTEGER
 	message:             STRING
@@ -155,18 +155,19 @@ feature -- Conversion
 			Result := json_representation
 		end
 
-	from_xml(xml: STRING)
+	from_xml(xml: STRING; parser: XML_STANDARD_PARSER)
 			-- Parse XML message
 	local
-		parser: XML_STANDARD_PARSER
-		factory: XML_PARSER_FACTORY
+		--parser: XML_STANDARD_PARSER
+		--factory: XML_PARSER_FACTORY
 	do
-		create factory
+		--create factory
 		stations_list.wipe_out
-		parser := factory.new_standard_parser
+		--parser := factory.new_standard_parser
 		parser.set_callbacks (Current)
 		set_associated_parser (parser)
 		parser.parse_from_string (xml)
+		parser.reset
 	end
 
 	to_xml: STRING
@@ -176,10 +177,11 @@ feature -- Conversion
 			-- should never be called for response messages
 		end
 
-	from_json (json: STRING)
+	from_json (json: STRING; parser: JSON_PARSER)
 			-- Parse json message
 		require else
 			json_valid: attached json and then not json.is_empty
+			json_parser_valid: attached parser and then parser.is_valid
 		local
 			l_key:                    JSON_STRING
 			l_key_id:                 JSON_STRING
@@ -198,13 +200,16 @@ feature -- Conversion
 			l_type:                   STATION_TYPE
 			l_municipality:           MUNICIPALITY
 
-			json_parser:              JSON_PARSER
+			--json_parser:              JSON_PARSER
 			i:                        INTEGER
 			j:                        INTEGER
 
 			station:                  STATION
 		do
-		 	create json_parser.make_with_string (json)
+		 	--create json_parser.make_with_string (json)
+		 	parser.reset_reader
+		 	parser.reset
+		 	parser.set_representation (json)
 
 			-- Really not necessary to define all of these strings that could be in clear text
 			-- but they can change in the future
@@ -225,8 +230,8 @@ feature -- Conversion
 			create l_type.make
 			create l_municipality.make
 
-			json_parser.parse_content
-			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
+			parser.parse_content
+			if parser.is_valid and then attached parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (l_key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
 					--and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
@@ -295,8 +300,35 @@ feature -- Conversion
 					end
 				end
 			else
-				print ("json parser error: " + json_parser.errors_as_string + "%N")
+				print ("json parser error: " + parser.errors_as_string + "%N")
 			end
+			parser.reset_reader
+			parser.reset
+			l_key.item.wipe_out
+			l_key_id.item.wipe_out
+			l_key_name.item.wipe_out
+			l_key_status.item.wipe_out
+			l_key_types.item.wipe_out
+			l_key_municipality.item.wipe_out
+			l_key_address.item.wipe_out
+			l_key_altitude.item.wipe_out
+			l_key_gb_north.item.wipe_out
+			l_key_gb_est.item.wipe_out
+			l_key_latitude.item.wipe_out
+			l_key_longitude.item.wipe_out
+		end
+
+feature -- {DISPOSABLE}
+
+	dispose
+			--
+		do
+			json_representation.wipe_out
+			xml_representation.wipe_out
+			current_tag.wipe_out
+			content.wipe_out
+			message.wipe_out
+			stations_list.wipe_out
 		end
 
 feature -- XML Callbacks

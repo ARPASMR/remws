@@ -41,37 +41,37 @@ feature -- Constants
 
 	authws_url:       STRING
 			-- authentication ws url
-		once
+		do
 			Result := remws_url + "/" + authws_service_url
 		end
 
 	anaws_url:        STRING
 			-- anagraphic ws url
-		once
+		do
 			Result := remws_url + "/" + anaws_service_url
 		end
 
 	dataws_url:       STRING
 			-- data ws url
-		once
+		do
 			Result := remws_url + "/" + dataws_service_url
 		end
 
 	authws_test_url:       STRING
 			-- authentication testing ws url
-		once
+		do
 			Result := remws_test_url + "/" + authws_service_url
 		end
 
 	anaws_test_url:        STRING
 			-- anagraphic testing ws url
-		once
+		do
 			Result := remws_test_url + "/" + anaws_service_url
 		end
 
 	dataws_test_url:       STRING
 			-- data testing ws url
-		once
+		do
 			Result := remws_test_url + "/" + dataws_service_url
 		end
 

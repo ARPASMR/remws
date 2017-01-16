@@ -13,8 +13,12 @@ feature -- Constants
 			-- 2m Temperature
 	wind_speed:           STRING = "VV"
 			-- Wind speed
+	sonic_wind_speed:     STRING = "VVS"
+			-- Sonic wind speed
 	wind_direction:       STRING = "DV"
 			-- Wind direction
+	sonic_wind_direction: STRING = "DVS"
+			-- Sonic wind direction
 	relative_humidity:    STRING = "UR"
 			-- Relative humidity
 	rainfall:             STRING = "PP"

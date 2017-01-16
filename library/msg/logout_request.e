@@ -73,7 +73,7 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	id:                INTEGER once Result := logout_request_id     end
+	id:                INTEGER do Result := logout_request_id     end
 	parameters_number: INTEGER
 
 	token_id:          STRING
@@ -115,17 +115,23 @@ feature -- Conversion
 			xml_representation := Result
 		end
 
-	from_json(json: STRING)
+	from_json(json: STRING; parser: JSON_PARSER)
 			-- Parse json message
+		require else
+			json_valid: attached json and then not json.is_empty
+			json_parser_valid: attached parser and then parser.is_valid
 		local
 			key:         JSON_STRING
-			json_parser: JSON_PARSER
+			--json_parser: JSON_PARSER
 		do
-			create json_parser.make_with_string (json)
+			--create json_parser.make_with_string (json)
+			parser.reset_reader
+			parser.reset
+			parser.set_representation (json)
 
 			create key.make_from_string ("header")
-			json_parser.parse_content
-			if json_parser.is_valid and then attached json_parser.parsed_json_value as jv then
+			parser.parse_content
+			if parser.is_valid and then attached parser.parsed_json_value as jv then
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
 					and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
@@ -145,6 +151,9 @@ feature -- Conversion
 					token_id := j_id.item
 				end
 			end
+			parser.reset_reader
+			parser.reset
+			key.item.wipe_out
 		end
 
 	to_json: STRING
@@ -162,7 +171,7 @@ feature -- Conversion
 			json_representation.append ("}")
 		end
 
-	from_xml (xml: STRING)
+	from_xml (xml: STRING; parser: XML_STANDARD_PARSER)
 			-- Parse xml message
 		do
 			-- should never be called in reuest classes
@@ -172,8 +181,17 @@ feature -- Basic operations
 
 	init_response: RESPONSE_I
 			--
-		once
+		do
 			Result := create {LOGOUT_RESPONSE}.make
+		end
+
+feature {DISPOSANLE}
+
+	dispose
+			--
+		do
+			json_representation.wipe_out
+			xml_representation.wipe_out
 		end
 
 feature {NONE} -- Utilities implementation
@@ -183,25 +201,25 @@ feature {NONE} -- Utilities implementation
 
 	ws_url: STRING
 			-- Web service URL
-		once
+		do
 			Result := authws_url
 		end
 
 	ws_test_url: STRING
 			-- Testing web service URL
-		once
+		do
 			Result := anaws_test_url
 		end
 
 	soap_action_header:  STRING
 			-- SOAP action header
-		once
+		do
 			Result := "SOAPAction: " + remws_uri + "/" + authws_interface + "/" + name
 		end
 
 	name: STRING
 			-- Request `name' to be passed to remws
-		once
+		do
 			Result := "Logout"
 		end
 

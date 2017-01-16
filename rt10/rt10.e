@@ -23,11 +23,13 @@ feature {NONE} -- Initialization
 	make
 			-- Run application.
 		local
-			l_data:   ARRAYED_LIST[STRING]
-			l_tokens: LIST[STRING]
-			fd:       FORMAT_DOUBLE
-			l_start:  DATE_TIME
-			l_end:    DATE_TIME
+			l_data:      ARRAYED_LIST[STRING]
+			--l_tokens:    LIST[STRING]
+			fd:          FORMAT_DOUBLE
+			l_start:     DATE_TIME
+			l_end:       DATE_TIME
+			l_idx:       INTEGER
+			l_sensor_id: INTEGER
 		do
 			create l_start.make_now
 
@@ -49,39 +51,67 @@ feature {NONE} -- Initialization
 
 			create modification.make
 
-			-- Processare il risultato della query
-			load_sensors (results)
+			l_idx := index_of_word_option ("s")
+			if l_idx > 0 then
+				l_sensor_id := argument (l_idx + 1).to_integer
 
-			-- Cancellare i dati troppo vecchi
-			delete_old_data
+				-- Carica i sensori
+				load_sensors (results)
+				-- Cerca il singolo sensore
+				from sensors.start
+				until sensors.after
+				loop
+					if sensors.item.sensor_id = l_sensor_id then
+						-- determinare l'ultimo dato acquisito per il sensore (es. 9104)
+						get_last_dates (sensors.item)
 
-			-- per ciascun sensore
-			from sensors.start
-			until sensors.after
-			loop
-				-- determinare l'ultimo dato acquisito per il sensore (es. 9104)
-				get_last_dates (sensors.item)
+						-- interrogare il remws per ottenere i dati dall'ultimo dato acquisito fino all'istante corrente
+						l_data := ask_sensor (sensors.item)
 
-				-- interrogare il remws per ottenere i dati dall'ultimo dato acquisito fino all'istante corrente
-				l_data := ask_sensor (sensors.item)
+						-- salvare i dati ottenuti nel dbMeteo
+						--save_sensor_data (sensors.item)
+					end
 
-				-- salvare i dati ottenuti nel dbMeteo
-				save_sensor_data (sensors.item)
+					sensors.forth
+				end
 
-				-- from l_data.start
-				-- until l_data.after
-				-- loop
-				--	l_tokens :=  l_data.item.split (';')
-				--	io.put_string (sensors.item.sensor_id.out + "%T" + l_tokens.i_th (1) + ".000%T" +
-				--	                fd.formatted (l_tokens.i_th (2).to_double))
-				--	io.put_new_line
+			else
 
-				--	l_data.forth
-				-- end
+				-- Processare il risultato della query
+				load_sensors (results)
 
-				print_data (sensors.item)
+				-- Cancellare i dati troppo vecchi
+				delete_old_data
 
-				sensors.forth
+				-- per ciascun sensore
+				from sensors.start
+				until sensors.after
+				loop
+					-- determinare l'ultimo dato acquisito per il sensore (es. 9104)
+					get_last_dates (sensors.item)
+
+					-- interrogare il remws per ottenere i dati dall'ultimo dato acquisito fino all'istante corrente
+					l_data := ask_sensor (sensors.item)
+
+					-- salvare i dati ottenuti nel dbMeteo
+					save_sensor_data (sensors.item)
+
+					-- from l_data.start
+					-- until l_data.after
+					-- loop
+					--	l_tokens :=  l_data.item.split (';')
+					--	io.put_string (sensors.item.sensor_id.out + "%T" + l_tokens.i_th (1) + ".000%T" +
+					--	                fd.formatted (l_tokens.i_th (2).to_double))
+					--	io.put_new_line
+
+					--	l_data.forth
+					-- end
+
+					print_data (sensors.item)
+
+					sensors.forth
+				end
+
 			end
 
 			sensors.wipe_out
@@ -123,6 +153,9 @@ feature {NONE} -- Initialization
 			create realtime_data_res.make
 			create response.make_empty
 			create curl_buffer.make_empty
+
+			-- Parsing
+			create json_parser.make_with_string ("{}")
 
 		end
 
@@ -314,7 +347,7 @@ feature -- Process
 	load_sensors(some_results: ARRAYED_LIST[DB_RESULT])
 			-- Load `sensors'
 		local
-			l_n: INTEGER
+			--l_n: INTEGER
 			l_tuple: DB_TUPLE
 			l_sensor: RT10_SENSOR
 			r_int: INTEGER_REF
@@ -412,7 +445,7 @@ feature -- Operations
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, msg.count)
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_verbose,       0)
-				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "NMarzi curl testclient")
+				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "RT10 curl testclient")
 				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfields,    msg)
 
 				--curl_easy.set_curl_function (curl_function)
@@ -462,7 +495,7 @@ feature -- Operations
 			until sensor.last_dates.after
 			loop
 				start_date  := sensor.last_dates.item + ten_minutes
-				end_date := now
+				end_date := now + one_hour
 
 				create fd.make (6, 1)
 				fd.right_justify
@@ -475,21 +508,54 @@ feature -- Operations
 				r.copy (realtime_data_request_nmarzi_template)
 
 				r.replace_substring_all ("$sensor",      sensor.sensor_id.out)
-				if sensor.typology.is_equal ({SENSOR_TYPOLOGY_CODES}.rainfall) then
-					r.replace_substring_all ("$function",    {FUNCTION_CODES}.computed_data.out)
+
+				if sensor.time_granularity = {TIME_GRANULARITY_CODES}.one_minute or
+				   sensor.time_granularity = {TIME_GRANULARITY_CODES}.five_minutes then
+
+				   	r.replace_substring_all ("$function", {FUNCTION_CODES}.computed_data.out)
+					r.replace_substring_all ("$granularity", {TIME_GRANULARITY_CODES}.ten_minutes.out)
+				   	if sensor.typology.is_equal ({SENSOR_TYPOLOGY_CODES}.rainfall) then
+				   		r.replace_substring_all ("$operator", {APPLIED_OPERATOR_CODES}.cumulated.out)
+				   	else
+				   		r.replace_substring_all ("$operator", {APPLIED_OPERATOR_CODES}.average.out)
+				   	end
+
 				else
+					r.replace_substring_all ("$granularity", sensor.time_granularity.out)
 					r.replace_substring_all ("$function",    {FUNCTION_CODES}.acquired_data.out)
+					r.replace_substring_all ("$operator",    sensor.operators.i_th (sensor.last_dates.index).out)
 				end
-				r.replace_substring_all ("$operator",    sensor.operators.i_th (sensor.last_dates.index).out)
-				r.replace_substring_all ("$granularity", sensor.time_granularity.out)
+
+--				if sensor.typology.is_equal ({SENSOR_TYPOLOGY_CODES}.rainfall) then
+--					if sensor.time_granularity = {TIME_GRANULARITY_CODES}.one_minute or
+--					   sensor.time_granularity = {TIME_GRANULARITY_CODES}.five_minutes then
+--						r.replace_substring_all ("$function",    {FUNCTION_CODES}.computed_data.out)
+--					else
+--						r.replace_substring_all ("$function",    {FUNCTION_CODES}.acquired_data.out)
+--					end
+--					
+--				else
+--					r.replace_substring_all ("$function",    {FUNCTION_CODES}.acquired_data.out)
+--				end
+--				r.replace_substring_all ("$operator",    sensor.operators.i_th (sensor.last_dates.index).out)
+--				r.replace_substring_all ("$granularity", sensor.time_granularity.out)
+--				r.replace_substring_all ("$start",  start_date.formatted_out (default_date_time_format))
+--				r.replace_substring_all ("$finish", end_date.formatted_out (default_date_time_format))
+
 				r.replace_substring_all ("$start",  start_date.formatted_out (default_date_time_format))
 				r.replace_substring_all ("$finish", end_date.formatted_out (default_date_time_format))
 
+				io.put_string (">>> " + r)
+				io.put_new_line
+
 				response := post (r)
+
+				io.put_string ("<<< " + response)
+				io.put_new_line
 
 				if attached response as res and not response.is_empty then
 					realtime_data_res.sensor_data_list.wipe_out
-					realtime_data_res.from_json (res)
+					realtime_data_res.from_json (res, json_parser)
 					io.put_string ("%TFound " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
 					io.put_new_line
 					if realtime_data_res.sensor_data_list.count = 0 then
@@ -749,6 +815,8 @@ feature -- Implementation
 	one_minute:   DATE_TIME_DURATION
 	five_minutes: DATE_TIME_DURATION
 	ten_minutes:  DATE_TIME_DURATION
+
+	json_parser:  JSON_PARSER
 
 	start_date:   DATE_TIME
 	end_date:     DATE_TIME

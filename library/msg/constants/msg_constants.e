@@ -44,7 +44,7 @@ feature -- Constants
 			-- Message id for `LOGIN_REQUEST'
 	login_request_parnum:                        INTEGER = 2
 			-- Message parameters number for `LOGIN_REQUEST'
-	login_response_id:                           INTEGER once Result := login_request_id + response_id_offset end
+	login_response_id:                           INTEGER do Result := login_request_id + response_id_offset end
 			-- Message id for `LOGIN_RESPONSE'
 	login_response_success_parnum:               INTEGER = 4
 			-- Message parameters number for a successful `LOGIN_RESPONSE'
@@ -58,11 +58,11 @@ feature -- Constants
 			-- Message id for `LOGOUT_REQUEST'
 	logout_request_parnum:                       INTEGER = 1
 			-- Message parameters number for `LOGOUT_REQUEST'
-	logout_response_id:                          INTEGER once Result := response_id_offset + logout_request_id end
+	logout_response_id:                          INTEGER do Result := response_id_offset + logout_request_id end
 			-- Message id for `LOGOUT_RESPONSE'
 	logout_response_success_parnum:              INTEGER = 2
 			-- Message parameters number for a successful `LOGOUT_RESPONSE'
-	logout_response_error_parnum:                INTEGER once Result := logout_response_success_parnum end
+	logout_response_error_parnum:                INTEGER do Result := logout_response_success_parnum end
 			-- Message parameters number for `LOGOUT_RESPONSE' containing errors
 
 	--| ---------------------------------------------------------------------------
@@ -74,7 +74,7 @@ feature -- Constants
 			-- Message parameters number when no token is used
 	station_status_list_request_parnum_token:    INTEGER = 1
 			-- Message parameters number when token is used
-	station_status_list_response_id:             INTEGER once Result := response_id_offset + station_status_list_request_id end
+	station_status_list_response_id:             INTEGER do Result := response_id_offset + station_status_list_request_id end
 			-- Message id for `STATION_STATUS_LIST_RESPONSE'
 	station_status_list_response_parnum:         INTEGER = 1
 			-- Message parameters number for `STATION_STATUS_LIST_RESPONSE'
@@ -89,7 +89,7 @@ feature -- Constants
 			-- Message parameters number when no token is used
 	station_types_list_request_parnum_token:     INTEGER = 1
 			-- Message parameters number when token is used
-	station_types_list_response_id:              INTEGER once Result := response_id_offset + station_types_list_request_id end
+	station_types_list_response_id:              INTEGER do Result := response_id_offset + station_types_list_request_id end
 			-- Message id for `STATION_TYPES_LIST_RESPONSE'
 	station_types_list_response_parnum:          INTEGER = 1
 			-- Message parameters number for `STATION_TYPES_LIST_RESPONSE'
@@ -104,7 +104,7 @@ feature -- Constants
 			-- Message parameters number when non token is used
 	province_list_request_parnum_token:          INTEGER = 1
 			-- Message parameters number when token is used
-	province_list_response_id:                   INTEGER once Result := response_id_offset + province_list_request_id end
+	province_list_response_id:                   INTEGER do Result := response_id_offset + province_list_request_id end
 			-- Message id for `PROVINCE_LIST_RESPONSE'
 	province_list_response_parnum:               INTEGER = 1
 			-- Message parameters number for `PROVINCE_LIST_RESPONSE'
@@ -119,7 +119,7 @@ feature -- Constants
 			-- Message parameters number when no token is used
 	municipality_list_request_parnum_token:      INTEGER = 2
 			-- Message parameters number when token is used
-	municipality_list_response_id:               INTEGER once Result := response_id_offset + municipality_list_request_id end
+	municipality_list_response_id:               INTEGER do Result := response_id_offset + municipality_list_request_id end
 			-- Message id for `MUNICIPALITY_LIST_RESPONSE'
 	municipality_list_response_parnum:           INTEGER = 1
 			-- Message parameters number for `MUNICIPALITY_LIST_RESPONSE'
@@ -134,7 +134,7 @@ feature -- Constants
 			-- Message parameters number when no token is used
 	station_list_request_parnum_token:           INTEGER = 7
 			-- Message parameters number when token is used
-	station_list_response_id:                    INTEGER once Result := response_id_offset + station_list_request_id end
+	station_list_response_id:                    INTEGER do Result := response_id_offset + station_list_request_id end
 			-- Message id for `STATION_LIST_RESPONSE'
 	station_list_response_parnum:                INTEGER = 2
 			-- Message parameters number for `STATION_LIST_RESPONSE'
@@ -149,7 +149,7 @@ feature -- Constants
 			-- Message parameters number when no token is used
 	sensor_type_list_request_parnum_token:       INTEGER = 2
 			-- Message parameters number when token is used
-	sensor_type_list_response_id:                INTEGER once Result := response_id_offset + sensor_type_list_request_id end
+	sensor_type_list_response_id:                INTEGER do Result := response_id_offset + sensor_type_list_request_id end
 			-- Message id for `SENSOR_TYPE_LIST_RESPONSE'
 	sensor_type_list_response_parnum:            INTEGER = 1
 			-- Message parameters number for `SENSOR_TYPE_LIST_RESPONSE'
@@ -164,7 +164,7 @@ feature -- Constants
 			-- Message parameters number when no token is used
 	sensor_list_request_parnum_token:            INTEGER = 5
 			-- Message parameters number when token is used
-	sensor_list_response_id:                     INTEGER once Result := response_id_offset + sensor_list_request_id end
+	sensor_list_response_id:                     INTEGER do Result := response_id_offset + sensor_list_request_id end
 			-- Message id for `SENSOR_LIST_RESPONSE'
 	sensor_list_response_parnum:                 INTEGER = 1
 			-- Message parameters number for `SENSOR_LIST_RESPONSE'
@@ -179,9 +179,17 @@ feature -- Constants
 			-- Message parameters number when no token is used
 	realtime_data_request_parnum_token:          INTEGER = 2
 			-- Message parameters number when token is used
-	realtime_data_response_id:                   INTEGER once Result := response_id_offset + realtime_data_request_id end
+	realtime_data_response_id:                   INTEGER do Result := response_id_offset + realtime_data_request_id end
 			-- Message id for `REALTIME_DATA_RESPONSE'
 	realtime_data_response_parnum:               INTEGER = 1
 			-- Message parameters number for `REALTIME_DATA_RESPONSE'
+
+	--| ---------------------------------------------------------------------------
+	--| QUERY TOKEN request and response constants
+	--| ---------------------------------------------------------------------------
+	query_token_request_id:                      INTEGER = 11
+			-- Message id for `QUERY_TOKEN_REQUEST'
+	query_token_response_id:                     INTEGER do Result := response_id_offset + query_token_request_id end
+			-- Message id for `QUERY_TOKEN_RESPONSE'
 
 end
