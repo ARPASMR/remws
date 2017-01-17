@@ -244,7 +244,7 @@ feature -- Basic operations
 			Result := create {SENSOR_TYPE_LIST_RESPONSE}.make
 		end
 
-feature {DISPOSANLE}
+feature {DISPOSABLE}
 
 	dispose
 			--

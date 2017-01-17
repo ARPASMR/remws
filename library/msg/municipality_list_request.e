@@ -262,7 +262,7 @@ feature -- Basic operations
 			Result := create {MUNICIPALITY_LIST_RESPONSE}.make
 		end
 
-feature {DISPOSANLE}
+feature {DISPOSABLE}
 
 	dispose
 			--

@@ -190,7 +190,7 @@ feature -- Basic operations
 			Result := create {STATION_TYPES_LIST_RESPONSE}.make
 		end
 
-feature {DISPOSANLE}
+feature {DISPOSABLE}
 
 	dispose
 			--
