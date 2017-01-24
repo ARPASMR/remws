@@ -279,7 +279,7 @@ feature -- Logging
 			end
 
 			if to_file then
-				log (l_string, priority)
+				--log (l_string, priority)
 			end
 			if to_display then
 				io.put_string (l_string)
@@ -609,7 +609,7 @@ feature {NONE} -- Network IO
 			l_result:    INTEGER
 			--curl_buffer: CURL_STRING
 		do
-			create headers
+			--create headers
 
 			curl_buffer.wipe_out
 			curl.global_init
@@ -859,6 +859,10 @@ feature {NONE} -- Login management
 			-- headers slist
 	curl_buffer: CURL_STRING
 			-- cURL buffer
+
+
+
+
 
 	error_code:     INTEGER
 			-- Post error code

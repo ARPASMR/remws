@@ -205,7 +205,7 @@ feature -- Process
 			until sensor.operators.after
 			loop
 				create query.make_empty
-				query := "select Data_e_ora from M_Osservazioni_TR where IDsensore = " + sensor.sensor_id.out
+				query := "select Data_e_ora from METEO.M_Osservazioni_TR where IDsensore = " + sensor.sensor_id.out
 				query := query + " and NomeTipologia = '" + sensor.typology + "'"
 				query := query + " and IDoperatore = " + sensor.operators.item.out + " order by Data_e_ora desc limit 1;"
 				--io.put_string ("{make_last_date_queries} " + i.out + " " + query)
@@ -252,7 +252,7 @@ feature -- Process
 	make_exists_measure_query (s: INTEGER; o: INTEGER; t: STRING; d: DATE_TIME) : STRING
 			-- Constructs exists query for sensor `s' with operator `o' and typology `t'
 		do
-			Result := "select * from M_Osservazioni_TR where "+
+			Result := "select * from METEO.M_Osservazioni_TR where "+
 			          "IDsensore = " + s.out + " and IDoperatore = " + o.out +
 			          " and NomeTipologia = '" + t + "' and Data_e_ora = '" + d.formatted_out (default_date_time_format) + ".000';"
 		end
@@ -286,7 +286,9 @@ feature -- Process
 					if selection.is_executable then
 						selection.execute_query
 					else
-						io.put_string ("{get_last_dates} selection not executable")
+						io.put_string ("{get_last_dates} selection not executable " + l_q.out)
+						io.put_new_line
+						selection.reset
 					end
 
 					--io.put_string ("Execute query: " + l_q.out)
@@ -361,7 +363,7 @@ feature -- Process
 
 				-- chiedere l'elenco dei sensori
 
-				selection.set_query ("select * from vw_rt10 order by IDsensore desc;")
+				selection.set_query ("select * from METEO.vw_rt10 order by IDsensore desc;")
 				selection.execute_query
 
 				-- Processare il risultato della query
@@ -445,7 +447,7 @@ feature -- Operations
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, msg.count)
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_verbose,       0)
-				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "RT10 curl testclient")
+				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "NMarzi curl testclient")
 				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfields,    msg)
 
 				--curl_easy.set_curl_function (curl_function)
@@ -640,7 +642,7 @@ feature -- Operations
 		do
 			create l_query.make_empty
 			l_date := now + one_month
-			l_query := "delete from M_Osservazioni_TR where Data_e_ora < '" + l_date.formatted_out (default_date_time_format) + "';"
+			l_query := "delete from METEO.M_Osservazioni_TR where Data_e_ora < '" + l_date.formatted_out (default_date_time_format) + "';"
 			modification.modify (l_query)
 			session_control.commit
 		end
@@ -674,6 +676,7 @@ feature -- Operations
 				else
 					io.put_string ("{is_measure_already_present} ERROR selection not connected")
 					io.put_new_line
+					selection.reset
 				end
 
 			else
