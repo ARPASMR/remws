@@ -197,7 +197,7 @@ feature -- Basic operations
 			Result := create {LOGIN_RESPONSE}.make
 		end
 
-feature {DISPOSANLE}
+feature {DISPOSABLE}
 
 	dispose
 			--

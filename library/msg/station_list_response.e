@@ -375,7 +375,7 @@ feature -- Conversion
 			l_key_longitude.item.wipe_out
 		end
 
-feature {DISPOSANLE}
+feature {DISPOSABLE}
 
 	dispose
 			--
