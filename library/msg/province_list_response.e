@@ -234,7 +234,7 @@ feature -- Conversion
 			key2.item.wipe_out
 		end
 
-feature {DISPOSABLE}
+feature {DISPOSANLE}
 
 	dispose
 			--

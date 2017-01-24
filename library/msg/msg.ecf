@@ -21,9 +21,9 @@
 				<exclude>/CVS$</exclude>
 				<exclude>/.svn$</exclude>
 			</file_rule>
-			<cluster name="constants" location=".\constants\"/>
-			<cluster name="interfaces" location=".\interfaces\"/>
-			<cluster name="meteo" location=".\meteo\">
+			<cluster name="constants" location="\home\buck\dev\eiffel\library\msg\constants\"/>
+			<cluster name="interfaces" location="\home\buck\dev\eiffel\library\msg\interfaces\"/>
+			<cluster name="meteo" location="\home\buck\dev\eiffel\library\msg\meteo\">
 				<description>Meteo business classes</description>
 			</cluster>
 		</cluster>
