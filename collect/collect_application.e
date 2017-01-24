@@ -221,23 +221,8 @@ feature -- Logging
 	log_display (a_string: STRING; priority: INTEGER; to_file, to_display: BOOLEAN)
 			-- Combined file and display log
 		do
-<<<<<<< HEAD
-			if attached current.class_name as cn then
-				l_string := "{" + cn + "} " + a_string
-			else
-				l_string := "{NO_CLASS_NAME} " + a_string
-			end
-
-			if to_file then
-				--log (l_string, priority)
-			end
-			if to_display then
-				io.put_string (l_string)
-				io.put_new_line
-=======
 			if attached logger as l_logger then
 				l_logger.log_display (Current, a_string, priority, to_file, to_display)
->>>>>>> 2b9874a4ee60381eb1305c421a8e305c87ff7270
 			end
 		end
 
@@ -497,7 +482,6 @@ feature -- Basic operations
 
 		end
 
-<<<<<<< HEAD
 feature {NONE} -- Network IO
 
 	init_curl_handle(a_curl_easy: CURL_EASY_EXTERNALS; a_curl: CURL_EXTERNALS; a_request: REQUEST_I): POINTER
@@ -589,7 +573,7 @@ feature {NONE} -- Network IO
 				Result.set_outcome (error_code)
 				Result.set_message (error_message)
 			else
-				Result.from_xml (l_xml_str, xml_parser)
+				Result.from_xml (l_xml_str, remws_session.xml_parser)
 			end
 			error_code := success
 			error_message.wipe_out
@@ -678,15 +662,14 @@ feature {NONE} -- Login management
 
 			l_offset := check_day_light_time_saving (l_current_dt)
 
-			if is_utc_set then
-				Result := l_current_dt + l_offset > token.expiry
+			if remws_session.config.is_utc_set then
+				Result := l_current_dt + l_offset > remws_session.token.expiry
 			else
-				Result := l_current_dt > token.expiry
+				Result := l_current_dt > remws_session.token.expiry
 			end
 		end
-=======
+
 feature {NONE} -- remws management
->>>>>>> 2b9874a4ee60381eb1305c421a8e305c87ff7270
 
 	remws_session: REMWS_SESSION
 
