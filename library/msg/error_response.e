@@ -156,7 +156,7 @@ feature -- Conversion
 			parser.reset
 		end
 
-feature {DISPOSABLE}
+feature {DISPOSANLE}
 
 	dispose
 			--

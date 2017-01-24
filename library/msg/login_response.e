@@ -110,29 +110,29 @@ feature -- Conversion
 
 	from_xml(xml: STRING; parser: XML_STANDARD_PARSER)
 			-- Parse XML message
-		local
-			--parser: XML_STANDARD_PARSER
-			--factory: XML_PARSER_FACTORY
-		do
-			--create factory
+	local
+		--parser: XML_STANDARD_PARSER
+		--factory: XML_PARSER_FACTORY
+	do
+		--create factory
 
-			--parser := factory.new_standard_parser
-			parser.set_callbacks (Current)
-			set_associated_parser (parser)
-			parser.parse_from_string (xml)
-			if token.id.is_empty then
-				parameters_number := login_response_error_parnum
-			else
-				parameters_number := login_response_success_parnum
-			end
-			parser.reset
+		--parser := factory.new_standard_parser
+		parser.set_callbacks (Current)
+		set_associated_parser (parser)
+		parser.parse_from_string (xml)
+		if token.id.is_empty then
+			parameters_number := login_response_error_parnum
+		else
+			parameters_number := login_response_success_parnum
 		end
+		parser.reset
+	end
 
 	to_xml: STRING
 			-- xml representation
 		do
 			-- should never be called in response classes
-			create Result.make_empty
+			create result.make_empty
 			if parameters_number = login_response_error_parnum then
 				Result.append ("<s:Envelope xmlns:s=%"http://schemas.xmlsoap.org/soap/envelope/%">")
 				Result.append ("<s:Body><LoginResponse xmlns=%"http://tempuri.org/%">")

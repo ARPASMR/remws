@@ -489,7 +489,7 @@ feature -- Basic operations
 			Result := create {SENSOR_LIST_RESPONSE}.make
 		end
 
-feature {DISPOSABLE}
+feature {DISPOSANLE}
 
 	dispose
 			--
