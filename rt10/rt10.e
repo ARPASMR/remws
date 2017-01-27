@@ -20,112 +20,6 @@ create
 
 feature {NONE} -- Initialization
 
-	make
-			-- Run application.
-		local
-			l_data:      ARRAYED_LIST[STRING]
-			--l_tokens:    LIST[STRING]
-			fd:          FORMAT_DOUBLE
-			l_start:     DATE_TIME
-			l_end:       DATE_TIME
-			l_idx:       INTEGER
-			l_sensor_id: INTEGER
-		do
-			create l_start.make_now
-
-			create fd.make (6, 1)
-			fd.right_justify
-
-			init
-
-			print ("Ten minutes realtime acquisition%N")
-			print ("Home folder:        " + home_folder + "%N")
-			print ("Preferences folder: " + preferences_folder + "%N")
-
-			init_preferences
-
-			set_hostname (db_host)
-			set_application (db)
-			login(db_user, db_password)
-			set_base
-
-			create modification.make
-
-			l_idx := index_of_word_option ("s")
-			if l_idx > 0 then
-				l_sensor_id := argument (l_idx + 1).to_integer
-
-				-- Carica i sensori
-				load_sensors (results)
-				-- Cerca il singolo sensore
-				from sensors.start
-				until sensors.after
-				loop
-					if sensors.item.sensor_id = l_sensor_id then
-						-- determinare l'ultimo dato acquisito per il sensore (es. 9104)
-						get_last_dates (sensors.item)
-
-						-- interrogare il remws per ottenere i dati dall'ultimo dato acquisito fino all'istante corrente
-						l_data := ask_sensor (sensors.item)
-
-						-- salvare i dati ottenuti nel dbMeteo
-						--save_sensor_data (sensors.item)
-					end
-
-					sensors.forth
-				end
-
-			else
-
-				-- Processare il risultato della query
-				load_sensors (results)
-
-				-- Cancellare i dati troppo vecchi
-				delete_old_data
-
-				-- per ciascun sensore
-				from sensors.start
-				until sensors.after
-				loop
-					-- determinare l'ultimo dato acquisito per il sensore (es. 9104)
-					get_last_dates (sensors.item)
-
-					-- interrogare il remws per ottenere i dati dall'ultimo dato acquisito fino all'istante corrente
-					l_data := ask_sensor (sensors.item)
-
-					-- salvare i dati ottenuti nel dbMeteo
-					save_sensor_data (sensors.item)
-
-					-- from l_data.start
-					-- until l_data.after
-					-- loop
-					--	l_tokens :=  l_data.item.split (';')
-					--	io.put_string (sensors.item.sensor_id.out + "%T" + l_tokens.i_th (1) + ".000%T" +
-					--	                fd.formatted (l_tokens.i_th (2).to_double))
-					--	io.put_new_line
-
-					--	l_data.forth
-					-- end
-
-					print_data (sensors.item)
-
-					sensors.forth
-				end
-
-			end
-
-			sensors.wipe_out
-
-			session_control.disconnect
-
-			create l_end.make_now
-
-			io.put_string ("Started at:  " + l_start.formatted_out (default_date_time_format))
-			io.put_new_line
-			io.put_string ("Finished at: " + l_end.formatted_out (default_date_time_format))
-			io.put_new_line
-		end
-
 	init
 			-- General initialization
 		do
@@ -157,6 +51,112 @@ feature {NONE} -- Initialization
 			-- Parsing
 			create json_parser.make_with_string ("{}")
 
+
+		end
+
+	make
+			-- Run application.
+		local
+			l_data:      ARRAYED_LIST[STRING]
+			fd:          FORMAT_DOUBLE
+			l_start:     DATE_TIME
+			l_end:       DATE_TIME
+			l_idx:       INTEGER
+			l_sensor_id: INTEGER
+		do
+			create l_start.make_now
+
+			create fd.make (6, 1)
+			fd.right_justify
+
+			init
+
+			display_line ("Ten minutes realtime acquisition", true)
+			display_line ("Home folder:        " + home_folder, true)
+			display_line ("Preferences folder: " + preferences_folder, true)
+
+			init_preferences
+
+			set_hostname (db_host)
+			set_application (db)
+			login(db_user, db_password)
+			set_base
+
+			create modification.make
+			create selection.make
+			create session_control.make
+			session_control.connect
+
+			l_idx := index_of_word_option ("s")
+			if l_idx > 0 then
+				l_sensor_id := argument (l_idx + 1).to_integer
+
+				-- Carica i sensori
+				load_sensors (results)
+
+				-- Cerca il singolo sensore
+				from sensors.start
+				until sensors.after
+				loop
+					if sensors.item.sensor_id = l_sensor_id then
+						-- determinare l'ultimo dato acquisito per il sensore (es. 9104)
+						get_last_dates (sensors.item)
+
+						-- interrogare il remws per ottenere i dati dall'ultimo dato acquisito fino all'istante corrente
+						l_data := ask_sensor (sensors.item)
+
+						-- salvare i dati ottenuti nel dbMeteo
+						save_sensor_data (sensors.item)
+
+						-- Stampa a video i dati
+						print_data (sensors.item)
+					end
+
+					sensors.forth
+				end
+
+			else
+
+				-- Carica i sensori
+				load_sensors (results)
+
+				-- Cancellare i dati troppo vecchi
+				delete_old_data
+
+				-- per ciascun sensore
+				from sensors.start
+				until sensors.after
+				loop
+					-- determinare l'ultimo dato acquisito per il sensore (es. 9104)
+					get_last_dates (sensors.item)
+
+					-- interrogare il remws per ottenere i dati dall'ultimo dato acquisito fino all'istante corrente
+					l_data := ask_sensor (sensors.item)
+
+					-- salvare i dati ottenuti nel dbMeteo
+					save_sensor_data (sensors.item)
+
+					-- stampa i dati per il sensore
+					print_data (sensors.item)
+
+					sensors.forth
+				end
+
+			end
+
+			sensors.wipe_out
+
+			selection.terminate
+			selection.clear_all
+			selection.reset
+			modification.clear_all
+			modification.reset
+			session_control.disconnect
+
+			create l_end.make_now
+
+			display_line ("Started at:  " + l_start.formatted_out (default_date_time_format), true)
+			display_line ("Finished at: " + l_end.formatted_out (default_date_time_format), true)
 		end
 
 feature -- Process
@@ -176,16 +176,14 @@ feature -- Process
 					from sensor.measures.item.start
 					until sensor.measures.item.after
 					loop
-						io.put_string ("%T" + sensor.sensor_id.out + " " + sensor.measures.item.item.date_time + " " +
+						display_line ("%T" + sensor.sensor_id.out + " " + sensor.measures.item.item.date_time + " " +
 						               fd.formatted (sensor.measures.item.item.value) + " " +
-						               sensor.operators.i_th (sensor.measures.index).out)
-						io.put_new_line
+						               sensor.operators.i_th (sensor.measures.index).out, true)
 
 						sensor.measures.item.forth
 					end
 				else
-					io.put_string ("%T" + sensor.sensor_id.out + " " + sensor.operators.i_th (sensor.measures.index).out + " has 0 items")
-					io.put_new_line
+					display_line ("%T" + sensor.sensor_id.out + " " + sensor.operators.i_th (sensor.measures.index).out + " has 0 items", true)
 				end
 				sensor.measures.forth
 			end
@@ -198,7 +196,7 @@ feature -- Process
 			i:     INTEGER
 		do
 			create Result.default_create
-			--io.put_string ("tuple count: " + Result.count.out + "%N")
+
 			from
 				sensor.operators.start
 				i:= Result.lower
@@ -208,8 +206,6 @@ feature -- Process
 				query := "select Data_e_ora from METEO.M_Osservazioni_TR where IDsensore = " + sensor.sensor_id.out
 				query := query + " and NomeTipologia = '" + sensor.typology + "'"
 				query := query + " and IDoperatore = " + sensor.operators.item.out + " order by Data_e_ora desc limit 1;"
-				--io.put_string ("{make_last_date_queries} " + i.out + " " + query)
-				--io.put_new_line
 				Result.put (query, i)
 				sensor.operators.forth
 				i := i + 1
@@ -252,7 +248,7 @@ feature -- Process
 	make_exists_measure_query (s: INTEGER; o: INTEGER; t: STRING; d: DATE_TIME) : STRING
 			-- Constructs exists query for sensor `s' with operator `o' and typology `t'
 		do
-			Result := "select * from METEO.M_Osservazioni_TR where "+
+			Result := "select Data_e_ora from METEO.M_Osservazioni_TR where "+
 			          "IDsensore = " + s.out + " and IDoperatore = " + o.out +
 			          " and NomeTipologia = '" + t + "' and Data_e_ora = '" + d.formatted_out (default_date_time_format) + ".000';"
 		end
@@ -261,22 +257,29 @@ feature -- Process
 			-- Retrieve sensor's last date till current time
 		local
 			date:     DATE_TIME
-			measures: ARRAYED_LIST[DOUBLE]
 			queries:  TUPLE[STRING, STRING, STRING]
 			i:        INTEGER
 			l_tuple:  DB_TUPLE
 			r_any:    detachable ANY
 		do
-			from sensor.operators.start
-			until sensor.operators.after
-			loop
-				create date.make_now
-				create measures.make (0)
 
-				sensor.operators.forth
-			end
-
+			-- Determino le ultime date per cui sono disponibili i dati per il sensore `sensor'
 			queries := make_last_dates_queries (sensor)
+
+			io.put_string ("Sensor " + sensor.sensor_id.out + " last dates {")
+			if attached queries.at (1) as l_q1 then
+				io.put_string (l_q1.out)
+			end
+			io.put_string (",")
+			if attached queries.at (2) as l_q2 then
+			    io.put_string (l_q2.out)
+			end
+			io.put_string (",")
+			if attached queries.at (3) as l_q3 then
+				io.put_string (l_q3.out)
+			end
+			io.put_string ("}")
+			io.put_new_line
 
 			from i := 1
 			until i = queries.count + 1
@@ -288,18 +291,15 @@ feature -- Process
 					else
 						io.put_string ("{get_last_dates} selection not executable " + l_q.out)
 						io.put_new_line
-						selection.reset
+						selection.terminate
 					end
 
-					--io.put_string ("Execute query: " + l_q.out)
-					--io.put_new_line
+					io.put_string ("{get_last_dates} Execute query: " + l_q.out)
+					io.put_new_line
 
 					if selection.is_ok then
 						selection.set_container (results)
 						selection.load_result
-
-						--io.put_string (results.count.out + " rows found")
-						--io.put_new_line
 
 						-- Se non ho risultati dovrò richiedere gli ultimi 7 giorni
 						if results.is_empty then
@@ -314,12 +314,7 @@ feature -- Process
 
 									if r_any /= Void then
 										if attached {DATE_TIME} r_any as l_date_time then
-											--io.put_string (l_date_time.formatted_out (default_date_time_format))
-											--io.put_new_line
-											start_date := l_date_time
 											sensor.last_dates.extend (l_date_time)
-											--io.put_string ("{get_last_dates} " + l_date_time.formatted_out (default_date_time_format))
-											--io.put_new_line
 										end
 									end
 								end
@@ -337,7 +332,7 @@ feature -- Process
 			     i := 1
 			until sensor.last_dates.after
 			loop
-				io.put_string ("%TMust request data for sensor id " + sensor.sensor_id.out + " operator: " +
+				io.put_string ("Must request data for sensor id " + sensor.sensor_id.out + " operator: " +
 				                sensor.operators.i_th (i).out + " from " + sensor.last_dates.item.formatted_out (default_date_time_format))
 				io.put_new_line
 				sensor.last_dates.forth
@@ -349,21 +344,17 @@ feature -- Process
 	load_sensors(some_results: ARRAYED_LIST[DB_RESULT])
 			-- Load `sensors'
 		local
-			--l_n: INTEGER
 			l_tuple: DB_TUPLE
 			l_sensor: RT10_SENSOR
 			r_int: INTEGER_REF
 			r_any: detachable ANY
 		do
-			create selection.make
-			create session_control.make
-			session_control.connect
 			if session_control.is_connected then
 				io.put_string ("Connected to database: " + db + "%N")
 
 				-- chiedere l'elenco dei sensori
 
-				selection.set_query ("select * from METEO.vw_rt10 order by IDsensore desc;")
+				selection.set_query ("select IDsensore, Destinazione, AggregazioneTemporale, NOMEtipologia from METEO.vw_rt10 order by IDsensore desc;")
 				selection.execute_query
 
 				-- Processare il risultato della query
@@ -371,8 +362,7 @@ feature -- Process
 					selection.set_container (some_results)
 					selection.load_result
 
-					io.put_string ("%T" + some_results.count.out + " sensors found")
-					io.put_new_line
+					display_line (some_results.count.out + " sensors found", true)
 
 					from some_results.start
 					until some_results.after
@@ -408,9 +398,6 @@ feature -- Process
 								end
 							end
 							sensors.extend (l_sensor)
-							--l_n := l_n + 1
-							--io.put_string (l_n.out + " " + l_sensor.out)
-							--io.put_new_line
 						end
 						selection.forth
 					end
@@ -418,6 +405,17 @@ feature -- Process
 					selection.terminate
 					some_results.wipe_out
 				end
+			end
+		end
+
+feature -- Display
+
+	display_line (a_line: STRING; nl: BOOLEAN)
+			-- Display `a_line' on screen with a new line if `nl' is True
+		do
+			io.put_string (a_line)
+			if nl then
+				io.put_new_line
 			end
 		end
 
@@ -438,12 +436,6 @@ feature -- Operations
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_forbid_reuse,  1)
 
-				--headers := curl.slist_append (headers.default_pointer, "")
-				--headers := curl.slist_append (headers, "content-type: text/xml;charset=utf-8")
-				--headers := curl.slist_append (headers, "SOAPAction: http://tempuri.org/IAutenticazione/Login")
-				--headers := curl.slist_append (headers, "Accept-Encoding: gzip, deflate")
-
-				--curl_easy.setopt_slist   (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_httpheader,    headers)
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, msg.count)
 				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_verbose,       0)
@@ -487,8 +479,7 @@ feature -- Operations
 			l_measure:  MEASURE
 		do
 			-- Now try a realtime data request for one nmarzi sensor
-			io.put_string ("%TAsks for realtime data, sensor: " + sensor.sensor_id.out)
-			io.put_new_line
+			display_line ("Asks for realtime data, sensor: " + sensor.sensor_id.out, true)
 
 			create Result.make (0)
 			create r.make_empty
@@ -502,10 +493,9 @@ feature -- Operations
 				create fd.make (6, 1)
 				fd.right_justify
 
-				io.put_string ("%TAsk data for sensor: " + sensor.sensor_id.out + " from: " + start_date.formatted_out (default_date_time_format) +
+				display_line ("Ask data for sensor: " + sensor.sensor_id.out + " from: " + start_date.formatted_out (default_date_time_format) +
 				               " to: " + end_date.formatted_out (default_date_time_format) +
-				               " operator: " + sensor.operators.i_th (sensor.last_dates.index).out)
-				io.put_new_line
+				               " operator: " + sensor.operators.i_th (sensor.last_dates.index).out, true)
 
 				r.copy (realtime_data_request_nmarzi_template)
 
@@ -528,42 +518,23 @@ feature -- Operations
 					r.replace_substring_all ("$operator",    sensor.operators.i_th (sensor.last_dates.index).out)
 				end
 
---				if sensor.typology.is_equal ({SENSOR_TYPOLOGY_CODES}.rainfall) then
---					if sensor.time_granularity = {TIME_GRANULARITY_CODES}.one_minute or
---					   sensor.time_granularity = {TIME_GRANULARITY_CODES}.five_minutes then
---						r.replace_substring_all ("$function",    {FUNCTION_CODES}.computed_data.out)
---					else
---						r.replace_substring_all ("$function",    {FUNCTION_CODES}.acquired_data.out)
---					end
---					
---				else
---					r.replace_substring_all ("$function",    {FUNCTION_CODES}.acquired_data.out)
---				end
---				r.replace_substring_all ("$operator",    sensor.operators.i_th (sensor.last_dates.index).out)
---				r.replace_substring_all ("$granularity", sensor.time_granularity.out)
---				r.replace_substring_all ("$start",  start_date.formatted_out (default_date_time_format))
---				r.replace_substring_all ("$finish", end_date.formatted_out (default_date_time_format))
-
 				r.replace_substring_all ("$start",  start_date.formatted_out (default_date_time_format))
 				r.replace_substring_all ("$finish", end_date.formatted_out (default_date_time_format))
 
-				io.put_string (">>> " + r)
-				io.put_new_line
+				display_line (">>> " + r, true)
 
 				response := post (r)
 
-				io.put_string ("<<< " + response)
-				io.put_new_line
+				display_line ("<<< " + response, true)
 
 				if attached response as res and not response.is_empty then
 					realtime_data_res.sensor_data_list.wipe_out
 					realtime_data_res.from_json (res, json_parser)
-					io.put_string ("%TFound " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
+					io.put_string ("Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
 					io.put_new_line
 					if realtime_data_res.sensor_data_list.count = 0 then
-						io.put_string ("%TNo sensor data found for sensor " + sensor.sensor_id.out + " " + sensor.typology + " from " +
-						               start_date.formatted_out (default_date_time_format) + " to " + end_date.formatted_out (default_date_time_format))
-						io.put_new_line
+						display_line ("No sensor data found for sensor " + sensor.sensor_id.out + " " + sensor.typology + " from " +
+						               start_date.formatted_out (default_date_time_format) + " to " + end_date.formatted_out (default_date_time_format), true)
 					end
 
 					create l_measures.make (0)
@@ -572,8 +543,7 @@ feature -- Operations
 					from j := 1
 					until j = realtime_data_res.sensor_data_list.count + 1
 					loop
-						io.put_string (realtime_data_res.sensor_data_list.i_th (j).out + " " + sensor.operators.i_th (sensor.last_dates.index).out)
-						io.put_new_line
+						display_line (realtime_data_res.sensor_data_list.i_th (j).out + " " + sensor.operators.i_th (sensor.last_dates.index).out, true)
 						from k := 1
 						until k = realtime_data_res.sensor_data_list.i_th (j).data.count + 1
 						loop
@@ -594,8 +564,7 @@ feature -- Operations
 						j := j + 1
 					end
 				else
-					io.put_string ("%T{ask_sensor} json string is empty")
-					io.put_new_line
+					display_line ("{ask_sensor} json string is empty", true)
 				end
 				sensor.last_dates.forth
 			end
@@ -610,14 +579,24 @@ feature -- Operations
 			from sensor.measures.start
 			until sensor.measures.after
 			loop
-				l_date := start_date
+				--l_date := start_date
+				l_date := sensor.last_dates.at (sensor.measures.index)
 
 				from sensor.measures.item.start
 				until sensor.measures.item.after
 				loop
+
 					if not is_measure_already_present (sensor.sensor_id, sensor.operators.i_th (sensor.measures.index), sensor.typology, l_date) then
 						l_query := make_insert_into_data (sensor.sensor_id, sensor.operators.i_th (sensor.measures.index), sensor.typology, sensor.measures.item.item)
-						modification.modify (l_query)
+						modification.set_query (l_query)
+
+						if modification.is_ok and modification.is_executable then
+							modification.execute_query
+							display_line ("Inserted measure for sensor id " + sensor.sensor_id.out + " operator " + sensor.operators.i_th (sensor.measures.index).out +
+							               " measure " + sensor.measures.item.item.value.out + " date " + sensor.measures.item.item.date_time, true)
+						else
+							display_line ("{save_sensor} Query not ok or not executable", true)
+						end
 
 						session_control.commit
 					end
@@ -626,12 +605,6 @@ feature -- Operations
 				end
 				sensor.measures.forth
 			end
-
-		rescue
-			io.put_new_line
-			io.put_string ("EXCEPTION: Reset modification object ...")
-			io.put_new_line
-			modification.reset
 		end
 
 	delete_old_data
@@ -661,7 +634,7 @@ feature -- Operations
 			if selection.is_executable then
 				selection.execute_query
 			else
-				io.put_string ("Query not executable: " + l_query)
+				io.put_string ("{is_measure_already_present} Query not executable: " + l_query)
 				io.put_new_line
 			end
 
@@ -671,17 +644,17 @@ feature -- Operations
 					selection.set_container (some_results)
 					selection.load_result
 					if some_results.count > 0 then
+						display_line ("Measure for sensor " + sensor_id.out + " operator " + operator.out + " date " + date.formatted_out (default_date_time_format) + " ALREADY EXISTS", true)
 						Result := true
 					end
 				else
-					io.put_string ("{is_measure_already_present} ERROR selection not connected")
-					io.put_new_line
+					display_line ("{is_measure_already_present} ERROR selection not connected", true)
 					selection.reset
 				end
 
 			else
-				io.put_string ("{is_measure_already_present} ERROR selection not OK")
-				io.put_new_line
+				display_line ("{is_measure_already_present} ERROR selection not OK", true)
+				selection.reset
 			end
 
 			selection.terminate
@@ -696,48 +669,48 @@ feature -- Preferences
 			-- Preference manager
 	preferences_storage: PREFERENCES_STORAGE_DEFAULT
 			-- Preferences storage
+	host_pref:          STRING_PREFERENCE
+			-- Host preference
+	database_pref:      STRING_PREFERENCE
+			-- Database name preference
+	dbusr_pref:         STRING_PREFERENCE
+			-- Database user preference
+	dbpwd_pref:         STRING_PREFERENCE
+			-- Database password preference
+	collect_host_pref:  STRING_PREFERENCE
+			-- Host running collect preference
+	collect_port_pref:  INTEGER_PREFERENCE
+			-- Collect port preference
+	factory:            BASIC_PREFERENCE_FACTORY
+			-- Preferences factory
 
 	init_preferences
 			-- Loads preferences
-		local
-			l_host_pref:          STRING_PREFERENCE
-			l_database_pref:      STRING_PREFERENCE
-			l_dbusr_pref:         STRING_PREFERENCE
-			l_dbpwd_pref:         STRING_PREFERENCE
-			l_collect_host_pref:  STRING_PREFERENCE
-			l_collect_port_pref:  INTEGER_PREFERENCE
-			l_factory:            BASIC_PREFERENCE_FACTORY
 		do
 			create preferences_storage.make_with_location (preferences_folder + "/rt10conf.xml")
 			create preferences.make_with_storage (preferences_storage)
 			preference_manager := preferences.new_manager ("rt10")
 
-			create l_factory
-			l_host_pref         := l_factory.new_string_preference_value (preference_manager,  "rt10.host",         "localhost")
-			l_database_pref     := l_factory.new_string_preference_value (preference_manager,  "rt10.database",     "METEO")
-			l_dbusr_pref        := l_factory.new_string_preference_value (preference_manager,  "rt10.dbusr",        "root")
-			l_dbpwd_pref        := l_factory.new_string_preference_value (preference_manager,  "rt10.dbpwd",        "METEO")
-			l_collect_host_pref := l_factory.new_string_preference_value (preference_manager,  "rt10.collect_host", "localhost")
-			l_collect_port_pref := l_factory.new_integer_preference_value (preference_manager, "rt10.collect_port", 9090)
-			db_host      := l_host_pref.value
-			db_user      := l_dbusr_pref.value
-			db_password  := l_dbpwd_pref.value
-			db           := l_database_pref.value
-			collect_host := l_collect_host_pref.value
-			collect_port := l_collect_port_pref.value
+			create factory
+			host_pref         := factory.new_string_preference_value (preference_manager,  "rt10.host",         "localhost")
+			database_pref     := factory.new_string_preference_value (preference_manager,  "rt10.database",     "METEO")
+			dbusr_pref        := factory.new_string_preference_value (preference_manager,  "rt10.dbusr",        "root")
+			dbpwd_pref        := factory.new_string_preference_value (preference_manager,  "rt10.dbpwd",        "METEO")
+			collect_host_pref := factory.new_string_preference_value (preference_manager,  "rt10.collect_host", "localhost")
+			collect_port_pref := factory.new_integer_preference_value (preference_manager, "rt10.collect_port", 9090)
+			db_host           := host_pref.value
+			db_user           := dbusr_pref.value
+			db_password       := dbpwd_pref.value
+			db                := database_pref.value
+			collect_host      := collect_host_pref.value
+			collect_port      := collect_port_pref.value
 
-			io.put_string ("Host:         " + db_host)
-			io.put_new_line
-			io.put_string ("Database:     " + db)
-			io.put_new_line
-			io.put_string ("Db user:      " + db_user)
-			io.put_new_line
-			io.put_string ("Db password:  " + "*****")
-			io.put_new_line
-			io.put_string ("Collect host: " + collect_host)
-			io.put_new_line
-			io.put_string ("Collect port: " + collect_port.out)
-			io.put_new_line
+			display_line ("Host:         " + db_host, true)
+			display_line ("Database:     " + db, true)
+			display_line ("Db user:      " + db_user, true)
+			display_line ("Db password:  " + "*****", true)
+			display_line ("Collect host: " + collect_host, true)
+			display_line ("Collect port: " + collect_port.out, true)
 
 			--preferences.save_preferences
 		end

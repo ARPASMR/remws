@@ -40,8 +40,6 @@ feature {NONE} -- Initialization
 			idx:  INTEGER
 		do
 			init_log
-			set_service_option ("port", 8088)
-			set_service_option ("verbose", True)
 
 		end
 
@@ -50,13 +48,7 @@ feature -- Logging
 	init_log
 			-- Initialize log on file
 		do
-			if attached item ("REMWS_LOGDIR") as loc then
-				log_path := (create {PATH}.make_from_string (loc)).extended ("collect.log")
-			elseif attached home_directory_path as loc then
-				log_path := loc.extended (".collect").extended ("collect.log")
-			else
-				log_path := (create {PATH}.make_current).extended (".collect").extended ("collect.log")
-			end
+			create log_path.make_from_string ("/home/$USER/dev/eiffel/collect/collect.log")
 			create logger.make
 			create file_logger.make_at_location (log_path)
 			file_logger.enable_debug_log_level

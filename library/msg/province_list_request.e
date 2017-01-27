@@ -187,7 +187,7 @@ feature -- Basic operations
 			Result := create {PROVINCE_LIST_RESPONSE}.make
 		end
 
-feature {DISPOSABLE}
+feature {DISPOSANLE}
 
 	dispose
 			--
