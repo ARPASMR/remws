@@ -9,6 +9,7 @@ class
 
 inherit
 	ANY
+	--DISPOSABLE
 
 create make
 
@@ -51,5 +52,13 @@ feature -- Status setting
 		end
 
 feature -- Basic operations
+
+--	dispose
+--			-- {DISPOSABLE}.dispose
+--		do
+--			if not is_in_final_collect then
+--				id.wipe_out
+--			end
+--		end
 
 end

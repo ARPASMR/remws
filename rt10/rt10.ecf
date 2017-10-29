@@ -11,6 +11,9 @@
 				<platform excluded_value="windows"/>
 			</condition>
 		</external_include>
+		<external_include location="/usr/include"/>
+		<external_cflag value="-L /usr/lib/x86_64-linux-gnu"/>
+		<external_object location="-lodbc"/>
 		<precompile name="base_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="curl" location="$ISE_LIBRARY\library\cURL\cURL-safe.ecf"/>

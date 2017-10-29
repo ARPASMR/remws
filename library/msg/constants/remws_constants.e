@@ -9,6 +9,9 @@ class
 
 feature -- Constants
 
+	url_path_separator: STRING = "/"
+			-- URL path separator
+
 	remws_port:       INTEGER = 80
 			-- remws listening port
 
@@ -42,37 +45,37 @@ feature -- Constants
 	authws_url:       STRING
 			-- authentication ws url
 		do
-			Result := remws_url + "/" + authws_service_url
+			Result := remws_url + url_path_separator + authws_service_url
 		end
 
 	anaws_url:        STRING
 			-- anagraphic ws url
 		do
-			Result := remws_url + "/" + anaws_service_url
+			Result := remws_url + url_path_separator + anaws_service_url
 		end
 
 	dataws_url:       STRING
 			-- data ws url
 		do
-			Result := remws_url + "/" + dataws_service_url
+			Result := remws_url + url_path_separator + dataws_service_url
 		end
 
 	authws_test_url:       STRING
 			-- authentication testing ws url
 		do
-			Result := remws_test_url + "/" + authws_service_url
+			Result := remws_test_url + url_path_separator + authws_service_url
 		end
 
 	anaws_test_url:        STRING
 			-- anagraphic testing ws url
 		do
-			Result := remws_test_url + "/" + anaws_service_url
+			Result := remws_test_url + url_path_separator + anaws_service_url
 		end
 
 	dataws_test_url:       STRING
 			-- data testing ws url
 		do
-			Result := remws_test_url + "/" + dataws_service_url
+			Result := remws_test_url + url_path_separator + dataws_service_url
 		end
 
 end

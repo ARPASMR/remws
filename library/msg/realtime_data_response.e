@@ -123,6 +123,10 @@ class
 
 inherit
 	RESPONSE_I
+	DISPOSABLE
+	redefine
+		dispose
+	end
 
 create
 	make
@@ -311,9 +315,9 @@ feature -- Conversion
 			json_valid: attached json and then not json.is_empty
 			json_parser_valid: attached parser and then parser.is_valid
 		local
-			key:            JSON_STRING
-			key1:           JSON_STRING
-			key2:           JSON_STRING
+			--key:            JSON_STRING
+			--key1:           JSON_STRING
+			--key2:           JSON_STRING
 
 			--json_parser:    JSON_PARSER
 			i,j:            INTEGER
@@ -325,27 +329,35 @@ feature -- Conversion
 		 	parser.reset
 		 	parser.set_representation (json)
 
-			create key.make_from_string ("header")
-			create key1.make_from_string ("id")
-			create key2.make_from_string ("name")
+			--create key.make_from_string ("header")
+			--key := json_header_tag
+			--create key1.make_from_string ("id")
+			--key1 := json_id_tag
+			--create key2.make_from_string ("name")
+			--key2 := json_name_tag
 
+			print ("{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE ...%N")
 			parser.parse_content
 			if parser.is_valid and then attached parser.parsed_json_value as jv then
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
-					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
+				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE HEADER ...%N")
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
+					and then attached {JSON_NUMBER} j_header.item (json_id_tag) as j_id
 				then
 					print ("Message: " + j_id.integer_64_item.out + "%N")
 				else
 					print ("The header was not found!%N")
 				end
+				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE HEADER DONE%N")
 
-				key := "data"
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
+				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE DATA ...%N")
+				--key := json_data_tag
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
 				then
-					key := "sensor_data_list"
-					if attached {JSON_ARRAY} j_data.item (key) as j_sensor_data_list then
+					--key := "sensor_data_list"
+					--key1 := json_sensor_data_list_tag
+					if attached {JSON_ARRAY} j_data.item (json_sensor_data_list_tag) as j_sensor_data_list then
 
-						sensor_data_list.wipe_out
+						if attached sensor_data_list as l_sensor_data_list then l_sensor_data_list.wipe_out end
 
 						from i := 1
 						until i = j_sensor_data_list.count + 1
@@ -372,15 +384,15 @@ feature -- Conversion
 								sensor_rt_data.set_granularity_description (j_granularity_name.item)
 								sensor_data_list.extend (sensor_rt_data)
 
-								if attached {JSON_ARRAY} j_sensor_data.item ("data") as j_cdata
+								if attached {JSON_ARRAY} j_sensor_data.item (json_data_tag) as j_cdata
 								then
-									sensor_rt_data.data.wipe_out
+									if attached sensor_rt_data.data as l_data then l_data.wipe_out end
 
 									from j := 1
 									until j = j_cdata.count + 1
 									loop
 										if attached {JSON_OBJECT} j_cdata.i_th (j) as j_data_row
-										and then attached {JSON_STRING} j_data_row.item ("datarow") as j_row
+										and then attached {JSON_STRING} j_data_row.item (json_data_row_tag) as j_row
 										then
 											sensor_rt_data.data.extend (j_row.item)
 										end
@@ -392,14 +404,15 @@ feature -- Conversion
 						end
 					end
 				end
+				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE DATA DONE%N")
 			else
 				print ("json parser error: " + parser.errors_as_string + "%N")
 			end
 			parser.reset_reader
 			parser.reset
-			key.item.wipe_out
-			key1.item.wipe_out
-			key2.item.wipe_out
+			--key.item.wipe_out
+			--key1.item.wipe_out
+			--key2.item.wipe_out
 		end
 
 feature -- XML Callbacks
@@ -407,28 +420,28 @@ feature -- XML Callbacks
 	on_start
 			-- Called when parsing starts.
 		do
-			log ("XML callbacks on_start called. It's the beginning of the whole parsing.", log_debug)
+			--log ("XML callbacks on_start called. It's the beginning of the whole parsing.", log_debug)
 		end
 
 	on_finish
 			-- Called when parsing finished.
 		do
-			log ("XML callbacks on_finish called. The parsing has finished.", log_debug)
+			--log ("XML callbacks on_finish called. The parsing has finished.", log_debug)
 		end
 
 	on_xml_declaration (a_version: READABLE_STRING_32; an_encoding: detachable READABLE_STRING_32; a_standalone: BOOLEAN)
 			-- XML declaration.
 		do
-			log ("XML callbacks on_xml_declaration called. Got xml declaration", log_debug)
-			if attached a_version as version then
-				log ("%TVersion:    " + version, log_debug)
-			end
-			if attached an_encoding as encoding then
-				log ("%TEncoding:   " + encoding, log_debug)
-			end
-			if attached a_standalone as standalone then
-				log ("%TStandalone: " + standalone.out, log_debug)
-			end
+			--log ("XML callbacks on_xml_declaration called. Got xml declaration", log_debug)
+			--if attached a_version as version then
+			--	log ("%TVersion:    " + version, log_debug)
+			--end
+			--if attached an_encoding as encoding then
+			--	log ("%TEncoding:   " + encoding, log_debug)
+			--end
+			--if attached a_standalone as standalone then
+			--	log ("%TStandalone: " + standalone.out, log_debug)
+			--end
 		end
 
 	on_error (a_message: READABLE_STRING_32)
@@ -444,17 +457,17 @@ feature -- XML Callbacks
 			-- Processing instruction.
 			--| See http://en.wikipedia.org/wiki/Processing_instruction
 		do
-			log ("XML callbacks on_processing_instruction called.", log_debug)
-			log ("%Tname;    " + a_name, log_debug)
-			log ("%Tcontent: " + a_content, log_debug)
+			--log ("XML callbacks on_processing_instruction called.", log_debug)
+			--log ("%Tname;    " + a_name, log_debug)
+			--log ("%Tcontent: " + a_content, log_debug)
 		end
 
 	on_comment (a_content: READABLE_STRING_32)
 			-- Processing a comment.
 			-- Atomic: single comment produces single event
 		do
-			log ("XML callbacks on_comment called. Got a comment.", log_debug)
-			log ("%Tcontent: " + a_content, log_debug)
+			--log ("XML callbacks on_comment called. Got a comment.", log_debug)
+			--log ("%Tcontent: " + a_content, log_debug)
 		end
 
 	on_start_tag (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32)
@@ -462,14 +475,14 @@ feature -- XML Callbacks
 		local
 			a_sensor_rt_data: SENSOR_REALTIME_RESPONSE_DATA
 		do
-			log ("XML callbacks on_start_tag called. A tag is starting", log_debug)
-			if attached a_namespace as namespace then
-				log ("%Tnamespace: " + namespace, log_debug)
-			end
-			if attached a_prefix as myprefix then
-				log ("%Tprefix:    " + myprefix, log_debug)
-			end
-			log ("%Tlocal part:  " + a_local_part, log_debug)
+			--log ("XML callbacks on_start_tag called. A tag is starting", log_debug)
+			--if attached a_namespace as namespace then
+			--	log ("%Tnamespace: " + namespace, log_debug)
+			--end
+			--if attached a_prefix as myprefix then
+			--	log ("%Tprefix:    " + myprefix, log_debug)
+			--end
+			--log ("%Tlocal part:  " + a_local_part, log_debug)
 			current_tag := a_local_part
 			-- se il tag corrente è <Sensor> creare un oggettodi tipo SENSOR_REALTIME_RESPONSE_DATA
 			-- e aggiungerlo alla lista dei sensori
@@ -508,18 +521,18 @@ feature -- XML Callbacks
 
 	on_attribute (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32; a_value: READABLE_STRING_32)
 			-- Start of attribute.
-		local
-			a_sensor_rt_data: SENSOR_REALTIME_RESPONSE_DATA
+		--local
+		--	a_sensor_rt_data: SENSOR_REALTIME_RESPONSE_DATA
 		do
-			log ("XML callbacks on_attribute called. Got an attribute", log_debug)
-			if attached a_namespace as namespace then
-				log ("%Tnamespace: " + namespace, log_debug)
-			end
-			if attached a_prefix as myprefix then
-				log ("%Tprefix:    " + myprefix, log_debug)
-			end
-			log ("%Tlocal part:  " + a_local_part, log_debug)
-			log ("%Tvalue:       " + a_value, log_debug)
+			--log ("XML callbacks on_attribute called. Got an attribute", log_debug)
+			--if attached a_namespace as namespace then
+			--	log ("%Tnamespace: " + namespace, log_debug)
+			--end
+			--if attached a_prefix as myprefix then
+			--	log ("%Tprefix:    " + myprefix, log_debug)
+			--end
+			--log ("%Tlocal part:  " + a_local_part, log_debug)
+			--log ("%Tvalue:       " + a_value, log_debug)
 
 			if current_tag.is_equal ("Sensore") then
 				if a_local_part.is_equal ("IdSensore") then
@@ -550,13 +563,13 @@ feature -- XML Callbacks
 	on_start_tag_finish
 			-- End of start tag.
 		do
-			log ("XML callbacks on_start_tag_finish called. The start tag is finished.", log_debug)
+			--log ("XML callbacks on_start_tag_finish called. The start tag is finished.", log_debug)
 		end
 
 	on_end_tag (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32)
 			-- End tag.
 		do
-			log ("XML callbacks on_end_tag called. Got the and tag.", log_debug)
+			--log ("XML callbacks on_end_tag called. Got the and tag.", log_debug)
 		end
 
 	on_content (a_content: READABLE_STRING_32)
@@ -569,8 +582,8 @@ feature -- XML Callbacks
 			words: LIST[STRING]
 			str: STRING
 		do
-			log ("XML callbacks on_content called. Got tag content", log_debug)
-			log ("%Tcontent: " + a_content, log_debug)
+			--log ("XML callbacks on_content called. Got tag content", log_debug)
+			--log ("%Tcontent: " + a_content, log_debug)
 			if current_tag.is_equal ("Esito") then
 				outcome := a_content.to_integer
 			elseif current_tag.is_equal ("Messaggio") then
@@ -594,13 +607,16 @@ feature -- Dispose
 	dispose
 			--
 		do
-			json_representation.wipe_out
-			xml_representation.wipe_out
-			current_tag.wipe_out
-			content.wipe_out
-			message.wipe_out
-			cdata_segment.wipe_out
-			sensor_data_list.wipe_out
+			if not is_in_final_collect then
+				if attached json_representation as l_json_representation then l_json_representation.wipe_out end
+				if attached xml_representation  as l_xml_representation  then l_xml_representation.wipe_out  end
+				if attached current_tag         as l_current_tag         then l_current_tag.wipe_out         end
+				if attached content             as l_content             then l_content.wipe_out             end
+				if attached cdata_segment       as l_cdata_segment       then l_cdata_segment.wipe_out       end
+				if attached sensor_data_list    as l_sensor_data_list    then l_sensor_data_list.wipe_out    end
+				if attached message             as l_message             then l_message.wipe_out             end
+				--token.dispose
+			end
 		end
 
 feature {NONE} -- Implementation

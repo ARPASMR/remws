@@ -14,6 +14,18 @@ feature -- Constants
 	--| ---------------------------------------------------------------------------
 	token_tag:                                   STRING = "$tokenid"
 			-- Token tag
+	json_header_tag:                             STRING = "header"
+			-- JSON header tag
+	json_data_tag:                               STRING = "data"
+			-- JSON data tag
+	json_id_tag:                                 STRING = "id"
+			-- JSON realtime data message id tag
+	json_name_tag:                               STRING = "name"
+			-- JSON realtime data message name tag
+	json_sensor_data_list_tag:                   STRING = "sensor_data_list"
+			-- JSON realtime data message sensor list data tag
+	json_data_row_tag:                           STRING = "datarow"
+			-- JSON realtime data message data row tag
 
 	--| ---------------------------------------------------------------------------
 	--| Is it worth to ask for the current token and so to define a message for
@@ -183,13 +195,7 @@ feature -- Constants
 			-- Message id for `REALTIME_DATA_RESPONSE'
 	realtime_data_response_parnum:               INTEGER = 1
 			-- Message parameters number for `REALTIME_DATA_RESPONSE'
-
-	--| ---------------------------------------------------------------------------
-	--| QUERY TOKEN request and response constants
-	--| ---------------------------------------------------------------------------
-	query_token_request_id:                      INTEGER = 11
-			-- Message id for `QUERY_TOKEN_REQUEST'
-	query_token_response_id:                     INTEGER do Result := response_id_offset + query_token_request_id end
-			-- Message id for `QUERY_TOKEN_RESPONSE'
+	realtime_data_request_name:                  STRING = "RendiDatiTempoReale"
+			-- Realtime data request message `name'
 
 end

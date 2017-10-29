@@ -53,6 +53,10 @@ class
 
 inherit
 	REQUEST_I
+	DISPOSABLE
+	redefine
+		dispose
+	end
 
 create
 	make,
@@ -123,7 +127,8 @@ feature -- Status setting
 	set_token_id (a_token: STRING)
 			-- Set `token_id'
 		do
-			token_id.copy (a_token)
+			--token_id.copy (a_token)
+			token_id := a_token
 		end
 
 feature -- Conversion
@@ -137,7 +142,7 @@ feature -- Conversion
 		do
 			create l_token_id.make_from_string (token_id)
 			create Result.make_from_string (xml_request_template)
-			if token_id.is_empty then
+			if l_token_id.is_empty then
 				Result.replace_substring_all ("<Token>",   "")
 				Result.replace_substring_all ("</Token>",  "")
 				Result.replace_substring_all ("<Id>",      "")
@@ -178,13 +183,13 @@ feature -- Conversion
 			json_parser_valid: attached parser and then parser.is_valid
 		local
 			i:           INTEGER
-			key:         JSON_STRING
+			--key:         JSON_STRING
 			--json_parser: JSON_PARSER
 			l_rt_req_data: SENSOR_REALTIME_REQUEST_DATA
 			l_start_time: DATE_TIME
 			l_finish_time: DATE_TIME
 		do
-			sensors_list.wipe_out
+			if attached sensors_list as l_sensors_list then l_sensors_list.wipe_out end
 
 			json_representation.copy (json)
 		 	--create json_parser.make_with_string (json)
@@ -192,19 +197,27 @@ feature -- Conversion
 		 	parser.reset
 		 	parser.set_representation (json)
 
-			create key.make_from_string ("header")
+			--create key.make_from_string ("header")
+			--create key.make_from_string (json_header_tag)
+			--key := json_header_tag
+			print ("{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE ...%N")
 			parser.parse_content
 			if parser.is_valid and then attached parser.parsed_json_value as jv then
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
+				print ("%T{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE HEADER ...%N")
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
 					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
 				then
-					print ("Message: " + j_id.integer_64_item.out + "%N")
+					print ("%TMessage: " + j_id.integer_64_item.out + "%N")
 				else
-					print ("The header was not found!%N")
+					print ("%TThe header was not found!%N")
 				end
+				print ("%T{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE HEADER DONE%N")
 
-				key := "data"
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
+				--key.item.wipe_out
+				--key := "data"
+				--key := json_data_tag
+				print ("%T{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE DATA ...%N")
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
 					and then attached {JSON_ARRAY} j_data.item ("sensors_list") as j_sensors
 				then
 
@@ -230,15 +243,17 @@ feature -- Conversion
 							l_rt_req_data.set_start (l_start_time)
 							l_rt_req_data.set_finish (l_finish_time)
 
-							sensors_list.extend (l_rt_req_data)
+							if attached sensors_list as l_sensors_list then l_sensors_list.extend (l_rt_req_data) end
 							i := i + 1
 						end
 					end
 				end
+				print ("%T{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE DATA DONE%N")
 			end
 			parser.reset_reader
 			parser.reset
-			key.item.wipe_out
+			print ("{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE DONE%N")
+			--key.item.wipe_out
 		end
 
 	to_json: STRING
@@ -246,7 +261,7 @@ feature -- Conversion
 		local
 			i: INTEGER
 		do
-			create Result.make_empty
+			--create Result.make_empty
 			-- TODO
 			json_representation.wipe_out
 
@@ -272,6 +287,7 @@ feature -- Conversion
 				i := i + 1
 			end
 			json_representation.append ("]}}")
+			Result := json_representation
 		end
 
 	from_xml (xml: STRING; parser: XML_STANDARD_PARSER)
@@ -293,9 +309,13 @@ feature -- Dispose
 	dispose
 			--
 		do
-			json_representation.wipe_out
-			xml_representation.wipe_out
-			sensors_list.wipe_out
+			if not is_in_final_collect then
+				if attached json_representation  as l_json_representation  then l_json_representation.wipe_out  end
+				if attached xml_representation   as l_xml_representation   then l_xml_representation.wipe_out   end
+				if attached sensors_list         as l_sensors_list         then l_sensors_list.wipe_out         end
+				--if attached token_id             as l_token_id             then token_id.wipe_out               end
+				if attached xml_request_template as l_xml_request_template then l_xml_request_template.wipe_out end
+			end
 		end
 
 feature {NONE} -- Object implementation
@@ -325,31 +345,54 @@ feature {NONE} -- Utilities implementation
 	soap_action_header:  STRING
 			-- SOAP action header
 		do
-			Result := "SOAPAction: " + remws_uri + "/" + dataws_interface + "/" + name
+			--Result := "SOAPAction: " + remws_uri + "/" + dataws_interface + "/" + name
+			Result := remws_uri + url_path_separator + dataws_interface + url_path_separator + name
 		end
 
 	name: STRING
 			-- Request `name' to be passed to remws
 		do
-			Result := "RendiDatiTempoReale"
+			Result := realtime_data_request_name
 		end
 
-	xml_request_template: STRING = "[
-		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-          <s:Body>
-            <RendiDatiTempoReale xmlns="http://tempuri.org/">
-              <xInput>
-                <RendiDatiTempoReale xmlns="">
-                  <Token>
-                    <Id>$tokenid</Id>
-                  </Token>
-                  $sensors
-                </RendiDatiTempoReale>
-              </xInput>
-            </RendiDatiTempoReale>
-          </s:Body>
-        </s:Envelope>
-	]"
+--	xml_request_template: STRING = "[
+--		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+--          <s:Body>
+--            <RendiDatiTempoReale xmlns="http://tempuri.org/">
+--              <xInput>
+--                <RendiDatiTempoReale xmlns="">
+--                  <Token>
+--                    <Id>$tokenid</Id>
+--                  </Token>
+--                  $sensors
+--                </RendiDatiTempoReale>
+--              </xInput>
+--            </RendiDatiTempoReale>
+--          </s:Body>
+--        </s:Envelope>
+--	]"
+
+	xml_request_template: STRING
+			-- XML `Current' message request template
+		do
+
+			Result := "[
+				<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+	        	  <s:Body>
+	        	    <RendiDatiTempoReale xmlns="http://tempuri.org/">
+	       	          <xInput>
+	                    <RendiDatiTempoReale xmlns="">
+	                      <Token>
+	                        <Id>$tokenid</Id>
+	                      </Token>
+	                      $sensors
+	                    </RendiDatiTempoReale>
+	                  </xInput>
+	                </RendiDatiTempoReale>
+	              </s:Body>
+	            </s:Envelope>
+			]"
+		end
 
 invariant
 	invariant_clause: True -- Your invariant here

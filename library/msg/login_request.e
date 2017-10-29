@@ -1,5 +1,5 @@
 note
-	description: "Summary description for {LOGIN_MSG}."
+	description: "Summary description for {LOGIN_REQUEST}."
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
@@ -30,6 +30,7 @@ class
 
 inherit
 	REQUEST_I
+	DISPOSABLE
 
 create
 	make,
@@ -197,15 +198,17 @@ feature -- Basic operations
 			Result := create {LOGIN_RESPONSE}.make
 		end
 
-feature {DISPOSANLE}
+feature -- {DISPOSABLE}
 
 	dispose
 			--
 		do
-			json_representation.wipe_out
-			xml_representation.wipe_out
-			usr.wipe_out
-			pwd.wipe_out
+			if not is_in_final_collect then
+				if attached json_representation as l_json_representation then l_json_representation.wipe_out end
+				if attached xml_representation  as l_xml_representation  then l_xml_representation.wipe_out  end
+				if attached usr                 as l_usr                 then l_usr.wipe_out                 end
+				if attached pwd                 as l_pwd                 then l_pwd.wipe_out                 end
+			end
 		end
 
 feature {NONE} -- Object implementation
@@ -233,7 +236,8 @@ feature {NONE} -- Utilities implementation
 	soap_action_header:  STRING
 			-- SOAP action header
 		do
-			Result := "SOAPAction: " + remws_uri + "/" + authws_interface + "/" + name
+			--Result := "SOAPAction: " + remws_uri + "/" + authws_interface + "/" + name
+			Result := remws_uri + "/" + authws_interface + "/" + name
 		end
 
 	name: STRING
@@ -242,20 +246,24 @@ feature {NONE} -- Utilities implementation
 			Result := "Login"
 		end
 
-	xml_request_template: STRING = "[
-		  <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-          <s:Body>
-            <Login xmlns="http://tempuri.org/">
-              <xElInput>
-                <Login xmlns="">
-                  <Login>$usr</Login>
-                  <Password>$pwd</Password>
-                </Login>
-              </xElInput>
-            </Login>
-          </s:Body>
-        </s:Envelope>
-	]"
+	xml_request_template: STRING
+			-- XML `Current' message request template
+		do
+			Result := "[
+		  		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+          		  <s:Body>
+            	  	<Login xmlns="http://tempuri.org/">
+              	      <xElInput>
+                	    <Login xmlns="">
+                  		  <Login>$usr</Login>
+                  		  <Password>$pwd</Password>
+                        </Login>
+                      </xElInput>
+                    </Login>
+                  </s:Body>
+                </s:Envelope>
+	        ]"
+		end
 
 invariant
 	invariant_clause: True -- Your invariant here

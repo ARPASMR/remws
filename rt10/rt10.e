@@ -15,6 +15,8 @@ inherit
 		Command_line as env_command_line
 	end
 
+	DATABASE_SESSION_MANAGER_ACCESS
+
 create
 	make
 
@@ -50,7 +52,6 @@ feature {NONE} -- Initialization
 
 			-- Parsing
 			create json_parser.make_with_string ("{}")
-
 
 		end
 
@@ -146,8 +147,8 @@ feature {NONE} -- Initialization
 
 			sensors.wipe_out
 
-			selection.terminate
 			selection.clear_all
+			selection.terminate
 			selection.reset
 			modification.clear_all
 			modification.reset
@@ -240,9 +241,9 @@ feature -- Process
                       "0, " +
                       "'M', " +
                       "'P', " +
-                      "NULL, '" +
+                      "'RT10', '" +
                       l_now.formatted_out (default_date_time_format) + "', " +
-                      "NULL);"
+                      "59);"
 		end
 
 	make_exists_measure_query (s: INTEGER; o: INTEGER; t: STRING; d: DATE_TIME) : STRING
@@ -291,6 +292,7 @@ feature -- Process
 					else
 						io.put_string ("{get_last_dates} selection not executable " + l_q.out)
 						io.put_new_line
+						selection.clear_all
 						selection.terminate
 					end
 
@@ -322,6 +324,7 @@ feature -- Process
 							end
 						end
 						results.wipe_out
+						selection.clear_all
 						selection.terminate
 					end
 				end
@@ -333,7 +336,7 @@ feature -- Process
 			until sensor.last_dates.after
 			loop
 				io.put_string ("Must request data for sensor id " + sensor.sensor_id.out + " operator: " +
-				                sensor.operators.i_th (i).out + " from " + sensor.last_dates.item.formatted_out (default_date_time_format))
+				                sensor.operators.i_th (i).out + " from " + (sensor.last_dates.item + ten_minutes).formatted_out (default_date_time_format))
 				io.put_new_line
 				sensor.last_dates.forth
 				i := i + 1
@@ -364,8 +367,8 @@ feature -- Process
 
 					display_line (some_results.count.out + " sensors found", true)
 
-					from some_results.start
-					until some_results.after
+					from selection.start
+					until selection.after
 					loop
 						if attached selection.cursor as l_cursor then
 							create l_tuple.copy(l_cursor)
@@ -402,8 +405,61 @@ feature -- Process
 						selection.forth
 					end
 
+					selection.clear_all
 					selection.terminate
 					some_results.wipe_out
+				end
+			end
+		end
+
+	check_day_light_time_saving (dt: DATE_TIME) : DATE_TIME_DURATION
+			-- Check for day light time savin on `dt'
+		local
+			l_date:        DATE
+			l_month:       INTEGER
+			l_day:         INTEGER
+			l_dow:         INTEGER
+			l_prev_sunday: INTEGER
+			l_one_hour:    DATE_TIME_DURATION
+			l_two_hours:   DATE_TIME_DURATION
+		do
+			create l_one_hour.make (0, 0, 0, 1, 0, 0)
+			create l_two_hours.make (0, 0, 0, 2, 0, 0)
+
+			l_day   := dt.day
+			l_month := dt.month
+
+			l_date  := dt.date;
+			l_dow   := dt.date.day_of_the_week
+
+
+			create Result.make (0, 0, 0, 1, 0, 0)
+
+			if l_month < 3 or l_month > 10 then
+				-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
+				Result := l_one_hour
+			elseif l_month > 3 and l_month < 10 then
+				-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
+				Result := l_two_hours
+			else
+				l_prev_sunday := dt.day - l_dow
+				if l_month = 3 then
+					if l_prev_sunday >= 25 then
+						-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
+						Result := l_two_hours
+					else
+						-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
+						Result := l_one_hour
+					end
+				end
+				if l_month = 10 then
+					if l_prev_sunday < 25 then
+						-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
+						Result := l_two_hours
+					else
+						-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
+						Result := l_one_hour
+					end
 				end
 			end
 		end
@@ -488,7 +544,7 @@ feature -- Operations
 			until sensor.last_dates.after
 			loop
 				start_date  := sensor.last_dates.item + ten_minutes
-				end_date := now + one_hour
+				end_date := now + check_day_light_time_saving (now) + one_hour
 
 				create fd.make (6, 1)
 				fd.right_justify
@@ -580,7 +636,7 @@ feature -- Operations
 			until sensor.measures.after
 			loop
 				--l_date := start_date
-				l_date := sensor.last_dates.at (sensor.measures.index)
+				l_date := sensor.last_dates.at (sensor.measures.index) + ten_minutes
 
 				from sensor.measures.item.start
 				until sensor.measures.item.after
@@ -605,6 +661,7 @@ feature -- Operations
 				end
 				sensor.measures.forth
 			end
+
 		end
 
 	delete_old_data
@@ -636,6 +693,7 @@ feature -- Operations
 			else
 				io.put_string ("{is_measure_already_present} Query not executable: " + l_query)
 				io.put_new_line
+				selection.clear_all
 			end
 
 
@@ -657,6 +715,7 @@ feature -- Operations
 				selection.reset
 			end
 
+			selection.clear_all
 			selection.terminate
 			some_results.wipe_out
 		end
@@ -761,6 +820,7 @@ feature -- Implementation
 			-- Database query results
 	sensors:         ARRAYED_LIST[RT10_SENSOR]
 			-- Sensors list
+
 
 	response: STRING
 

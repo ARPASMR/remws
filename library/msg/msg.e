@@ -63,10 +63,6 @@ feature -- Conversion
 		deferred
 		end
 
-feature -- {DISPOSABLE}
-
-	dispose deferred end
-
 feature -- Logging
 
 	is_logging_enabled: BOOLEAN
@@ -90,6 +86,10 @@ feature -- Logging
 				end
 			end
 		end
+
+feature --  {DISPOSABLE}
+
+	dispose deferred end
 
 feature -- Implementation
 

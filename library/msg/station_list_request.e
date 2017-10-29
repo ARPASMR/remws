@@ -548,7 +548,7 @@ feature -- Basic operations
 			Result := create {STATION_LIST_RESPONSE}.make
 		end
 
-feature {DISPOSANLE}
+feature -- {DISPOSABLE}
 
 	dispose
 			--
@@ -582,7 +582,8 @@ feature {NONE} -- Utilities implementation
 	soap_action_header:  STRING
 			-- SOAP action header
 		do
-			Result := "SOAPAction: " + remws_uri + "/" + anaws_interface + "/" + name
+			--Result := "SOAPAction: " + remws_uri + "/" + anaws_interface + "/" + name
+			Result := remws_uri + "/" + anaws_interface + "/" + name
 		end
 
 	name: STRING

@@ -25,8 +25,14 @@ feature -- Constants
 			-- Rainfall
 	global_radiation:     STRING = "RG"
 			-- Global radiation
+	net_radiation:        STRING = "RN"
+			-- Net radiation
 	atmospheric_pressure: STRING = "PA"
 			-- Atmospheric pressure
 	snow:                 STRING = "N"
 			-- Snow
+	idro:                 STRING = "I"
+			-- Idro
+	present_time:         STRING = "TP"
+			-- Present time
 end

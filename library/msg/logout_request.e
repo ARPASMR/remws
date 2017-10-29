@@ -9,6 +9,7 @@ class
 
 inherit
 	REQUEST_I
+	DISPOSABLE
 
 --| ----------------------------------------------------------------------------
 --| This is the message structure for the login message, for the time being only
@@ -185,13 +186,15 @@ feature -- Basic operations
 			Result := create {LOGOUT_RESPONSE}.make
 		end
 
-feature {DISPOSANLE}
+feature -- {DISPOSABLE}
 
 	dispose
 			--
 		do
-			json_representation.wipe_out
-			xml_representation.wipe_out
+			if not is_in_final_collect then
+				if attached json_representation as l_json_representation then l_json_representation.wipe_out end
+				if attached xml_representation  as l_xml_representation  then l_xml_representation.wipe_out  end
+			end
 		end
 
 feature {NONE} -- Utilities implementation
@@ -214,7 +217,8 @@ feature {NONE} -- Utilities implementation
 	soap_action_header:  STRING
 			-- SOAP action header
 		do
-			Result := "SOAPAction: " + remws_uri + "/" + authws_interface + "/" + name
+			--Result := "SOAPAction: " + remws_uri + "/" + authws_interface + "/" + name
+			Result := remws_uri + "/" + authws_interface + "/" + name
 		end
 
 	name: STRING
@@ -223,21 +227,25 @@ feature {NONE} -- Utilities implementation
 			Result := "Logout"
 		end
 
-	xml_request_template: STRING = "[
-		  <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-          <s:Body>
-            <Logout xmlns="http://tempuri.org/">
-              <xElInput>
-                <Logout xmlns="">
-                  <Token>
-                    <Id>$token_id</Id>
-                  </Token>
-                </Logout>
-              </xElInput>
-            </Logout>
-          </s:Body>
-        </s:Envelope>
-	]"
+	xml_request_template: STRING
+			-- XML `Current' message request template
+		do
+			Result := "[
+				<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+          		  <s:Body>
+                    <Logout xmlns="http://tempuri.org/">
+                      <xElInput>
+                        <Logout xmlns="">
+                          <Token>
+                            <Id>$token_id</Id>
+                          </Token>
+                        </Logout>
+                      </xElInput>
+                    </Logout>
+                  </s:Body>
+                </s:Envelope>
+        	]"
+		end
 
 invariant
 	invariant_clause: True -- Your invariant here

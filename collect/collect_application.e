@@ -34,17 +34,16 @@ feature {NONE} -- Initialization
 	init
 			-- internal initialization
 		do
+			init_gc
+
+			create session.make ("")
+
 			-- login management
 			is_logged_in := false
 			create login_request.make
 			create logout_request.make
 			create login_response.make
 			create logout_response.make
-
-			-- cURL objects
-			create curl
-			create curl_easy
-			create curl_buffer.make_empty
 
 			create content_type.make_empty
 			create token.make
@@ -57,12 +56,12 @@ feature {NONE} -- Initialization
 			xml_parser := xml_parser_factory.new_standard_parser
 			create json_parser.make_with_string ("{}")
 
-			-- garbage collection
-			collection_on
-			set_memory_threshold (40000000)
-			set_collection_period (5)
-			set_coalesce_period (5)
-			set_max_mem (80000000)
+			-- Up time
+			start_time := create {DATE_TIME}.make_now
+
+			-- Check DLTS
+			one_hour  := create {DATE_TIME_DURATION}.make (0, 0, 0, 1, 0, 0)
+			two_hours := create {DATE_TIME_DURATION}.make (0, 0, 0, 2, 0, 0)
 		end
 
 	initialize
@@ -72,6 +71,8 @@ feature {NONE} -- Initialization
 		do
 			init
 			init_log
+
+			log_display("Collect application started @ " + start_time.formatted_out(default_date_time_format), log_information, true, true)
 
 			idx := index_of_word_option ("h")
 			if idx > 0 then
@@ -86,6 +87,11 @@ feature {NONE} -- Initialization
 				port := default_port
 			end
 			set_service_option ("port", port)
+
+			idx := index_of_word_option ("fst")
+			if idx > 0  then
+				set_service_option ("force_single_threaded", true)
+			end
 
 			idx := index_of_word_option ("l")
 			if idx > 0 then
@@ -120,6 +126,15 @@ feature {NONE} -- Initialization
 				is_utc_set := false
 			end
 
+			idx := index_of_word_option ("gcm")
+			if idx > 0 then
+				is_gc_monitoring_active := true
+				gc_monitoring_message_number := argument (idx + 1).to_integer
+			else
+				is_gc_monitoring_active := false
+				gc_monitoring_message_number := default_gc_monitoring_message_number
+			end
+
 			-- must check if `COLLECT_APPLICATION' is logged in remws
 			if not is_logged_in then
 				-- do login
@@ -137,6 +152,18 @@ feature {NONE} -- Initialization
 			end
 		end
 
+	init_gc
+			-- GC settings
+		do
+			-- garbage collection
+			allocate_compact
+			set_memory_threshold (40000000)
+			set_max_mem (160000000)
+			set_collection_period (1)
+			set_coalesce_period (2)
+			collection_on
+		end
+
 feature -- Usage
 
 	usage
@@ -144,12 +171,15 @@ feature -- Usage
 		do
 			print ("collect network remws gateway%N")
 			print ("Agenzia Regionale per la Protezione Ambientale della Lombardia%N")
-			print ("collect [-p <port_number>][-l <log_level>][-t][-u][-h]%N%N")
-			print ("%T<port_number> is the network port on which collect will accept connections%N")
-			print ("%T<log_level>   is the logging level that will be used%N")
-			print ("%T-t            uses the testing web service%N")
-			print ("%T-u            the box running collect is in UTC%N")
-			print ("%T-h			prints this text%N")
+			print ("collect [-p <port_number>][-l <log_level>][-gcm <message_number][-fst][-t][-u][-h]%N%N")
+			print ("%T<port_number>    is the network port on which collect will accept connections%N")
+			print ("%T<log_level>      is the logging level that will be used%N")
+			print ("%T<message_number> check GC parameters every message_number messages")
+			print ("%T-gcm             activate GC monitoring%N")
+			print ("%T-fst             force Nino single threaded%N")
+			print ("%T-t               uses the testing web service%N")
+			print ("%T-u               the box running collect is in UTC%N")
+			print ("%T-h               prints this text%N")
 			print ("%TThe available logging levels are:%N")
 			print ("%T%T " + log_debug.out       + " --> debug-level messages%N")
 			print ("%T%T " + log_information.out + " --> informational%N")
@@ -215,11 +245,11 @@ feature -- Logging
 		local
 			path: STRING
 			home: STRING
-			h:    STRING
+			--h:    STRING
 		do
 			create path.make_from_string ("$HOME/log/collect.log")
 			create home.make_empty
-			create h.make_from_string ("HOME")
+			--create h.make_from_string ("HOME")
 
 			if attached item("HOME") as s_h then
 				if not s_h.is_empty then
@@ -241,7 +271,7 @@ feature -- Logging
 
 			path.wipe_out
 			home.wipe_out
-			h.wipe_out
+			--h.wipe_out
 
 		end
 
@@ -269,24 +299,48 @@ feature -- Logging
 
 	log_display(a_string: STRING; priority: INTEGER; to_file, to_display: BOOLEAN)
 			-- Combined file and display log
-		local
-			l_string: STRING
 		do
-			if attached current.class_name as cn then
-				l_string := "{" + cn + "} " + a_string
-			else
-				l_string := "{NO_CLASS_NAME} " + a_string
-			end
-
 			if to_file then
-				log (l_string, priority)
+				log (a_string, priority)
 			end
 			if to_display then
-				io.put_string (l_string)
+				io.put_string (a_string)
 				io.put_new_line
 			end
+		end
 
-			l_string.wipe_out
+	log_gc_parameters
+			-- log/display GC parameters
+		local
+			l_mem_stat:       MEM_INFO
+			l_gc_stat:        GC_INFO
+		do
+			if is_gc_monitoring_active then
+				log_display ("Checking GC parameters ...", log_debug, true, true);
+
+				l_mem_stat := memory_statistics (Total_memory)
+				l_gc_stat  := gc_statistics (total_memory)
+
+				log_display ("Displaying GC parameters ...", log_debug, true, true);
+
+				log_display ("MEMORY STATISTICS " + msg_number.out,              log_alert, true, true)
+				log_display ("Total 64:       "   + l_mem_stat.total64.out,      log_alert, true, true)
+				--log_display ("Total memory:   "   + l_mem_stat.total_memory.out, log_alert, true, true)
+				log_display ("Free 64:        "   + l_mem_stat.free64.out,       log_alert, true, true)
+				log_display ("Used 64:        "   + l_mem_stat.used64.out,       log_alert, true, true)
+
+
+				log_display ("GC STATISTICS   "   + msg_number.out,              log_alert, true, true)
+				log_display ("Collected:      "   + l_gc_stat.collected.out,     log_alert, true, true)
+				log_display ("Total memory:   "   + l_gc_stat.total_memory.out,  log_alert, true, true)
+				log_display ("Eiffel memory:  "   + l_gc_stat.eiffel_memory.out, log_alert, true, true)
+				log_display ("Memory used:    "   + l_gc_stat.memory_used.out,   log_alert, true, true)
+
+				--log_display ("C memory:       "   + l_gc_stat.c_memory.out,      log_alert, true, true)
+				log_display ("Cycle count:    "   + l_gc_stat.cycle_count.out,   log_alert, true, true)
+
+				log_display ("GC collection parameters displaying end ...", log_debug, true, true);
+			end
 		end
 
 
@@ -301,6 +355,7 @@ feature -- Basic operations
 			json_parser.reset_reader
 			json_parser.reset
 			json_parser.set_representation (json)
+			-- create json_parser.make_with_string (json)
 
 			create key.make_from_string ("header")
 			json_parser.parse_content
@@ -332,46 +387,59 @@ feature -- Basic operations
 
 	execute (req: WSF_REQUEST; res: WSF_RESPONSE)
 	    local
-	    	l_received_chars: INTEGER
-	    	l_msg_id:         INTEGER
-	    	l_current_time:   DATE_TIME
-	    	l_offset:         DATE_TIME_DURATION
+	    	l_received_chars:   INTEGER
+	    	l_msg_id:           INTEGER
+	    	l_current_time:     DATE_TIME
+	    	l_offset:           DATE_TIME_DURATION
 
-	    	request:        STRING
-	    	response:       STRING
+	    	response:           STRING
+    				-- Response as string
+    		request:            STRING
+    				-- Request as string
 
-	    	l_req_obj:        REQUEST_I
-	    	l_res_obj:        RESPONSE_I
-	    	l_mem_stat:       MEM_INFO
-			l_gc_stat:        GC_INFO
-			l_qt_res:         QUERY_TOKEN_RESPONSE
+			req_obj:            REQUEST_I
+			res_obj:            RESPONSE_I
+
+			l_is_token_expired: BOOLEAN
+
 		do
-
+			log_display ("Entering execute ...", log_debug, true, true);
 			create request.make (req.content_length_value.to_integer_32)
 			--request.resize (req.content_length_value.to_integer_32)
 			create response.make_empty
 			create l_current_time.make_now
 
-			create l_qt_res.make
+			up_time := l_current_time - start_time
 
-			l_req_obj := create {LOGIN_REQUEST}.make
-			l_res_obj := create {LOGIN_RESPONSE}.make
+			if attached up_time as l_up_time then log_display("UP TIME: " + l_up_time.out, log_information, true, true) end
 
+			--log_display ("Creating req and res objects", log_debug, true, true);
+
+			--req_obj := create {LOGIN_REQUEST}.make
+			--res_obj := create {LOGIN_RESPONSE}.make
+
+			log_display ("Checking UTC settings ...", log_debug, true, true);
 			if is_utc_set then
-				l_offset       := check_day_light_time_saving (l_current_time)
-				log_display ("time_offset     : " + l_offset.second.out, log_debug, true, true);
+				--l_offset       := check_day_light_time_saving (l_current_time)
+				l_offset := one_hour
+				log_display ("time_offset     : " + l_offset.hour.out, log_debug, true, true);
 				l_current_time := l_current_time + l_offset
 			end
+
+			l_is_token_expired := is_token_expired
 
 			log_display ("is logged in    : " + is_logged_in.out, log_debug, true, true)
 			log_display ("token id        : " + token.id, log_debug, true, true)
 			log_display ("token expiry    : " + token.expiry.formatted_out (default_date_time_format), log_debug, true, true)
 			log_display ("current time    : " + l_current_time.formatted_out (default_date_time_format), log_debug, true, true)
-			log_display ("is token expired: " + is_token_expired.out, log_debug, true, true)
+			log_display ("is token expired: " + l_is_token_expired.out, log_debug, true, true)
 
-			if is_token_expired then
-				sleep (1000000000)
+			log_display ("Checking token expiration ...", log_debug, true, true);
+			if l_is_token_expired then
+				--sleep (1000000000)
+				sleep (500000000)
 				login_response.reset
+
 				if not do_login then
 					log_display("Unable to login", log_error, true, true)
 					log_display ("Outcome   : " + login_response.outcome.out, log_information, true, true)
@@ -384,10 +452,13 @@ feature -- Basic operations
 					             token.expiry.formatted_out (default_date_time_format),
 					             log_information, true, true)
 				end
-				sleep (1000000000)
+				--sleep (1000000000)
+				sleep (500000000)
 			end
 
 			-- read json input
+			log_display ("Reading JSON input ...", log_debug, true, true);
+
 			l_received_chars := req.input.read_to_string (request, 1, req.content_length_value.to_integer_32)
 			log_display ("Received " + l_received_chars.out + " chars", log_debug, true, true)
 			log_display(" <<< " + request, log_debug, true, false)
@@ -395,31 +466,32 @@ feature -- Basic operations
 			l_msg_id := parse_header (request)
 			log_display ("Received message id: " + l_msg_id.out, log_debug, true, true)
 
+			log_display ("Checking message type ...", log_debug, true, true);
 			if l_msg_id = {REQUEST_I}.login_request_id then
-				l_req_obj := create {LOGIN_REQUEST}.make
-				if attached l_req_obj as myreq then
+				req_obj := create {LOGIN_REQUEST}.make
+				if attached req_obj as myreq then
 					myreq.from_json (request, json_parser)
-					l_res_obj := do_post (myreq)
-					if attached l_res_obj as myres then
+					res_obj := do_post (myreq)
+					if attached res_obj as myres then
 						response := myres.to_json
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.logout_request_id then
-				l_req_obj := create {LOGOUT_REQUEST}.make
-				if attached l_req_obj as myreq then
+				req_obj := create {LOGOUT_REQUEST}.make
+				if attached req_obj as myreq then
 					myreq.from_json (request, json_parser)
-					l_res_obj := do_post (myreq)
-					if attached l_res_obj as myres then
+					res_obj := do_post (myreq)
+					if attached res_obj as myres then
 						response := myres.to_json
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.station_status_list_request_id then
-				l_req_obj := create {STATION_STATUS_LIST_REQUEST}.make
-				if attached l_req_obj as myreq then
+				req_obj := create {STATION_STATUS_LIST_REQUEST}.make
+				if attached req_obj as myreq then
 					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
-					l_res_obj := do_post (myreq)
-					if attached l_res_obj as myres then
+					res_obj := do_post (myreq)
+					if attached res_obj as myres then
 						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Station status list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
@@ -427,12 +499,12 @@ feature -- Basic operations
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.station_types_list_request_id then
-				l_req_obj := create {STATION_TYPES_LIST_REQUEST}.make
-				if attached l_req_obj as myreq then
+				req_obj := create {STATION_TYPES_LIST_REQUEST}.make
+				if attached req_obj as myreq then
 					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
-					l_res_obj := do_post (myreq)
-					if attached l_res_obj as myres then
+					res_obj := do_post (myreq)
+					if attached res_obj as myres then
 						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Station types list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
@@ -440,12 +512,12 @@ feature -- Basic operations
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.province_list_request_id then
-				l_req_obj := create {PROVINCE_LIST_REQUEST}.make
-				if attached l_req_obj as myreq then
+				req_obj := create {PROVINCE_LIST_REQUEST}.make
+				if attached req_obj as myreq then
 					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
-					l_res_obj := do_post (myreq)
-					if attached l_res_obj as myres then
+					res_obj := do_post (myreq)
+					if attached res_obj as myres then
 						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Province list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
@@ -453,12 +525,12 @@ feature -- Basic operations
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.municipality_list_request_id then
-				l_req_obj := create {MUNICIPALITY_LIST_REQUEST}.make
-				if attached l_req_obj as myreq then
+				req_obj := create {MUNICIPALITY_LIST_REQUEST}.make
+				if attached req_obj as myreq then
 					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
-					l_res_obj := do_post (myreq)
-					if attached l_res_obj as myres then
+					res_obj := do_post (myreq)
+					if attached res_obj as myres then
 						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Municipality list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
@@ -466,12 +538,12 @@ feature -- Basic operations
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.station_list_request_id then
-				l_req_obj := create {STATION_LIST_REQUEST}.make
-				if attached l_req_obj as myreq then
+				req_obj := create {STATION_LIST_REQUEST}.make
+				if attached req_obj as myreq then
 					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
-					l_res_obj := do_post (myreq)
-					if attached l_res_obj as myres then
+					res_obj := do_post (myreq)
+					if attached res_obj as myres then
 						response := myres.to_json
 						--log ("**********%N" + l_response + "%N**********%N", log_debug)
 						log_display("Sent message id: " + myres.id.out + " Station list", log_information, true, true)
@@ -480,12 +552,12 @@ feature -- Basic operations
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.sensor_type_list_request_id then
-				l_req_obj := create {SENSOR_TYPE_LIST_REQUEST}.make
-				if attached l_req_obj as myreq then
+				req_obj := create {SENSOR_TYPE_LIST_REQUEST}.make
+				if attached req_obj as myreq then
 					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
-					l_res_obj := do_post (myreq)
-					if attached l_res_obj as myres then
+					res_obj := do_post (myreq)
+					if attached res_obj as myres then
 						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Sensor types list", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
@@ -493,146 +565,101 @@ feature -- Basic operations
 					end
 				end
 			elseif l_msg_id = {REQUEST_I}.realtime_data_request_id then
-				l_req_obj := create {REALTIME_DATA_REQUEST}.make
-				if attached l_req_obj as myreq then
+				req_obj := create {REALTIME_DATA_REQUEST}.make
+				if attached req_obj as myreq then
 					myreq.from_json (request, json_parser)
 					myreq.set_token_id (token.id)
 
-					l_res_obj := do_post (myreq)
-					if attached l_res_obj as myres then
+					res_obj := do_post (myreq)
+					if attached res_obj as myres then
 						response := myres.to_json
 						log_display("Sent message id: " + myres.id.out + " Realtime data", log_information, true, true)
 						log_display("Message outcome: " + myres.outcome.out, log_information, true, true)
 						log_display("Message message: " + myres.message, log_information, true, true)
+						--myres.dispose
 					end
+					--myreq.dispose
 				end
-			elseif l_msg_id = {REQUEST_I}.query_token_request_id then
-				l_qt_res.set_message ("Query token response")
-				l_qt_res.set_outcome (0)
-				l_qt_res.set_id (token.id)
-				l_qt_res.set_expiry(token.expiry)
-				response := l_qt_res.to_json
 			else
+				if attached request as l_request then
+					log_display ("********** BAD REQUEST " + l_request + " " + req.remote_addr + " " + req.request_uri, log_alert, true, true)
+				end
 				response := internal_error.to_json
+				json_parser.reset_reader
+				json_parser.reset
 			end
 
-			res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/json"], ["Content-Length", response.count.out]>>)
-			res.put_string (response)
+			log_display ("Returning HTTP status code ...", log_debug, true, true);
+			if attached res as l_res then
+				if l_msg_id /= 0 then
+					if attached response as l_response then
+						l_res.put_header ({HTTP_STATUS_CODE}.ok, <<["Content-Type", "text/json"], ["Content-Length", l_response.count.out]>>)
+					end
+				else
+					if attached response as l_response then
+						l_res.put_header ({HTTP_STATUS_CODE}.bad_request, <<["Content-Type", "text/json"], ["Content-Length", l_response.count.out]>>)
+					end
+				end
+				if attached response as l_response then l_res.put_string (l_response) end
+			else
+				log_display ("UNABLE TO PARSE JSON REQUEST", log_error, true, true)
+			end
 			log_display (" >>> " + response, log_information, true, false)
-
-			l_req_obj.dispose
-			l_res_obj.dispose
 
 			msg_number := msg_number + 1
 			log_display ("%T Managed message number " + msg_number.out, log_notice, true, true)
-			if msg_number = {INTEGER}.max_value then
+
+			log_display ("Checking message number ...", log_debug, true, true);
+
+			if msg_number = {INTEGER}.max_value - 1 then
 				msg_number := 1
 			end
 
-			if (msg_number \\ 1000) = 0 then
-				l_mem_stat := memory_statistics (Total_memory)
-				l_gc_stat  := gc_statistics (total_memory)
-
-				full_collect
-				full_coalesce
-				log_display ("MEMORY STATISTICS " + msg_number.out,              log_alert, true, true)
-				log_display ("Total 64:       "   + l_mem_stat.total64.out,      log_alert, true, true)
-				log_display ("Total memory:   "   + l_mem_stat.total_memory.out, log_alert, true, true)
-				log_display ("Free 64:        "   + l_mem_stat.free64.out,       log_alert, true, true)
-				log_display ("Used 64:        "   + l_mem_stat.used64.out,       log_alert, true, true)
-
-
-				log_display ("GC STATISTICS   "   + msg_number.out,              log_alert, true, true)
-				log_display ("Collected:      "   + l_gc_stat.collected.out,     log_alert, true, true)
-				log_display ("Total memory:   "   + l_gc_stat.total_memory.out,  log_alert, true, true)
-				log_display ("Eiffel memory:  "   + l_gc_stat.eiffel_memory.out, log_alert, true, true)
-				log_display ("Memory used:    "   + l_gc_stat.memory_used.out,   log_alert, true, true)
-
-				log_display ("C memory:       "   + l_gc_stat.c_memory.out,      log_alert, true, true)
-				log_display ("Cycle count:    "   + l_gc_stat.cycle_count.out,   log_alert, true, true)
-
-				io.put_new_line
-
+			if (msg_number \\ gc_monitoring_message_number) = 0 then
+				log_gc_parameters
 			end
-			io.put_new_line
 
-			request.wipe_out
-			response.wipe_out
+			log_display ("Wiping out request and response variables ...", log_debug, true, true);
+			if attached request  as l_request  then l_request.wipe_out  end
+			if attached response as l_response then l_response.wipe_out end
+			log_display ("Exiting execute ...", log_debug, true, true)
 
 		end
 
 feature {NONE} -- Network IO
 
-	init_curl_handle(a_curl_easy: CURL_EASY_EXTERNALS; a_curl: CURL_EXTERNALS; a_request: REQUEST_I): POINTER
-			-- Create a curl handle and setup it
-		require
-			a_curl_easy_not_void: a_curl_easy /= Void
-			a_curl_not_void:      a_curl      /= Void
-			a_request_not_void:   a_request   /= Void
-		local
-			--curl_function: CURL_DEFAULT_FUNCTION
-			xml:           STRING
-		do
-			--print( "cURL handle init%N")
-			if a_curl_easy.is_dynamic_library_exists then
-				Result := a_curl_easy.init
-				if use_testing_ws then
-					a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_url,       a_request.ws_test_url)
-				else
-					a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_url,       a_request.ws_url)
-				end
+	session: LIBCURL_HTTP_CLIENT_SESSION
 
-				--log ("ws_url: " + a_request.ws_url, log_debug)
-				--print ("ws_url: " + a_request.ws_url + "%N")
-				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
-				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_forbid_reuse,  1)
-				xml := a_request.to_xml
-				log_display(" >>> " + xml, log_debug, true, false)
-				a_curl_easy.setopt_slist   (Result, {CURL_OPT_CONSTANTS}.curlopt_httpheader,    a_request.generate_http_headers (a_curl))
-				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
-				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, xml.count)
-				a_curl_easy.setopt_integer (Result, {CURL_OPT_CONSTANTS}.curlopt_verbose,       0)
-				a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "Eiffel curl testclient")
-				a_curl_easy.setopt_string  (Result, {CURL_OPT_CONSTANTS}.curlopt_postfields,    xml)
-				--a_curl_easy.set_curl_function (curl_function)
-				xml.wipe_out
+
+	post(a_request: REQUEST_I) : STRING
+			-- Post `a_request' to remws using `LIBCURL_HTTP_CLIENT'
+		local
+			--req: LIBCURL_HTTP_CLIENT_REQUEST
+			--session: LIBCURL_HTTP_CLIENT_SESSION
+			l_context: detachable HTTP_CLIENT_REQUEST_CONTEXT
+			l_res: HTTP_CLIENT_RESPONSE
+		do
+			--create Result.make_empty
+			--create l_context.make
+			--create session.make ("")
+
+			session.headers.wipe_out
+			session.add_header ("content-type", "text/xml;charset=utf-8")
+			session.add_header ("SOAPAction", a_request.soap_action_header)
+			session.add_header ("Accept-Encoding", "gzip, deflate")
+			if use_testing_ws then
+				l_res := session.post (a_request.ws_test_url, l_context, a_request.to_xml)
 			else
-				error_code    := {ERROR_CODES}.err_no_curl_easy_library
-				error_message := {ERROR_CODES}.msg_no_curl_easy_library
+				l_res := session.post (a_request.ws_url, l_context, a_request.to_xml)
 			end
 
-		end
-
-	post(a_request: REQUEST_I): STRING
-			-- Post `a_request' to remws
-		local
-			l_result:    INTEGER
-			--curl_buffer: CURL_STRING
-		do
-			--create headers
-
-			curl_buffer.wipe_out
-			curl.global_init
-			curl_handle := init_curl_handle (curl_easy, curl, a_request)
-
-			if curl_handle /= default_pointer then
-				-- We pass our `curl_buffer''s object id to the callback function */
-				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_writedata, curl_buffer.object_id)
-				curl_easy.set_write_function (curl_handle)
-
-				l_result := curl_easy.perform (curl_handle)
-				if l_result /= 0 then
-					-- got a network error?
-					error_code    := l_result
-					error_message := "This is a cURL error code, refer to cURL docs"
-				end
+			if attached l_res.body as r then
+				Result := r
+			else
+				Result := ""
 			end
-
-			curl_easy.cleanup (curl_handle)
-			curl.global_cleanup
-
-			Result := curl_buffer.to_string_32
 		end
+
 
 	do_post (a_request: REQUEST_I): RESPONSE_I
 			-- Do a post to remws
@@ -646,6 +673,7 @@ feature {NONE} -- Network IO
 			--create l_xml_str.make_empty
 			Result := a_request.init_response
 			l_xml_str := post (a_request)
+
 			log_display(" <<< " + l_xml_str, log_debug, true, false)
 
 			if error_code /= 0 then
@@ -657,12 +685,16 @@ feature {NONE} -- Network IO
 			error_code := success
 			error_message.wipe_out
 			l_xml_str.wipe_out
-			curl_buffer.wipe_out
 		ensure
 			result_attached: attached Result
 		end
 
 feature {NONE} -- Login management
+
+	one_hour:    DATE_TIME_DURATION
+			-- One hour fixed `DATE_TIME_DURATION'
+	two_hours:   DATE_TIME_DURATION
+			-- Two hours fixed `DATE_TIME_DURATION'
 
 	login_request: LOGIN_REQUEST
 			-- The login request
@@ -682,18 +714,19 @@ feature {NONE} -- Login management
 		end
 
 	check_day_light_time_saving (dt: DATE_TIME) : DATE_TIME_DURATION
-			-- Check for day light time savin on `dt'
+			-- Check for day light time saving on `dt'
+			-- Gives back the offset in hours to apply to UTC time
 		local
 			l_date:        DATE
 			l_month:       INTEGER
 			l_day:         INTEGER
 			l_dow:         INTEGER
 			l_prev_sunday: INTEGER
-			l_one_hour:    DATE_TIME_DURATION
-			l_two_hours:   DATE_TIME_DURATION
+			--l_one_hour:    DATE_TIME_DURATION
+			--l_two_hours:   DATE_TIME_DURATION
 		do
-			create l_one_hour.make (0, 0, 0, 1, 0, 0)
-			create l_two_hours.make (0, 0, 0, 2, 0, 0)
+			--create l_one_hour.make (0, 0, 0, 1, 0, 0)
+			--create l_two_hours.make (0, 0, 0, 2, 0, 0)
 
 			l_day   := dt.day
 			l_month := dt.month
@@ -701,29 +734,38 @@ feature {NONE} -- Login management
 			l_date  := dt.date;
 			l_dow   := dt.date.day_of_the_week
 
-
 			create Result.make (0, 0, 0, 1, 0, 0)
 
 			if l_month < 3 or l_month > 10 then
 				-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
-				Result := l_one_hour
+				-- L'offset rispetto alla macchina server è di un'ora
+				Result := one_hour
 			elseif l_month > 3 and l_month < 10 then
 				-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
-				Result := l_one_hour
+				-- L'offset rispetto alla macchina server è di due ore
+				Result := two_hours
 			else
 				l_prev_sunday := dt.day - l_dow
 				if l_month = 3 then
 					if l_prev_sunday >= 25 then
-						Result := l_one_hour
+						-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
+						-- L'offset rispetto alla macchina server è di due ore
+						Result := two_hours
 					else
-						Result := l_one_hour
+						-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
+						-- L'offset rispetto alla macchina server è di un'ora
+						Result := one_hour
 					end
 				end
 				if l_month = 10 then
 					if l_prev_sunday < 25 then
-						Result := l_one_hour
+						-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
+						-- L'offset rispetto alla macchina server è di un'ora
+						Result := one_hour
 					else
-						Result := l_one_hour
+						-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
+						-- L'offset rispetto alla macchina server è di un'oradue ore
+						Result := one_hour
 					end
 				end
 			end
@@ -732,20 +774,29 @@ feature {NONE} -- Login management
 
 	is_token_expired: BOOLEAN
 			-- Tells if `token' is expired
+		require
+			token_attached: attached token
 		local
 			l_current_dt: DATE_TIME
 			l_offset:   DATE_TIME_DURATION
 		do
-			create l_current_dt.make_now
+			log_display("Entering is_token_expired ...", log_debug, true, true)
+
+			create l_current_dt.make_now_utc
 			--create l_interval.make_definite (0, 0, 0, 10)
 
-			l_offset := check_day_light_time_saving (l_current_dt)
-
+			log_display("%Tis_token_expired: check day light time saving...", log_debug, true, true)
+			--l_offset := check_day_light_time_saving (l_current_dt)
+			--l_offset := check_day_light_time_saving (l_current_dt)
+			l_offset := one_hour
+			log_display("%Tis_token_expired: check day light time saving done.", log_debug, true, true)
+			log_display("%Tis_token_expired: checking if UTC is set ...", log_debug, true, true)
 			if is_utc_set then
 				Result := l_current_dt + l_offset > token.expiry
 			else
 				Result := l_current_dt > token.expiry
 			end
+			log_display("Exiting is_token_expired: Result = " + Result.out + " ...", log_debug, true, true)
 		end
 
 
@@ -759,12 +810,14 @@ feature {NONE} -- Login management
 		do
 			create l_current_dt.make_now_utc
 
-			l_offset := check_day_light_time_saving (l_current_dt)
+			--l_offset := check_day_light_time_saving (l_current_dt)
+			l_offset := one_hour
 
 			if use_testing_ws then
 				create l_interval.make_definite  (0, 0, -28, 0)
 			else
 				create l_interval.make_definite  (0, 0, -58, 0)
+				--create l_interval.make_definite  (0, 0, -14, 30)
 			end
 
 			if attached token then
@@ -782,7 +835,6 @@ feature {NONE} -- Login management
 			-- Execute login
 		local
 			l_xml_str: STRING
-			--l_res:     LOGIN_RESPONSE
 			last_token_file: PLAIN_TEXT_FILE
 		do
 			if attached username as l_username and attached password as l_password then
@@ -799,6 +851,7 @@ feature {NONE} -- Login management
 				if login_response.outcome = success then
 					token.id.copy (login_response.token.id)
 					token.expiry.copy (login_response.token.expiry)
+					--token := login_response.token
 					if token.id.count > 0 then
 						is_logged_in := true
 						-- save token to text file
@@ -807,6 +860,7 @@ feature {NONE} -- Login management
 						last_token_file.put_new_line
 						last_token_file.put_string (token.expiry.formatted_out (default_date_time_format))
 						last_token_file.put_new_line
+						last_token_file.flush
 						last_token_file.close
 					else
 						is_logged_in := false
@@ -830,7 +884,8 @@ feature {NONE} -- Login management
 			--l_res:     LOGOUT_RESPONSE
 		do
 			if attached token as l_token then
-				logout_request.token_id.copy (token.id)
+				--logout_request.token_id.copy (token.id)
+				logout_request.set_token_id (token.id)
 
 				l_xml_str := post (logout_request)
 				log_display("do_logout response " + l_xml_str, log_debug, true, false)
@@ -849,17 +904,6 @@ feature {NONE} -- Login management
 
 		end
 
-	curl_easy:      CURL_EASY_EXTERNALS
-			-- cURL easy externals
-	curl:           CURL_EXTERNALS
-			-- cURL externals
-	curl_handle:    POINTER
-			-- cURL handle
-	headers:        POINTER
-			-- headers slist
-	curl_buffer: CURL_STRING
-			-- cURL buffer
-
 	error_code:     INTEGER
 			-- Post error code
 	error_message:  STRING
@@ -867,7 +911,7 @@ feature {NONE} -- Login management
 	use_testing_ws: BOOLEAN
 			-- Must use the testing web service
 
-	internal_error: ERROR_RESPONSE once create Result.make end
+	internal_error: ERROR_RESPONSE do create Result.make end
 
 
 feature -- Attributes
@@ -890,9 +934,15 @@ feature -- Attributes
 			-- the logger
 	msg_number:   INTEGER
 			-- parsed messages number
-
---	request:        STRING
---    response:       STRING
+	is_gc_monitoring_active: BOOLEAN
+			-- log/display gc parameters
+	gc_monitoring_message_number: INTEGER
+			-- Monitor gc parameters every `gc_monitoring_message_number'
+			-- if `is_gc_monitoring_active' is true
+	start_time: DATE_TIME
+			-- Application start date time
+	up_time: detachable INTERVAL[DATE_TIME]
+			-- Global applcation up time
 
 feature -- Parsing
 

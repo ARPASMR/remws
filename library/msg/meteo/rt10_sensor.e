@@ -101,6 +101,7 @@ feature -- Status setting
 		require
 			t_not_void: t /= Void
 		do
+			operators.wipe_out
 			typology.copy (t)
 			if typology.is_equal (temperature) then
 				table.copy ("M_Termometri")
@@ -125,12 +126,27 @@ feature -- Status setting
 			elseif typology.is_equal (global_radiation) then
 				table.copy ("M_RadiometriG")
 				operators.extend (average)
+			elseif typology.is_equal (net_radiation) then
+				table.copy ("M_RadiometriN")
+				operators.extend (average)
 			elseif typology.is_equal (atmospheric_pressure) then
 				table.copy ("M_Barometri")
 				operators.extend (average)
 			elseif typology.is_equal (snow) then
 				table.copy ("M_Nivometri")
 				operators.extend (average)
+			elseif typology.is_equal (sonic_wind_direction) then
+				table.copy ("M_AnemometriDV")
+				operators.extend (average)
+			elseif typology.is_equal (sonic_wind_speed) then
+				table.copy ("M_AnemometriVV")
+				operators.extend (average)
+			elseif typology.is_equal (idro) then
+				table.copy ("M_Idrometri")
+				operators.extend (average)
+			--elseif typology.is_equal (present_time) then
+			--	table.copy ("M_")
+			--	operators.extend (average)
 			end
 		end
 

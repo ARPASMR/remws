@@ -12,6 +12,11 @@ inherit
 	redefine
 		out
 	end
+--	DISPOSABLE
+--	redefine
+--		dispose,
+--		out
+--	end
 
 create
 	make,
@@ -135,5 +140,20 @@ feature -- Status reporting
 		do
 			Result := sensor_id.out + " " + sensor_name
 		end
+
+--feature -- Dispose
+
+--	dispose
+--			-- dispose internal objects
+--		do
+--			if not is_in_final_collect then
+--				if attached sensor_name             as l_sensor_name             then l_sensor_name.wipe_out             end
+--				if attached measure_unit            as l_measure_unit            then l_measure_unit.wipe_out            end
+--				if attached function_name           as l_function_name           then l_function_name.wipe_out           end
+--				if attached operator_name           as l_operator_name           then l_operator_name.wipe_out           end
+--				if attached granularity_description as l_granularity_description then l_granularity_description.wipe_out end
+--				if attached data                    as l_data                    then l_data.wipe_out                    end
+--			end
+--		end
 
 end

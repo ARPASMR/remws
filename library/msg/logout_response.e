@@ -10,6 +10,7 @@ class
 inherit
 	RESPONSE_I
 	ERROR_CODES
+	DISPOSABLE
 
 create
 	make
@@ -178,13 +179,15 @@ feature -- Conversion
 feature -- {DISPOSABLE}
 
 	dispose
-			--
+			-- From `DISPOSABLE'
 		do
-			json_representation.wipe_out
-			xml_representation.wipe_out
-			current_tag.wipe_out
-			content.wipe_out
-			message.wipe_out
+			if not is_in_final_collect then
+				if attached json_representation as l_json_representation then l_json_representation.wipe_out end
+				if attached xml_representation  as l_xml_representation  then l_xml_representation.wipe_out  end
+				if attached current_tag         as l_current_tag         then l_current_tag.wipe_out         end
+				if attached content             as l_content             then l_content.wipe_out             end
+				if attached message             as l_message             then l_message.wipe_out             end
+			end
 		end
 
 feature -- XML Callbacks
