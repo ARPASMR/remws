@@ -410,9 +410,13 @@ feature -- Basic operations
 			create response.make_empty
 			create l_current_time.make_now
 
-			up_time := l_current_time - start_time
+			--up_time := l_current_time - start_time
+			up_time := l_current_time.relative_duration (start_time)
 
-			if attached up_time as l_up_time then log_display("UP TIME: " + l_up_time.out, log_information, true, true) end
+			--if attached up_time as l_up_time then log_display("UP TIME: " + l_up_time.out, log_information, true, true) end
+			if attached up_time as l_up_time then
+				log_display("UP TIME: " + l_up_time.day.out + ":" + l_up_time.hour.out + ":" + l_up_time.minute.out + ":" + l_up_time.second.out, log_information, true, true)
+			end
 
 			--log_display ("Creating req and res objects", log_debug, true, true);
 
@@ -848,7 +852,8 @@ feature -- Attributes
 			-- if `is_gc_monitoring_active' is true
 	start_time: DATE_TIME
 			-- Application start date time
-	up_time: detachable INTERVAL[DATE_TIME]
+	--up_time: detachable INTERVAL[DATE_TIME]
+	up_time: detachable DATE_TIME_DURATION
 			-- Global applcation up time
 
 feature -- Parsing
