@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-16-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-16-0 http://www.eiffel.com/developers/xml/configuration-1-16-0.xsd" name="collect" uuid="C2221232-0C87-4E96-AC05-6E2B74347761">
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-13-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-13-0 http://www.eiffel.com/developers/xml/configuration-1-13-0.xsd" name="collect" uuid="C2221232-0C87-4E96-AC05-6E2B74347761">
 	<target name="collect">
 		<root class="COLLECT_APPLICATION" feature="make_and_launch"/>
-		<option debug="true" warning="true" is_obsolete_routine_type="true">
+		<option debug="true" warning="true">
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<setting name="console_application" value="true"/>
-		<capability>
-			<concurrency support="none" use="thread"/>
-		</capability>
 		<precompile name="base_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="curl" location="$ISE_LIBRARY\library\cURL\cURL-safe.ecf"/>
@@ -26,9 +23,9 @@
 		<cluster name="collect" location=".\">
 			<file_rule>
 				<exclude>/.git$</exclude>
-				<exclude>/.svn$</exclude>
-				<exclude>/CVS$</exclude>
 				<exclude>/EIFGENs$</exclude>
+				<exclude>/CVS$</exclude>
+				<exclude>/.svn$</exclude>
 			</file_rule>
 			<file_rule>
 				<exclude>^common_1$</exclude>

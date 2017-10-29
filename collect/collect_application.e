@@ -61,7 +61,6 @@ feature {NONE} -- Initialization
 
 			-- Check DLTS
 			one_hour  := create {DATE_TIME_DURATION}.make (0, 0, 0, 1, 0, 0)
-			two_hours := create {DATE_TIME_DURATION}.make (0, 0, 0, 2, 0, 0)
 		end
 
 	initialize
@@ -263,6 +262,8 @@ feature -- Logging
 			create log_path.make_from_string (path)
 			create logger.make
 			create file_logger.make_at_location (log_path)
+			file_logger.set_max_backup_count (10)
+			file_logger.set_max_file_size ({NATURAL_64}1 * 1024 * 1024 * 1024)
 			file_logger.enable_debug_log_level
 			if attached logger as l_logger then
 				l_logger.register_log_writer (file_logger)
@@ -693,9 +694,6 @@ feature {NONE} -- Login management
 
 	one_hour:    DATE_TIME_DURATION
 			-- One hour fixed `DATE_TIME_DURATION'
-	two_hours:   DATE_TIME_DURATION
-			-- Two hours fixed `DATE_TIME_DURATION'
-
 	login_request: LOGIN_REQUEST
 			-- The login request
 	logout_request: LOGOUT_REQUEST
@@ -712,65 +710,6 @@ feature {NONE} -- Login management
 				Result := l_home.out + "/.collect/last_token"
 			end
 		end
-
-	check_day_light_time_saving (dt: DATE_TIME) : DATE_TIME_DURATION
-			-- Check for day light time saving on `dt'
-			-- Gives back the offset in hours to apply to UTC time
-		local
-			l_date:        DATE
-			l_month:       INTEGER
-			l_day:         INTEGER
-			l_dow:         INTEGER
-			l_prev_sunday: INTEGER
-			--l_one_hour:    DATE_TIME_DURATION
-			--l_two_hours:   DATE_TIME_DURATION
-		do
-			--create l_one_hour.make (0, 0, 0, 1, 0, 0)
-			--create l_two_hours.make (0, 0, 0, 2, 0, 0)
-
-			l_day   := dt.day
-			l_month := dt.month
-
-			l_date  := dt.date;
-			l_dow   := dt.date.day_of_the_week
-
-			create Result.make (0, 0, 0, 1, 0, 0)
-
-			if l_month < 3 or l_month > 10 then
-				-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
-				-- L'offset rispetto alla macchina server è di un'ora
-				Result := one_hour
-			elseif l_month > 3 and l_month < 10 then
-				-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
-				-- L'offset rispetto alla macchina server è di due ore
-				Result := two_hours
-			else
-				l_prev_sunday := dt.day - l_dow
-				if l_month = 3 then
-					if l_prev_sunday >= 25 then
-						-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
-						-- L'offset rispetto alla macchina server è di due ore
-						Result := two_hours
-					else
-						-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
-						-- L'offset rispetto alla macchina server è di un'ora
-						Result := one_hour
-					end
-				end
-				if l_month = 10 then
-					if l_prev_sunday < 25 then
-						-- Non siamo in ora legale quindi l'offset rispetto a UTC è di un'ora
-						-- L'offset rispetto alla macchina server è di un'ora
-						Result := one_hour
-					else
-						-- Siamo in ora legale quindi l'offset rispetto a UTC è di due ore
-						-- L'offset rispetto alla macchina server è di un'oradue ore
-						Result := one_hour
-					end
-				end
-			end
-		end
-
 
 	is_token_expired: BOOLEAN
 			-- Tells if `token' is expired
@@ -797,38 +736,6 @@ feature {NONE} -- Login management
 				Result := l_current_dt > token.expiry
 			end
 			log_display("Exiting is_token_expired: Result = " + Result.out + " ...", log_debug, true, true)
-		end
-
-
-
-	check_login: BOOLEAN
-			-- Check if is system logged in using the current token `expiry'
-		local
-			l_current_dt: DATE_TIME
-			l_interval:   DATE_TIME_DURATION
-			l_offset:     DATE_TIME_DURATION
-		do
-			create l_current_dt.make_now_utc
-
-			--l_offset := check_day_light_time_saving (l_current_dt)
-			l_offset := one_hour
-
-			if use_testing_ws then
-				create l_interval.make_definite  (0, 0, -28, 0)
-			else
-				create l_interval.make_definite  (0, 0, -58, 0)
-				--create l_interval.make_definite  (0, 0, -14, 30)
-			end
-
-			if attached token then
-				if l_current_dt + l_offset >= token.expiry + l_interval then
-				    Result := False
-			    else
-			    	Result := True
-				end
-			else
-				Result := False
-			end
 		end
 
 	do_login: BOOLEAN
@@ -930,7 +837,7 @@ feature -- Attributes
 			-- the current `TOKEN'
 	log_path:     PATH
 			-- log path
-	file_logger:  LOG_WRITER_FILE
+	file_logger:  LOG_ROLLING_WRITER_FILE
 			-- the logger
 	msg_number:   INTEGER
 			-- parsed messages number
