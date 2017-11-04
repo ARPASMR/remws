@@ -182,13 +182,6 @@ feature -- Status setting
 			logger_not_void: logger /= Void
 		end
 
-	reset
-			-- reset contents
-		do
-			outcome := 0
-			message := ""
-		end
-
 feature -- Status report
 
 	is_error_response: BOOLEAN
@@ -289,13 +282,8 @@ feature -- Conversion
 
 	from_xml(xml: STRING; parser: XML_STANDARD_PARSER)
 			-- Parse XML message
-	local
-		--parser: XML_STANDARD_PARSER
-		--factory: XML_PARSER_FACTORY
 	do
-		--create factory
 		sensor_data_list.wipe_out
-		--parser := factory.new_standard_parser
 		parser.set_callbacks (Current)
 		set_associated_parser (parser)
 		parser.parse_from_string (xml)
@@ -315,26 +303,14 @@ feature -- Conversion
 			json_valid: attached json and then not json.is_empty
 			json_parser_valid: attached parser and then parser.is_valid
 		local
-			--key:            JSON_STRING
-			--key1:           JSON_STRING
-			--key2:           JSON_STRING
-
-			--json_parser:    JSON_PARSER
 			i,j:            INTEGER
 
-			sensor_rt_data: SENSOR_REALTIME_RESPONSE_DATA
+			sensor_rt_data: detachable SENSOR_REALTIME_RESPONSE_DATA
 		do
-		 	--create json_parser.make_with_string (json)
 		 	parser.reset_reader
 		 	parser.reset
 		 	parser.set_representation (json)
 
-			--create key.make_from_string ("header")
-			--key := json_header_tag
-			--create key1.make_from_string ("id")
-			--key1 := json_id_tag
-			--create key2.make_from_string ("name")
-			--key2 := json_name_tag
 
 			print ("{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE ...%N")
 			parser.parse_content
@@ -350,11 +326,10 @@ feature -- Conversion
 				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE HEADER DONE%N")
 
 				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE DATA ...%N")
-				--key := json_data_tag
+
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
 				then
-					--key := "sensor_data_list"
-					--key1 := json_sensor_data_list_tag
+
 					if attached {JSON_ARRAY} j_data.item (json_sensor_data_list_tag) as j_sensor_data_list then
 
 						if attached sensor_data_list as l_sensor_data_list then l_sensor_data_list.wipe_out end
@@ -410,9 +385,6 @@ feature -- Conversion
 			end
 			parser.reset_reader
 			parser.reset
-			--key.item.wipe_out
-			--key1.item.wipe_out
-			--key2.item.wipe_out
 		end
 
 feature -- XML Callbacks
@@ -473,7 +445,7 @@ feature -- XML Callbacks
 	on_start_tag (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32)
 			-- Start of start tag.
 		local
-			a_sensor_rt_data: SENSOR_REALTIME_RESPONSE_DATA
+			a_sensor_rt_data: detachable SENSOR_REALTIME_RESPONSE_DATA
 		do
 			--log ("XML callbacks on_start_tag called. A tag is starting", log_debug)
 			--if attached a_namespace as namespace then
@@ -578,9 +550,9 @@ feature -- XML Callbacks
 			-- without a markup event in between.
 			--| this should not occur, but I leave this comment just in case
 		local
-			i: INTEGER
-			words: LIST[STRING]
-			str: STRING
+			i:     INTEGER
+			words: detachable LIST[STRING]
+			str:   detachable STRING
 		do
 			--log ("XML callbacks on_content called. Got tag content", log_debug)
 			--log ("%Tcontent: " + a_content, log_debug)
@@ -615,7 +587,6 @@ feature -- Dispose
 				if attached cdata_segment       as l_cdata_segment       then l_cdata_segment.wipe_out       end
 				if attached sensor_data_list    as l_sensor_data_list    then l_sensor_data_list.wipe_out    end
 				if attached message             as l_message             then l_message.wipe_out             end
-				--token.dispose
 			end
 		end
 

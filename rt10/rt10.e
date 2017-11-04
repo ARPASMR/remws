@@ -14,8 +14,14 @@ inherit
 	rename
 		Command_line as env_command_line
 	end
-
-	DATABASE_SESSION_MANAGER_ACCESS
+	MEMORY
+	EXCEPTIONS
+	UNIX_SIGNALS
+		rename
+			meaning as sig_meaning,
+			catch   as sig_catch,
+			ignore  as sig_ignore
+		end
 
 create
 	make
@@ -48,23 +54,47 @@ feature {NONE} -- Initialization
 
 			create realtime_data_res.make
 			create response.make_empty
-			create curl_buffer.make_empty
+			--create curl_buffer.make_empty
 
 			-- Parsing
 			create json_parser.make_with_string ("{}")
 
+
+		end
+
+	init_gc
+			-- GC settings
+		do
+			-- garbage collection
+			allocate_compact
+			set_memory_threshold (40000000)
+			set_max_mem (160000000)
+			set_collection_period (1)
+			set_coalesce_period (2)
+			collection_on
 		end
 
 	make
 			-- Run application.
 		local
-			l_data:      ARRAYED_LIST[STRING]
-			fd:          FORMAT_DOUBLE
-			l_start:     DATE_TIME
-			l_end:       DATE_TIME
+			l_data:      detachable ARRAYED_LIST[STRING]
+			fd:          detachable FORMAT_DOUBLE
+			l_start:     detachable DATE_TIME
+			l_end:       detachable DATE_TIME
 			l_idx:       INTEGER
 			l_sensor_id: INTEGER
 		do
+			sig_ignore (sighup)
+			sig_ignore (sigint)
+			sig_ignore (sigkill)
+			sig_ignore (sigterm)
+
+			init_gc
+
+			create session.make ("")
+			session.add_header ("content-type", "text/json;charset=utf-8")
+			session.add_header ("Accept-Encoding", "gzip, deflate")
+
 			create l_start.make_now
 
 			create fd.make (6, 1)
@@ -158,6 +188,22 @@ feature {NONE} -- Initialization
 
 			display_line ("Started at:  " + l_start.formatted_out (default_date_time_format), true)
 			display_line ("Finished at: " + l_end.formatted_out (default_date_time_format), true)
+		rescue
+			if is_signal then
+				if is_caught (sighup) then
+					print ("SIGHUP "  + sighup.out  + " caught%N")
+				elseif is_caught (sigint) then
+					print ("SIGINT "  + sigint.out  + " caught%N")
+				elseif is_caught (sigkill) then
+					print ("SIGKILL " + sigkill.out + " caught%N")
+					print ("Killing myself%N")
+					die (sigkill)
+				elseif is_caught (sigterm) then
+					print ("SIGTERM " + sigterm.out + " caught%N")
+				else
+					print ("UNKNOWN signal caught%N")
+				end
+			end
 		end
 
 feature -- Process
@@ -165,7 +211,7 @@ feature -- Process
 	print_data (sensor: RT10_SENSOR)
 			-- displays sensor measures
 		local
-			fd: FORMAT_DOUBLE
+			fd: detachable FORMAT_DOUBLE
 		do
 			create fd.make (6, 1)
 			fd.right_justify
@@ -216,7 +262,7 @@ feature -- Process
 	make_insert_into_data (s: INTEGER; o: INTEGER; t: STRING; m: MEASURE) : STRING
 			-- Construct insert into query string
 		local
-			l_now: DATE_TIME
+			l_now: detachable DATE_TIME
 		do
 			create Result.make_empty
 			create l_now.make_now
@@ -257,10 +303,9 @@ feature -- Process
 	get_last_dates (sensor: RT10_SENSOR)
 			-- Retrieve sensor's last date till current time
 		local
-			date:     DATE_TIME
-			queries:  TUPLE[STRING, STRING, STRING]
+			queries:  detachable TUPLE[STRING, STRING, STRING]
 			i:        INTEGER
-			l_tuple:  DB_TUPLE
+			l_tuple:  detachable DB_TUPLE
 			r_any:    detachable ANY
 		do
 
@@ -347,7 +392,7 @@ feature -- Process
 	load_sensors(some_results: ARRAYED_LIST[DB_RESULT])
 			-- Load `sensors'
 		local
-			l_tuple: DB_TUPLE
+			l_tuple: detachable DB_TUPLE
 			l_sensor: RT10_SENSOR
 			r_int: INTEGER_REF
 			r_any: detachable ANY
@@ -415,13 +460,13 @@ feature -- Process
 	check_day_light_time_saving (dt: DATE_TIME) : DATE_TIME_DURATION
 			-- Check for day light time savin on `dt'
 		local
-			l_date:        DATE
+			l_date:        detachable DATE
 			l_month:       INTEGER
 			l_day:         INTEGER
 			l_dow:         INTEGER
 			l_prev_sunday: INTEGER
-			l_one_hour:    DATE_TIME_DURATION
-			l_two_hours:   DATE_TIME_DURATION
+			l_one_hour:    detachable DATE_TIME_DURATION
+			l_two_hours:   detachable DATE_TIME_DURATION
 		do
 			create l_one_hour.make (0, 0, 0, 1, 0, 0)
 			create l_two_hours.make (0, 0, 0, 2, 0, 0)
@@ -477,59 +522,74 @@ feature -- Display
 
 feature -- Operations
 
-	post(msg: STRING): STRING
-			--
+	post1(a_msg: STRING) : STRING
+			-- Post `a_msg' to remws using `LIBCURL_HTTP_CLIENT'
 		local
-			l_result:   INTEGER
+			l_context: detachable HTTP_CLIENT_REQUEST_CONTEXT
+			l_res: HTTP_CLIENT_RESPONSE
 		do
-			curl_buffer.wipe_out
+			l_res := session.post ("http://" + collect_host + ":" + collect_port.out, l_context, a_msg)
 
-			curl.global_init
-
-			if curl_easy.is_dynamic_library_exists then
-				curl_handle := curl_easy.init
-				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_url,           "http://" + collect_host + ":" + collect_port.out)
-				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
-				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_forbid_reuse,  1)
-
-				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
-				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, msg.count)
-				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_verbose,       0)
-				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "NMarzi curl testclient")
-				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfields,    msg)
-
-				--curl_easy.set_curl_function (curl_function)
-				curl_easy.set_write_function (curl_handle)
-				-- We pass our `curl_buffer''s object id to the callback function */
-				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_writedata,     curl_buffer.object_id)
-
-				l_result := curl_easy.perform (curl_handle)
-
-				if l_result /= {CURL_CODES}.curle_ok then
-					io.put_string ("cURL perfom returned: " + l_result.out)
-				end
-				--io.put_new_line
-
-				curl_easy.cleanup (curl_handle)
+			if attached l_res.body as r then
+				Result := r
 			else
-				io.put_string ("cURL library not found")
-				io.put_new_line
+				Result := ""
 			end
-
-			curl.global_cleanup
-
-			Result := curl_buffer.string
 		end
+
+--	post(msg: STRING): STRING
+--			--
+--		local
+--			l_result:   INTEGER
+--		do
+--			curl_buffer.wipe_out
+
+--			curl.global_init
+
+--			if curl_easy.is_dynamic_library_exists then
+--				curl_handle := curl_easy.init
+--				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_url,           "http://" + collect_host + ":" + collect_port.out)
+--				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
+--				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_forbid_reuse,  1)
+
+--				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
+--				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, msg.count)
+--				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_verbose,       0)
+--				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "RT10 ARPA Lombardia curl client")
+--				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfields,    msg)
+
+--				--curl_easy.set_curl_function (curl_function)
+--				curl_easy.set_write_function (curl_handle)
+--				-- We pass our `curl_buffer''s object id to the callback function */
+--				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_writedata,     curl_buffer.object_id)
+
+--				l_result := curl_easy.perform (curl_handle)
+
+--				if l_result /= {CURL_CODES}.curle_ok then
+--					io.put_string ("cURL perfom returned: " + l_result.out)
+--				end
+--				--io.put_new_line
+
+--				curl_easy.cleanup (curl_handle)
+--			else
+--				io.put_string ("cURL library not found")
+--				io.put_new_line
+--			end
+
+--			curl.global_cleanup
+
+--			Result := curl_buffer.string
+--		end
 
 	ask_sensor(sensor: RT10_SENSOR): ARRAYED_LIST[STRING]
 			-- Ask `sensor' data
 		local
 
-			fd:       FORMAT_DOUBLE
+			fd:       detachable FORMAT_DOUBLE
 			r:        STRING
 			j,k:      INTEGER
 			l_line:   STRING
-			l_tokens: LIST[STRING]
+			l_tokens: detachable LIST[STRING]
 
 			l_measures: ARRAYED_LIST[MEASURE]
 			l_measure:  MEASURE
@@ -579,7 +639,7 @@ feature -- Operations
 
 				display_line (">>> " + r, true)
 
-				response := post (r)
+				response := post1 (r)
 
 				display_line ("<<< " + response, true)
 
@@ -629,8 +689,8 @@ feature -- Operations
 	save_sensor_data (sensor: RT10_SENSOR)
 			-- Save measures to database
 		local
-			l_query: STRING
-			l_date: DATE_TIME
+			l_query: detachable STRING
+			l_date:  detachable DATE_TIME
 		do
 			from sensor.measures.start
 			until sensor.measures.after
@@ -661,14 +721,13 @@ feature -- Operations
 				end
 				sensor.measures.forth
 			end
-
 		end
 
 	delete_old_data
 			-- Deletes data older than 30 days
 		local
-			l_query: STRING
-			l_date:  DATE_TIME
+			l_query: detachable STRING
+			l_date:  detachable DATE_TIME
 		do
 			create l_query.make_empty
 			l_date := now + one_month
@@ -680,8 +739,8 @@ feature -- Operations
 	is_measure_already_present (sensor_id: INTEGER; operator: INTEGER; typology: STRING; date: DATE_TIME) : BOOLEAN
 			-- Is measure already present in db
 		local
-			l_query:      STRING
-			some_results: ARRAYED_LIST[DB_RESULT]
+			l_query:      detachable STRING
+			some_results: detachable ARRAYED_LIST[DB_RESULT]
 		do
 			Result := false
 			create some_results.make (0)
@@ -821,25 +880,26 @@ feature -- Implementation
 	sensors:         ARRAYED_LIST[RT10_SENSOR]
 			-- Sensors list
 
-
 	response: STRING
 
-	curl_easy: CURL_EASY_EXTERNALS
-			-- cURL easy externals
-		once
-			create Result
-		end
+	session: LIBCURL_HTTP_CLIENT_SESSION
 
-	curl: CURL_EXTERNALS
-			-- cURL externals
-		once
-			create Result
-		end
+--	curl_easy: CURL_EASY_EXTERNALS
+--			-- cURL easy externals
+--		once
+--			create Result
+--		end
 
-	curl_handle: POINTER
-			-- cURL handle
+--	curl: CURL_EXTERNALS
+--			-- cURL externals
+--		once
+--			create Result
+--		end
 
-	curl_buffer: CURL_STRING
+--	curl_handle: POINTER
+--			-- cURL handle
+
+--	curl_buffer: CURL_STRING
 			-- response contents
 
 	now:          DATE_TIME
