@@ -1,7 +1,17 @@
 note
-	description : "nmarzi application root class"
-	date        : "$Date$"
-	revision    : "$Revision$"
+	description : "[
+		nmarzi application root class
+	    Acts as a clone of the old nmarzi cygwin client.
+    ]"
+	copyright: "Copyright (c) 2015-2017, ARPA Lombardia"
+	license:   "General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)"
+	source: "[
+		Luca Paganotti <luca.paganotti (at) gmail.com>
+		Via dei Giardini, 9
+		21035 Cunardo (VA)
+	]"
+	date: "$Date: 2017-11-23 14:52:50 +0100 (Thu, 23 Nov 2017) $"
+	revision: "$Revision: 48 $"
 
 class
 	NMARZI_APPLICATION
@@ -14,12 +24,19 @@ inherit
 			command_line as env_command_line
 		end
 	MEMORY
+		redefine
+			dispose
+		end
 	EXCEPTIONS
 	UNIX_SIGNALS
 		rename
 			meaning as sig_meaning,
 			catch   as sig_catch,
 			ignore  as sig_ignore
+		end
+	SYSLOG_UNIX_OS
+		redefine
+			dispose
 		end
 
 create
@@ -45,26 +62,22 @@ feature {NONE} -- Initialization
 			session.add_header ("Accept-Encoding", "gzip, deflate")
 
 			--| Add your code here
-			print ("NMARZI%N")
-			print ("NMARZI simulator for Agenzia Regionale per l'Ambiente della Lombardia%N")
+			display_line ("NMARZI", true, false)
+			display_line ("NMARZI simulator for Agenzia Regionale per l'Ambiente della Lombardia", true, false)
 
 			init
 			init_preferences
 			init_sensors_list
-			init_default_sensors_list
 
 			if not write_files then
-				io.put_string ("{NMARZI} Error writing files")
-				io.put_new_line
+				display_line ("{NMARZI} Error writing files", true, false)
 			end
 			if not_found_sensor_list.count > 0 then
-				io.put_string ("{NMARZI} " + not_found_sensor_list.count.out + " requests with  no data")
-				io.put_new_line
+				display_line ("{NMARZI} " + not_found_sensor_list.count.out + " requests with  no data", true, false)
 				from i := 1
 				until i > not_found_sensor_list.count
 				loop
-					io.put_string (not_found_sensor_list.i_th (i))
-					io.put_new_line
+					display_line (not_found_sensor_list.i_th (i), true, false)
 					i := i + 1
 				end
 			end
@@ -72,17 +85,17 @@ feature {NONE} -- Initialization
 		rescue
 			if is_signal then
 				if is_caught (sighup) then
-					print ("SIGHUP "  + sighup.out  + " caught%N")
+					display_line ("SIGHUP "  + sighup.out  + " caught", true, true)
 				elseif is_caught (sigint) then
-					print ("SIGINT "  + sigint.out  + " caught%N")
+					display_line ("SIGINT "  + sigint.out  + " caught", true, true)
 				elseif is_caught (sigkill) then
-					print ("SIGKILL " + sigkill.out + " caught%N")
-					print ("Killing myself%N")
+					display_line ("SIGKILL " + sigkill.out + " caught", true, true)
+					display_line ("Killing myself", true, true)
 					die (sigkill)
 				elseif is_caught (sigterm) then
-					print ("SIGTERM " + sigterm.out + " caught%N")
+					display_line ("SIGTERM " + sigterm.out + " caught", true, true)
 				else
-					print ("UNKNOWN signal caught%N")
+					display_line ("UNKNOWN signal caught", true, true)
 				end
 			end
 		end
@@ -103,6 +116,9 @@ feature {NONE} -- Initialization
 
 			-- Parsing
 			create json_parser.make_with_string ("{}")
+
+			-- syslog
+			open_log (app_name, log_pid, log_user)
 		end
 
 	init_gc
@@ -122,10 +138,9 @@ feature {NONE} -- Initialization
 		local
 			factory: detachable BASIC_PREFERENCE_FACTORY
 		do
-			io.put_string ("{NMARZI} Init preferences ...")
-			io.put_new_line
+			display_line ("{NMARZI} Init preferences ...", true, false)
 
-			create preferences_storage.make_with_location ("/home/meteo/.nmarzi/nmarzi.preferences.xml")
+			create preferences_storage.make_with_location ("/home/buck/.nmarzi/nmarzi.preferences.xml")
 			create preferences.make_with_storage (preferences_storage)
 			preferences_manager := preferences.new_manager ("nmarzi")
 			create factory
@@ -135,16 +150,11 @@ feature {NONE} -- Initialization
 			host             := factory.new_string_preference_value (preferences_manager,  "nmarzi.host",           "localhost")
 			port             := factory.new_integer_preference_value (preferences_manager, "nmarzi.port",           9090)
 
-			io.put_string ("{NMARZI} sensor list file: " + sensor_list_file.value)
-			io.put_new_line
-			io.put_string ("{NMARZI} output dir: " + output_dir.value)
-			io.put_new_line
-			io.put_string ("{NMARZI} host: " + host.value)
-			io.put_new_line
-			io.put_string ("{NMARZI} port: " + port.value.out)
-			io.put_new_line
-			io.put_string ("{NMARZI} Done.")
-			io.put_new_line
+			display_line ("{NMARZI} sensor list file: " + sensor_list_file.value, true, false)
+			display_line ("{NMARZI} output dir: " + output_dir.value, true, false)
+			display_line ("{NMARZI} host: " + host.value, true, false)
+			display_line ("{NMARZI} port: " + port.value.out, true, false)
+			display_line ("{NMARZI} Done.", true, false)
 			--preferences.save_preferences
 
 		end
@@ -183,276 +193,56 @@ feature {NONE} -- Initialization
 			l_file.close
 		end
 
-	init_default_sensors_list
-			-- Default sensors list
+feature -- Display
+
+	display_line (a_line: STRING; nl, to_syslog: BOOLEAN)
+			-- Display `a_line' on screen with a new line if `nl' is True
 		local
-			s: SENSOR_PARAMETERS
+			dt: detachable DATE_TIME
 		do
-			create default_sensors_list.make (0)
-
-			create s.make_with_parameters (1, 1, 1, 1);     default_sensors_list.extend (s)
-			--default_sensors_list.extend ("2")
-			create s.make_with_parameters (3, 1, 1, 1);     default_sensors_list.extend (s)
-			--default_sensors_list.extend ("4")
-			--default_sensors_list.extend ("5")
-			create s.make_with_parameters (6, 1, 1, 1);     default_sensors_list.extend (s)
-			create s.make_with_parameters (7, 1, 1, 1);     default_sensors_list.extend (s)
-			--default_sensors_list.extend ("8")
-			create s.make_with_parameters (15, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (16, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (17, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (18, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("24")
-			--default_sensors_list.extend ("63")
-			create s.make_with_parameters (64, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("65")
-			create s.make_with_parameters (66, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (67, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (68, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("69")
-			create s.make_with_parameters (70, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("71")
-			--default_sensors_list.extend ("72")
-			create s.make_with_parameters (73, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (74, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("81")
-			create s.make_with_parameters (84, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("87")
-			create s.make_with_parameters (92, 1, 1, 1);    default_sensors_list.extend (s)
-			--default_sensors_list.extend ("95")
-			create s.make_with_parameters (98, 1, 1, 1);    default_sensors_list.extend (s)
-			create s.make_with_parameters (101, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (104, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (106, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (109, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (111, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (114, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (117, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (120, 1, 1, 1);   default_sensors_list.extend (s)
-			--default_sensors_list.extend ("123")
-			create s.make_with_parameters (139, 1, 1, 1);   default_sensors_list.extend (s)
-			--default_sensors_list.extend ("151")
-			--default_sensors_list.extend ("180")
-			create s.make_with_parameters (203, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (205, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (207, 1, 1, 1);   default_sensors_list.extend (s)
-			create s.make_with_parameters (1326, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1368, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1399, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1422, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1434, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1437, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (1438, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (2270, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (2270, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (2414, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3002, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3003, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3019, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3032, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3033, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3046, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3049, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3092, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3093, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3106, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3109, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3118, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (3119, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (5969, 1, 1, 1);  default_sensors_list.extend (s)
-			create s.make_with_parameters (6175, 1, 1, 1);  default_sensors_list.extend (s)
-
---			default_sensors_list.extend ("6992")
---			default_sensors_list.extend ("8007")
---			default_sensors_list.extend ("8009")
---			default_sensors_list.extend ("8014")
---			default_sensors_list.extend ("8017")
---			default_sensors_list.extend ("8020")
---			default_sensors_list.extend ("8024")
---			default_sensors_list.extend ("8028")
---			--default_sensors_list.extend ("8056")
---			--default_sensors_list.extend ("8082")
---			default_sensors_list.extend ("8093")
---			default_sensors_list.extend ("8099")
---			default_sensors_list.extend ("8101")
---			default_sensors_list.extend ("8105")
---			default_sensors_list.extend ("8107")
---			default_sensors_list.extend ("8110")
---			default_sensors_list.extend ("8112")
---			default_sensors_list.extend ("8113")
---			default_sensors_list.extend ("8114")
---			--default_sensors_list.extend ("8116")
---			--default_sensors_list.extend ("8117")
---			default_sensors_list.extend ("8118")
---			default_sensors_list.extend ("8119")
---			default_sensors_list.extend ("8120")
---			default_sensors_list.extend ("8121")
---			default_sensors_list.extend ("8124")
---			default_sensors_list.extend ("8125")
---			default_sensors_list.extend ("8128")
---			default_sensors_list.extend ("8129")
---			--default_sensors_list.extend ("8132")
---			default_sensors_list.extend ("8141")
---			--default_sensors_list.extend ("8142")
---			default_sensors_list.extend ("8143")
---			--default_sensors_list.extend ("8144")
---			default_sensors_list.extend ("8147")
---			default_sensors_list.extend ("8148")
---			default_sensors_list.extend ("8153")
---			default_sensors_list.extend ("8154")
---			--default_sensors_list.extend ("8156")
---			default_sensors_list.extend ("8158")
---			default_sensors_list.extend ("8164")
---			--default_sensors_list.extend ("8175")
---			default_sensors_list.extend ("8177")
---			default_sensors_list.extend ("8180")
---			default_sensors_list.extend ("8181")
---			--default_sensors_list.extend ("8186")
---			default_sensors_list.extend ("8192")
---			default_sensors_list.extend ("8196")
---			--default_sensors_list.extend ("8203")
---			--default_sensors_list.extend ("8205")
---			default_sensors_list.extend ("8207")
---			default_sensors_list.extend ("8210")
---			default_sensors_list.extend ("8223")
---			default_sensors_list.extend ("8380")
---			--default_sensors_list.extend ("8381")
---			default_sensors_list.extend ("8382")
---			default_sensors_list.extend ("8383")
---			default_sensors_list.extend ("8384")
---			default_sensors_list.extend ("8385")
---			default_sensors_list.extend ("8386")
---			--default_sensors_list.extend ("8389")
---			--default_sensors_list.extend ("8391")
---			default_sensors_list.extend ("8394")
---			--default_sensors_list.extend ("8481")
---			--default_sensors_list.extend ("8511")
---			--default_sensors_list.extend ("8512")
---			--default_sensors_list.extend ("8513")
---			default_sensors_list.extend ("8521")
---			default_sensors_list.extend ("8522")
---			default_sensors_list.extend ("8545")
---			default_sensors_list.extend ("8546")
---			default_sensors_list.extend ("8573")
---			default_sensors_list.extend ("8574")
---			default_sensors_list.extend ("8576")
---			default_sensors_list.extend ("8581")
---			--default_sensors_list.extend ("8593")
---			default_sensors_list.extend ("8618")
---			--default_sensors_list.extend ("8693")
---			--default_sensors_list.extend ("8701")
---			default_sensors_list.extend ("9035")
---			--default_sensors_list.extend ("9036")
---			--default_sensors_list.extend ("9037")
---			--default_sensors_list.extend ("9038")
---			--default_sensors_list.extend ("9039")
---			default_sensors_list.extend ("9040")
---			default_sensors_list.extend ("9041")
---			default_sensors_list.extend ("9042")
---			default_sensors_list.extend ("9043")
---			default_sensors_list.extend ("9044")
---			default_sensors_list.extend ("9079")
---			--default_sensors_list.extend ("9081")
---			default_sensors_list.extend ("9082")
---			default_sensors_list.extend ("9083")
---			default_sensors_list.extend ("9084")
---			--default_sensors_list.extend ("9086")
---			default_sensors_list.extend ("9087")
---			default_sensors_list.extend ("9842")
---			default_sensors_list.extend ("11099")
---			default_sensors_list.extend ("11165")
---			default_sensors_list.extend ("11988")
---			default_sensors_list.extend ("14021")
---			default_sensors_list.extend ("14024")
---			default_sensors_list.extend ("14129")
---			default_sensors_list.extend ("14170")
---			default_sensors_list.extend ("14178")
---			default_sensors_list.extend ("14205")
---			default_sensors_list.extend ("14227")
---			default_sensors_list.extend ("14252")
---			default_sensors_list.extend ("14279")
---			default_sensors_list.extend ("14301")
---			default_sensors_list.extend ("14304")
---			default_sensors_list.extend ("14307")
---			default_sensors_list.extend ("14310")
---			default_sensors_list.extend ("14313")
---			default_sensors_list.extend ("14364")
---			default_sensors_list.extend ("14497")
---			default_sensors_list.extend ("14565")
---			default_sensors_list.extend ("14624")
---			default_sensors_list.extend ("14758")
---			default_sensors_list.extend ("14759")
---			default_sensors_list.extend ("14760")
---			default_sensors_list.extend ("30523")
-
+			dt := create {DATE_TIME}.make_now_utc
+			io.put_string (dt.formatted_out (default_date_time_format) + " " + a_line)
+			if nl then
+				io.put_new_line
+			end
+			if to_syslog then
+				sys_log (log_notice, a_line)
+			end
 		end
 
 feature -- Operations
 
-	post1(a_msg: STRING) : STRING
+	post (a_msg: STRING) : STRING
 			-- Post `a_msg' to remws using `LIBCURL_HTTP_CLIENT'
 		local
 			l_context: detachable HTTP_CLIENT_REQUEST_CONTEXT
-			l_res: HTTP_CLIENT_RESPONSE
+			l_res: detachable HTTP_CLIENT_RESPONSE
 		do
-			l_res := session.post ("http://" + host.value + ":" + port.value.out, l_context, a_msg)
-
-			if attached l_res.body as r then
-				Result := r
+			json_parser.set_representation (a_msg)
+			json_parser.parse_content
+			if json_parser.is_valid then
+				display_line ("NMARZI Constructed a valid JSON message", true, false)
+				display_line ("Posting it ...", true, false)
+				l_res := session.post ("http://" + host.value + ":" + port.value.out, l_context, a_msg)
 			else
+				display_line ("NMARZI Constructed a BAD REQUEST", true, false)
+				display_line (json_parser.errors_as_string, true, false)
+				reset_json_parser
+			end
+
+			if attached l_res as res then
+				if attached res.body as r then
+					display_line ("NMARZI HTTP POST OK", true, false)
+					Result := r
+				else
+					display_line ("NMARZI HTTP POST KO: HTTP response body not attached", true, false)
+					Result := ""
+				end
+			else
+				display_line ("NMARZI HTTP POST KO: HTTP response not attached", true, false)
 				Result := ""
 			end
 		end
-
---	old_post(msg: STRING): STRING
---			--
---		local
---			l_result:   INTEGER
---		do
---			curl_buffer.wipe_out
-
---			curl.global_init
-
---			if curl_easy.is_dynamic_library_exists then
---				curl_handle := curl_easy.init
---				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_url,           "http://" + host.value + ":" + port.value.out)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_forbid_reuse,  1)
-
---				--headers := curl.slist_append (headers.default_pointer, "")
---				--headers := curl.slist_append (headers, "content-type: text/xml;charset=utf-8")
---				--headers := curl.slist_append (headers, "SOAPAction: http://tempuri.org/IAutenticazione/Login")
---				--headers := curl.slist_append (headers, "Accept-Encoding: gzip, deflate")
-
---				--curl_easy.setopt_slist   (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_httpheader,    headers)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, msg.count)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_verbose,       0)
---				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "NMarzi ARPA Lombardia curl client")
---				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfields,    msg)
-
---				--curl_easy.set_curl_function (curl_function)
---				curl_easy.set_write_function (curl_handle)
---				-- We pass our `curl_buffer''s object id to the callback function */
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_writedata,     curl_buffer.object_id)
-
---				l_result := curl_easy.perform (curl_handle)
-
---				if l_result /= {CURL_CODES}.curle_ok then
---					io.put_string ("{NMARZI} cURL perfom returned: " + l_result.out)
---				end
---				--io.put_new_line
-
---				curl_easy.cleanup (curl_handle)
---			else
---				io.put_string ("{NMARZI} cURL library not found")
---				io.put_new_line
---			end
-
---			curl.global_cleanup
-
---			Result := curl_buffer.string
---		end
 
 	ask_sensor(sensor: SENSOR_PARAMETERS; start: DATE_TIME; finish: DATE_TIME; last24: BOOLEAN): ARRAYED_LIST[STRING]
 			-- Ask `sensor' data
@@ -466,8 +256,7 @@ feature -- Operations
 			l_line:   detachable STRING
 		do
 			-- Now try a realtime data request for one nmarzi sensor
-			io.put_string ("{NMARZI} Asks for realtime data, sensor: " + sensor.id.out)
-			io.put_new_line
+			display_line ("{NMARZI} Asks for realtime data, sensor: " + sensor.id.out, true, false)
 
 			create Result.make (0)
 			create r.make_empty
@@ -485,28 +274,30 @@ feature -- Operations
 				l_start := l_finish + one_week
 			end
 
-			io.put_string ("{NMARZI} From: " + l_start.formatted_out (default_date_time_format) + " to: " + l_finish.formatted_out (default_date_time_format))
-			io.put_new_line
+			display_line ("{NMARZI} From: " + l_start.formatted_out (default_date_time_format) + " to: " + l_finish.formatted_out (default_date_time_format), true, false)
 
-			r.copy (realtime_data_request_nmarzi_template)
+			--r.copy (realtime_data_request_nmarzi_template)
+			r := realtime_data_request_nmarzi_template
 
 			r.replace_substring_all ("$sensor",      sensor.id.out)
 			r.replace_substring_all ("$function",    sensor.function.out)
 			r.replace_substring_all ("$operator",    sensor.operator.out)
 			r.replace_substring_all ("$granularity", sensor.granularity.out)
-			r.replace_substring_all ("$start",  l_start.formatted_out (default_date_time_format))
-			r.replace_substring_all ("$finish", l_finish.formatted_out (default_date_time_format))
+			r.replace_substring_all ("$start",       l_start.formatted_out (default_date_time_format))
+			r.replace_substring_all ("$finish",      l_finish.formatted_out (default_date_time_format))
 
-			response := post1 (r)
+			display_line (">>> " + r, true, false)
+
+			response := post (r)
+
+			display_line ("<<< " + response, true, false)
 
 			if attached response as res then
 				realtime_data_res.sensor_data_list.wipe_out
 				realtime_data_res.from_json (res, json_parser)
-				io.put_string ("{NMARZI} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data")
-				io.put_new_line
+				display_line ("{NMARZI} Found " + realtime_data_res.sensor_data_list.count.out + " sensors list data", true, false)
 				if realtime_data_res.sensor_data_list.count = 0 then
-					io.put_string ("{NMARZI} Sensor " + sensor.id.out + " NOT FOUND!!!")
-					io.put_new_line
+					display_line ("{NMARZI} Sensor " + sensor.id.out + " NOT FOUND!!!", true, false)
 				end
 				from j := 1
 				until j = realtime_data_res.sensor_data_list.count + 1
@@ -517,8 +308,9 @@ feature -- Operations
 					until k = realtime_data_res.sensor_data_list.i_th (j).data.count + 1
 					loop
 						l_line := realtime_data_res.sensor_data_list.i_th (j).data.i_th (k).out
-
-						Result.extend (l_line)
+						if l_line.count > 0 then
+							Result.extend (l_line)
+						end
 						k := k + 1
 					end
 					j := j + 1
@@ -588,54 +380,42 @@ feature -- Operations
 			loop
 				sensor := sensors_list.i_th (i)
 
-				io.put_string ("-- Iteration : " + fd.formatted (i) + " ----------------------------------------------------------")
-				io.put_new_line
-				io.put_string ("--------------------------------------------------------------------------------")
-				io.put_new_line
-				io.put_string ("{NMARZI} Ask one week data for sensor: " + sensor.id.out)
-				io.put_new_line
+				display_line ("-- Iteration : " + fd.formatted (i) + " ----------------------------------------------------------", true, false)
+				display_line ("--------------------------------------------------------------------------------", true, false)
+				display_line ("{NMARZI} Ask one week data for sensor: " + sensor.id.out, true, false)
 				l_start := l_finish + one_week
 				l_filepath := make_output_filepath (sensor, false)
 				l_data     := ask_sensor (sensor, l_start, l_finish, false)
 				if l_data.count <= 0 then
-					io.put_string ("{NMARZI} NO DATA found for sensor " + sensor.id.out + " from " +
-					                l_start.formatted_out (default_date_time_format) + " to " +
-					                l_finish.formatted_out (default_date_time_format))
-					io.put_new_line
+					display_line ("{NMARZI} NO DATA found for sensor " + sensor.id.out + " from " +
+					              l_start.formatted_out (default_date_time_format) + " to " +
+					              l_finish.formatted_out (default_date_time_format), true, false)
 					not_found_sensor_list.extend (sensor.id.out)
 				else
-					io.put_string ("{NMARZI} " + l_data.count.out + " data found for sensor " + sensor.id.out)
-					io.put_new_line
+					display_line ("{NMARZI} " + l_data.count.out + " data found for sensor " + sensor.id.out, true, false)
 				end
 				make_file (sensor, l_data, false)
-				io.put_string ("{NMARZI} Write one week file for sensor: " + sensor.id.out + "[" + l_data.count.out + "] to " + l_filepath)
-				io.put_new_line
+				display_line ("{NMARZI} Write one week file for sensor: " + sensor.id.out + "[" + l_data.count.out + "] to " + l_filepath, true, false)
 
 				sleep (100)
 
 				l_data.wipe_out
 
-				io.put_string ("{NMARZI} Ask one day data for sensor: " + sensor.id.out)
-				io.put_new_line
+				display_line ("{NMARZI} Ask one day data for sensor: " + sensor.id.out, true, false)
 				l_start := l_finish + one_day
 				l_filepath := make_output_filepath (sensor, true)
 				l_data     := ask_sensor (sensor, l_start, l_finish, true)
 				if l_data.count <= 0 then
-					io.put_string ("{NMARZI} NO DATA found for sensor " + sensor.id.out + " from " +
-					                l_start.formatted_out (default_date_time_format) + " to " +
-					                l_finish.formatted_out (default_date_time_format))
-					io.put_new_line
+					display_line ("{NMARZI} NO DATA found for sensor " + sensor.id.out + " from " +
+					              l_start.formatted_out (default_date_time_format) + " to " +
+					              l_finish.formatted_out (default_date_time_format), true, false)
 					not_found_sensor_list.extend (sensor.id.out + " 24R")
 				else
-					io.put_string ("{NMARZI} " + l_data.count.out + " data found for sensor " + sensor.id.out)
-					io.put_new_line
+					display_line ("{NMARZI} " + l_data.count.out + " data found for sensor " + sensor.id.out, true, false)
 				end
 				make_file (sensor, l_data, true)
-				io.put_string ("{NMARZI} Write one day file for sensor: " + sensor.id.out + "[" + l_data.count.out + "] to " + l_filepath)
-				io.put_new_line
-
-				io.put_string ("--------------------------------------------------------------------------------")
-				io.put_new_line
+				display_line ("{NMARZI} Write one day file for sensor: " + sensor.id.out + "[" + l_data.count.out + "] to " + l_filepath, true, false)
+				display_line ("--------------------------------------------------------------------------------", true, false)
 
 				sleep (100)
 
@@ -645,29 +425,47 @@ feature -- Operations
 			Result := true
 		end
 
+	reset_json_parser
+			-- Reset JSON parser
+		do
+			json_parser.reset_reader
+			json_parser.reset
+		end
+
+feature -- dispose
+
+	dispose
+			-- `dispose' redefinition
+		do
+			Precursor {SYSLOG_UNIX_OS}
+			Precursor {MEMORY}
+		end
+
 feature -- Messages
 
 	realtime_data_res: REALTIME_DATA_RESPONSE
 
-	realtime_data_request_nmarzi_template: STRING = "[
-		{
-          "header": {
-          "id": 10
-        },
-        "data": {
-          "sensors_list": [ {
-                              "sensor_id": $sensor,
-                              "function_id": $function,
-                              "operator_id": $operator,
-                              "granularity": $granularity,
-                              "start": "$start",
-                              "finish": "$finish"
-                            } ]
-                }
-		}
-	]"
-
-
+	realtime_data_request_nmarzi_template: STRING
+			-- nmarzi request
+		do
+			Result := "[
+		                 {
+                           "header": {
+                             "id": 10
+                           },
+                           "data": {
+                             "sensors_list": [ {
+                               "sensor_id": $sensor,
+                               "function_id": $function,
+                               "operator_id": $operator,
+                               "granularity": $granularity,
+                               "start": "$start",
+                               "finish": "$finish"
+                             } ]
+                           }
+		                 }
+	                   ]"
+		end
 
 feature -- Preferences
 
@@ -691,30 +489,18 @@ feature -- Implementation
 
 	response: STRING
 
---	curl_easy: CURL_EASY_EXTERNALS
---			-- cURL easy externals
---		once
---			create Result
---		end
-
---	curl: CURL_EXTERNALS
---			-- cURL externals
---		once
---			create Result
---		end
-
---	curl_handle: POINTER
---			-- cURL handle
-
---	curl_buffer: CURL_STRING
---			-- response contents
-
 	one_week:  DATE_TIME_DURATION
 	one_day:   DATE_TIME_DURATION
 	one_hour:  DATE_TIME_DURATION
 	two_hours: DATE_TIME_DURATION
 
 	session: LIBCURL_HTTP_CLIENT_SESSION
+
+	app_name: STRING
+			-- `Current' application name
+		do
+			Result := "nmarzi"
+		end
 
 feature -- Parsing
 
@@ -725,9 +511,6 @@ feature {NONE} -- sensors list
 
 	sensors_list: ARRAYED_LIST[SENSOR_PARAMETERS]
 			-- sensors list
-
-	default_sensors_list: ARRAYED_LIST[SENSOR_PARAMETERS]
-		-- default sensors list
 
 	not_found_sensor_list: ARRAYED_LIST[STRING]
 		-- sensors with no data

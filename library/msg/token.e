@@ -40,7 +40,7 @@ feature -- Status setting
 		require
 			attached_i: attached i
 		do
-			id := i
+			id := i.twin
 		end
 
 	set_expiry(dt: DATE_TIME)
@@ -48,7 +48,7 @@ feature -- Status setting
 		require
 			dt_attached: attached dt
 		do
-			expiry := dt
+			expiry := dt.twin
 		end
 
 feature -- Basic operations

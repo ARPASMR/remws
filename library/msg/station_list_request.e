@@ -66,16 +66,11 @@ feature {NONE} -- Initialization
 			-- Initialization for `Current'.
 		do
 			create token_id.make_empty
-
-			create xml_representation.make_empty
-			create json_representation.make_empty
-
 			create municipalities_list.make (0)
 			create provinces_list.make (0)
 			create types_list.make (0)
 			create status_list.make (0)
 			create stations_list.make (0)
-
 			create station_name.make_empty
 		end
 
@@ -85,18 +80,12 @@ feature {NONE} -- Initialization
 			json_not_void: json /= Void
 		do
 			create token_id.make_empty
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
-
 			create municipalities_list.make (0)
 			create provinces_list.make (0)
 			create types_list.make (0)
 			create status_list.make (0)
 			create stations_list.make (0)
-
 			create station_name.make_empty
-
 			from_json (json, parser)
 		end
 
@@ -104,16 +93,11 @@ feature {NONE} -- Initialization
 			-- Build a `MUNICIPALITY_LIST_REQUEST' with `token_id' = `a_token'
 		do
 			create token_id.make_from_string (a_token)
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
-
 			create municipalities_list.make (0)
 			create provinces_list.make (0)
 			create types_list.make (0)
 			create status_list.make (0)
 			create stations_list.make (0)
-
 			create station_name.make_empty
 		end
 
@@ -182,7 +166,7 @@ feature -- Status setting
 	set_token_id (a_token: STRING)
 			-- Set `token_id'
 		do
-			token_id.copy (a_token)
+			token_id := a_token.twin
 		end
 
 feature -- Conversion
@@ -190,107 +174,78 @@ feature -- Conversion
 	to_xml: STRING
 			-- XML representation
 		local
-			l_token_id: STRING
-			l_m_list:   STRING
-			l_p_list:   STRING
-			l_t_list:   STRING
-			l_s_list:   STRING
-			l_st_list:  STRING
-			i:          INTEGER
+			l_str_list:   detachable STRING
 		do
-			create l_token_id.make_from_string (token_id)
-			create l_p_list.make_empty
-			create l_m_list.make_empty
-			create l_t_list.make_empty
-			create l_s_list.make_empty
-			create l_st_list.make_empty
-			create Result.make_from_string (xml_request_template)
+			create l_str_list.make_empty
+			--create Result.make_from_string (xml_request_template)
+			Result := xml_request_template.twin
 
 			if token_id.is_empty then
-				Result.replace_substring_all ("<Token>",  "")
-				Result.replace_substring_all ("</Token>", "")
-				Result.replace_substring_all ("<Id>",     "")
-				Result.replace_substring_all ("</Id>",    "")
-				Result.replace_substring_all ("$tokenid", "")
+				Result.replace_substring_all (stag_start + it_xml_token + stag_end,  null)
+				Result.replace_substring_all (etag_start + it_xml_token + etag_end,  null)
+				Result.replace_substring_all (stag_start + it_xml_id + stag_end,     null)
+				Result.replace_substring_all (etag_start + it_xml_id + etag_end,     null)
+				Result.replace_substring_all (it_tokenid, null)
 			else
-				Result.replace_substring_all ("$tokenid", l_token_id)
+				Result.replace_substring_all (it_tokenid, token_id)
 			end
 
 			-- municipalities
-			from
-				i := 1
-			until
-				i = municipalities_list.count + 1
+			across
+				municipalities as m
 			loop
-				l_m_list.append ("<IdComune>")
-				l_m_list.append (municipalities_list.i_th (i).out)
-				l_m_list.append ("</IdComune>")
-				i := i + 1
+				l_str_list.append (stag_start + it_xml_municipality_id + stag_end)
+				l_str_list.append (m.item.out)
+				l_str_list.append (etag_start + it_xml_municipality_id + etag_end)
 			end
+			Result.replace_substring_all (it_municipalities_list, l_str_list)
+			l_str_list.wipe_out
 
 			-- provinces
-			from
-				i := 1
-			until
-				i = provinces_list.count + 1
+			across
+				provinces as p
 			loop
-				l_p_list.append ("<Provincia>")
-				l_p_list.append (provinces_list.i_th (i))
-				l_p_list.append ("</Provincia>")
-				i := i + 1
+				l_str_list.append (stag_start + it_xml_province + stag_end)
+				l_str_list.append (p.item)
+				l_str_list.append (etag_start + it_xml_province + etag_end)
 			end
+			Result.replace_substring_all (it_provinces_list, l_str_list)
+			l_str_list.wipe_out
 
 			-- types
-			from
-				i := 1
-			until
-				i = types_list.count + 1
+			across
+				types_list as t
 			loop
-				l_t_list.append ("<IdTipo>")
-				l_t_list.append (types_list.i_th (i).out)
-				l_t_list.append ("</IdTipo>")
-				i := i + 1
+				l_str_list.append (stag_start + it_xml_type_id + stag_end)
+				l_str_list.append (types_list.item.out)
+				l_str_list.append (etag_start + it_xml_type_id + etag_end)
 			end
+			Result.replace_substring_all (it_types_list, l_str_list)
+			l_str_list.wipe_out
 
 			-- status
-			from
-				i := 1
-			until
-				i = status_list.count + 1
+			across
+				status_list as s
 			loop
-				l_s_list.append ("<IdStato>")
-				l_s_list.append (status_list.i_th (i).out)
-				l_s_list.append ("</IdStato>")
-				i := i + 1
+				l_str_list.append (stag_start + it_xml_status_id + stag_end)
+				l_str_list.append (s.item.out)
+				l_str_list.append (etag_start + it_xml_status_id + etag_end)
 			end
+			Result.replace_substring_all (it_status_list, l_str_list)
+			l_str_list.wipe_out
 
 			-- stations
-			from
-				i := 1
-			until
-				i = stations_list.count + 1
+			across
+				stations_list as s
 			loop
-				l_st_list.append ("<IdStazione>")
-				l_st_list.append (stations_list.i_th (i).out)
-				l_st_list.append ("</IdStazione>")
-				i := i + 1
+				l_str_list.append (stag_start + it_xml_station_id + stag_end)
+				l_str_list.append (s.item.out)
+				l_str_list.append (etag_start + it_xml_station_id + etag_end)
 			end
+			Result.replace_substring_all (it_stations_list, l_str_list)
+			l_str_list.wipe_out
 
-			Result.replace_substring_all ("$municipalities_list", l_m_list)
-			Result.replace_substring_all ("$provinces_list", l_p_list)
-			Result.replace_substring_all ("$types_list", l_t_list)
-			Result.replace_substring_all ("$status_list", l_s_list)
-			Result.replace_substring_all ("$stations_list", l_st_list)
-			Result.replace_substring_all ("$station_name", station_name)
-
-			xml_representation := Result
-
-			l_token_id.wipe_out
-			l_m_list.wipe_out
-			l_p_list.wipe_out
-			l_t_list.wipe_out
-			l_s_list.wipe_out
-			l_st_list.wipe_out
+			Result.replace_substring_all (it_station_name, station_name)
 		end
 
 	from_json(json: STRING; parser: JSON_PARSER)
@@ -298,240 +253,176 @@ feature -- Conversion
 		require else
 			json_valid: attached json and then not json.is_empty
 			json_parser_valid: attached parser and then parser.is_valid
-		local
-			key:         JSON_STRING
-			key1:        JSON_STRING
-			key2:        JSON_STRING
-			key3:        JSON_STRING
-			key4:        JSON_STRING
-			key5:        JSON_STRING
-			--json_parser: JSON_PARSER
-			i:           INTEGER
-			l_m:         INTEGER
-			l_p:         STRING
-			l_t:         INTEGER
-			l_s:         INTEGER
-			l_st:        INTEGER
-			l_count:     INTEGER
 		do
-			json_representation.copy (json)
-		 	--create json_parser.make_with_string (json)
-		 	parser.reset_reader
-		 	parser.reset
 		 	parser.set_representation (json)
-
-			create key.make_from_string  ("header")
-			create key1.make_from_string ("municipality")
-			create key2.make_from_string ("province")
-			create key3.make_from_string ("type")
-			create key4.make_from_string ("status")
-			create key5.make_from_string ("station")
-
 			parser.parse_content
 			if parser.is_valid and then attached parser.parsed_json_value as jv then
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
-					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
+				if not (attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
+					and then attached {JSON_NUMBER} j_header.item (json_id_tag) as j_id)
 				then
-					print ("Message: " + j_id.integer_64_item.out + "%N")
-				else
-					print ("The header was not found!%N")
+					print (msg_json_header_not_found)
 				end
 
-				key := "data"
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
-					and then attached {JSON_ARRAY}  j_data.item ("municipalities_list") as j_municipalities
-					and then attached {JSON_ARRAY}  j_data.item ("provinces_list")      as j_provinces
-					and then attached {JSON_ARRAY}  j_data.item ("types_list")          as j_types
-					and then attached {JSON_ARRAY}  j_data.item ("status_list")         as j_status
-					and then attached {JSON_ARRAY}  j_data.item ("stations_list")       as j_stations
-					and then attached {JSON_STRING} j_data.item ("station_name")        as j_name
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
+					and then attached {JSON_ARRAY}  j_data.item (json_municipalities_list_tag) as j_municipalities
+					and then attached {JSON_ARRAY}  j_data.item (json_provinces_list_tag)      as j_provinces
+					and then attached {JSON_ARRAY}  j_data.item (json_types_list_tag)          as j_types
+					and then attached {JSON_ARRAY}  j_data.item (json_status_list_tag)         as j_status
+					and then attached {JSON_ARRAY}  j_data.item (json_stations_list_tag)       as j_stations
+					and then attached {JSON_STRING} j_data.item (json_station_name_tag)        as j_name
 				then
 
 					-- municipalities
 					municipalities_list.wipe_out
-					l_count := j_municipalities.count
-					from i := 1
-					until i = l_count + 1
+					from j_municipalities.array_representation.start
+					until j_municipalities.array_representation.after
 					loop
-						if attached {JSON_OBJECT} j_municipalities.i_th (i) as j_m
-							and then attached {JSON_NUMBER} j_m.item (key1) as j_mid
+						if attached {JSON_OBJECT} j_municipalities.array_representation.item as j_m
+							and then attached {JSON_NUMBER} j_m.item (json_municipality_tag) as j_mid
 						then
-							--create l_m.make_from_string (j_mid.item)
-							l_m := j_mid.item.to_integer
-							municipalities_list.extend (l_m)
+							municipalities_list.extend (j_mid.item.to_integer)
 						end
-						i := i + 1
+						j_municipalities.array_representation.forth
 					end
 
 					-- provinces
 					provinces_list.wipe_out
-					l_count := j_provinces.count
-					from i := 1
-					until i = l_count + 1
+					from j_provinces.array_representation.start
+					until j_provinces.array_representation.after
 					loop
-						if attached {JSON_OBJECT} j_provinces.i_th (i) as j_prov
-							and then attached {JSON_STRING} j_prov.item (key2) as j_p
+						if attached {JSON_OBJECT} j_provinces.array_representation.item as j_prov
+							and then attached {JSON_STRING} j_prov.item (json_province_tag) as j_p
 						then
-							create l_p.make_from_string (j_p.item)
-							provinces_list.extend (l_p)
+							provinces_list.extend (j_p.item)
 						end
-						i := i + 1
+						j_provinces.array_representation.forth
 					end
 
 					-- types
 					types_list.wipe_out
-					l_count := j_types.count
-					from i := 1
-					until i = l_count + 1
+					from j_types.array_representation.start
+					until j_types.array_representation.after
 					loop
-						if attached {JSON_OBJECT} j_types.i_th (i) as j_type
-							and then attached {JSON_NUMBER} j_type.item (key3) as j_t
+						if attached {JSON_OBJECT} j_types.array_representation.item as j_type
+							and then attached {JSON_NUMBER} j_type.item (json_type_tag) as j_t
 						then
-							--create l_t.make_from_string (j_t.item)
-							l_t := j_t.item.to_integer
-							types_list.extend (l_t)
+							types_list.extend (j_t.item.to_integer)
 						end
-						i := i + 1
+						j_types.array_representation.forth
 					end
 
 					-- status
 					status_list.wipe_out
-					l_count := j_status.count
-					from i := 1
-					until i = l_count + 1
+					from j_status.array_representation.start
+					until j_status.array_representation.after
 					loop
-						if attached {JSON_OBJECT} j_status.i_th (i) as j_st
-							and then attached {JSON_NUMBER} j_st.item (key4) as j_s
+						if attached {JSON_OBJECT} j_status.array_representation.item as j_st
+							and then attached {JSON_NUMBER} j_st.item (json_status_tag) as j_s
 						then
-							--create l_s.make_from_string (j_s.item)
-							l_s := j_s.item.to_integer
-							status_list.extend (l_s.to_integer)
+							status_list.extend (j_s.item.to_integer)
 						end
-						i := i + 1
+						j_status.array_representation.forth
 					end
 
 					-- stations
 					stations_list.wipe_out
-					l_count := j_stations.count
-					from i := 1
-					until i = l_count + 1
+					from j_stations.array_representation.start
+					until j_stations.array_representation.after
 					loop
-						if attached {JSON_OBJECT} j_stations.i_th (i) as j_station
-							and then attached {JSON_NUMBER} j_station.item (key5) as j_st
+						if attached {JSON_OBJECT} j_stations.array_representation.item as j_station
+							and then attached {JSON_NUMBER} j_station.item (json_station_tag) as j_st
 						then
-							--create l_st.make_from_string (j_st.item)
-							l_st := j_st.item.to_integer
-							status_list.extend (l_st.to_integer)
+							status_list.extend (j_st.item.to_integer)
 						end
-						i := i + 1
+						j_stations.array_representation.forth
 					end
 				end
 			end
-			parser.reset_reader
-			parser.reset
-			key.item.wipe_out
-			key1.item.wipe_out
-			key2.item.wipe_out
-			key3.item.wipe_out
-			key4.item.wipe_out
-			key5.item.wipe_out
 		end
 
 	to_json: STRING
 			-- json representation
-		local
-			i: INTEGER
 		do
 			create Result.make_empty
-			-- TODO
-			json_representation.wipe_out
 
-			json_representation.append ("{")
-			json_representation.append ("%"header%": {")
-			json_representation.append ("%"id%": " + station_list_request_id.out)
-			json_representation.append (",%"data%": {")
+			Result.append (left_brace)
+			Result.append (double_quotes + json_header_tag + double_quotes + colon + space + left_brace)
+			Result.append (double_quotes + json_id_tag + double_quotes + colon + space + station_list_request_id.out + right_brace)
+			Result.append (comma + double_quotes + json_data_tag + double_quotes + colon + space + left_brace)
 
 			-- municipalities
-			json_representation.append ("%"municipalities_list%": [")
+			Result.append (double_quotes + json_municipalities_list_tag + double_quotes + colon + space + left_bracket)
 
-			from i := 1
-			until i = municipalities_list.count + 1
+			from municipalities_list.start
+			until municipalities_list.after
 			loop
-				if i > 1 then
-					json_representation.append (",")
+				Result.append (left_brace + double_quotes + json_municipality_tag + double_quotes + colon + space + double_quotes + municipalities_list.item.out + double_quotes + right_brace)
+				if not municipalities_list.islast then
+					Result.append (comma)
 				end
-
-				json_representation.append ("{%"municipality%": %"" + municipalities_list.i_th (i).out + "%"")
-				i := i + 1
+				municipalities_list.forth
 			end
-			json_representation.append ("],")
+			Result.append (right_bracket + comma)
 
 			-- provinces
-			json_representation.append ("%"provinces_list%": [")
+			Result.append (double_quotes + json_provinces_list_tag + double_quotes + colon + space + left_bracket)
 
-			from i := 1
-			until i = provinces_list.count + 1
+			from provinces_list.start
+			until provinces_list.after
 			loop
-				if i > 1 then
-					json_representation.append (",")
+				Result.append (left_brace + double_quotes + json_province_tag + double_quotes + colon + space + double_quotes + provinces_list.item + double_quotes + right_brace)
+				if not provinces_list.islast then
+					Result.append (comma)
 				end
-
-				json_representation.append ("{%"province%": %"" + provinces_list.i_th (i) + "%"")
-
-				i := i + 1
+				provinces_list.forth
 			end
-			json_representation.append ("],")
+			Result.append (right_bracket + comma)
 
 			-- types
-			json_representation.append ("%"types_list%": [")
+			Result.append (double_quotes + json_types_list_tag + double_quotes + colon + space + left_bracket)
 
-			from i := 1
-			until i = types_list.count + 1
+			from types_list.start
+			until types_list.after
 			loop
-				if i > 1 then
-					json_representation.append (",")
+				Result.append (left_brace + double_quotes + json_type_tag + double_quotes + colon + space + double_quotes + types_list.item.out + double_quotes + right_brace)
+				if not types_list.islast then
+					Result.append (comma)
 				end
-
-				json_representation.append ("{%"type%": %"" + types_list.i_th (i).out + "%"")
-				i := i + 1
+				types_list.forth
 			end
-			json_representation.append ("],")
+			Result.append (right_bracket + comma)
 
 			-- status
-			json_representation.append ("%"status_list%": [")
+			Result.append (double_quotes + json_status_list_tag + double_quotes + colon + space + left_bracket)
 
-			from i := 1
-			until i = status_list.count + 1
+			from status_list.start
+			until status_list.after
 			loop
-				if i > 1 then
-					json_representation.append (",")
+				Result.append (left_brace + double_quotes + json_status_tag + double_quotes + colon + space + double_quotes + status_list.item.out + double_quotes + right_brace)
+				if not status_list.islast then
+					Result.append (comma)
 				end
-
-				json_representation.append ("{%"status%": %"" + status_list.i_th (i).out + "%"")
-				i := i + 1
+				status_list.forth
 			end
-			json_representation.append ("],")
+			Result.append (right_bracket + comma)
 
 			-- stations
-			json_representation.append ("%"stations_list%": [")
+			Result.append (double_quotes + json_stations_list_tag + double_quotes + colon + space + left_bracket)
 
-			from i := 1
-			until i = stations_list.count + 1
+			from stations_list.start
+			until stations_list.after
 			loop
-				if i > 1 then
-					json_representation.append (",")
+				Result.append (left_brace + double_quotes + json_station_tag + double_quotes + colon + space + double_quotes + stations_list.item.out + double_quotes + right_brace)
+				if not stations_list.islast then
+					Result.append (comma)
 				end
-
-				json_representation.append ("{%"station%": %"" + stations_list.i_th (i).out + "%"")
-				i := i + 1
+				stations_list.forth
 			end
-			json_representation.append ("],")
+			Result.append (right_bracket + comma)
 
-			json_representation.append ("%"station_name%": " + station_name)
+			Result.append (double_quotes + json_station_name_tag + double_quotes + colon + space + double_quotes + station_name + double_quotes + right_brace)
 
-			json_representation.append ("}")
-
-			Result.copy (json_representation)
+			Result.append (right_brace)
 		end
 
 	from_xml (xml: STRING; parser: XML_STANDARD_PARSER)
@@ -553,19 +444,17 @@ feature -- {DISPOSABLE}
 	dispose
 			--
 		do
-			json_representation.wipe_out
-			xml_representation.wipe_out
-			municipalities_list.wipe_out
-			provinces_list.wipe_out
-			types_list.wipe_out
-			status_list.wipe_out
-			stations_list.wipe_out
+		end
+
+feature -- Status reporting
+
+	xml_pretty_out:  STRING
+			-- XML pretty out
+		do
+			Result := null
 		end
 
 feature {NONE} -- Utilities implementation
-
-	json_representation: STRING
-	xml_representation:  STRING
 
 	ws_url: STRING
 			-- Web service URL
@@ -582,47 +471,86 @@ feature {NONE} -- Utilities implementation
 	soap_action_header:  STRING
 			-- SOAP action header
 		do
-			--Result := "SOAPAction: " + remws_uri + "/" + anaws_interface + "/" + name
-			Result := remws_uri + "/" + anaws_interface + "/" + name
+			Result := remws_uri + url_path_separator + anaws_interface + url_path_separator + name
 		end
 
 	name: STRING
 			-- Request `name' to be passed to remws
 		do
-			Result := "ElencoStazioni"
+			Result := stations_list_endpoint_name
 		end
 
-	xml_request_template: STRING = "[
-		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-          <s:Body>
-            <ElencoStazioni xmlns="http://tempuri.org/">
-              <xInput>
-                <ElencoStazioni xmlns="">
-                  <Token>
-                    <Id>$tokenid</Id>
-                  </Token>
-                  <Comuni>
-                    $municipalities_list
-                  </Comuni>
-                  <Province>
-                    $provinces_list
-                  </Province>
-                  <TipiStazione>
-                    $types_list
-                  </TipiStazione>
-                  <StatiStazione>
-                    $status_list
-                  </StatiStazione>
-                  <Stazioni>
-                    $stations_list
-                  </Stazioni>
-                  <NomeStazione>$station_name</NomeStazione>
-                </ElencoStazioni>
-              </xInput>
-            </ElencoStazioni>
-          </s:Body>
-        </s:Envelope>
-	]"
+	xml_request_template: STRING
+			-- Request template
+		do
+--			Result :=  "[
+--				<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+--          		<s:Body>
+--            			<ElencoStazioni xmlns="http://tempuri.org/">
+--              			<xInput>
+--                				<ElencoStazioni xmlns="">
+--                  				<Token>
+--                    					<Id>$tokenid</Id>
+--                  				</Token>
+--                  				<Comuni>
+--                    					$municipalities_list
+--                  				</Comuni>
+--                  				<Province>
+--                    					$provinces_list
+--                  				</Province>
+--                 					<TipiStazione>
+--                    					$types_list
+--                 					</TipiStazione>
+--                 					<StatiStazione>
+--                    					$status_list
+--                 					</StatiStazione>
+--                 					<Stazioni>
+--                    					$stations_list
+--                 					</Stazioni>
+--                 					<NomeStazione>$station_name</NomeStazione>
+--                				</ElencoStazioni>
+--              			</xInput>
+--            			</ElencoStazioni>
+--          		</s:Body>
+--        		</s:Envelope>
+--			]"
+
+			Result := null
+			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + eq_s + double_quotes + xmlsoap + double_quotes + double_quotes + lf_s)
+			  Result.append (double_space + stag_start + xmlns_s + colon + body + stag_end + lf_s)
+			    Result.append (double_space + double_space + stag_start + stations_list_endpoint_name + space + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + stag_start + xinput + stag_end + lf_s)
+			        Result.append (double_space + double_space + double_space + double_space + stag_start + stations_list_endpoint_name + space + xmlns + eq_s + double_quotes + double_quotes + stag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_token + stag_end + lf_s)
+			            Result.append (double_space + double_space + double_space + double_space + double_space + double_space +
+			                           stag_start + it_xml_id + stag_end + it_tokenid + etag_start + it_xml_id + etag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_token + etag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_municipalities + stag_end + lf_s)
+			            Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_municipalities_list + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_municipalities + etag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_provinces + stag_end + lf_s)
+			            Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_provinces_list)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_provinces + etag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_station_types + stag_end + lf_s)
+			            Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_types_list + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_station_types + etag_end + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_station_statuss + stag_end + lf_s)
+					    Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_status_list + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_station_statuss + etag_end + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_stations + stag_end + lf_s)
+					    Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_status_list + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_stations + etag_end + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_stations + stag_end + lf_s)
+					    Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_stations_list + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_stations + etag_end + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_station_name + stag_end +
+					                 it_station_name + etag_start + it_xml_station_name + etag_end + lf_s)
+			        Result.append (double_space + double_space + double_space + double_space + etag_start + stations_list_endpoint_name + etag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + etag_start + xinput + etag_end + lf_s)
+			    Result.append (double_space + double_space + etag_start + stations_list_endpoint_name + etag_end + lf_s)
+			  Result.append (double_space + etag_start + xmlns_s + colon + body + etag_end + lf_s)
+			Result.append (etag_start + xmlns_s + colon + soap_envelope + etag_end + lf_s)
+		end
 
 feature {NONE} -- Implementation
 

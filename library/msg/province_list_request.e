@@ -38,9 +38,6 @@ feature {NONE} -- Initialization
 			-- Initialization for `Current'.
 		do
 			create token_id.make_empty
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
 		end
 
 	make_from_json_string (json: STRING; parser: JSON_PARSER)
@@ -49,10 +46,6 @@ feature {NONE} -- Initialization
 			json_not_void: json /= Void
 		do
 			create token_id.make_empty
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
-
 			from_json (json, parser)
 		end
 
@@ -60,9 +53,6 @@ feature {NONE} -- Initialization
 			-- Build a `PROVINCE_LIST_REQUEST' with `token_id' = `a_token'
 		do
 			create token_id.make_from_string (a_token)
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
 		end
 
 feature -- Access
@@ -106,19 +96,17 @@ feature -- Conversion
 			l_token_id: STRING
 		do
 			create l_token_id.make_from_string (token_id)
-			create Result.make_from_string (xml_request_template)
+			--create Result.make_from_string (xml_request_template)
+			Result := xml_request_template.twin
 			if token_id.is_empty then
-				Result.replace_substring_all ("<Token>",   "")
-				Result.replace_substring_all ("</Token>",  "")
-				Result.replace_substring_all ("<Id>",      "")
-				Result.replace_substring_all ("</Id>",     "")
-				Result.replace_substring_all ("$tokenid", "")
+				Result.replace_substring_all (stag_start + it_xml_token + stag_end,   null)
+				Result.replace_substring_all (etag_start + it_xml_token + etag_end,   null)
+				Result.replace_substring_all (stag_start + it_xml_id + stag_end,      null)
+				Result.replace_substring_all (etag_start + it_xml_id + etag_end,      null)
+				Result.replace_substring_all (it_tokenid,                             null)
 			else
-				--l_token_id.replace_substring_all ("-", "")
-				Result.replace_substring_all ("$tokenid", l_token_id)
+				Result.replace_substring_all (it_tokenid,                             null)
 			end
-			xml_representation := Result
-			l_token_id.wipe_out
 		end
 
 	from_json(json: STRING; parser: JSON_PARSER)
@@ -126,51 +114,32 @@ feature -- Conversion
 		require else
 			json_valid: attached json and then not json.is_empty
 			json_parser_valid: attached parser and then parser.is_valid
-		local
-			key:         JSON_STRING
-			--json_parser: JSON_PARSER
 		do
-			json_representation.copy (json)
-		 	--create json_parser.make_with_string (json)
-		 	parser.reset_reader
-		 	parser.reset
 		 	parser.set_representation (json)
-
-			create key.make_from_string ("header")
 			parser.parse_content
 			if parser.is_valid and then attached parser.parsed_json_value as jv then
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
-					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
+				if not (attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
+					and then attached {JSON_NUMBER} j_header.item (json_id_tag) as j_id)
 				then
-					print ("Message: " + j_id.integer_64_item.out + "%N")
-				else
-					print ("The header was not found!%N")
+					print (msg_json_header_not_found)
 				end
 
-				key := "data"
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
 				then
 					-- do nothing
 				end
 			end
-			parser.reset_reader
-			parser.reset
-			key.item.wipe_out
 		end
 
 	to_json: STRING
 			-- json representation
 		do
 			create Result.make_empty
-			-- TODO
-			json_representation.wipe_out
 
-			json_representation.append ("{")
-			json_representation.append ("%"header%": {")
-			json_representation.append ("%"id%": " + station_status_list_request_id.out)
-			json_representation.append (",%"parameters_number%": " + station_status_list_request_parnum_token.out + "}")
-			json_representation.append (",%"data%": {}}")
-			--json_representation.append ("%"tokenid%": %"" + token_id + "%"}}")
+			Result.append (left_brace)
+			Result.append (double_quotes + json_header_tag + double_quotes + colon + space + left_brace)
+			Result.append (double_quotes + json_id_tag + double_quotes + colon + space + province_list_request_id.out + right_brace)
+			Result.append (comma + double_quotes + json_data_tag + double_quotes + colon + space + left_brace + right_brace + right_brace)
 		end
 
 	from_xml (xml: STRING; parser: XML_STANDARD_PARSER)
@@ -192,8 +161,14 @@ feature -- {DISPOSABLE}
 	dispose
 			--
 		do
-			json_representation.wipe_out
-			xml_representation.wipe_out
+		end
+
+feature -- Status reporting
+
+	xml_pretty_out:  STRING
+			-- XML pretty out
+		do
+			Result := null
 		end
 
 feature {NONE} -- Object implementation
@@ -202,9 +177,6 @@ feature {NONE} -- Object implementation
 			--
 
 feature {NONE} -- Utilities implementation
-
-	json_representation: STRING
-	xml_representation:  STRING
 
 	ws_url: STRING
 			-- Web service URL
@@ -221,14 +193,13 @@ feature {NONE} -- Utilities implementation
 	soap_action_header:  STRING
 			-- SOAP action header
 		do
-			--Result := "SOAPAction: " + remws_uri + "/" + anaws_interface + "/" + name
-			Result := remws_uri + "/" + anaws_interface + "/" + name
+			Result := remws_uri + url_path_separator + anaws_interface + url_path_separator + name
 		end
 
 	name: STRING
 			-- Request `name' to be passed to remws
 		do
-			Result := "ElencoProvince"
+			Result := provinces_list_endpoint_name
 		end
 
 	xml_request_template: STRING = "[

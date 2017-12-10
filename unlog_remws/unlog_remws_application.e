@@ -35,9 +35,16 @@ feature {NONE} -- Initialization
 
 	make
 			-- Run application.
+		local
+			idx: INTEGER
 		do
 			-- syslog
 			open_log (program_name, log_pid, log_user)
+
+			idx := index_of_word_option ("t")
+			if idx > 0 then
+				use_remwstest := true
+			end
 
 			last_token := read_last_token
 
@@ -90,14 +97,18 @@ feature -- Operations
 				session.add_header ("content-type", "text/xml;charset=utf-8")
 				session.add_header ("SOAPAction", l_request.soap_action_header)
 				session.add_header ("Accept-Encoding", "gzip, deflate")
---				if use_testing_ws then
---					l_res := session.post (l_request.ws_test_url, l_context, l_request.to_xml)
---				else
+				if use_remwstest then
+					l_res := session.post (l_request.ws_test_url, l_context, l_request.to_xml)
+					io.put_string (l_request.to_xml)
+					io.put_new_line
+				else
 					l_res := session.post (l_request.ws_url, l_context, l_request.to_xml)
---				end
+				end
 
 				if attached l_res.body as r then
 					Result := r
+					io.put_string (Result)
+					io.put_new_line
 				end
 			else
 				sys_log (log_emerg, "UNLOGREMWS.post: trying to post a Void request")
@@ -191,6 +202,9 @@ feature {NONE} -- Signals
 		end
 
 feature {NONE} -- Implementation
+
+	use_remwstest: BOOLEAN
+			-- Use remwstest WS
 
 	last_token_file_path: detachable STRING
 			-- last token file name full path

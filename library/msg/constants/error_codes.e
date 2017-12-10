@@ -31,12 +31,6 @@ feature
 	msg_invalid_json:              STRING  = "Json parser failed, not a json message"
 			-- json parser failed, not a json message error message
 
-	err_no_curl_easy_library:      INTEGER = 3
-			-- curl easy dynamic library not present error code
-
-	msg_no_curl_easy_library:      STRING  = "Curl easy dynamic library not present"
-			-- curl easy dynamic library not present error message
-
 	err_xml_parsing_failed:        INTEGER = 4
 			-- xml parser failed error code
 

@@ -45,9 +45,6 @@ feature {NONE} -- Initialization
 		do
 			create token_id.make_empty
 			create stations_list.make (0)
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
 		end
 
 	make_from_json_string (json: STRING; parser: JSON_PARSER)
@@ -57,10 +54,6 @@ feature {NONE} -- Initialization
 		do
 			create token_id.make_empty
 			create stations_list.make (0)
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
-
 			from_json (json, parser)
 		end
 
@@ -69,10 +62,6 @@ feature {NONE} -- Initialization
 		do
 			create token_id.make_from_string (a_token)
 			create stations_list.make (0)
-			parnum := sensor_type_list_request_parnum_token
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
 		end
 
 feature -- Access
@@ -89,8 +78,6 @@ feature -- Access
 			Result := token_id
 		end
 
-
-
 feature -- Status setting
 
 	set_logger (a_logger: LOG_LOGGING_FACILITY)
@@ -106,7 +93,7 @@ feature -- Status setting
 	set_token_id (a_token: STRING)
 			-- Set `token_id'
 		do
-			token_id.copy (a_token)
+			token_id := a_token.twin
 		end
 
 
@@ -115,37 +102,30 @@ feature -- Conversion
 	to_xml: STRING
 			-- XML representation
 		local
-			i:               INTEGER
-			l_token_id:      STRING
 			l_stations_list: STRING
 		do
-			create l_token_id.make_from_string (token_id)
-			create Result.make_from_string (xml_request_template)
+			--create Result.make_from_string (xml_request_template)
+			Result := xml_request_template.twin
 			if token_id.is_empty then
-				Result.replace_substring_all ("<Token>",   "")
-				Result.replace_substring_all ("</Token>",  "")
-				Result.replace_substring_all ("<Id>",      "")
-				Result.replace_substring_all ("</Id>",     "")
-				Result.replace_substring_all ("$tokenid", "")
+				Result.replace_substring_all (stag_start + it_xml_token + stag_end,   null)
+				Result.replace_substring_all (etag_start + it_xml_token + etag_end,   null)
+				Result.replace_substring_all (stag_start + it_xml_id + stag_end,      null)
+				Result.replace_substring_all (etag_start + it_xml_id + etag_end,      null)
+				Result.replace_substring_all (it_tokenid, null)
 			else
-				--l_token_id.replace_substring_all ("-", "")
-				Result.replace_substring_all ("$tokenid", l_token_id)
+				Result.replace_substring_all (it_tokenid, token_id)
 			end
 
 			create l_stations_list.make_empty
 
-			from i := 1
-			until i = stations_list.count + 1
+			from stations_list.start
+			until stations_list.after
 			loop
-				l_stations_list.append ("<IdStazione>" + stations_list.i_th (i).out + "</IdStazione>%N")
+				l_stations_list.append (stag_start + it_xml_station_id + stag_end + stations_list.item.out + etag_start + it_xml_station_id + etag_end + lf_s)
+				stations_list.forth
 			end
 
-			Result.replace_substring_all ("$stations", l_stations_list)
-
-			xml_representation := Result
-
-			l_token_id.wipe_out
-			l_stations_list.wipe_out
+			Result.replace_substring_all (it_stations, l_stations_list)
 		end
 
 	from_json(json: STRING; parser: JSON_PARSER)
@@ -153,79 +133,53 @@ feature -- Conversion
 		require else
 			json_valid: attached json and then not json.is_empty
 			json_parser_valid: attached parser and then parser.is_valid
-		local
-			i:           INTEGER
-			key:         JSON_STRING
-			--json_parser: JSON_PARSER
 		do
 			stations_list.wipe_out
-
-			json_representation.copy (json)
-		 	--create json_parser.make_with_string (json)
-		 	parser.reset_reader
-		 	parser.reset
 		 	parser.set_representation (json)
-
-			create key.make_from_string ("header")
 			parser.parse_content
 			if parser.is_valid and then attached parser.parsed_json_value as jv then
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
-					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
+				if not (attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
+					and then attached {JSON_NUMBER} j_header.item (json_id_tag) as j_id)
 				then
-					print ("Message: " + j_id.integer_64_item.out + "%N")
-				else
-					print ("The header was not found!%N")
+					print (msg_json_header_not_found)
 				end
 
-				key := "data"
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
-					--and then attached {JSON_STRING} j_data.item ("tokenid") as j_tokenid
-					and then attached {JSON_ARRAY} j_data.item ("stations_list") as j_stations
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
+					and then attached {JSON_ARRAY} j_data.item (json_stations_list_tag) as j_stations
 				then
-					--token_id := j_tokenid.item
-
-					from i:= 1
-					until i = j_stations.count + 1
+					from j_stations.array_representation.start
+					until j_stations.array_representation.after
 					loop
-						if attached {JSON_OBJECT} j_stations.i_th (i) as j_station_id
-							and then attached {JSON_NUMBER} j_station_id.item ("id") as j_id
+						if attached {JSON_OBJECT} j_stations.array_representation.item as j_station_id
+							and then attached {JSON_NUMBER} j_station_id.item (json_id_tag) as j_id
 						then
 							stations_list.extend (j_id.item.to_integer)
-							i := i + 1
+							j_stations.array_representation.forth
 						end
 					end
 				end
 			end
-			parser.reset_reader
-			parser.reset
-			key.item.wipe_out
 		end
 
 	to_json: STRING
 			-- json representation
-		local
-			i: INTEGER
 		do
 			create Result.make_empty
-			-- TODO
-			json_representation.wipe_out
-
-			json_representation.append ("{")
-			json_representation.append ("%"header%": {")
-			json_representation.append ("%"id%": " + station_status_list_request_id.out)
-			json_representation.append (",%"parameters_number%": " + station_status_list_request_parnum_token.out + "}")
-			json_representation.append (",%"data%": {")
-			--json_representation.append ("%"tokenid%": %"" + token_id + "%",")
-			json_representation.append ("%"stations_list%": [")
-			from i := 1
-			until i = stations_list.count + 1
+			Result.append (left_brace)
+			Result.append (double_quotes + json_header_tag + double_quotes + colon + space + left_brace)
+			Result.append (double_quotes + json_id_tag + double_quotes + colon + space + sensor_type_list_request_id.out + right_brace)
+			Result.append (comma + double_quotes + json_data_tag + double_quotes + colon + space + left_brace)
+			Result.append (double_quotes + json_stations_list_tag + double_quotes + colon + space + left_bracket)
+			from stations_list.start
+			until stations_list.after
 			loop
-				if i > 1 then
-					json_representation.append (",")
+				Result.append (left_brace + double_quotes + json_id_tag + double_quotes + colon + space + stations_list.item.out + right_brace)
+				if not stations_list.islast then
+					Result.append (comma)
 				end
-				json_representation.append ("{%"id%": " + stations_list.i_th (i).out + "}")
+				stations_list.forth
 			end
-			json_representation.append ("]}}")
+			Result.append (right_bracket + right_brace + right_brace)
 		end
 
 	from_xml (xml: STRING; parser: XML_STANDARD_PARSER)
@@ -246,24 +200,24 @@ feature -- {DISPOSABLE}
 	dispose
 			--
 		do
-			json_representation.wipe_out
-			xml_representation.wipe_out
-			stations_list.wipe_out
+		end
+
+feature -- Status reporting
+
+	xml_pretty_out:  STRING
+			-- XML pretty out
+		do
+			Result := null
 		end
 
 feature {NONE} -- Object implementation
 
 	token_id: STRING
 			--
-	parnum:   INTEGER
-			--
 	stations_list: ARRAYED_LIST[INTEGER]
 			--
 
 feature {NONE} -- Utilities implementation
-
-	json_representation: STRING
-	xml_representation:  STRING
 
 	ws_url: STRING
 			-- Web service URL
@@ -280,34 +234,55 @@ feature {NONE} -- Utilities implementation
 	soap_action_header:  STRING
 			-- SOAP action header
 		do
-			--Result := "SOAPAction: " + remws_uri + "/" + anaws_interface + "/" + name
-			Result := remws_uri + "/" + anaws_interface + "/" + name
+			Result := remws_uri + url_path_separator + anaws_interface + url_path_separator + name
 		end
 
 	name: STRING
 			-- Request `name' to be passed to remws
 		do
-			Result := "ElencoTipologieSensore"
+			Result := sensor_types_list_endpoint_name
 		end
 
-	xml_request_template: STRING = "[
-		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-          <s:Body>
-            <ElencoTipologieSensore xmlns="http://tempuri.org/">
-              <xInput>
-                <ElencoTipologieSensore xmlns="">
-                  <Token>
-                    <Id>$tokenid</Id>
-                  </Token>
-                  <Stazioni>
-                    $stations
-                  </Stazioni>
-                </ElencoTipologieSensore>
-              </xInput>
-            </ElencoTipologieSensore>
-          </s:Body>
-        </s:Envelope>
-	]"
+	xml_request_template: STRING
+			-- Request XML tempalte
+		do
+--			Result :=  "[
+--		                  <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+--                            <s:Body>
+--                              <ElencoTipologieSensore xmlns="http://tempuri.org/">
+--                                <xInput>
+--                                  <ElencoTipologieSensore xmlns="">
+--                                    <Token>
+--                                      <Id>$tokenid</Id>
+--                                    </Token>
+--                                    <Stazioni>
+--                                      $stations
+--                                    </Stazioni>
+--                                  </ElencoTipologieSensore>
+--                                </xInput>
+--                              </ElencoTipologieSensore>
+--                            </s:Body>
+--                          </s:Envelope>
+--	                    ]"
+			Result := null
+			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + eq_s + double_quotes + xmlsoap + double_quotes + stag_end + lf_s)
+			  Result.append (double_space + stag_start + xmlns_s + colon + body + stag_end + lf_s)
+			    Result.append (double_space + double_space + stag_start + it_xml_sensor_types_list + space + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + stag_start + xinput + stag_end + lf_s)
+			        Result.append (double_space + double_space + double_space + double_space + stag_start + it_xml_sensor_types_list + space + xmlns + eq_s + double_quotes + double_quotes + stag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_token + stag_end + lf_s)
+			            Result.append (double_space + double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_id + stag_end + it_tokenid +
+			                           etag_start + it_xml_id + etag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_token + etag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + stag_start + it_xml_stations + stag_end + lf_s)
+			            Result.append (double_space + double_space + double_space + double_space + double_space + it_stations + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + etag_start + it_xml_stations + etag_end + lf_s)
+			        Result.append (double_space + double_space + double_space + double_space + etag_start + it_xml_sensor_types_list + etag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + etag_start + xinput + etag_end + lf_s)
+			    Result.append (double_space + double_space + etag_start + it_xml_sensor_types_list + etag_end + lf_s)
+			  Result.append (double_space + etag_start + xmlns_s + colon + body + etag_end + lf_s)
+			Result.append (etag_start + xmlns_s + colon + soap_envelope + etag_end + lf_s)
+		end
 
 invariant
 	invariant_clause: True -- Your invariant here

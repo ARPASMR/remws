@@ -1,7 +1,17 @@
 note
-	description : "rt10 application root class"
-	date        : "$Date$"
-	revision    : "$Revision$"
+	description : "[
+		rt10 application root class
+	    Acts as a client asking sensors' realtime data to collect.
+    ]"
+	copyright: "Copyright (c) 2015-2017, ARPA Lombardia"
+	license:   "General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)"
+	source: "[
+		Luca Paganotti <luca.paganotti (at) gmail.com>
+		Via dei Giardini, 9
+		21035 Cunardo (VA)
+	]"
+	date: "$Date: 2017-11-22 15:02:25 +0100 (Thu, 23 Nov 2017) $"
+	revision: "$Revision: 53 $"
 
 class
 	RT10
@@ -15,12 +25,19 @@ inherit
 		Command_line as env_command_line
 	end
 	MEMORY
+		redefine
+			dispose
+		end
 	EXCEPTIONS
 	UNIX_SIGNALS
 		rename
 			meaning as sig_meaning,
 			catch   as sig_catch,
 			ignore  as sig_ignore
+		end
+	SYSLOG_UNIX_OS
+		redefine
+			dispose
 		end
 
 create
@@ -59,7 +76,8 @@ feature {NONE} -- Initialization
 			-- Parsing
 			create json_parser.make_with_string ("{}")
 
-
+			-- syslog
+			open_log (app_name, log_pid, log_user)
 		end
 
 	init_gc
@@ -102,9 +120,9 @@ feature {NONE} -- Initialization
 
 			init
 
-			display_line ("Ten minutes realtime acquisition", true)
-			display_line ("Home folder:        " + home_folder, true)
-			display_line ("Preferences folder: " + preferences_folder, true)
+			display_line ("Ten minutes realtime acquisition", true, false)
+			display_line ("Home folder:        " + home_folder, true, false)
+			display_line ("Preferences folder: " + preferences_folder, true, false)
 
 			init_preferences
 
@@ -136,6 +154,8 @@ feature {NONE} -- Initialization
 						-- interrogare il remws per ottenere i dati dall'ultimo dato acquisito fino all'istante corrente
 						l_data := ask_sensor (sensors.item)
 
+						reqs_number := reqs_number + 1
+
 						-- salvare i dati ottenuti nel dbMeteo
 						save_sensor_data (sensors.item)
 
@@ -164,6 +184,8 @@ feature {NONE} -- Initialization
 					-- interrogare il remws per ottenere i dati dall'ultimo dato acquisito fino all'istante corrente
 					l_data := ask_sensor (sensors.item)
 
+					reqs_number := reqs_number + 1
+
 					-- salvare i dati ottenuti nel dbMeteo
 					save_sensor_data (sensors.item)
 
@@ -173,6 +195,22 @@ feature {NONE} -- Initialization
 					sensors.forth
 				end
 
+			end
+
+			if l_idx /= 0 then
+				display_line ("Sensors: 1 " + argument (l_idx + 1).out + " Total requests: " + reqs_number.out, true, false)
+				if reqs_number = 1 then
+					display_line ("Execution OK, all requests sent as valid.", true, true)
+				else
+					display_line ("Execution KO, not all requests have been done.", true, true)
+				end
+			else
+				display_line ("Sensors: " + sensors.count.out + " Total requests: " + reqs_number.out, true, false)
+				if reqs_number = sensors.count then
+					display_line ("Execution OK, all requests sent as valid.", true, true)
+				else
+					display_line ("Execution KO, not all requests have been done.", true, true)
+				end
 			end
 
 			sensors.wipe_out
@@ -186,22 +224,23 @@ feature {NONE} -- Initialization
 
 			create l_end.make_now
 
-			display_line ("Started at:  " + l_start.formatted_out (default_date_time_format), true)
-			display_line ("Finished at: " + l_end.formatted_out (default_date_time_format), true)
+			display_line ("Started at:  " + l_start.formatted_out (default_date_time_format), true, false)
+			display_line ("Finished at: " + l_end.formatted_out (default_date_time_format), true, false)
+
 		rescue
 			if is_signal then
 				if is_caught (sighup) then
-					print ("SIGHUP "  + sighup.out  + " caught%N")
+					display_line ("SIGHUP "  + sighup.out  + " caught%N", true, true)
 				elseif is_caught (sigint) then
-					print ("SIGINT "  + sigint.out  + " caught%N")
+					display_line ("SIGINT "  + sigint.out  + " caught%N", true, true)
 				elseif is_caught (sigkill) then
-					print ("SIGKILL " + sigkill.out + " caught%N")
-					print ("Killing myself%N")
+					display_line ("SIGKILL " + sigkill.out + " caught%N", true, true)
+					display_line ("Killing myself%N", true, true)
 					die (sigkill)
 				elseif is_caught (sigterm) then
-					print ("SIGTERM " + sigterm.out + " caught%N")
+					display_line ("SIGTERM " + sigterm.out + " caught%N", true, true)
 				else
-					print ("UNKNOWN signal caught%N")
+					display_line ("UNKNOWN signal caught%N", true, true)
 				end
 			end
 		end
@@ -225,12 +264,12 @@ feature -- Process
 					loop
 						display_line ("%T" + sensor.sensor_id.out + " " + sensor.measures.item.item.date_time + " " +
 						               fd.formatted (sensor.measures.item.item.value) + " " +
-						               sensor.operators.i_th (sensor.measures.index).out, true)
+						               sensor.operators.i_th (sensor.measures.index).out, true, false)
 
 						sensor.measures.item.forth
 					end
 				else
-					display_line ("%T" + sensor.sensor_id.out + " " + sensor.operators.i_th (sensor.measures.index).out + " has 0 items", true)
+					display_line ("%T" + sensor.sensor_id.out + " " + sensor.operators.i_th (sensor.measures.index).out + " has 0 items", true, false)
 				end
 				sensor.measures.forth
 			end
@@ -256,6 +295,26 @@ feature -- Process
 				Result.put (query, i)
 				sensor.operators.forth
 				i := i + 1
+			end
+		end
+
+	make_last_dates_queries1 (sensor: RT10_SENSOR) : ARRAYED_LIST[STRING]
+			-- Construct query for last data
+		local
+			query: STRING
+		do
+			create Result.make (0)
+
+			from
+				sensor.operators.start
+			until sensor.operators.after
+			loop
+				create query.make_empty
+				query := "select Data_e_ora from METEO.M_Osservazioni_TR where IDsensore = " + sensor.sensor_id.out
+				query := query + " and NomeTipologia = '" + sensor.typology + "'"
+				query := query + " and IDoperatore = " + sensor.operators.item.out + " order by Data_e_ora desc limit 1;"
+				Result.extend (query)
+				sensor.operators.forth
 			end
 		end
 
@@ -303,86 +362,132 @@ feature -- Process
 	get_last_dates (sensor: RT10_SENSOR)
 			-- Retrieve sensor's last date till current time
 		local
-			queries:  detachable TUPLE[STRING, STRING, STRING]
+--			queries:  detachable TUPLE[STRING, STRING, STRING]
+			queries1: detachable ARRAYED_LIST[STRING]
 			i:        INTEGER
 			l_tuple:  detachable DB_TUPLE
 			r_any:    detachable ANY
 		do
 
 			-- Determino le ultime date per cui sono disponibili i dati per il sensore `sensor'
-			queries := make_last_dates_queries (sensor)
+--			queries := make_last_dates_queries (sensor)
+			queries1 := make_last_dates_queries1 (sensor)
 
-			io.put_string ("Sensor " + sensor.sensor_id.out + " last dates {")
-			if attached queries.at (1) as l_q1 then
-				io.put_string (l_q1.out)
-			end
-			io.put_string (",")
-			if attached queries.at (2) as l_q2 then
-			    io.put_string (l_q2.out)
-			end
-			io.put_string (",")
-			if attached queries.at (3) as l_q3 then
-				io.put_string (l_q3.out)
-			end
-			io.put_string ("}")
-			io.put_new_line
+--			display_line ("Sensor " + sensor.sensor_id.out + " last dates {", false)
+--			if attached queries.at (1) as l_q1 then
+--				display_line (l_q1.out, false)
+--			end
+--			display_line (",", false)
+--			if attached queries.at (2) as l_q2 then
+--			    display_line (l_q2.out, false)
+--			end
+--			display_line (",", false)
+--			if attached queries.at (3) as l_q3 then
+--				display_line (l_q3.out, false)
+--			end
+--			display_line ("}", true)
 
-			from i := 1
-			until i = queries.count + 1
+			from queries1.start
+			until queries1.after
 			loop
-				if attached queries.item (i) as l_q then
-					selection.set_query (l_q.out)
-					if selection.is_executable then
+				selection.set_query (queries1.item)
+				if selection.is_executable then
 						selection.execute_query
-					else
-						io.put_string ("{get_last_dates} selection not executable " + l_q.out)
-						io.put_new_line
-						selection.clear_all
-						selection.terminate
-					end
+				else
+					display_line ("{get_last_dates} selection not executable " + queries1.item, true, false)
+					selection.clear_all
+					selection.terminate
+				end
 
-					io.put_string ("{get_last_dates} Execute query: " + l_q.out)
-					io.put_new_line
+				display_line ("{get_last_dates} Execute query: " + queries1.item, true, false)
 
-					if selection.is_ok then
-						selection.set_container (results)
-						selection.load_result
+				if selection.is_ok then
+					selection.set_container (results)
+					selection.load_result
 
-						-- Se non ho risultati dovrò richiedere gli ultimi 7 giorni
-						if results.is_empty then
-							sensor.last_dates.extend(now + one_week);
-						else -- altrimenti dovrò richiedere i dati dall'ultimo inserito
-							from results.start
-							until results.after
-							loop
-								if attached selection.cursor as l_cursor then
-									create l_tuple.copy(l_cursor)
-									r_any := l_tuple.item (1)
+					-- Se non ho risultati dovrò richiedere gli ultimi 7 giorni
+					if results.is_empty then
+						sensor.last_dates.extend(now + one_week);
+					else -- altrimenti dovrò richiedere i dati dall'ultimo inserito
+						from results.start
+						until results.after
+						loop
+							if attached selection.cursor as l_cursor then
+								create l_tuple.copy(l_cursor)
+								r_any := l_tuple.item (1)
 
-									if r_any /= Void then
-										if attached {DATE_TIME} r_any as l_date_time then
-											sensor.last_dates.extend (l_date_time)
-										end
+								if r_any /= Void then
+									if attached {DATE_TIME} r_any as l_date_time then
+										sensor.last_dates.extend (l_date_time)
 									end
 								end
-								selection.forth
 							end
+							selection.forth
 						end
-						results.wipe_out
-						selection.clear_all
-						selection.terminate
 					end
+
+					results.wipe_out
+					selection.clear_all
+					selection.terminate
+
+					queries1.forth
 				end
-				i := i + 1
 			end
+
+--			from i := 1
+--			until i = queries.count + 1
+--			loop
+--				if attached queries.item (i) as l_q then
+--					selection.set_query (l_q.out)
+--					if selection.is_executable then
+--						selection.execute_query
+--					else
+--						display_line ("{get_last_dates} selection not executable " + l_q.out, true)
+--						selection.clear_all
+--						selection.terminate
+--					end
+
+--					display_line ("{get_last_dates} Execute query: " + l_q.out, true)
+
+--					if selection.is_ok then
+--						selection.set_container (results)
+--						selection.load_result
+
+--						-- Se non ho risultati dovrò richiedere gli ultimi 7 giorni
+--						if results.is_empty then
+--							sensor.last_dates.extend(now + one_week);
+--						else -- altrimenti dovrò richiedere i dati dall'ultimo inserito
+--							from results.start
+--							until results.after
+--							loop
+--								if attached selection.cursor as l_cursor then
+--									create l_tuple.copy(l_cursor)
+--									r_any := l_tuple.item (1)
+
+--									if r_any /= Void then
+--										if attached {DATE_TIME} r_any as l_date_time then
+--											sensor.last_dates.extend (l_date_time)
+--										end
+--									end
+--								end
+--								selection.forth
+--							end
+--						end
+
+--						results.wipe_out
+--						selection.clear_all
+--						selection.terminate
+--					end
+--				end
+--				i := i + 1
+--			end
 
 			from sensor.last_dates.start
 			     i := 1
 			until sensor.last_dates.after
 			loop
-				io.put_string ("Must request data for sensor id " + sensor.sensor_id.out + " operator: " +
-				                sensor.operators.i_th (i).out + " from " + (sensor.last_dates.item + ten_minutes).formatted_out (default_date_time_format))
-				io.put_new_line
+				display_line ("Must request data for sensor id " + sensor.sensor_id.out + " operator: " +
+				                sensor.operators.i_th (i).out + " from " + (sensor.last_dates.item + ten_minutes).formatted_out (default_date_time_format), true, false)
 				sensor.last_dates.forth
 				i := i + 1
 			end
@@ -398,7 +503,7 @@ feature -- Process
 			r_any: detachable ANY
 		do
 			if session_control.is_connected then
-				io.put_string ("Connected to database: " + db + "%N")
+				display_line ("Connected to database: " + db, true, false)
 
 				-- chiedere l'elenco dei sensori
 
@@ -410,7 +515,7 @@ feature -- Process
 					selection.set_container (some_results)
 					selection.load_result
 
-					display_line (some_results.count.out + " sensors found", true)
+					display_line (some_results.count.out + " sensors found", true, false)
 
 					from selection.start
 					until selection.after
@@ -511,83 +616,62 @@ feature -- Process
 
 feature -- Display
 
-	display_line (a_line: STRING; nl: BOOLEAN)
+	display_line (a_line: STRING; nl, to_syslog: BOOLEAN)
 			-- Display `a_line' on screen with a new line if `nl' is True
+		local
+			dt: detachable DATE_TIME
 		do
-			io.put_string (a_line)
+			dt := create {DATE_TIME}.make_now_utc
+			io.put_string (dt.formatted_out (default_date_time_format) + " " + a_line)
 			if nl then
 				io.put_new_line
+			end
+			if to_syslog then
+				sys_log (log_notice, a_line)
 			end
 		end
 
 feature -- Operations
 
-	post1(a_msg: STRING) : STRING
+	post (a_msg: STRING) : STRING
 			-- Post `a_msg' to remws using `LIBCURL_HTTP_CLIENT'
 		local
 			l_context: detachable HTTP_CLIENT_REQUEST_CONTEXT
-			l_res: HTTP_CLIENT_RESPONSE
+			l_res: detachable HTTP_CLIENT_RESPONSE
 		do
-			l_res := session.post ("http://" + collect_host + ":" + collect_port.out, l_context, a_msg)
-
-			if attached l_res.body as r then
-				Result := r
+			json_parser.set_representation (a_msg)
+			json_parser.parse_content
+			if json_parser.is_valid then
+				display_line ("RT10 Constructed a valid JSON message", true, false)
+				display_line ("Posting it ...", true, false)
+				l_res := session.post ("http://" + collect_host + ":" + collect_port.out, l_context, a_msg)
 			else
+				display_line ("RT10 Constructed a BAD REQUEST", true, false)
+				display_line (json_parser.errors_as_string, true, false)
+				reset_json_parser
+			end
+
+			if attached l_res as res then
+				if attached res.body as r then
+					display_line ("RT10 HTTP POST OK", true, false)
+					Result := r
+				else
+					display_line ("RT10 HTTP POST KO: HTTP response body not attached", true, false)
+					Result := ""
+				end
+			else
+				display_line ("RT10 HTTP POST KO: HTTP response not attached", true, false)
 				Result := ""
 			end
 		end
-
---	post(msg: STRING): STRING
---			--
---		local
---			l_result:   INTEGER
---		do
---			curl_buffer.wipe_out
-
---			curl.global_init
-
---			if curl_easy.is_dynamic_library_exists then
---				curl_handle := curl_easy.init
---				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_url,           "http://" + collect_host + ":" + collect_port.out)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_fresh_connect, 1)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_forbid_reuse,  1)
-
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_post,          1)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfieldsize, msg.count)
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_verbose,       0)
---				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_useragent,     "RT10 ARPA Lombardia curl client")
---				curl_easy.setopt_string  (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_postfields,    msg)
-
---				--curl_easy.set_curl_function (curl_function)
---				curl_easy.set_write_function (curl_handle)
---				-- We pass our `curl_buffer''s object id to the callback function */
---				curl_easy.setopt_integer (curl_handle, {CURL_OPT_CONSTANTS}.curlopt_writedata,     curl_buffer.object_id)
-
---				l_result := curl_easy.perform (curl_handle)
-
---				if l_result /= {CURL_CODES}.curle_ok then
---					io.put_string ("cURL perfom returned: " + l_result.out)
---				end
---				--io.put_new_line
-
---				curl_easy.cleanup (curl_handle)
---			else
---				io.put_string ("cURL library not found")
---				io.put_new_line
---			end
-
---			curl.global_cleanup
-
---			Result := curl_buffer.string
---		end
 
 	ask_sensor(sensor: RT10_SENSOR): ARRAYED_LIST[STRING]
 			-- Ask `sensor' data
 		local
 
 			fd:       detachable FORMAT_DOUBLE
-			r:        STRING
-			j,k:      INTEGER
+			r:        detachable STRING
+			--j,k:      INTEGER
 			l_line:   STRING
 			l_tokens: detachable LIST[STRING]
 
@@ -595,10 +679,10 @@ feature -- Operations
 			l_measure:  MEASURE
 		do
 			-- Now try a realtime data request for one nmarzi sensor
-			display_line ("Asks for realtime data, sensor: " + sensor.sensor_id.out, true)
+			display_line ("Asks for realtime data, sensor: " + sensor.sensor_id.out, true, false)
 
 			create Result.make (0)
-			create r.make_empty
+			--create r.make_empty
 
 			from sensor.last_dates.start
 			until sensor.last_dates.after
@@ -611,9 +695,9 @@ feature -- Operations
 
 				display_line ("Ask data for sensor: " + sensor.sensor_id.out + " from: " + start_date.formatted_out (default_date_time_format) +
 				               " to: " + end_date.formatted_out (default_date_time_format) +
-				               " operator: " + sensor.operators.i_th (sensor.last_dates.index).out, true)
+				               " operator: " + sensor.operators.i_th (sensor.last_dates.index).out, true, false)
 
-				r.copy (realtime_data_request_nmarzi_template)
+				r := realtime_data_request_nmarzi_template
 
 				r.replace_substring_all ("$sensor",      sensor.sensor_id.out)
 
@@ -637,11 +721,11 @@ feature -- Operations
 				r.replace_substring_all ("$start",  start_date.formatted_out (default_date_time_format))
 				r.replace_substring_all ("$finish", end_date.formatted_out (default_date_time_format))
 
-				display_line (">>> " + r, true)
+				display_line (">>> " + r, true, false)
 
-				response := post1 (r)
+				response := post (r)
 
-				display_line ("<<< " + response, true)
+				display_line ("<<< " + response, true, false)
 
 				if attached response as res and not response.is_empty then
 					realtime_data_res.sensor_data_list.wipe_out
@@ -650,37 +734,69 @@ feature -- Operations
 					io.put_new_line
 					if realtime_data_res.sensor_data_list.count = 0 then
 						display_line ("No sensor data found for sensor " + sensor.sensor_id.out + " " + sensor.typology + " from " +
-						               start_date.formatted_out (default_date_time_format) + " to " + end_date.formatted_out (default_date_time_format), true)
+						               start_date.formatted_out (default_date_time_format) + " to " + end_date.formatted_out (default_date_time_format), true, false)
 					end
 
 					create l_measures.make (0)
 					sensor.measures.extend (l_measures)
 
-					from j := 1
-					until j = realtime_data_res.sensor_data_list.count + 1
+--					from j := 1
+--					until j = realtime_data_res.sensor_data_list.count + 1
+--					loop
+--						display_line (realtime_data_res.sensor_data_list.i_th (j).out + " " + sensor.operators.i_th (sensor.last_dates.index).out, true)
+--						from k := 1
+--						until k = realtime_data_res.sensor_data_list.i_th (j).data.count + 1
+--						loop
+--							l_line := realtime_data_res.sensor_data_list.i_th (j).data.i_th (k).out
+
+--							Result.extend (l_line)
+--							k := k + 1
+
+--							l_tokens := l_line.split (';')
+
+--							create l_measure.make
+--							l_measure.set_date_time (l_tokens.i_th (1) + ".000")
+--							l_measure.set_value (fd.formatted (l_tokens.i_th (2).to_double).to_double)
+
+--							sensor.measures.i_th (sensor.last_dates.index).extend (l_measure)
+
+--						end
+--						j := j + 1
+--					end
+
+					from realtime_data_res.sensor_data_list.start
+					until realtime_data_res.sensor_data_list.after
 					loop
-						display_line (realtime_data_res.sensor_data_list.i_th (j).out + " " + sensor.operators.i_th (sensor.last_dates.index).out, true)
-						from k := 1
-						until k = realtime_data_res.sensor_data_list.i_th (j).data.count + 1
+						--display_line (realtime_data_res.sensor_data_list.i_th (j).out + " " + sensor.operators.i_th (sensor.last_dates.index).out, true)
+						--display_line (realtime_data_res.sensor_data_list.item.out + " " + sensor.operators.i_th (sensor.last_dates.index).out, true)
+						from realtime_data_res.sensor_data_list.item.data.start
+						until realtime_data_res.sensor_data_list.item.data.after
 						loop
-							l_line := realtime_data_res.sensor_data_list.i_th (j).data.i_th (k).out
+							l_line := realtime_data_res.sensor_data_list.item.data.item.out
 
-							Result.extend (l_line)
-							k := k + 1
+							if l_line.count > 0 then
+								Result.extend (l_line)
+								--k := k + 1
 
-							l_tokens := l_line.split (';')
+								l_tokens := l_line.split (';')
 
-							create l_measure.make
-							l_measure.set_date_time (l_tokens.i_th (1) + ".000")
-							l_measure.set_value (fd.formatted (l_tokens.i_th (2).to_double).to_double)
+								create l_measure.make
+								l_measure.set_date_time (l_tokens.i_th (1) + ".000")
+								l_measure.set_value (fd.formatted (l_tokens.i_th (2).to_double).to_double)
 
-							sensor.measures.i_th (sensor.last_dates.index).extend (l_measure)
+								if sensor.measures.valid_index (sensor.last_dates.index) then
+									sensor.measures.i_th (sensor.last_dates.index).extend (l_measure)
+								else
+									display_line ("{ask_sensor} " + sensor.last_dates.index.out + " index not valid", true, false)
+								end
+							end
 
+							realtime_data_res.sensor_data_list.item.data.forth
 						end
-						j := j + 1
+						realtime_data_res.sensor_data_list.forth
 					end
 				else
-					display_line ("{ask_sensor} json string is empty", true)
+					display_line ("{ask_sensor} json string is empty", true, false)
 				end
 				sensor.last_dates.forth
 			end
@@ -704,17 +820,27 @@ feature -- Operations
 
 					if not is_measure_already_present (sensor.sensor_id, sensor.operators.i_th (sensor.measures.index), sensor.typology, l_date) then
 						l_query := make_insert_into_data (sensor.sensor_id, sensor.operators.i_th (sensor.measures.index), sensor.typology, sensor.measures.item.item)
+
+						session_control.begin
 						modification.set_query (l_query)
 
-						if modification.is_ok and modification.is_executable then
-							modification.execute_query
-							display_line ("Inserted measure for sensor id " + sensor.sensor_id.out + " operator " + sensor.operators.i_th (sensor.measures.index).out +
-							               " measure " + sensor.measures.item.item.value.out + " date " + sensor.measures.item.item.date_time, true)
+						if modification.is_ok then
+							if modification.is_executable then
+								modification.execute_query
+								session_control.commit
+								display_line ("Inserted measure for sensor id " + sensor.sensor_id.out + " operator " + sensor.operators.i_th (sensor.measures.index).out +
+								               " measure " + sensor.measures.item.item.value.out + " date " + sensor.measures.item.item.date_time, true, false)
+								display_line ("# affected row(s): " + modification.affected_row_count.out, true, false)
+							else
+								display_line ("{save_sensor} Query not executable", true, false)
+								--display_line ("Modification ERROR: " + modification.error_message_32, true)
+								session_control.rollback
+							end
 						else
-							display_line ("{save_sensor} Query not ok or not executable", true)
+							display_line ("{save_sensor} modification NOT OK", true, false)
+							--display_line ("Modification ERROR: " + modification.error_message_32, true)
+							modification.reset
 						end
-
-						session_control.commit
 					end
 					sensor.measures.item.forth
 					l_date := l_date + ten_minutes
@@ -732,8 +858,23 @@ feature -- Operations
 			create l_query.make_empty
 			l_date := now + one_month
 			l_query := "delete from METEO.M_Osservazioni_TR where Data_e_ora < '" + l_date.formatted_out (default_date_time_format) + "';"
-			modification.modify (l_query)
-			session_control.commit
+			session_control.begin
+
+			if modification.is_ok then
+				if modification.is_executable then
+					modification.modify (l_query)
+					session_control.commit
+					display_line ("# affected row(s): " + modification.affected_row_count.out, true, false)
+				else
+					display_line ("{delete_old_data} modification not executable, must rollback", true, false)
+					--display_line ("Modification ERROR: " + modification.error_message_32, true)
+					session_control.rollback
+				end
+			else
+				display_line ("{delete_old_data} nodification NOT OK", true, false)
+				--display_line ("Modification ERROR: " + modification.error_message_32, true)
+				modification.reset
+			end
 		end
 
 	is_measure_already_present (sensor_id: INTEGER; operator: INTEGER; typology: STRING; date: DATE_TIME) : BOOLEAN
@@ -750,8 +891,7 @@ feature -- Operations
 			if selection.is_executable then
 				selection.execute_query
 			else
-				io.put_string ("{is_measure_already_present} Query not executable: " + l_query)
-				io.put_new_line
+				display_line ("{is_measure_already_present} Query not executable: " + l_query, true, false)
 				selection.clear_all
 			end
 
@@ -761,22 +901,38 @@ feature -- Operations
 					selection.set_container (some_results)
 					selection.load_result
 					if some_results.count > 0 then
-						display_line ("Measure for sensor " + sensor_id.out + " operator " + operator.out + " date " + date.formatted_out (default_date_time_format) + " ALREADY EXISTS", true)
+						display_line ("Measure for sensor " + sensor_id.out + " operator " + operator.out + " date " + date.formatted_out (default_date_time_format) + " ALREADY EXISTS", true, false)
 						Result := true
 					end
 				else
-					display_line ("{is_measure_already_present} ERROR selection not connected", true)
+					display_line ("{is_measure_already_present} ERROR selection not connected", true, false)
 					selection.reset
 				end
 
 			else
-				display_line ("{is_measure_already_present} ERROR selection not OK", true)
+				display_line ("{is_measure_already_present} ERROR selection NOT OK", true, false)
 				selection.reset
 			end
 
 			selection.clear_all
 			selection.terminate
 			some_results.wipe_out
+		end
+
+	reset_json_parser
+			-- Reset `json_parser'
+		do
+			json_parser.reset_reader
+			json_parser.reset
+		end
+
+feature -- dispose
+
+	dispose
+			-- `dispose' redefinition
+		do
+			Precursor {SYSLOG_UNIX_OS}
+			Precursor {MEMORY}
 		end
 
 feature -- Preferences
@@ -823,12 +979,12 @@ feature -- Preferences
 			collect_host      := collect_host_pref.value
 			collect_port      := collect_port_pref.value
 
-			display_line ("Host:         " + db_host, true)
-			display_line ("Database:     " + db, true)
-			display_line ("Db user:      " + db_user, true)
-			display_line ("Db password:  " + "*****", true)
-			display_line ("Collect host: " + collect_host, true)
-			display_line ("Collect port: " + collect_port.out, true)
+			display_line ("Host:         " + db_host, true, false)
+			display_line ("Database:     " + db, true, false)
+			display_line ("Db user:      " + db_user, true, false)
+			display_line ("Db password:  " + "*****", true, false)
+			display_line ("Collect host: " + collect_host, true, false)
+			display_line ("Collect port: " + collect_port.out, true, false)
 
 			--preferences.save_preferences
 		end
@@ -837,23 +993,28 @@ feature -- Messages
 
 	realtime_data_res: REALTIME_DATA_RESPONSE
 
-	realtime_data_request_nmarzi_template: STRING = "[
-		{
-          "header": {
-          "id": 10
-        },
-        "data": {
-          "sensors_list": [ {
-                              "sensor_id": $sensor,
-                              "function_id": $function,
-                              "operator_id": $operator,
-                              "granularity": $granularity,
-                              "start": "$start",
-                              "finish": "$finish"
-                            } ]
-                }
-		}
-	]"
+	realtime_data_request_nmarzi_template: STRING
+			-- Data request template
+		do
+			Result := "[
+		                 {
+                           "header": {
+                             "id": 10
+                           },
+                           "data": {
+                             "sensors_list": [ {
+                               "sensor_id": $sensor,
+                               "function_id": $function,
+                               "operator_id": $operator,
+                               "granularity": $granularity,
+                               "start": "$start",
+                               "finish": "$finish"
+                             } ]
+                           }
+		                 }
+	                   ]"
+		end
+
 
 feature -- Implementation
 
@@ -884,24 +1045,6 @@ feature -- Implementation
 
 	session: LIBCURL_HTTP_CLIENT_SESSION
 
---	curl_easy: CURL_EASY_EXTERNALS
---			-- cURL easy externals
---		once
---			create Result
---		end
-
---	curl: CURL_EXTERNALS
---			-- cURL externals
---		once
---			create Result
---		end
-
---	curl_handle: POINTER
---			-- cURL handle
-
---	curl_buffer: CURL_STRING
-			-- response contents
-
 	now:          DATE_TIME
 	one_month:    DATE_TIME_DURATION
 	one_week:     DATE_TIME_DURATION
@@ -914,6 +1057,7 @@ feature -- Implementation
 
 	json_parser:  JSON_PARSER
 
+	reqs_number:  INTEGER
 	start_date:   DATE_TIME
 	end_date:     DATE_TIME
 
@@ -936,6 +1080,12 @@ feature -- Implementation
 				create Result.make_from_string(home_folder + "/.rt10")
 			end
 
+		end
+
+	app_name: STRING
+			-- `Current' application name
+		do
+			Result := "rt10"
 		end
 
 end

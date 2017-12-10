@@ -94,7 +94,6 @@ feature -- Reporting
 	out: STRING
 			-- `STATION_TYPE' as string
 		do
-			create Result.make_empty
 			Result := "{id: " + id.out + ", name: " + name + ", province: " + province + "}"
 		end
 

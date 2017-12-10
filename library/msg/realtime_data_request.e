@@ -53,10 +53,6 @@ class
 
 inherit
 	REQUEST_I
-	DISPOSABLE
-	redefine
-		dispose
-	end
 
 create
 	make,
@@ -70,9 +66,6 @@ feature {NONE} -- Initialization
 		do
 			create token_id.make_empty
 			create sensors_list.make (0)
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
 		end
 
 	make_from_json_string (json: STRING; parser: JSON_PARSER)
@@ -80,9 +73,6 @@ feature {NONE} -- Initialization
 		do
 			create token_id.make_empty
 			create sensors_list.make (0)
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
 
 			from_json (json, parser)
 		end
@@ -92,10 +82,6 @@ feature {NONE} -- Initialization
 		do
 			create token_id.make_from_string (a_token)
 			create sensors_list.make (0)
-			--	parnum := realtime_data_request_parnum_token
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
 		end
 
 feature -- Access
@@ -106,7 +92,7 @@ feature -- Access
 			Result := realtime_data_request_id
 		end
 
-	token: STRING
+	token: detachable STRING
 			-- Access to `token_id'
 		do
 			Result := token_id
@@ -127,53 +113,50 @@ feature -- Status setting
 	set_token_id (a_token: STRING)
 			-- Set `token_id'
 		do
-			--token_id.copy (a_token)
-			token_id := a_token
+			token_id := a_token.twin
 		end
 
 feature -- Conversion
 
 	to_xml: STRING
 			-- XML representation
+		require else
+			token_id_attached: attached token_id
 		local
-			i:               INTEGER
-			l_token_id:      STRING
-			l_sensors_list:  STRING
+			l_sensors_list:  detachable STRING
 		do
-			create l_token_id.make_from_string (token_id)
-			create Result.make_from_string (xml_request_template)
-			if l_token_id.is_empty then
-				Result.replace_substring_all ("<Token>",   "")
-				Result.replace_substring_all ("</Token>",  "")
-				Result.replace_substring_all ("<Id>",      "")
-				Result.replace_substring_all ("</Id>",     "")
-				Result.replace_substring_all ("$tokenid", "")
-			else
-				Result.replace_substring_all ("$tokenid", l_token_id)
+			--create Result.make_from_string (xml_request_template)
+			Result := xml_request_template.twin
+			if attached token_id as l_token_id then
+				if l_token_id.is_empty then
+					Result.replace_substring_all (stag_start + it_xml_token + stag_end,   null)
+					Result.replace_substring_all (etag_start + it_xml_token + etag_end,   null)
+					Result.replace_substring_all (stag_start + it_xml_id + etag_end,      null)
+					Result.replace_substring_all (etag_start + it_xml_id + etag_end,      null)
+					Result.replace_substring_all (it_tokenid,                             null)
+				else
+					Result.replace_substring_all (it_tokenid, l_token_id)
+				end
+
+				create l_sensors_list.make_empty
+
+				across sensors_list
+					 as sl
+				loop
+					l_sensors_list.append (stag_start + it_xml_sensor + stag_end + lf_s)
+					l_sensors_list.append (space + space + stag_start + it_xml_sensor_id + stag_end + sl.item.sensor_id.out + etag_start + it_xml_sensor_id + etag_end + lf_s)
+					l_sensors_list.append (space + space + stag_start + it_xml_function_id + stag_end + sl.item.function_code.out + etag_start + it_xml_function_id + etag_end + lf_s)
+					l_sensors_list.append (space + space + stag_start + it_xml_operator_id + stag_end + sl.item.applied_operator.out + etag_start + it_xml_operator_id + etag_end + lf_s)
+					l_sensors_list.append (space + space + stag_start + it_xml_granularity_id + stag_end + sl.item.time_granularity.out + etag_start + it_xml_granularity_id + etag_end + lf_s)
+					l_sensors_list.append (space + space + stag_start + it_xml_start_date + stag_end + sl.item.start.formatted_out (default_date_time_format) + etag_start + it_xml_start_date + etag_end + lf_s)
+					l_sensors_list.append (space + space + stag_start + it_xml_end_date + stag_end + sl.item.finish.formatted_out (default_date_time_format) + etag_start + it_xml_end_date + etag_end + lf_s)
+					l_sensors_list.append (etag_start + it_xml_sensor + etag_end + lf_s)
+				end
+
+				Result.replace_substring_all (it_sensors, l_sensors_list)
+
+				l_sensors_list.wipe_out
 			end
-
-			create l_sensors_list.make_empty
-
-			from i := 1
-			until i = sensors_list.count + 1
-			loop
-				l_sensors_list.append ("<Sensore>%N")
-				l_sensors_list.append ("  <IdSensore>" + sensors_list.i_th (i).sensor_id.out + "</IdSensore>%N")
-				l_sensors_list.append ("  <IdFunzione>" + sensors_list.i_th (i).function_code.out + "</IdFunzione>%N")
-				l_sensors_list.append ("  <IdOperatore>" + sensors_list.i_th (i).applied_operator.out + "</IdOperatore>%N")
-				l_sensors_list.append ("  <IdPeriodo>" + sensors_list.i_th (i).time_granularity.out + "</IdPeriodo>%N")
-				l_sensors_list.append ("  <DataInizio>" + sensors_list.i_th (i).start.formatted_out (default_date_time_format) + "</DataInizio>%N")
-				l_sensors_list.append ("  <DataFine>" + sensors_list.i_th (i).finish.formatted_out (default_date_time_format) + "</DataFine>%N")
-				l_sensors_list.append ("</Sensore>%N")
-
-				i := i + 1
-			end
-
-			Result.replace_substring_all ("$sensors", l_sensors_list)
-
-			xml_representation := Result
-			l_token_id.wipe_out
-			l_sensors_list.wipe_out
 		end
 
 	from_json(json: STRING; parser: JSON_PARSER)
@@ -182,55 +165,34 @@ feature -- Conversion
 			json_valid: attached json and then not json.is_empty
 			json_parser_valid: attached parser and then parser.is_valid
 		local
-			i:           INTEGER
-			--key:         JSON_STRING
-			--json_parser: JSON_PARSER
-			l_rt_req_data: SENSOR_REALTIME_REQUEST_DATA
-			l_start_time: DATE_TIME
-			l_finish_time: DATE_TIME
+			l_rt_req_data: detachable SENSOR_REALTIME_REQUEST_DATA
+			l_start_time:  detachable DATE_TIME
+			l_finish_time: detachable DATE_TIME
 		do
 			if attached sensors_list as l_sensors_list then l_sensors_list.wipe_out end
 
-			json_representation.copy (json)
-		 	--create json_parser.make_with_string (json)
-		 	parser.reset_reader
-		 	parser.reset
 		 	parser.set_representation (json)
-
-			--create key.make_from_string ("header")
-			--create key.make_from_string (json_header_tag)
-			--key := json_header_tag
-			print ("{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE ...%N")
 			parser.parse_content
 			if parser.is_valid and then attached parser.parsed_json_value as jv then
-				print ("%T{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE HEADER ...%N")
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
-					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
+				if not (attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
+					and then attached {JSON_NUMBER} j_header.item (json_id_tag) as j_id)
 				then
-					print ("%TMessage: " + j_id.integer_64_item.out + "%N")
-				else
-					print ("%TThe header was not found!%N")
+					print (msg_json_header_not_found)
 				end
-				print ("%T{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE HEADER DONE%N")
-
-				--key.item.wipe_out
-				--key := "data"
-				--key := json_data_tag
-				print ("%T{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE DATA ...%N")
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
-					and then attached {JSON_ARRAY} j_data.item ("sensors_list") as j_sensors
+					and then attached {JSON_ARRAY} j_data.item (json_sensors_list_tag) as j_sensors
 				then
 
-					from i:= 1
-					until i = j_sensors.count + 1
+					from j_sensors.array_representation.start
+					until j_sensors.array_representation.after
 					loop
-						if attached {JSON_OBJECT} j_sensors.i_th (i) as j_sensor
-							and then attached {JSON_NUMBER} j_sensor.item ("sensor_id") as j_id
-							and then attached {JSON_NUMBER} j_sensor.item ("function_id") as j_function
-							and then attached {JSON_NUMBER} j_sensor.item ("operator_id") as j_operator
-							and then attached {JSON_NUMBER} j_sensor.item ("granularity") as j_granularity
-							and then attached {JSON_STRING} j_sensor.item ("start") as j_start
-							and then attached {JSON_STRING} j_sensor.item ("finish") as j_finish
+						if attached {JSON_OBJECT} j_sensors.array_representation.item as j_sensor
+							and then attached {JSON_NUMBER} j_sensor.item (json_sensor_id_tag) as j_id
+							and then attached {JSON_NUMBER} j_sensor.item (json_function_id_tag) as j_function
+							and then attached {JSON_NUMBER} j_sensor.item (json_operator_id_tag) as j_operator
+							and then attached {JSON_NUMBER} j_sensor.item (json_granularity_tag) as j_granularity
+							and then attached {JSON_STRING} j_sensor.item (json_start_tag) as j_start
+							and then attached {JSON_STRING} j_sensor.item (json_finish_tag) as j_finish
 						then
 							create l_rt_req_data.make
 
@@ -244,50 +206,39 @@ feature -- Conversion
 							l_rt_req_data.set_finish (l_finish_time)
 
 							if attached sensors_list as l_sensors_list then l_sensors_list.extend (l_rt_req_data) end
-							i := i + 1
+							j_sensors.array_representation.forth
 						end
 					end
 				end
-				print ("%T{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE DATA DONE%N")
 			end
-			parser.reset_reader
-			parser.reset
-			print ("{REALTIME_DATA_REQUEST}.from_json: PARSING JSON MESSAGE DONE%N")
-			--key.item.wipe_out
 		end
 
 	to_json: STRING
 			-- json representation
-		local
-			i: INTEGER
 		do
-			--create Result.make_empty
-			-- TODO
-			json_representation.wipe_out
-
-			json_representation.append ("{")
-			json_representation.append ("%"header%": {")
-			json_representation.append ("%"id%": " + station_status_list_request_id.out)
-			json_representation.append (",%"parameters_number%": " + station_status_list_request_parnum_token.out + "}")
-			json_representation.append (",%"data%": {")
-			--json_representation.append ("%"tokenid%": %"" + token_id + "%",")
-			json_representation.append ("%"sensors_list%": [")
-			from i := 1
-			until i = sensors_list.count + 1
+			create Result.make_empty
+			Result.append (left_brace)
+			Result.append (double_quotes + json_header_tag + double_quotes + colon + space + left_brace)
+			Result.append (double_quotes + json_id_tag + double_quotes + colon + space + realtime_data_request_id.out + right_brace)
+			Result.append (comma + double_quotes + json_data_tag + double_quotes + colon + space + left_brace)
+			Result.append (double_quotes + json_sensors_list_tag + double_quotes + colon + space + left_bracket)
+			from sensors_list.start
+			until sensors_list.after
 			loop
-				if i > 1 then
-					json_representation.append (",")
+				Result.append (left_brace + double_quotes + json_sensor_id_tag + double_quotes + colon + space + sensors_list.item.sensor_id.out  + comma)
+				Result.append (double_quotes + json_function_id_tag + double_quotes + colon + space + sensors_list.item.function_code.out         + comma)
+				Result.append (double_quotes + json_operator_id_tag + double_quotes + colon + space + sensors_list.item.applied_operator.out      + comma)
+				Result.append (double_quotes + json_granularity_tag + double_quotes + colon + space + sensors_list.item.time_granularity.out      + comma)
+				Result.append (double_quotes + json_start_tag + double_quotes + colon + space + double_quotes + sensors_list.item.start.formatted_out (default_date_time_format)
+				             + double_quotes + comma)
+				Result.append (double_quotes + json_finish_tag + double_quotes + colon + space + double_quotes + sensors_list.item.finish.formatted_out (default_date_time_format)
+				             + double_quotes + right_brace)
+				if not sensors_list.islast then
+					Result.append (comma)
 				end
-				json_representation.append ("{%"sensor_id%": "  + sensors_list.i_th (i).sensor_id.out                                   + ",")
-				json_representation.append ("%"function_id%": " + sensors_list.i_th (i).function_code.out                               + ",")
-				json_representation.append ("%"operator_id%": " + sensors_list.i_th (i).applied_operator.out                            + ",")
-				json_representation.append ("%"granularity%": " + sensors_list.i_th (i).time_granularity.out                            + ",")
-				json_representation.append ("%"start%": %""     + sensors_list.i_th (i).start.formatted_out (default_date_time_format)  + "%",")
-				json_representation.append ("%"finish%": %""    + sensors_list.i_th (i).finish.formatted_out (default_date_time_format) + "%"}")
-				i := i + 1
+				sensors_list.forth
 			end
-			json_representation.append ("]}}")
-			Result := json_representation
+			Result.append (right_bracket + right_brace + right_brace)
 		end
 
 	from_xml (xml: STRING; parser: XML_STANDARD_PARSER)
@@ -298,7 +249,7 @@ feature -- Conversion
 
 feature -- Basic operations
 
-	init_response: RESPONSE_I
+	init_response: detachable RESPONSE_I
 			--
 		do
 			Result := create {REALTIME_DATA_RESPONSE}.make
@@ -309,26 +260,24 @@ feature -- Dispose
 	dispose
 			--
 		do
-			if not is_in_final_collect then
-				if attached json_representation  as l_json_representation  then l_json_representation.wipe_out  end
-				if attached xml_representation   as l_xml_representation   then l_xml_representation.wipe_out   end
-				if attached sensors_list         as l_sensors_list         then l_sensors_list.wipe_out         end
-				--if attached token_id             as l_token_id             then token_id.wipe_out               end
-				if attached xml_request_template as l_xml_request_template then l_xml_request_template.wipe_out end
-			end
 		end
 
-feature {NONE} -- Object implementation
+feature -- Status reporting
 
-	token_id: STRING
+	xml_pretty_out:  STRING
+			-- XML pretty out
+		do
+			Result := null
+		end
+
+feature -- Object implementation
+
+	token_id: detachable STRING
 			--
 	sensors_list: ARRAYED_LIST[SENSOR_REALTIME_REQUEST_DATA]
 			--
 
 feature {NONE} -- Utilities implementation
-
-	json_representation: STRING
-	xml_representation:  STRING
 
 	ws_url: STRING
 			-- Web service URL
@@ -345,53 +294,51 @@ feature {NONE} -- Utilities implementation
 	soap_action_header:  STRING
 			-- SOAP action header
 		do
-			--Result := "SOAPAction: " + remws_uri + "/" + dataws_interface + "/" + name
 			Result := remws_uri + url_path_separator + dataws_interface + url_path_separator + name
 		end
 
 	name: STRING
 			-- Request `name' to be passed to remws
 		do
-			Result := realtime_data_request_name
+			Result := realtime_data_endpoint_name
 		end
-
---	xml_request_template: STRING = "[
---		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
---          <s:Body>
---            <RendiDatiTempoReale xmlns="http://tempuri.org/">
---              <xInput>
---                <RendiDatiTempoReale xmlns="">
---                  <Token>
---                    <Id>$tokenid</Id>
---                  </Token>
---                  $sensors
---                </RendiDatiTempoReale>
---              </xInput>
---            </RendiDatiTempoReale>
---          </s:Body>
---        </s:Envelope>
---	]"
 
 	xml_request_template: STRING
 			-- XML `Current' message request template
 		do
-
-			Result := "[
-				<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-	        	  <s:Body>
-	        	    <RendiDatiTempoReale xmlns="http://tempuri.org/">
-	       	          <xInput>
-	                    <RendiDatiTempoReale xmlns="">
-	                      <Token>
-	                        <Id>$tokenid</Id>
-	                      </Token>
-	                      $sensors
-	                    </RendiDatiTempoReale>
-	                  </xInput>
-	                </RendiDatiTempoReale>
-	              </s:Body>
-	            </s:Envelope>
-			]"
+--			Result := "[
+--				<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+--	        	  <s:Body>
+--	        	    <RendiDatiTempoReale xmlns="http://tempuri.org/">
+--	       	          <xInput>
+--	                    <RendiDatiTempoReale xmlns="">
+--	                      <Token>
+--	                        <Id>$tokenid</Id>
+--	                      </Token>
+--	                      $sensors
+--	                    </RendiDatiTempoReale>
+--	                  </xInput>
+--	                </RendiDatiTempoReale>
+--	              </s:Body>
+--	            </s:Envelope>
+--			]"
+			Result := null
+			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + eq_s + double_quotes + xmlsoap + double_quotes + stag_end + lf_s)
+			  Result.append (double_space + stag_start + xmlns_s + colon + body + stag_end + lf_s)
+			    Result.append (double_space + double_space + stag_start + realtime_data_endpoint_name + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + stag_start + xinput + stag_end + lf_s)
+			        Result.append (double_space + double_space + double_space + double_space + stag_start + realtime_data_endpoint_name + space +
+			                       xmlns + eq_s + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_token + stag_end + lf_s)
+			            Result.append (double_space + double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_id + stag_end + it_tokenid +
+			                           etag_start + it_xml_id + etag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_token + etag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + it_sensors + lf_s)
+			        Result.append (double_space + double_space + double_space + double_space + etag_start + realtime_data_endpoint_name + etag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + etag_start + xinput + etag_end + lf_s)
+			    Result.append (double_space + double_space + etag_start + realtime_data_endpoint_name + etag_end + lf_s)
+			  Result.append (double_space + etag_start + xmlns_s + colon + body + etag_end + lf_s)
+			Result.append (etag_start + xmlns_s + colon + soap_envelope + etag_end + lf_s)
 		end
 
 invariant

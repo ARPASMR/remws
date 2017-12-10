@@ -18,4 +18,16 @@ feature -- Implementation
 	default_gc_monitoring_message_number: INTEGER = 10000
 			-- Default GC monitoring message number
 
+	default_gc_memory_threshold: INTEGER = 40000000
+			-- Default GC memory threshold
+
+	default_runtime_max_memory: INTEGER = 160000000
+			-- Default maximum amount of memory the run-time can allocate.
+
+	default_gc_coalesce_period: INTEGER = 2
+			-- Default GC coalesce period
+
+	default_gc_collection_period: INTEGER = 2
+			-- Default GC collection period
+
 end

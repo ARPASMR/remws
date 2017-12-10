@@ -123,7 +123,6 @@ class
 
 inherit
 	RESPONSE_I
-	DISPOSABLE
 	redefine
 		dispose
 	end
@@ -136,14 +135,10 @@ feature {NONE} -- Initialization
 	make
 			-- Initialization for `Current'.
 		do
-			create json_representation.make_empty
-			create xml_representation.make_empty
 			create current_tag.make_empty
 			create content.make_empty
 			create message.make_empty
-			create token.make
 			create cdata_segment.make_empty
-
 			create sensor_data_list.make (0)
 		end
 
@@ -152,9 +147,7 @@ feature -- Access
 	id:                  INTEGER do Result := realtime_data_response_id end
 
 	outcome:             INTEGER
-	message:             STRING
-
-	token:               TOKEN
+	message:             detachable STRING
 
 	sensor_data_list:    ARRAYED_LIST [SENSOR_REALTIME_RESPONSE_DATA]
 
@@ -169,7 +162,8 @@ feature -- Status setting
 	set_message (m: STRING)
 			-- Sets `message'
 		do
-			message.copy (m)
+			--message.copy (m)
+			message := m.twin
 		end
 
 	set_logger (a_logger: LOG_LOGGING_FACILITY)
@@ -194,90 +188,89 @@ feature -- Conversion
 
 	to_json: STRING
 			-- json representation
-		local
-			i,j: INTEGER
 		do
-			json_representation.wipe_out
+----|                             "sensor_id": an_id2,
+----|                             "sensor_name: "a_name2",
+----|                             "sensor_measure_unit: "a_measure_unit2",
+----|                             "function_id: a_function_id2,
+----|                             "function_name": "a_funtion_name2",
+----|                             "operator_id": an_operator2,
+----|                             "operator_name": "an_operator_name2",
+----|                             "granularity_id": a_granularity2,
+----|                             "granularity_name": "a_granularity_name2",
+----|                             "data": {
+----|                                       ["datarow1": "data1",
+----|                                       "datarow2": "data2",
+----|                                       ...,
+----|                                       "datarown": "datan"]
+----|                                     }
+			create Result.make_empty
+
 			if is_error_response then
-				json_representation.append ("{")
-				json_representation.append ("%"header%": {")
-				json_representation.append ("%"id%": " + realtime_data_response_id.out)
-				json_representation.append ("},")
-				json_representation.append ("%"data%": {")
-				json_representation.append ("%"outcome%": " + outcome.out)
-				--json_representation.append (",%"message%": %"" + message + "%",")
-				json_representation.append (",%"message%": %"" + message + "%"")
-				json_representation.append ("}")
-				json_representation.append ("}")
+				Result.append (left_brace)
+				Result.append (double_quotes + json_header_tag + double_quotes + colon + space + left_brace)
+				Result.append (double_quotes + json_id_tag + double_quotes + colon + space + realtime_data_response_id.out)
+				Result.append (right_brace + comma)
+				Result.append (double_quotes + json_data_tag + double_quotes + colon + space + left_brace)
+				Result.append (double_quotes + json_outcome_tag + double_quotes + colon + space + outcome.out)
+				Result.append (comma + double_quotes + json_message_tag + double_quotes + colon + double_quotes)
+				if attached message as l_message then
+					Result.append (l_message)
+				else
+					Result.append (null)
+				end
+				Result.append (double_quotes)
+				Result.append (right_brace)
+				Result.append (right_brace)
 			else
-				json_representation.append ("{")
-				json_representation.append ("%"header%": {")
-				json_representation.append ("%"id%": " + realtime_data_response_id.out)
-				json_representation.append ("},")
-				json_representation.append ("%"data%": {")
-				json_representation.append ("%"outcome%": "   + outcome.out)
-				json_representation.append (",%"message%": %"" + message + "%"")
-				json_representation.append (",%"sensor_data_list%": [")
-				from i := 1
-				until i = sensor_data_list.count + 1
+				Result.append (left_brace)
+				Result.append (double_quotes + json_header_tag + double_quotes + colon + space + left_brace)
+				Result.append (double_quotes + json_id_tag + double_quotes + colon + space + realtime_data_response_id.out)
+				Result.append (right_brace + comma)
+				Result.append (double_quotes + json_data_tag + double_quotes + colon + space + left_brace)
+				Result.append (double_quotes + json_outcome_tag + double_quotes + colon + space + outcome.out)
+				Result.append (comma + double_quotes + json_message_tag + double_quotes + colon + space + double_quotes)
+				if attached message as l_message then
+					Result.append (l_message)
+				end
+				Result.append (double_quotes)
+				Result.append (comma + double_quotes + json_sensor_data_list_tag + double_quotes + colon + space + left_bracket)
+
+				across
+					sensor_data_list as s
 				loop
-					if i /= 1 then
-						json_representation.append (",")
-					end
+					Result.append (left_brace + double_quotes + json_sensor_id_tag + double_quotes + colon + space + s.item.sensor_id.out)
+					Result.append (comma + double_quotes + json_sensor_name_tag + double_quotes + colon + space + double_quotes + s.item.sensor_name + double_quotes)
+					Result.append (comma + double_quotes + json_sensor_measure_unit_tag + double_quotes + colon + space + double_quotes + s.item.measure_unit + double_quotes)
+					Result.append (comma + double_quotes + json_function_id_tag + double_quotes + colon + space + s.item.function_id.out)
+					Result.append (comma + double_quotes + json_function_name_tag + double_quotes + colon + space + double_quotes + s.item.function_name + double_quotes)
+					Result.append (comma + double_quotes + json_operator_id_tag + double_quotes + colon + space + s.item.operator_id.out)
+					Result.append (comma + double_quotes + json_operator_name_tag + double_quotes + colon + space + double_quotes + s.item.operator_name + double_quotes)
+					Result.append (comma + double_quotes + json_granularity_id_tag +double_quotes + colon + space + s.item.granularity_id.out)
+					Result.append (comma + double_quotes + json_granularity_name_tag + double_quotes + colon + space + double_quotes + s.item.granularity_description + double_quotes)
 
+					Result.append (comma + double_quotes + json_data_tag + double_quotes + colon + space + left_bracket)
 
---|                             "sensor_id": an_id2,
---|                             "sensor_name: "a_name2",
---|                             "sensor_measure_unit: "a_measure_unit2",
---|                             "function_id: a_function_id2,
---|                             "function_name": "a_funtion_name2",
---|                             "operator_id": an_operator2,
---|                             "operator_name": "an_operator_name2",
---|                             "granularity_id": a_granularity2,
---|                             "granularity_name": "a_granularity_name2",
---|                             "data": {
---|                                       ["datarow1": "data1",
---|                                       "datarow2": "data2",
---|                                       ...,
---|                                       "datarown": "datan"]
---|                                     }
-					json_representation.append ("{%"sensor_id%": " + sensor_data_list.i_th (i).sensor_id.out)
-					json_representation.append (",%"sensor_name%": %"" + sensor_data_list.i_th (i).sensor_name + "%"")
-					json_representation.append (",%"sensor_measure_unit%": %"" + sensor_data_list.i_th (i).measure_unit + "%"")
-					json_representation.append (",%"function_id%":" + sensor_data_list.i_th (i).function_id.out)
-					json_representation.append (",%"function_name%": %"" + sensor_data_list.i_th (i).function_name + "%"")
-					json_representation.append (",%"operator_id%":" + sensor_data_list.i_th (i).operator_id.out)
-					json_representation.append (",%"operator_name%": %"" + sensor_data_list.i_th (i).operator_name + "%"")
-					json_representation.append (",%"granularity_id%":" + sensor_data_list.i_th (i).granularity_id.out)
-					json_representation.append (",%"granularity_name%": %"" + sensor_data_list.i_th (i).granularity_description + "%"")
-
-					json_representation.append (",%"data%": [")
-
-
-					from j := 1
-					until j = sensor_data_list.i_th (i).data.count
+					from s.item.data.start
+					until s.item.data.after
 					loop
 						-- Manage each data row
-						if j /= 1  and then not sensor_data_list.i_th (i).data.i_th (j - 1).is_empty
-						then
-							json_representation.append (",")
-						end
-						if not sensor_data_list.i_th (i).data.i_th (j).is_empty then
-							json_representation.append ("{%"datarow%": %"" + sensor_data_list.i_th (i).data.i_th (j) + "%"}")
-						end
-						j := j + 1
+						--if not s.item.data.item.is_empty then
+							Result.append (left_brace + double_quotes + json_data_row_tag + double_quotes + colon + space + double_quotes + s.item.data.item + double_quotes + right_brace)
+							if not s.item.data.islast then
+								Result.append (comma)
+							end
+							s.item.data.forth
+						--else
+						--	s.item.data.forth
+						--end
 					end
-
-					json_representation.append ("]}")
-
-					i := i + 1
+					Result.append (right_bracket + right_brace)
 				end
-				json_representation.append ("]")
-				json_representation.append ("}")
-				json_representation.append ("}")
+				Result.append (right_bracket)
+				Result.append (right_brace)
+				Result.append (right_brace)
 			end
-
-			Result := json_representation
 		end
 
 	from_xml(xml: STRING; parser: XML_STANDARD_PARSER)
@@ -303,88 +296,72 @@ feature -- Conversion
 			json_valid: attached json and then not json.is_empty
 			json_parser_valid: attached parser and then parser.is_valid
 		local
-			i,j:            INTEGER
-
 			sensor_rt_data: detachable SENSOR_REALTIME_RESPONSE_DATA
 		do
-		 	parser.reset_reader
-		 	parser.reset
 		 	parser.set_representation (json)
-
-
-			print ("{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE ...%N")
 			parser.parse_content
 			if parser.is_valid and then attached parser.parsed_json_value as jv then
-				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE HEADER ...%N")
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
-					and then attached {JSON_NUMBER} j_header.item (json_id_tag) as j_id
+				if not (attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
+					and then attached {JSON_NUMBER} j_header.item (json_id_tag) as j_id)
 				then
-					print ("Message: " + j_id.integer_64_item.out + "%N")
-				else
-					print ("The header was not found!%N")
+					print (msg_json_header_not_found)
 				end
-				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE HEADER DONE%N")
-
-				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE DATA ...%N")
 
 				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
-				then
+				and then
 
-					if attached {JSON_ARRAY} j_data.item (json_sensor_data_list_tag) as j_sensor_data_list then
+					--if
+					attached {JSON_ARRAY} j_data.item (json_sensor_data_list_tag) as j_sensor_data_list then
 
-						if attached sensor_data_list as l_sensor_data_list then l_sensor_data_list.wipe_out end
+					if attached sensor_data_list as l_sensor_data_list then l_sensor_data_list.wipe_out end
 
-						from i := 1
-						until i = j_sensor_data_list.count + 1
-						loop
-							if attached {JSON_OBJECT} j_sensor_data_list.i_th (i) as j_sensor_data
-							and then attached {JSON_NUMBER} j_sensor_data.item ("sensor_id") as j_id
-							and then attached {JSON_STRING} j_sensor_data.item ("sensor_name") as j_name
-							and then attached {JSON_STRING} j_sensor_data.item ("sensor_measure_unit") as j_unit
-							and then attached {JSON_NUMBER} j_sensor_data.item ("function_id") as j_function_id
-							and then attached {JSON_STRING} j_sensor_data.item ("function_name") as j_function_name
-							and then attached {JSON_NUMBER} j_sensor_data.item ("operator_id") as j_operator_id
-							and then attached {JSON_STRING} j_sensor_data.item ("operator_name") as j_operator_name
-							and then attached {JSON_NUMBER} j_sensor_data.item ("granularity_id") as j_granularity_id
-							and then attached {JSON_STRING} j_sensor_data.item ("granularity_name") as j_granularity_name
+					from j_sensor_data_list.array_representation.start
+					until j_sensor_data_list.array_representation.after
+					loop
+						if attached {JSON_OBJECT} j_sensor_data_list.array_representation.item as j_sensor_data
+						and then attached {JSON_NUMBER} j_sensor_data.item (json_sensor_id_tag) as j_id
+						and then attached {JSON_STRING} j_sensor_data.item (json_sensor_name_tag) as j_name
+						and then attached {JSON_STRING} j_sensor_data.item (json_sensor_measure_unit_tag) as j_unit
+						and then attached {JSON_NUMBER} j_sensor_data.item (json_function_id_tag) as j_function_id
+						and then attached {JSON_STRING} j_sensor_data.item (json_function_name_tag) as j_function_name
+						and then attached {JSON_NUMBER} j_sensor_data.item (json_operator_id_tag) as j_operator_id
+						and then attached {JSON_STRING} j_sensor_data.item (json_operator_name_tag) as j_operator_name
+						and then attached {JSON_NUMBER} j_sensor_data.item (json_granularity_id_tag) as j_granularity_id
+						and then attached {JSON_STRING} j_sensor_data.item (json_granularity_name_tag) as j_granularity_name
+						then
+							create sensor_rt_data.make_from_id (j_id.item.to_integer)
+							sensor_rt_data.set_sensor_name (j_name.item)
+							sensor_rt_data.set_measure_unit (j_unit.item)
+							sensor_rt_data.set_function_id (j_function_id.item.to_integer)
+							sensor_rt_data.set_function_name (j_function_name.item)
+							sensor_rt_data.set_operator_id (j_operator_id.item.to_integer)
+							sensor_rt_data.set_operator_name (j_operator_name.item)
+							sensor_rt_data.set_granularity_id (j_granularity_id.item.to_integer)
+							sensor_rt_data.set_granularity_description (j_granularity_name.item)
+							sensor_data_list.extend (sensor_rt_data)
+
+							if attached {JSON_ARRAY} j_sensor_data.item (json_data_tag) as j_cdata
 							then
-								create sensor_rt_data.make_from_id (j_id.item.to_integer)
-								sensor_rt_data.set_sensor_name (j_name.item)
-								sensor_rt_data.set_measure_unit (j_unit.item)
-								sensor_rt_data.set_function_id (j_function_id.item.to_integer)
-								sensor_rt_data.set_function_name (j_function_name.item)
-								sensor_rt_data.set_operator_id (j_operator_id.item.to_integer)
-								sensor_rt_data.set_operator_name (j_operator_name.item)
-								sensor_rt_data.set_granularity_id (j_granularity_id.item.to_integer)
-								sensor_rt_data.set_granularity_description (j_granularity_name.item)
-								sensor_data_list.extend (sensor_rt_data)
+								if attached sensor_rt_data.data as l_data then l_data.wipe_out end
 
-								if attached {JSON_ARRAY} j_sensor_data.item (json_data_tag) as j_cdata
-								then
-									if attached sensor_rt_data.data as l_data then l_data.wipe_out end
-
-									from j := 1
-									until j = j_cdata.count + 1
-									loop
-										if attached {JSON_OBJECT} j_cdata.i_th (j) as j_data_row
-										and then attached {JSON_STRING} j_data_row.item (json_data_row_tag) as j_row
-										then
-											sensor_rt_data.data.extend (j_row.item)
-										end
-										j := j + 1
+								from j_cdata.array_representation.start
+								until j_cdata.array_representation.after
+								loop
+									if attached {JSON_OBJECT} j_cdata.array_representation.item as j_data_row
+									and then attached {JSON_STRING} j_data_row.item (json_data_row_tag) as j_row
+									then
+										sensor_rt_data.data.extend (j_row.item)
 									end
+									j_cdata.array_representation.forth
 								end
 							end
-							i := i + 1
 						end
+						j_sensor_data_list.array_representation.forth
 					end
 				end
-				print ("%T{REALTIME_DATA_RESPONSE}.from_json: PARSING JSON MESSAGE DATA DONE%N")
 			else
-				print ("json parser error: " + parser.errors_as_string + "%N")
+				print (msg_json_parser_error + parser.errors_as_string + lf_s)
 			end
-			parser.reset_reader
-			parser.reset
 		end
 
 feature -- XML Callbacks
@@ -392,28 +369,16 @@ feature -- XML Callbacks
 	on_start
 			-- Called when parsing starts.
 		do
-			--log ("XML callbacks on_start called. It's the beginning of the whole parsing.", log_debug)
 		end
 
 	on_finish
 			-- Called when parsing finished.
 		do
-			--log ("XML callbacks on_finish called. The parsing has finished.", log_debug)
 		end
 
 	on_xml_declaration (a_version: READABLE_STRING_32; an_encoding: detachable READABLE_STRING_32; a_standalone: BOOLEAN)
 			-- XML declaration.
 		do
-			--log ("XML callbacks on_xml_declaration called. Got xml declaration", log_debug)
-			--if attached a_version as version then
-			--	log ("%TVersion:    " + version, log_debug)
-			--end
-			--if attached an_encoding as encoding then
-			--	log ("%TEncoding:   " + encoding, log_debug)
-			--end
-			--if attached a_standalone as standalone then
-			--	log ("%TStandalone: " + standalone.out, log_debug)
-			--end
 		end
 
 	on_error (a_message: READABLE_STRING_32)
@@ -421,46 +386,31 @@ feature -- XML Callbacks
 		do
 			outcome := {ERROR_CODES}.err_xml_parsing_failed
 			message := {ERROR_CODES}.msg_xml_parser_failed
-			log ("XML callbacks on_error called.", log_debug)
-			log ("Got an error: " + a_message, log_debug)
 		end
 
 	on_processing_instruction (a_name: READABLE_STRING_32; a_content: READABLE_STRING_32)
 			-- Processing instruction.
 			--| See http://en.wikipedia.org/wiki/Processing_instruction
 		do
-			--log ("XML callbacks on_processing_instruction called.", log_debug)
-			--log ("%Tname;    " + a_name, log_debug)
-			--log ("%Tcontent: " + a_content, log_debug)
 		end
 
 	on_comment (a_content: READABLE_STRING_32)
 			-- Processing a comment.
 			-- Atomic: single comment produces single event
 		do
-			--log ("XML callbacks on_comment called. Got a comment.", log_debug)
-			--log ("%Tcontent: " + a_content, log_debug)
 		end
 
 	on_start_tag (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32)
 			-- Start of start tag.
-		local
-			a_sensor_rt_data: detachable SENSOR_REALTIME_RESPONSE_DATA
 		do
-			--log ("XML callbacks on_start_tag called. A tag is starting", log_debug)
-			--if attached a_namespace as namespace then
-			--	log ("%Tnamespace: " + namespace, log_debug)
-			--end
-			--if attached a_prefix as myprefix then
-			--	log ("%Tprefix:    " + myprefix, log_debug)
-			--end
-			--log ("%Tlocal part:  " + a_local_part, log_debug)
 			current_tag := a_local_part
 			-- se il tag corrente è <Sensor> creare un oggettodi tipo SENSOR_REALTIME_RESPONSE_DATA
 			-- e aggiungerlo alla lista dei sensori
-			if current_tag.is_equal ("Sensore") then
-				create a_sensor_rt_data.make
-				sensor_data_list.extend (a_sensor_rt_data)
+
+			if attached current_tag as l_current_tag and then
+				--if
+				l_current_tag.is_equal (it_xml_sensor) then
+				sensor_data_list.extend (create {SENSOR_REALTIME_RESPONSE_DATA}.make)
 			end
 		end
 
@@ -493,55 +443,43 @@ feature -- XML Callbacks
 
 	on_attribute (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32; a_value: READABLE_STRING_32)
 			-- Start of attribute.
-		--local
-		--	a_sensor_rt_data: SENSOR_REALTIME_RESPONSE_DATA
 		do
-			--log ("XML callbacks on_attribute called. Got an attribute", log_debug)
-			--if attached a_namespace as namespace then
-			--	log ("%Tnamespace: " + namespace, log_debug)
-			--end
-			--if attached a_prefix as myprefix then
-			--	log ("%Tprefix:    " + myprefix, log_debug)
-			--end
-			--log ("%Tlocal part:  " + a_local_part, log_debug)
-			--log ("%Tvalue:       " + a_value, log_debug)
-
-			if current_tag.is_equal ("Sensore") then
-				if a_local_part.is_equal ("IdSensore") then
-					sensor_data_list.last.set_sensor_id (a_value.to_integer)
-				elseif a_local_part.is_equal ("NomeSensore") then
-					sensor_data_list.last.set_sensor_name (a_value)
-				elseif a_local_part.is_equal ("UnitaMisura") then
-					sensor_data_list.last.set_measure_unit (a_value)
-				elseif a_local_part.is_equal ("IdFunzione") then
-					sensor_data_list.last.set_function_id (a_value.to_integer)
-				elseif a_local_part.is_equal ("Funzione") then
-					sensor_data_list.last.set_function_name (a_value)
-				elseif a_local_part.is_equal ("IdOperatore") then
-					sensor_data_list.last.set_operator_id (a_value.to_integer)
-				elseif a_local_part.is_equal ("Operatore") then
-					sensor_data_list.last.set_operator_name (a_value)
-				elseif a_local_part.is_equal ("IdPeriodo") then
-					sensor_data_list.last.set_granularity_id (a_value.to_integer)
-				elseif a_local_part.is_equal ("Periodo") then
-					sensor_data_list.last.set_granularity_description (a_value)
+			if attached current_tag as l_current_tag then
+				if l_current_tag.is_equal (it_xml_sensor) then
+					if a_local_part.is_equal (it_xml_sensor_id) then
+						sensor_data_list.last.set_sensor_id (a_value.to_integer)
+					elseif a_local_part.is_equal (it_xml_sensor_name) then
+						sensor_data_list.last.set_sensor_name (a_value)
+					elseif a_local_part.is_equal (it_xml_measure_unit) then
+						sensor_data_list.last.set_measure_unit (a_value)
+					elseif a_local_part.is_equal (it_xml_function_id) then
+						sensor_data_list.last.set_function_id (a_value.to_integer)
+					elseif a_local_part.is_equal (it_xml_function) then
+						sensor_data_list.last.set_function_name (a_value)
+					elseif a_local_part.is_equal (it_xml_operator_id) then
+						sensor_data_list.last.set_operator_id (a_value.to_integer)
+					elseif a_local_part.is_equal (it_xml_operator) then
+						sensor_data_list.last.set_operator_name (a_value)
+					elseif a_local_part.is_equal (it_xml_granularity_id) then
+						sensor_data_list.last.set_granularity_id (a_value.to_integer)
+					elseif a_local_part.is_equal (it_xml_granularity) then
+						sensor_data_list.last.set_granularity_description (a_value)
+					end
+				elseif l_current_tag.is_equal (it_xml_data) then
+					cdata_segment:= a_value.twin
+					sensor_data_list.last.data.extend (a_value)
 				end
-			elseif current_tag.is_equal ("Dati") then
-				cdata_segment:= a_value.twin
-				sensor_data_list.last.data.extend (a_value)
 			end
 		end
 
 	on_start_tag_finish
 			-- End of start tag.
 		do
-			--log ("XML callbacks on_start_tag_finish called. The start tag is finished.", log_debug)
 		end
 
 	on_end_tag (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32)
 			-- End tag.
 		do
-			--log ("XML callbacks on_end_tag called. Got the and tag.", log_debug)
 		end
 
 	on_content (a_content: READABLE_STRING_32)
@@ -550,26 +488,25 @@ feature -- XML Callbacks
 			-- without a markup event in between.
 			--| this should not occur, but I leave this comment just in case
 		local
-			i:     INTEGER
 			words: detachable LIST[STRING]
-			str:   detachable STRING
+			--str:   detachable STRING
 		do
-			--log ("XML callbacks on_content called. Got tag content", log_debug)
-			--log ("%Tcontent: " + a_content, log_debug)
-			if current_tag.is_equal ("Esito") then
-				outcome := a_content.to_integer
-			elseif current_tag.is_equal ("Messaggio") then
-				message := a_content
-			elseif current_tag.is_equal ("Dati") then
-				cdata_segment := a_content.twin
+			if attached current_tag as l_current_tag then
+			    if l_current_tag.is_equal (it_xml_outcome) then
+					outcome := a_content.to_integer
+				elseif l_current_tag.is_equal (it_xml_message) then
+					message := a_content
+				elseif l_current_tag.is_equal (it_xml_data) then
+					cdata_segment := a_content.twin
 
-				words := cdata_segment.split ('%N')
-				from i := 1
-				until i = words.count + 1
-				loop
-					str := words.i_th (i)
-					sensor_data_list.last.data.extend (str)
-					i := i + 1
+					if attached cdata_segment as l_cdata_segment then
+						words := l_cdata_segment.split (lf_char)
+						across
+							words as w
+						loop
+							sensor_data_list.last.data.extend (w.item)
+						end
+					end
 				end
 			end
 		end
@@ -579,30 +516,16 @@ feature -- Dispose
 	dispose
 			--
 		do
-			if not is_in_final_collect then
-				if attached json_representation as l_json_representation then l_json_representation.wipe_out end
-				if attached xml_representation  as l_xml_representation  then l_xml_representation.wipe_out  end
-				if attached current_tag         as l_current_tag         then l_current_tag.wipe_out         end
-				if attached content             as l_content             then l_content.wipe_out             end
-				if attached cdata_segment       as l_cdata_segment       then l_cdata_segment.wipe_out       end
-				if attached sensor_data_list    as l_sensor_data_list    then l_sensor_data_list.wipe_out    end
-				if attached message             as l_message             then l_message.wipe_out             end
-			end
 		end
 
 feature {NONE} -- Implementation
 
-	json_representation: STRING
-			-- message json representation
 
-	xml_representation:  STRING
-			-- message xml representation
-
-	current_tag:         STRING
+	current_tag:         detachable STRING
 			-- used by `XML_CALLBACKS' features
-	content:             STRING
+	content:             detachable STRING
 			-- used by `XML_CALLBACKS' features
-	cdata_segment:       STRING
+	cdata_segment:       detachable STRING
 			-- used by `XML_CALLBACKS' features
 
 invariant

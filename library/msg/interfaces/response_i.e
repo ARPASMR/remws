@@ -14,17 +14,12 @@ inherit
 feature --Access
 
 	outcome:     INTEGER deferred end
-	message:     STRING  deferred end
+	message:     detachable STRING  deferred end
 
-	current_tag: STRING deferred end
-	content:     STRING deferred end
+	current_tag: detachable STRING deferred end
+	content:     detachable STRING deferred end
 
 feature -- Status setting
-
---	set_parameters_number (pn: INTEGER)
---			-- Sets `parameters_number'
---		deferred
---		end
 
 	set_outcome (o: INTEGER) deferred end
 	set_message (m: STRING)  deferred end

@@ -42,13 +42,9 @@ feature {NONE} -- Initialization
 	make
 			-- Initialization for `Current'.
 		do
-			create json_representation.make_empty
-			create xml_representation.make_empty
 			create current_tag.make_empty
 			create content.make_empty
 			create message.make_empty
-			create token.make
-
 			create status_list.make (0)
 		end
 
@@ -58,8 +54,6 @@ feature -- Access
 
 	outcome:             INTEGER
 	message:             STRING
-
-	token:               TOKEN
 
 	status_list:         ARRAYED_LIST [STATION_STATUS]
 
@@ -74,7 +68,7 @@ feature -- Status setting
 	set_message (m: STRING)
 			-- Sets `message'
 		do
-			message.copy (m)
+			message := m.twin
 		end
 
 	set_logger (a_logger: LOG_LOGGING_FACILITY)
@@ -91,7 +85,7 @@ feature -- Status setting
 			-- reset contents
 		do
 			outcome := 0
-			message := ""
+			message := null
 		end
 
 feature -- Status report
@@ -106,55 +100,48 @@ feature -- Conversion
 
 	to_json: STRING
 			-- json representation
-		local
-			i: INTEGER
 		do
-			json_representation.wipe_out
-			if is_error_response then
-				json_representation.append ("{")
-				json_representation.append ("%"header%": {")
-				json_representation.append ("%"id%": " + station_status_list_response_id.out)
-				json_representation.append ("},")
-				json_representation.append ("%"data%": {")
-				json_representation.append ("%"outcome%": " + outcome.out)
-				json_representation.append (",%"message%": %"" + message + "%",")
-				json_representation.append ("}")
-				json_representation.append ("}")
-			else
-				json_representation.append ("{")
-				json_representation.append ("%"header%": {")
-				json_representation.append ("%"id%": " + station_status_list_response_id.out)
-				json_representation.append ("},")
-				json_representation.append ("%"data%": {")
-				json_representation.append ("%"outcome%": "   + outcome.out)
-				json_representation.append (",%"message%": %"" + message + "%"")
-				json_representation.append (",%"status_list%": [")
-				from i := 1
-				until i = status_list.count + 1
-				loop
-					if i /= 1 then
-						json_representation.append (",")
-					end
-					json_representation.append ("{%"id%": " + status_list.i_th (i).id.out + ",%"name%": %"" + status_list.i_th (i).name + "%"}")
-					i := i + 1
-				end
-				json_representation.append ("]")
-				json_representation.append ("}")
-				json_representation.append ("}")
-			end
+			create Result.make_empty
 
-			Result := json_representation
+			if is_error_response then
+				Result.append (left_brace)
+				Result.append (double_quotes + json_header_tag + double_quotes + colon + space + left_brace)
+				Result.append (double_quotes + json_id_tag + double_quotes + colon + space + station_status_list_response_id.out)
+				Result.append (right_brace + comma)
+				Result.append (double_quotes + json_data_tag + double_quotes + colon + space + left_brace)
+				Result.append (double_quotes + json_outcome_tag + double_quotes + colon + space + outcome.out)
+				Result.append (comma + double_quotes + json_message_tag + double_quotes + colon + space + double_quotes + message + double_quotes)
+				Result.append (right_brace)
+				Result.append (right_brace)
+			else
+				Result.append (left_brace)
+				Result.append (double_quotes + json_header_tag + double_quotes + colon + space + left_brace)
+				Result.append (double_quotes + json_id_tag + double_quotes + colon + space + station_status_list_response_id.out)
+				Result.append (right_brace + comma)
+				Result.append (double_quotes + json_data_tag + double_quotes + colon + space + left_brace)
+				Result.append (double_quotes + json_outcome_tag + double_quotes + colon + space + outcome.out)
+				Result.append (comma + double_quotes + json_message_tag + double_quotes + colon + space + double_quotes + message + double_quotes)
+				Result.append (comma + double_quotes + json_status_list_tag + double_quotes + colon + space + left_bracket)
+				from status_list.start
+				until status_list.after
+				loop
+					Result.append (left_brace + double_quotes + json_id_tag + double_quotes + colon + space + status_list.item.id.out + comma + double_quotes + json_name_tag +
+					               double_quotes + colon + space + double_quotes + status_list.item.name + double_quotes + right_brace)
+					if not status_list.islast then
+						Result.append (comma)
+					end
+					status_list.forth
+				end
+				Result.append (right_bracket)
+				Result.append (right_brace)
+				Result.append (right_brace)
+			end
 		end
 
 	from_xml(xml: STRING; parser: XML_STANDARD_PARSER)
 			-- Parse XML message
-	local
-		--parser: XML_STANDARD_PARSER
-		--factory: XML_PARSER_FACTORY
 	do
-		--create factory
 		status_list.wipe_out
-		--parser := factory.new_standard_parser
 		parser.set_callbacks (Current)
 		set_associated_parser (parser)
 		parser.parse_from_string (xml)
@@ -173,67 +160,36 @@ feature -- Conversion
 		require else
 			json_valid: attached json and then not json.is_empty
 			json_parser_valid: attached parser and then parser.is_valid
-		local
-			key:         JSON_STRING
-			key1:        JSON_STRING
-			key2:        JSON_STRING
-
-			--json_parser: JSON_PARSER
-			i:           INTEGER
-
-			status:      STATION_STATUS
 		do
-		 	--create json_parser.make_with_string (json)
-		 	parser.reset_reader
-		 	parser.reset
 		 	parser.set_representation (json)
-
-			create key.make_from_string ("header")
-			create key1.make_from_string ("id")
-			create key2.make_from_string ("name")
-
 			parser.parse_content
 			if parser.is_valid and then attached parser.parsed_json_value as jv then
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
-					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
+				if not (attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
+					and then attached {JSON_NUMBER} j_header.item (json_id_tag) as j_id)
 				then
-					print ("Message: " + j_id.integer_64_item.out + "%N")
-				else
-					print ("The header was not found!%N")
+					print (msg_json_header_not_found)
 				end
 
-
-
-				key := "data"
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
-				then
-					key := "status_list"
-					if attached {JSON_ARRAY} j_data.item (key) as j_status_list then
-
-						status_list.wipe_out
-
-						from i := 1
-						until i = j_status_list.count + 1
-						loop
-							if attached {JSON_OBJECT} j_status_list.i_th (i) as j_status
-							and then attached {JSON_NUMBER} j_status.item (key1) as j_id
-							and then attached {JSON_STRING} j_status.item (key2) as j_name
-							then
-								create status.make_from_id_and_name (j_id.integer_64_item.to_integer, j_name.item)
-								status_list.extend (status)
-							end
-							i := i + 1
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
+				and then
+					--if
+					attached {JSON_ARRAY} j_data.item (json_status_list_tag) as j_status_list then
+					status_list.wipe_out
+					from j_status_list.array_representation.start
+					until j_status_list.array_representation.after
+					loop
+						if attached {JSON_OBJECT} j_status_list.array_representation.item as j_status
+						and then attached {JSON_NUMBER} j_status.item (json_id_tag) as j_id
+						and then attached {JSON_STRING} j_status.item (json_name_tag) as j_name
+						then
+							status_list.extend (create {STATION_STATUS}.make_from_id_and_name (j_id.integer_64_item.to_integer, j_name.item))
 						end
+						j_status_list.array_representation.forth
 					end
 				end
 			else
-				print ("json parser error: " + parser.errors_as_string + "%N")
+				print (msg_json_parser_error + parser.errors_as_string + lf_s)
 			end
-			parser.reset_reader
-			parser.reset
-			key.item.wipe_out
-			key1.item.wipe_out
-			key2.item.wipe_out
 		end
 
 feature -- {DISPOSABLE}
@@ -241,12 +197,6 @@ feature -- {DISPOSABLE}
 	dispose
 			--
 		do
-			json_representation.wipe_out
-			xml_representation.wipe_out
-			current_tag.wipe_out
-			content.wipe_out
-			message.wipe_out
-			status_list.wipe_out
 		end
 
 feature -- XML Callbacks
@@ -254,28 +204,16 @@ feature -- XML Callbacks
 	on_start
 			-- Called when parsing starts.
 		do
-			log ("XML callbacks on_start called. It's the beginning of the whole parsing.", log_debug)
 		end
 
 	on_finish
 			-- Called when parsing finished.
 		do
-			log ("XML callbacks on_finish called. The parsing has finished.", log_debug)
 		end
 
 	on_xml_declaration (a_version: READABLE_STRING_32; an_encoding: detachable READABLE_STRING_32; a_standalone: BOOLEAN)
 			-- XML declaration.
 		do
-			log ("XML callbacks on_xml_declaration called. Got xml declaration", log_debug)
-			if attached a_version as version then
-				log ("%TVersion:    " + version, log_debug)
-			end
-			if attached an_encoding as encoding then
-				log ("%TEncoding:   " + encoding, log_debug)
-			end
-			if attached a_standalone as standalone then
-				log ("%TStandalone: " + standalone.out, log_debug)
-			end
 		end
 
 	on_error (a_message: READABLE_STRING_32)
@@ -283,60 +221,33 @@ feature -- XML Callbacks
 		do
 			outcome := {ERROR_CODES}.err_xml_parsing_failed
 			message := {ERROR_CODES}.msg_xml_parser_failed
-			log ("XML callbacks on_error called.", log_debug)
-			log ("Got an error: " + a_message, log_debug)
 		end
 
 	on_processing_instruction (a_name: READABLE_STRING_32; a_content: READABLE_STRING_32)
 			-- Processing instruction.
 			--| See http://en.wikipedia.org/wiki/Processing_instruction
 		do
-			log ("XML callbacks on_processing_instruction called.", log_debug)
-			log ("%Tname;    " + a_name, log_debug)
-			log ("%Tcontent: " + a_content, log_debug)
 		end
 
 	on_comment (a_content: READABLE_STRING_32)
 			-- Processing a comment.
 			-- Atomic: single comment produces single event
 		do
-			log ("XML callbacks on_comment called. Got a comment.", log_debug)
-			log ("%Tcontent: " + a_content, log_debug)
 		end
 
 	on_start_tag (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32)
 			-- Start of start tag.
 		do
-			log ("XML callbacks on_start_tag called. A tag is starting", log_debug)
-			if attached a_namespace as namespace then
-				log ("%Tnamespace: " + namespace, log_debug)
-			end
-			if attached a_prefix as myprefix then
-				log ("%Tprefix:    " + myprefix, log_debug)
-			end
-			log ("%Tlocal part:  " + a_local_part, log_debug)
 			current_tag := a_local_part
 		end
 
 	on_attribute (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32; a_value: READABLE_STRING_32)
 			-- Start of attribute.
-		local
-			a_status: STATION_STATUS
 		do
-			log ("XML callbacks on_attribute called. Got an attribute", log_debug)
-			if attached a_namespace as namespace then
-				log ("%Tnamespace: " + namespace, log_debug)
-			end
-			if attached a_prefix as myprefix then
-				log ("%Tprefix:    " + myprefix, log_debug)
-			end
-			log ("%Tlocal part:  " + a_local_part, log_debug)
-			log ("%Tvalue:       " + a_value, log_debug)
-			if current_tag.is_equal ("StatoStazione") then
-				if a_local_part.is_equal ("Id") then
-					create a_status.make_from_id_and_name (a_value.to_integer, "")
-					status_list.extend (a_status)
-				elseif a_local_part.is_equal ("Nome") then
+			if attached current_tag as l_current_tag and then l_current_tag.is_equal (it_xml_station_status) then
+				if a_local_part.is_equal (it_xml_id) then
+					status_list.extend (create {STATION_STATUS}.make_from_id_and_name (a_value.to_integer, null))
+				elseif a_local_part.is_equal (it_xml_name) then
 					status_list.last.set_name (a_value)
 				end
 			end
@@ -345,13 +256,11 @@ feature -- XML Callbacks
 	on_start_tag_finish
 			-- End of start tag.
 		do
-			log ("XML callbacks on_start_tag_finish called. The start tag is finished.", log_debug)
 		end
 
 	on_end_tag (a_namespace: detachable READABLE_STRING_32; a_prefix: detachable READABLE_STRING_32; a_local_part: READABLE_STRING_32)
 			-- End tag.
 		do
-			log ("XML callbacks on_end_tag called. Got the and tag.", log_debug)
 		end
 
 	on_content (a_content: READABLE_STRING_32)
@@ -360,26 +269,20 @@ feature -- XML Callbacks
 			-- without a markup event in between.
 			--| this should not occur, but I leave this comment just in case
 		do
-			log ("XML callbacks on_content called. Got tag content", log_debug)
-			log ("%Tcontent: " + a_content, log_debug)
-			if current_tag.is_equal ("Esito") then
-				outcome := a_content.to_integer
-			elseif current_tag.is_equal ("Messaggio") then
-				message := a_content
+			if attached current_tag as l_current_tag then
+				if l_current_tag.is_equal (it_xml_outcome) then
+					outcome := a_content.to_integer
+				elseif l_current_tag.is_equal (it_xml_message) then
+					message := a_content
+				end
 			end
 		end
 
 feature {NONE} -- Implementation
 
-	json_representation: STRING
-			-- message json representation
-
-	xml_representation:  STRING
-			-- message xml representation
-
-	current_tag:         STRING
+	current_tag: detachable STRING
 			-- used by `XML_CALLBACKS' features
-	content:             STRING
+	content:     detachable STRING
 			-- used by `XML_CALLBACKS' features
 
 invariant

@@ -144,9 +144,9 @@ feature -- Status setting
 			elseif typology.is_equal (idro) then
 				table.copy ("M_Idrometri")
 				operators.extend (average)
-			--elseif typology.is_equal (present_time) then
-			--	table.copy ("M_")
-			--	operators.extend (average)
+			elseif typology.is_equal (present_time) then
+				table.copy ("M_Osservazioni_TR")
+				operators.extend (average)
 			end
 		end
 
@@ -170,40 +170,28 @@ feature -- Representation
 			if operators.is_empty then
 				Result := Result + "No operators, "
 			else
-				from operators.start
-				until operators.after
+				across operators
+					 as o
 				loop
-					Result := Result + "%N%T" + operators.item.out + "%N"
+					Result := Result + "%N%T" + o.item.out + "%N"
 
 					if last_dates.is_empty then
 						Result := Result + "No last dates, "
 					else
-						from last_dates.start
-						until last_dates.after
-						loop
-							Result := Result + "%T" + last_dates.item.formatted_out (default_date_time_format) + "%N"
-							last_dates.forth
+						across last_dates as d loop
+							Result := Result + "%T" + d.item.formatted_out (default_date_time_format) + "%N"
 						end
 					end
 
 					if measures.is_empty then
 						Result := Result + "No measures"
 					else
-						from measures.start
-						until measures.after
-						loop
-							from measures.item.start
-							until measures.item.after
-							loop
-								Result := Result + "%T" + measures.item.out + "%N"
-								measures.item.forth
+						across measures as m loop
+							across m.item as i loop
+								Result := Result + "%T" + i.out + "%N"
 							end
-
-							measures.forth
 						end
 					end
-
-					operators.forth
 				end
 			end
 

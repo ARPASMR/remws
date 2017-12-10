@@ -30,7 +30,6 @@ class
 
 inherit
 	REQUEST_I
-	DISPOSABLE
 
 create
 	make,
@@ -43,11 +42,6 @@ feature {NONE} -- Initialization
 		do
 			create usr.make_empty
 			create pwd.make_empty
-
-			create json_representation.make_empty
-			create xml_representation.make_empty
-
-			parameters_number := login_request_parnum
 		end
 
 	make_from_json_string (json: STRING; parser: JSON_PARSER)
@@ -58,18 +52,12 @@ feature {NONE} -- Initialization
 			create usr.make_empty
 			create pwd.make_empty
 
-			create json_representation.make_empty
-			create xml_representation.make_empty
-
-			parameters_number := login_request_parnum
-
 			from_json (json, parser)
 		end
 
 feature -- Access
 
-	id:                INTEGER do Result := login_request_id     end
-	parameters_number: INTEGER
+	id: INTEGER do Result := login_request_id end
 
 	username: STRING
 			-- Access to `usr'
@@ -120,10 +108,10 @@ feature -- Conversion
 			usr_not_empty: not username.is_empty
 			pwd_not_empty: not password.is_empty
 		do
-			create Result.make_from_string (xml_request_template)
-			Result.replace_substring_all ("$usr", usr)
-			Result.replace_substring_all ("$pwd", pwd)
-			xml_representation := Result
+			--create Result.make_from_string (xml_request_template)
+			Result := xml_request_template.twin
+			Result.replace_substring_all (it_username, usr)
+			Result.replace_substring_all (it_password, pwd)
 		end
 
 	from_json(json: STRING; parser: JSON_PARSER)
@@ -131,57 +119,39 @@ feature -- Conversion
 		require else
 			json_valid: attached json and then not json.is_empty
 			json_parser_valid: attached parser and then parser.is_valid
-		local
-			key:         JSON_STRING
-			--json_parser: JSON_PARSER
 		do
-		 	--create json_parser.make_with_string (json)
-		 	parser.reset_reader
-		 	parser.reset
 		 	parser.set_representation (json)
-
-			create key.make_from_string ("header")
 			parser.parse_content
 			if parser.is_valid and then attached parser.parsed_json_value as jv then
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_header
-					and then attached {JSON_NUMBER} j_header.item ("id") as j_id
-					and then attached {JSON_NUMBER} j_header.item ("parameters_number") as j_parnum
+				if not (attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_header_tag) as j_header
+					and then attached {JSON_NUMBER} j_header.item (json_id_tag) as j_id)
 				then
-					print ("Message: " + j_id.integer_64_item.out + ", " + j_parnum.integer_64_item.out + "%N")
-				else
-					print ("The header was not found!%N")
+					print (msg_json_header_not_found)
 				end
 
-				check parameters_number = {MSG_CONSTANTS}.login_request_parnum end
-
-				key := "data"
-				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (key) as j_data
-					and then attached {JSON_STRING} j_data.item ("username") as j_usr
-					and then attached {JSON_STRING} j_data.item ("password") as j_pwd
+				if attached {JSON_OBJECT} jv as j_object and then attached {JSON_OBJECT} j_object.item (json_data_tag) as j_data
+					and then attached {JSON_STRING} j_data.item (json_username_tag) as j_usr
+					and then attached {JSON_STRING} j_data.item (json_password_tag) as j_pwd
 				then
 					usr := j_usr.item
 					pwd := j_pwd.item
 				end
 			end
-			parser.reset_reader
-			parser.reset
-			key.item.wipe_out
 		end
 
 	to_json: STRING
 			-- json representation
 		do
 			create Result.make_empty
-			json_representation.append ("{")
-			json_representation.append ("%"header%": {")
-			json_representation.append ("%"id%": " + login_request_id.out)
-			json_representation.append (",%"parameters_number%": " + login_request_parnum.out)
-			json_representation.append ("},")
-			json_representation.append ("%"data%": {")
-			json_representation.append ("%"username%": %"" + usr + "%"")
-			json_representation.append (",%"password%": %"" + pwd + "%"")
-			json_representation.append ("}")
-			json_representation.append ("}")
+			Result.append (left_brace)
+			Result.append (double_quotes + json_header_tag + double_quotes + colon + left_brace)
+			Result.append (double_quotes + json_id_tag + double_quotes + colon + space + login_request_id.out)
+			Result.append (right_brace + comma)
+			Result.append (double_quotes + json_data_tag + double_quotes + colon + left_brace)
+			Result.append (double_quotes + json_username_tag + double_quotes + colon + space + double_quotes + usr + double_quotes)
+			Result.append (comma + double_quotes + json_password_tag + double_quotes + colon + space + double_quotes + pwd + double_quotes)
+			Result.append (right_brace)
+			Result.append (right_brace)
 		end
 
 	from_xml (xml: STRING; parser: XML_STANDARD_PARSER)
@@ -192,7 +162,7 @@ feature -- Conversion
 
 feature -- Basic operations
 
-	init_response: RESPONSE_I
+	init_response: detachable RESPONSE_I
 			--
 		do
 			Result := create {LOGIN_RESPONSE}.make
@@ -203,12 +173,14 @@ feature -- {DISPOSABLE}
 	dispose
 			--
 		do
-			if not is_in_final_collect then
-				if attached json_representation as l_json_representation then l_json_representation.wipe_out end
-				if attached xml_representation  as l_xml_representation  then l_xml_representation.wipe_out  end
-				if attached usr                 as l_usr                 then l_usr.wipe_out                 end
-				if attached pwd                 as l_pwd                 then l_pwd.wipe_out                 end
-			end
+		end
+
+feature -- Status reporting
+
+	xml_pretty_out:  STRING
+			-- XML pretty out
+		do
+			Result := null
 		end
 
 feature {NONE} -- Object implementation
@@ -217,9 +189,6 @@ feature {NONE} -- Object implementation
 	pwd: STRING
 
 feature {NONE} -- Utilities implementation
-
-	json_representation: STRING
-	xml_representation:  STRING
 
 	ws_url: STRING
 			-- Web service URL
@@ -236,33 +205,48 @@ feature {NONE} -- Utilities implementation
 	soap_action_header:  STRING
 			-- SOAP action header
 		do
-			--Result := "SOAPAction: " + remws_uri + "/" + authws_interface + "/" + name
-			Result := remws_uri + "/" + authws_interface + "/" + name
+			Result := remws_uri + url_path_separator + authws_interface + url_path_separator + name
 		end
 
 	name: STRING
 			-- Request `name' to be passed to remws
 		do
-			Result := "Login"
+			Result := login_endpoint_name
 		end
 
 	xml_request_template: STRING
 			-- XML `Current' message request template
 		do
-			Result := "[
-		  		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-          		  <s:Body>
-            	  	<Login xmlns="http://tempuri.org/">
-              	      <xElInput>
-                	    <Login xmlns="">
-                  		  <Login>$usr</Login>
-                  		  <Password>$pwd</Password>
-                        </Login>
-                      </xElInput>
-                    </Login>
-                  </s:Body>
-                </s:Envelope>
-	        ]"
+--			Result := "[
+--		  		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+--          		  <s:Body>
+--            	  	<Login xmlns="http://tempuri.org/">
+--              	      <xElInput>
+--                	    <Login xmlns="">
+--                  		  <Login>$usr</Login>
+--                  		  <Password>$pwd</Password>
+--                        </Login>
+--                      </xElInput>
+--                    </Login>
+--                  </s:Body>
+--                </s:Envelope>
+--	        ]"
+
+			Result := ""
+			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + eq_s + double_quotes + xmlsoap + double_quotes + stag_end + lf_s)
+			  Result.append (double_space + stag_start + xmlns_s + colon + body + stag_end + lf_s)
+			    Result.append (double_space + double_space + stag_start + login_endpoint_name + space + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + stag_start + xelinput + stag_end + lf_s)
+			        Result.append (double_space + double_space + double_space + double_space + stag_start + login_endpoint_name + space + xmlns + eq_s + double_quotes + double_quotes + stag_end + lf_s)
+		              Result.append (double_space + double_space + double_space + double_space + double_space +
+		                             stag_start + login_endpoint_name + stag_end + it_username + etag_start + login_endpoint_name + etag_end + lf_s)
+		              Result.append (double_space + double_space + double_space + double_space + double_space +
+		                             stag_start + it_xml_password + stag_end + it_password + etag_start + it_xml_password + etag_end + lf_s)
+		            Result.append (double_space + double_space + double_space + double_space + etag_start + login_endpoint_name + etag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + etag_start + xelinput + etag_end + lf_s)
+			    Result.append (double_space + double_space + etag_start + login_endpoint_name + etag_end + lf_s)
+			  Result.append (double_space + etag_start + xmlns_s + colon + body + etag_end + lf_s)
+			Result.append (etag_start + xmlns_s + colon + soap_envelope + etag_end + lf_s)
 		end
 
 invariant

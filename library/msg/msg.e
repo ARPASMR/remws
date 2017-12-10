@@ -32,6 +32,7 @@ inherit
 	LOG_PRIORITY_CONSTANTS
 	REMWS_CONSTANTS
 	MSG_CONSTANTS
+	JSON_CONSTANTS
 	ERROR_CODES
 	DEFAULTS
 	LOGGING_I
@@ -90,10 +91,5 @@ feature -- Logging
 feature --  {DISPOSABLE}
 
 	dispose deferred end
-
-feature -- Implementation
-
-	json_representation: STRING  deferred end
-	xml_representation:  STRING  deferred end
 
 end
