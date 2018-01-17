@@ -1,7 +1,10 @@
 note
 	description : "msg_tester application root class"
-	date        : "$Date$"
-	revision    : "$Revision$"
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	date        : "$Date 2017-12-10 19:18:06 (dom 10 dic 2017, 19.18.06, CET) buck $"
+	revision    : "$Revision 48 $"
 
 class
 	MSG_TESTER
@@ -256,10 +259,10 @@ feature {NONE} -- Implementation
 					dt_from := dt_from + one_week
 
 					rt_data := create {SENSOR_REALTIME_REQUEST_DATA}.make
-					rt_data.set_sensor_id (19347)
+					rt_data.set_sensor_id (4058)
 					rt_data.set_function_code (acquired_data)
 					rt_data.set_time_granularty (ten_minutes)
-					rt_data.set_applied_operator (cumulated)
+					rt_data.set_applied_operator (average)
 					rt_data.set_start (dt_from)
 					rt_data.set_finish (dt_to)
 					req.sensors_list.extend (rt_data)

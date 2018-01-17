@@ -1,0 +1,46 @@
+# Options for remwsgwyd
+# remwsgwyd_options
+# Author: Luca Paganottti <luca.paganotti@gmail.com>
+#
+# This file has to be renamed to remwsgwyd and put in
+# /ect/sysconfig
+#
+# Options are:
+#   -p <port_number>      is the network port remwsgwyd will 
+#                         accept connections on
+#   -l <log_level>        the logging level that will be used
+#                         see next.
+#   -gcm <message_number> check garbage collector parameters
+#                         every message_number messages, so
+#                         garbage collection monitoring will
+#                         be active.
+#   -fst                  force Nino to single thread
+#   -v                    set Nino to verbose
+#   -h                    prints a little help
+#
+# Available logging levels are:
+#   7 --> debug-level messages
+#   6 --> informational messages
+#   5 --> normal but significant condition messages
+#   4 --> warning messages
+#   3 --> error conditions messages
+#   2 --> critical conditions messages
+#   1 --> action must be taken immediately messages
+#   0 --> system is unusable messages
+#
+#   The greater value of logging level includes also the
+#   lesser levels.
+#
+# For any other option, please, consult remwsgwyd man(1) page.
+#
+export REMWSGWYD_OPTIONS=" -p 9099 -gcm 2000 -l 1 -u"
+
+# Some usefull environment variables
+
+export EIF_FULL_COALESCE_PERIOD="4"
+export EIF_FULL_COLLECTION_PERIOD="2"
+export EIF_MEMORY_CHUNK="1048576"
+export EIF_TENURE_MAX="4"
+export ISE_EIFFEL="/usr/local/Eiffel_15.01"
+export ISE_LIBRARY="/usr/local/Eiffel_15.01"
+export ISE_PLATFORM="linux-x86-64"

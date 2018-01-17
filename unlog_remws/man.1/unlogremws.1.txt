@@ -1,0 +1,60 @@
+UNLOGREMWS(1)
+=============
+:doctype: manpage
+Luca Paganotti <luca.paganotti@gmail.com>
+v1.0, November 2017: First release.
+
+
+NAME
+----
+unlogremws - unlog remwsgwyd fromremws web service
+
+
+SYNOPSIS
+--------
+*unlogremws* ['OPTIONS']
+
+
+DESCRIPTION
+-----------
+The unlogremws eiffel application unlogs the remwsgwyd service from REMWS web service.
+
+
+OPTIONS
+-------
+*-t ::
+    Uses the testing web service instead of the production one, default value: production server.
+
+
+REMARKS
+-------
+`unlogremws` reads 'last_token' file written by `remwsgwyd` to get the token necessary to unlog from REMWS.
+
+
+EXAMPLE
+-------
+`unlogremws`::
+  Does it.
+
+
+AUTHOR
+------
+unlogremws was originally written by Luca Paganotti <luca.paganotti@gmail.com>.
+
+
+RESOURCES
+---------
+github: <http://https://github.com/lucapaganotti/>
+
+
+SEE ALSO
+--------
+rt10(1), nmarzi(1), remwsgwyd(1)
+
+
+COPYING
+-------
+Copyright \(C) 2016-2018 ARPA Lombardia, Luca Paganotti. Free use of this software is
+granted under the terms of the GNU General Public License (GPL), v2.
+
+

@@ -1,0 +1,5 @@
+# Generare una manpage
+a2x -v --doctype manpage --format manpage nmarzi.1.txt 
+# Generare il corrispondente file pdf
+a2x -f pdf --fop nmarzi.1.txt
+

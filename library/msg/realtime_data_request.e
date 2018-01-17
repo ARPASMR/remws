@@ -1,8 +1,10 @@
 	note
-	description: "Summary description for {REALTIME_DATA_REQUEST}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description : "Summary description for {REALTIME_DATA_REQUEST}."
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	date        : "$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"
+	revision    : "$Revision 48 $"
 
 --| ----------------------------------------------------------------------------
 --| This is the message structure for the realtime data message, for the time
@@ -322,13 +324,13 @@ feature {NONE} -- Utilities implementation
 --	              </s:Body>
 --	            </s:Envelope>
 --			]"
-			Result := null
+			create Result.make_empty
 			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + eq_s + double_quotes + xmlsoap + double_quotes + stag_end + lf_s)
 			  Result.append (double_space + stag_start + xmlns_s + colon + body + stag_end + lf_s)
-			    Result.append (double_space + double_space + stag_start + realtime_data_endpoint_name + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
+			    Result.append (double_space + double_space + stag_start + realtime_data_endpoint_name + space + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
 			      Result.append (double_space + double_space + double_space + stag_start + xinput + stag_end + lf_s)
 			        Result.append (double_space + double_space + double_space + double_space + stag_start + realtime_data_endpoint_name + space +
-			                       xmlns + eq_s + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
+			                       xmlns + eq_s + double_quotes + double_quotes + stag_end + lf_s)
 			          Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_token + stag_end + lf_s)
 			            Result.append (double_space + double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_id + stag_end + it_tokenid +
 			                           etag_start + it_xml_id + etag_end + lf_s)

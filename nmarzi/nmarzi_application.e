@@ -3,15 +3,16 @@ note
 		nmarzi application root class
 	    Acts as a clone of the old nmarzi cygwin client.
     ]"
-	copyright: "Copyright (c) 2015-2017, ARPA Lombardia"
-	license:   "General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)"
-	source: "[
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	source      : "[
 		Luca Paganotti <luca.paganotti (at) gmail.com>
 		Via dei Giardini, 9
 		21035 Cunardo (VA)
 	]"
-	date: "$Date: 2017-11-23 14:52:50 +0100 (Thu, 23 Nov 2017) $"
-	revision: "$Revision: 48 $"
+	date        : "$Date 2017-12-10 19:11:38 (dom 10 dic 2017, 19.11.38, CET) buck $"
+	revision    : "$Revision 48 $"
 
 class
 	NMARZI_APPLICATION

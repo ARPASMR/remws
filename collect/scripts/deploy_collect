@@ -1,0 +1,175 @@
+#!/bin/bash
+#
+# Deploy script for collect as a daemon called remwsgwyd
+# Author: Luca Paganotti <luca.paganotti@gmail.com>
+#
+
+# usefull local variables
+RETVAL=0
+SUCCESS=0
+FAILURE=1
+
+# usefull local variables for paths and file names
+collect_exec="collect"
+collect_finalized_path="/home/meteo/dev/eiffel/collect/EIFGENs/collect/F_code/"
+unlogremws_exec="unlogremws"
+unlogremws_finalized_path="/home/meteo/dev/eiffel/unlog_remws/EIFGENs/unlog/F_code/"
+
+deploy_exec_name="remwsgwyd"
+deploy_path="/sbin/"
+remwsgwyd_options_file="remwsgwyd_options"
+remwsgwyd_options_path="/home/meteo/dev/eiffel/collect/scripts/"
+deploy_remwsgwyd_options_file=$deploy_exec_name
+deploy_remwsgwyd_options_path="/etc/sysconfig/"
+restart_remwsgwyd_name="restart_remwsgwyd.sh"
+restart_remwsgwyd_path="/root/"
+initd_script=$deploy_exec_name
+initd="/etc/init.d/"
+
+# Manage the possible running instance of remwsgwyd
+echo 'Trying to stop the possible already running instance \
+of' $deploy_exec_name 'daemon ...'
+service $deploy_exec_name stop
+RETVAL=$?
+if [ $RETVAL = $SUCCESS ] ; then 
+{
+  echo 'Done. $? returned.'
+}
+else
+{
+  echo 'ERROR stopping '$deploy_exec_name'.'
+  echo 'May be '$deploy_exec_name' is not installed.'
+}
+fi
+
+echo 'Disabling '$deploy_exec_name' daemon ...'
+#service $deploy_exec_name disable 
+chkconfig $deploy_exec_name off
+chkconfig --del $deploy_exec_name
+RETVAL=$?
+if [ $RETVAL = $SUCCESS ] ; then 
+{
+  echo 'Done. '$?' returned.'
+}
+else
+{
+  echo 'ERROR disabling '$deploy_exec_name'.'
+  echo 'May be '$deploy_exec_name' is not installed.'
+}
+fi
+
+echo 'Copying '$deploy_exec_name' files ...'
+echo '  Copying executable ...'
+cp $collect_finalized_path$collect_exec $deploy_path$deploy_exec_name
+RETVAL=$?
+if [ $RETVAL = $SUCCESS ] ; then
+{
+  echo '  Done. '$?' returned.'
+}
+else 
+{
+  echo 'ERROR copying '$deploy_exec_name'.'
+  EXIT $FAILURE
+}
+fi
+
+echo '  Copying '$unlogremws_exec file' ...'
+cp $unlogremws_finalized_path$unlogremws_exec $deploy_path$unlogremws_exec
+RETVAL=$?
+if [ $RETVAL = $SUCCESS ] ; then
+{
+  echo 'Done. '$?' returned.'
+}
+else
+{
+  echo 'ERROR copying '$unlogrews_exec'.'
+  EXIT $FAILURE
+}
+fi
+
+echo '  Copying '$deploy_exec_name' options file ...'
+cp $remwsgwyd_options_path$remwsgwyd_options_file $deploy_remwsgwyd_options_path$deploy_remwsgwyd_options_file
+RETVAL=$?
+if [ $RETVAL = $SUCCESS ] ; then
+{
+  echo 'Done. '$?' returned.'
+}
+else
+{
+  echo 'ERROR copying '$remwsgwyd_options_file'.'
+  EXIT $FAILURE
+}
+fi
+
+echo '  Copying '$initd_script' to '$initd' ...'
+cp $remwsgwyd_options_path$initd_script $initd
+RETVAL=$?
+if [ $RETVAL = $SUCCESS ] ; then
+{
+  echo 'Done. '$?' returned. '$initd_script' copied to '$initd'.'
+}
+else
+{
+  echo 'ERROR copying '$initd_script'.'
+  EXIT $FAILURE
+}
+fi
+
+if [ $RETVAL = $SUCCESS ] ; then
+{
+  echo $collect_exec' correcly deployd as '$deploy_exec_name' in '$deploy_path
+  echo 'with options file '$deploy_remwsgwyd_options_file' in '
+  echo $deploy_remwsgwyd_options_path'.'
+}
+else
+{
+  echo 'Deploy error: '$?'.'
+  exit $FAILURE
+}
+fi
+
+echo '  Copying '$restart_remwsgwyd_name' to '$restart_remwsgwyd_path' ...'
+cp ./$restart_remwsgwyd_name $restart_remwsgwyd_path$restart_remwsgwyd_name
+RETVAL=$?
+if [ $RETVAL = $SUCCESS ] ; then
+{
+  echo 'Done. '$?' returned. '$restart_remwsgwyd_name' copied to '$restart_remwsgwyd_path'.'
+}
+else
+{
+  echo 'ERROR copying '$restart_remwsgwyd_name'.'
+  EXIT $FAILURE
+}
+fi
+
+# Re-enable and start remwsgwyd
+echo 'Enabling '$deploy_exec_name' daemon ...'
+chkconfig --add $deploy_exec_name
+#service $deploy_exec_name enable
+chkconfig $deploy_exec_name on
+RETVAL=$?
+if [ $RETVAL = $SUCCESS ] ; then
+{
+  echo 'Done. '$?' returned. '$deploy_exec_name' enabled.'
+}
+else
+{
+  echo 'ERROR enabling '$deploy_exec_name'.'
+  EXIT $FAILURE
+}
+fi
+
+echo 'Trying to start '$deploy_exec_name' daemon ...'
+service $deploy_exec_name start
+RETVAL=$?
+if [ $RETVAL = $SUCCESS ] ; then
+{
+  echo 'Done. '$?' returned, '$deploy_exec_name' started.'
+}
+else 
+{
+  echo 'ERROR starting '$remwsgwyd_options_file'.'
+  EXIT $FAILURE
+}
+fi
+

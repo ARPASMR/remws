@@ -1,8 +1,10 @@
 note
-	description: "Summary description for {PROVINCE_LIST_REQUEST}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description : "Summary description for {PROVINCE_LIST_REQUEST}."
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	date        : "$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"
+	revision    : "$Revision 48 $"
 
 --| ----------------------------------------------------------------------------
 --| This is the message structure for the login message, for the time being only
@@ -92,20 +94,17 @@ feature -- Conversion
 
 	to_xml: STRING
 			-- XML representation
-		local
-			l_token_id: STRING
 		do
-			create l_token_id.make_from_string (token_id)
 			--create Result.make_from_string (xml_request_template)
 			Result := xml_request_template.twin
-			if token_id.is_empty then
+			if not attached token_id as l_token_id then
 				Result.replace_substring_all (stag_start + it_xml_token + stag_end,   null)
 				Result.replace_substring_all (etag_start + it_xml_token + etag_end,   null)
 				Result.replace_substring_all (stag_start + it_xml_id + stag_end,      null)
 				Result.replace_substring_all (etag_start + it_xml_id + etag_end,      null)
 				Result.replace_substring_all (it_tokenid,                             null)
 			else
-				Result.replace_substring_all (it_tokenid,                             null)
+				Result.replace_substring_all (it_tokenid,                             l_token_id)
 			end
 		end
 
@@ -202,21 +201,40 @@ feature {NONE} -- Utilities implementation
 			Result := provinces_list_endpoint_name
 		end
 
-	xml_request_template: STRING = "[
-		<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-          <s:Body>
-            <ElencoProvince xmlns="http://tempuri.org/">
-              <xInput>
-                <ElencoProvince xmlns="">
-                  <Token>
-                    <Id>$tokenid</Id>
-                  </Token>
-                </ElencoProvince>
-              </xInput>
-            </ElencoProvince>
-          </s:Body>
-        </s:Envelope>
-	]"
+	xml_request_template: STRING
+			-- Request XML template
+		do
+--			Result := "[
+--		                 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+--                           <s:Body>
+--                             <ElencoProvince xmlns="http://tempuri.org/">
+--                               <xInput>
+--                                 <ElencoProvince xmlns="">
+--                                   <Token>
+--                                     <Id>$tokenid</Id>
+--                                   </Token>
+--                                 </ElencoProvince>
+--                               </xInput>
+--                             </ElencoProvince>
+--                           </s:Body>
+--                         </s:Envelope>
+--	                   ]"
+			create Result.make_empty
+			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + eq_s + double_quotes + xmlsoap + double_quotes + stag_end + lf_s)
+			  Result.append (double_space + stag_start + xmlns_s + colon + body + stag_end + lf_s)
+			    Result.append (double_space + double_space +  stag_start + it_xml_provinces_list + space + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + stag_start + xinput + stag_end + lf_s)
+			        Result.append (double_space + double_space + double_space + double_space + stag_start + it_xml_provinces_list + space + xmlns + eq_s + double_quotes + double_quotes + stag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_token + stag_end + lf_s)
+			            Result.append (double_space + double_space + double_space + double_space + double_space + double_space +
+			                           stag_start + it_xml_id + stag_end + it_tokenid + etag_start + it_xml_id + etag_end + lf_s)
+			          Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_token + etag_end + lf_s)
+			        Result.append (double_space + double_space + double_space + double_space + etag_start + it_xml_provinces_list + etag_end + lf_s)
+			      Result.append (double_space + double_space + double_space + etag_start + xinput + etag_end + lf_s)
+			    Result.append (double_space + double_space + etag_start + it_xml_provinces_list + etag_end + lf_s)
+			  Result.append (double_space + etag_start + xmlns_s + colon + body + etag_end + lf_s)
+			Result.append (etag_start + xmlns_s + colon + soap_envelope + etag_end + lf_s)
+		end
 
 invariant
 	invariant_clause: True -- Your invariant here

@@ -1,8 +1,10 @@
 note
-	description: "Summary description for {STATION_LIST_REQUEST}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description : "Summary description for {STATION_LIST_REQUEST}."
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	date        : "$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"
+	revision    : "$Revision 48 $"
 
 --| ----------------------------------------------------------------------------
 --| This is the message structure for the stations list message, for the time
@@ -180,14 +182,14 @@ feature -- Conversion
 			--create Result.make_from_string (xml_request_template)
 			Result := xml_request_template.twin
 
-			if token_id.is_empty then
+			if not attached token_id as l_token_id then
 				Result.replace_substring_all (stag_start + it_xml_token + stag_end,  null)
 				Result.replace_substring_all (etag_start + it_xml_token + etag_end,  null)
 				Result.replace_substring_all (stag_start + it_xml_id + stag_end,     null)
 				Result.replace_substring_all (etag_start + it_xml_id + etag_end,     null)
 				Result.replace_substring_all (it_tokenid, null)
 			else
-				Result.replace_substring_all (it_tokenid, token_id)
+				Result.replace_substring_all (it_tokenid, l_token_id)
 			end
 
 			-- municipalities
@@ -515,8 +517,8 @@ feature {NONE} -- Utilities implementation
 --        		</s:Envelope>
 --			]"
 
-			Result := null
-			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + eq_s + double_quotes + xmlsoap + double_quotes + double_quotes + lf_s)
+			create Result.make_empty
+			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + eq_s + double_quotes + xmlsoap + double_quotes + stag_end + lf_s)
 			  Result.append (double_space + stag_start + xmlns_s + colon + body + stag_end + lf_s)
 			    Result.append (double_space + double_space + stag_start + stations_list_endpoint_name + space + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
 			      Result.append (double_space + double_space + double_space + stag_start + xinput + stag_end + lf_s)
@@ -539,9 +541,6 @@ feature {NONE} -- Utilities implementation
 					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_station_statuss + etag_end + lf_s)
 					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_stations + stag_end + lf_s)
 					    Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_status_list + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_stations + etag_end + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_stations + stag_end + lf_s)
-					    Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_stations_list + lf_s)
 					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_stations + etag_end + lf_s)
 					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_station_name + stag_end +
 					                 it_station_name + etag_start + it_xml_station_name + etag_end + lf_s)

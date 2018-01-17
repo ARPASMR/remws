@@ -1,0 +1,55 @@
+RT10(1)
+=========
+:doctype: manpage
+Luca Paganotti <luca.paganotti@gmail.com>
+v1.0, November 2017: First release.
+
+
+NAME
+----
+rt10 - rt10 application
+
+
+SYNOPSIS
+--------
+*rt10*
+
+
+DESCRIPTION
+-----------
+The rt10 eiffel application queries `remwsgwyd` for ten minutes realtime sensors and stores their observations to a mysql database.
+
+
+REMARKS
+-------
+`rt10` reads 'rt10.preferences.xml' file in the home user folder.
+
+
+EXAMPLE
+-------
+`rt10`::
+  Does it.
+
+
+AUTHOR
+------
+rt10 was originally written by Luca Paganotti <luca.paganotti@gmail.com>.
+
+
+RESOURCES
+---------
+github: <http://https://github.com/lucapaganotti/>
+
+
+SEE ALSO
+--------
+nmarzi(1), unlogremws(1), remwsgwyd(1)
+
+
+COPYING
+-------
+Copyright \(C) 2016-2018 ARPA Lombardia, Luca Paganotti. Free use of this software is
+granted under the terms of the GNU General Public License (GPL), v2.
+
+
+// vim: set syntax=asciidoc:

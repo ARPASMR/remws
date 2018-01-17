@@ -13,15 +13,16 @@ note
 		| json rsp |  <-----+     +------| xml rsp | <-----------+
 		+----------+                     +---------+
     ]"
-	copyright: "Copyright (c) 2015-2017, ARPA Lombardia"
-	license:   "General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)"
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
 	source: "[
 		Luca Paganotti <luca.paganotti (at) gmail.com>
 		Via dei Giardini, 9
 		21035 Cunardo (VA)
 	]"
-	date: "$Date: 2017-11-22 12:05:25 +0100 (Wed, 22 Nov 2017) $"
-	revision: "$Revision: 46 $"
+	date        : "$Date 2017-12-10 19:21:47 (dom 10 dic 2017, 19.21.47, CET) buck $"
+	revision    : "$Revision 48 $"
 
 class
 	COLLECT_APPLICATION

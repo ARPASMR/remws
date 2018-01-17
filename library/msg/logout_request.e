@@ -1,8 +1,10 @@
 note
-	description: "Summary description for {LOGOUT_REQUEST}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description : "Summary description for {LOGOUT_REQUEST}."
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	date        : "$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"
+	revision    : "$Revision 48 $"
 
 class
 	LOGOUT_REQUEST
@@ -172,7 +174,7 @@ feature {NONE} -- Utilities implementation
 	ws_test_url: STRING
 			-- Testing web service URL
 		do
-			Result := anaws_test_url
+			Result := authws_test_url
 		end
 
 	soap_action_header:  STRING
@@ -206,7 +208,7 @@ feature {NONE} -- Utilities implementation
 --                </s:Envelope>
 --        	]"
 
-			Result := null
+			create Result.make_empty
 			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + Eq_s + double_quotes + xmlsoap + double_quotes + stag_end + lf_s)
 			  Result.append (double_space + stag_start + xmlns_s + colon + body + stag_end + lf_s)
 			    Result.append (double_space + double_space + stag_start + logout_endpoint_name + space + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
@@ -220,7 +222,7 @@ feature {NONE} -- Utilities implementation
 			      Result.append (double_space + double_space + double_space + etag_start + xelinput + etag_end + lf_s)
 			    Result.append (double_space + double_space + etag_start + logout_endpoint_name + etag_end + lf_s)
 			  Result.append (double_space + etag_start + xmlns_s + colon + body + etag_end + lf_s)
-			Result.append (etag_start + xmlns_s + soap_envelope + etag_end + lf_s)
+			Result.append (etag_start + xmlns_s + colon + soap_envelope + etag_end + lf_s)
 		end
 
 invariant

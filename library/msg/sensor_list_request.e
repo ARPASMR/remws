@@ -1,8 +1,10 @@
 note
-	description: "Summary description for {SENSO_LIST_REQUEST}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description : "Summary description for {SENSO_LIST_REQUEST}."
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	date        : "$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"
+	revision    : "$Revision 48 $"
 
 --| ----------------------------------------------------------------------------
 --| This is the message structure for the sensors list message, for the time
@@ -221,45 +223,11 @@ feature -- Conversion
 				l_p_list.append (etag_start + it_xml_sensor_id + etag_end + lf_s)
 			end
 
-			if municipalities_list.count > 0 then
-				Result.replace_substring_all (it_municipalities_list, l_m_list)
-			else
-				Result.replace_substring_all (stag_start + it_xml_municipalities + stag_end, null)
-				Result.replace_substring_all (it_municipalities_list, null)
-				Result.replace_substring_all (etag_start + it_xml_municipalities + etag_end, null)
-			end
-
-			if stations_list.count > 0 then
-				Result.replace_substring_all (it_stations_list, l_st_list)
-			else
-				Result.replace_substring_all (stag_start + it_xml_stations + stag_end, null)
-				Result.replace_substring_all (it_stations_list, null)
-				Result.replace_substring_all (etag_start + it_xml_stations + etag_end, null)
-			end
-
-			if sensor_types_list.count > 0 then
-				Result.replace_substring_all (it_sensor_types_list, l_t_list)
-			else
-				Result.replace_substring_all (stag_start + it_xml_sensor_type + stag_end, null)
-				Result.replace_substring_all (it_sensor_types_list, null)
-				Result.replace_substring_all (etag_start + it_xml_sensor_type + etag_end, null)
-			end
-
-			if sensors_list.count > 0 then
-				Result.replace_substring_all (it_sensors_list, l_s_list)
-			else
-				Result.replace_substring_all (stag_start + it_xml_sensors + stag_end, null)
-				Result.replace_substring_all (it_sensors_list, null)
-				Result.replace_substring_all (etag_start + it_xml_sensors + etag_end, null)
-			end
-
-			if sensor_name.is_empty then
-				Result.replace_substring_all (stag_start + it_xml_sensor_name + stag_end, null)
-				Result.replace_substring_all (it_sensor_name, null)
-				Result.replace_substring_all (etag_start + it_xml_sensor_name + etag_end, null)
-			else
-				Result.replace_substring_all (it_sensor_name, sensor_name)
-			end
+			Result.replace_substring_all (it_municipalities_list, l_m_list)
+			Result.replace_substring_all (it_stations_list, l_st_list)
+			Result.replace_substring_all (it_sensor_types_list, l_t_list)
+			Result.replace_substring_all (it_sensors_list, l_s_list)
+			Result.replace_substring_all (it_sensor_name, null)
 		end
 
 	from_json(json: STRING; parser: JSON_PARSER)
@@ -475,18 +443,10 @@ feature {NONE} -- Utilities implementation
 --                                    <Token>
 --                                      <Id>$tokenid</Id>
 --                                    </Token>
---                                    <Comuni>
---                                      $municipalities_list
---                                    </Comuni>
---                                    <Stazioni>
---                                      $stations_list
---                                    </Stazioni>
---                                    <TipoSensore>
---                                      $sensor_types_list
---                                    </TipoSensore>
---                                    <Sensori>
---                                      $sensors_list
---                                    </Sensori>
+--                                    <Comuni>$municipalities_list</Comuni>
+--                                    <Stazioni>$stations_list</Stazioni>
+--                                    <TipoSensore>$sensor_types_list</TipoSensore>
+--                                    <Sensori>$sensors_list</Sensori>
 --                                    <NomeSensore>$sensor_name</NomeSensore>
 --                                  </ElencoSensori>
 --                                </xInput>
@@ -495,7 +455,7 @@ feature {NONE} -- Utilities implementation
 --                          </s:Envelope>
 --	                   ]"
 
-			Result := null
+			create Result.make_empty
 			Result.append (stag_start + xmlns_s + colon + soap_envelope + space + xmlns + colon + xmlns_s + eq_s + double_quotes + xmlsoap + double_quotes + stag_end + lf_s)
 			  Result.append (double_space + stag_start + xmlns_s + colon + body + stag_end + lf_s)
 			    Result.append (double_space + double_space + stag_start + sensors_list_endpoint_name + space + xmlns + eq_s + double_quotes + remws_uri + url_path_separator + double_quotes + stag_end + lf_s)
@@ -504,18 +464,18 @@ feature {NONE} -- Utilities implementation
 			          Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_token + stag_end + lf_s)
 			            Result.append (double_space + double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_id + stag_end + it_tokenid + etag_start + it_xml_id + etag_end + lf_s)
 			          Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_token + etag_end + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_municipalities + stag_end + lf_s)
-					    Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_municipalities_list + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_municipalities + etag_end + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_stations + stag_end + lf_s)
-					    Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_stations_list + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_stations + etag_end + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_sensor_type + stag_end + lf_s)
-					    Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_sensor_types_list + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_sensor_type + etag_end + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_sensors + stag_end + lf_s)
-					    Result.append (double_space + double_space + double_space + double_space + double_space + double_space + it_sensors_list + lf_s)
-					  Result.append (double_space + double_space + double_space + double_space + double_space + etag_start + it_xml_sensors + etag_end + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_municipalities + stag_end)
+					    Result.append (it_municipalities_list)
+					  Result.append (etag_start + it_xml_municipalities + etag_end + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_stations + stag_end)
+					    Result.append (it_stations_list)
+					  Result.append (etag_start + it_xml_stations + etag_end + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_sensor_type + stag_end)
+					    Result.append (it_sensor_types_list)
+					  Result.append (etag_start + it_xml_sensor_type + etag_end + lf_s)
+					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_sensors + stag_end)
+					    Result.append (it_sensors_list)
+					  Result.append (etag_start + it_xml_sensors + etag_end + lf_s)
 					  Result.append (double_space + double_space + double_space + double_space + double_space + stag_start + it_xml_sensor_name + stag_end + it_sensor_name +
 					                 etag_start + it_xml_sensor_name + etag_end + lf_s)
 			        Result.append (double_space + double_space + double_space + double_space + etag_start + sensors_list_endpoint_name + etag_end + lf_s)

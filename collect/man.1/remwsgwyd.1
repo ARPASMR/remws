@@ -1,0 +1,330 @@
+'\" t
+.\"     Title: remwsgwyd
+.\"    Author: Luca Paganotti <luca.paganotti@gmail.com>
+.\" Generator: DocBook XSL Stylesheets v1.79.1 <http://docbook.sf.net/>
+.\"      Date: November 2017
+.\"    Manual: \ \&
+.\"    Source: \ \& 1.0
+.\"  Language: English
+.\"
+.TH "REMWSGWYD" "1" "November 2017" "\ \& 1\&.0" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+remwsgwyd \- remws web service network gateway
+.SH "SYNOPSIS"
+.sp
+\fBremwsgwyd\fR [\fIOPTIONS\fR]
+.SH "DESCRIPTION"
+.sp
+The remwsgwyd service acts as a network gateway between REMWS web service and clients\&.
+.SH "OPTIONS"
+.PP
+*\-p \fIport\fR
+.RS 4
+Is the network port on which remwsgwyd will accept connections, default value: 9090\&.
+.RE
+.PP
+*\-l \fIlog\-level\fR
+.RS 4
+Is the logging level that will be used, default value: debug\-level (7)\&. The available logging levels range from 0 to 7 with the following meaning:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+7 debug level
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+6 informational level
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+5 normal but significant conditions
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+4
+\fIwarning\fR
+conditions
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+3
+\fIerror\fR
+conditions
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+2
+\fIcritical\fR
+conditions
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+1
+\fIalert\fR, action must be taken immediatly
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+0 system is unusable
+.RE
+.RE
+.PP
+*\-gcm \fImessage\-number\fR
+.RS 4
+Activates GC monitoring and checks GC parameters every
+\fImessage\-number\fR
+messages, default value: 10\&.000\&.
+.RE
+.PP
+*\-gcoap \fIcoalesce\-period\fR
+.RS 4
+Sets GC coalesce period, default value: 2\&.
+.RE
+.PP
+*\-gcolp \fIcollection\-period\fR
+.RS 4
+Sets GC collection period, default value: 2\&.
+.RE
+.PP
+*\-mt \fIthreshold\fR
+.RS 4
+Sets GC memory threshold, default value: 40\&.000\&.000 bytes\&.
+.RE
+.PP
+*\-mm \fImemory\fR
+.RS 4
+Sets the maximum memory amount the eiffel runtime can allocate, default value: 160\&.000\&.000 bytes\&.
+.RE
+.PP
+*\-gct \fIgc\-behaviour\fR
+.RS 4
+GC behaviour setup\&. Three values available:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+t: (tiny) optimize memory allocation for size
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+c: (compact) balance memory optimization between speed and size, shrinking allocated memory\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+s: (speed) optimize memory for speed default value: t (tiny)\&.
+.RE
+.RE
+.PP
+*\-fst
+.RS 4
+Forces Nino sinle threaded, default value: Nino multi\-threaded\&.
+.RE
+.PP
+*\-t
+.RS 4
+Uses the testing web service instead of the production one, default value: production server\&.
+.RE
+.PP
+*\-u
+.RS 4
+The box runnin
+\fIremwsgwyd\fR
+is set in UTC, default value: local time\&.
+.RE
+.PP
+*\-v
+.RS 4
+Nino set to verbose mode, default value: non verbose\&.
+.RE
+.PP
+*\-syslog
+.RS 4
+Uses syslog utilities, default value: do not use\&.
+.RE
+.PP
+*\-h
+.RS 4
+Prints a little help on usage\&.
+.RE
+.PP
+*\-license
+.RS 4
+Prints the GPLv2 license on screen\&.
+.RE
+.SH "REMARKS"
+.sp
+Garbage collection is on by default so it has to be setup to suite your needs\&. If \-h or \-license options are used or no parameters are provided remwsgwyd terminates itself\&.
+.SH "ENVIRONMENT VARIABLES"
+.sp
+There are some environment variables that can/must be defined in order to setup Garbage Collection:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+\fIEIF_FULL_COALESCE_PERIOD\fR: Period of full coalesce (in number of collections)\&. If the environment variable EIF_FULL_COALESCE_PERIOD is defined, it is set to the closest reasonable value from it\&. If null, no full coalescing is launched\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+\fIEIF_FULL_COLLECTION_PERIOD\fR: Period of full collection\&. If the environment variable EIF_FULL_COLLECTION_PERIOD is defined, it is set to the closest reasonable value from it\&. If null, no full collection is launched\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+\fIEIF_MEMORY_CHUNK\fR: Minimal size of a memory chunk\&. The eiffel run\-time always allocates a multiple of this size\&. If the environment variable EIF_MEMORY_CHUNK is defined, it is set to the closest reasonable value from it\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+\fIEIF_MEMORY_SCAVENGE\fR: Size of generational scavenge zone\&. If the environment variable EIF_MEMORY_SCAVENGE is defined, it is set to the closest reasonable value from it\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+\fIEIF_TENURE_MAX\fR: Maximum age of object before being considered as old (old objects are not scanned during partial collection)\&. If the environment variable EIF_TENURE_MAX is defined, it is set to the closest reasonable value from it\&.
+.RE
+.SH "EXAMPLE"
+.PP
+remwsgwyd \-l 1 \-gcm 2000 \-u \-syslog
+.RS 4
+Run the network gateway with log level set to alert, use syslog utilities, monitor gc every 2000 messages, the box running remwsgwyd is setup in UTC\&.
+.RE
+.SH "AUTHOR"
+.sp
+remwsgwyd was originally written by Luca Paganotti <luca\&.paganotti@gmail\&.com>\&.
+.SH "RESOURCES"
+.sp
+github: http://https://github\&.com/lucapaganotti/
+.SH "SEE ALSO"
+.sp
+rt10(1), nmarzi(1), unlogremws(1)
+.SH "COPYING"
+.sp
+Copyright (C) 2016\-2018 ARPA Lombardia, Luca Paganotti\&. Free use of this software is granted under the terms of the GNU General Public License (GPL), v2\&.
+.SH "AUTHOR"
+.PP
+\fBLuca Paganotti\fR <\&luca\&.paganotti@gmail\&.com\&>
+.RS 4
+Author.
+.RE

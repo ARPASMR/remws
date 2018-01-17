@@ -1,0 +1,149 @@
+REMWSGWYD(1)
+============
+:doctype: manpage
+Luca Paganotti <luca.paganotti@gmail.com>
+v1.0, November 2017: First release.
+
+
+NAME
+----
+remwsgwyd - remws web service network gateway
+
+
+SYNOPSIS
+--------
+*remwsgwyd* ['OPTIONS']
+
+
+DESCRIPTION
+-----------
+The remwsgwyd service acts as a network gateway between REMWS web service
+and clients.
+
+
+OPTIONS
+-------
+*-p 'port'::
+    Is the network port on which remwsgwyd will accept connections, default value: 9090.
+
+*-l 'log-level'::
+    Is the logging level that will be used, default value: debug-level (7).
+    The available logging levels range from 0 to 7 with the following meaning:
+        - 7    debug level
+        - 6    informational level
+        - 5    normal but significant conditions
+        - 4    'warning' conditions
+        - 3    'error' conditions
+        - 2    'critical' conditions
+        - 1    'alert', action must be taken immediatly
+        - 0    system is unusable
+
+*-gcm 'message-number'::
+    Activates GC monitoring and checks GC parameters every 'message-number' messages, default value: 10.000.
+
+*-gcoap 'coalesce-period'::
+    Sets GC coalesce period, default value: 2.
+
+*-gcolp 'collection-period'::
+    Sets GC collection period, default value: 2.
+
+*-mt 'threshold'::
+    Sets GC memory threshold, default value: 40.000.000 bytes.
+
+*-mm 'memory'::
+    Sets the maximum memory amount the eiffel runtime can allocate, default value: 160.000.000 bytes.
+
+*-gct 'gc-behaviour'::
+    GC behaviour setup. Three values available:
+        - t: (tiny)    optimize memory allocation for size
+        - c: (compact) balance memory optimization between speed and size, shrinking allocated memory.
+        - s: (speed)   optimize memory for speed
+    default value: t (tiny).
+
+*-fst ::
+    Forces Nino sinle threaded, default value: Nino multi-threaded.
+
+*-t ::
+    Uses the testing web service instead of the production one, default value: production server.
+
+*-u ::
+    The box runnin 'remwsgwyd' is set in UTC, default value: local time.
+
+*-v ::
+    Nino set to verbose mode, default value: non verbose.
+
+*-syslog ::
+    Uses syslog utilities, default value: do not use.
+
+*-h ::
+    Prints a little help on usage.
+
+*-license ::
+    Prints the GPLv2 license on screen.
+
+
+REMARKS
+-------
+Garbage collection is on by default so it has to be setup to suite your needs.
+If -h or -license options are used or no parameters are provided remwsgwyd terminates itself.
+
+
+ENVIRONMENT VARIABLES
+---------------------
+There are some environment variables that can/must be defined in order to
+setup Garbage Collection:
+
+    * 'EIF_FULL_COALESCE_PERIOD':
+        Period of full coalesce (in number of collections). If the environment variable EIF_FULL_COALESCE_PERIOD
+        is defined, it is set to the closest reasonable value from it.
+        If null, no full coalescing is launched.
+
+    * 'EIF_FULL_COLLECTION_PERIOD':
+        Period of full collection. If the environment variable EIF_FULL_COLLECTION_PERIOD
+        is defined, it is set to the closest reasonable value from it.
+        If null, no full collection is launched.
+
+    * 'EIF_MEMORY_CHUNK':
+        Minimal size of a memory chunk. The eiffel run-time always allocates a multiple of this size.
+        If the environment variable EIF_MEMORY_CHUNK is defined, it is set to the closest reasonable
+        value from it.
+
+    * 'EIF_MEMORY_SCAVENGE':
+        Size of generational scavenge zone. If the environment variable EIF_MEMORY_SCAVENGE is defined,
+        it is set to the closest reasonable value from it.
+
+    * 'EIF_TENURE_MAX':
+        Maximum age of object before being considered as old (old objects are not scanned during
+        partial collection). If the environment variable EIF_TENURE_MAX is defined, it is set to 
+        the closest reasonable value from it.
+
+
+EXAMPLE
+-------
+`remwsgwyd -l 1 -gcm 2000 -u -syslog`::
+  Run the network gateway with log level set to alert, use syslog utilities, monitor gc every 2000 messages, the box running
+  remwsgwyd is setup in UTC.
+
+
+AUTHOR
+------
+remwsgwyd was originally written by Luca Paganotti <luca.paganotti@gmail.com>.
+
+
+RESOURCES
+---------
+github: <http://https://github.com/lucapaganotti/>
+
+
+SEE ALSO
+--------
+rt10(1), nmarzi(1), unlogremws(1)
+
+
+COPYING
+-------
+Copyright \(C) 2016-2018 ARPA Lombardia, Luca Paganotti. Free use of this software is
+granted under the terms of the GNU General Public License (GPL), v2.
+
+
+// vim: set syntax=asciidoc:

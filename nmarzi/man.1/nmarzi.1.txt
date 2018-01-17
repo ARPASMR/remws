@@ -1,0 +1,55 @@
+NMARZI(1)
+=========
+:doctype: manpage
+Luca Paganotti <luca.paganotti@gmail.com>
+v1.0, November 2017: First release.
+
+
+NAME
+----
+nmarzi - nmarzi simulator
+
+
+SYNOPSIS
+--------
+*nmarzi*
+
+
+DESCRIPTION
+-----------
+The nmarzi eiffel application clones the old nmarzi windows application.
+
+
+REMARKS
+-------
+`nmarzi` reads 'nmarzi.preferences.xml' file in the home user folder.
+
+
+EXAMPLE
+-------
+`nmarzi`::
+  Does it.
+
+
+AUTHOR
+------
+nmarzi was originally written by Luca Paganotti <luca.paganotti@gmail.com>.
+
+
+RESOURCES
+---------
+github: <http://https://github.com/lucapaganotti/>
+
+
+SEE ALSO
+--------
+rt10(1), unlogremws(1), remwsgwyd(1)
+
+
+COPYING
+-------
+Copyright \(C) 2016-2018 ARPA Lombardia, Luca Paganotti. Free use of this software is
+granted under the terms of the GNU General Public License (GPL), v2.
+
+
+// vim: set syntax=asciidoc:

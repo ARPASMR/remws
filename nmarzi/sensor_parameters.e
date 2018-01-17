@@ -1,8 +1,15 @@
 note
-	description: "Summary description for {SENSOR_PARAMETERS}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description : "Summary description for {SENSOR_PARAMETERS}."
+	copyright   : "$Copiright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	source      : "[
+		Luca Paganotti <luca.paganotti (at) gmail.com>
+		Via dei Giardini, 9
+		21035 Cunardo (VA)
+	]"
+	date        : "$Date 2017-12-10 19:11:38 (dom 10 dic 2017, 19.11.38, CET) buck $"
+	revision    : "$Revision 48 $"
 
 class
 	SENSOR_PARAMETERS

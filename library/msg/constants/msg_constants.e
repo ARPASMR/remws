@@ -1,8 +1,10 @@
 note
-	description: "Summary description for {MSG_CONSTANTS}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description : "Summary description for {MSG_CONSTANTS}."
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	date        : "$Date 2017-12-10 19:44:02 (dom 10 dic 2017, 19.44.02, CET) buck $"
+	revision    : "$Revision 48 $"
 
 class
 	MSG_CONSTANTS
@@ -25,12 +27,6 @@ feature -- Constants
 	response_id_offset:                          INTEGER = 1000
 			-- Given a message request having `id' = 23
 			-- the associated response should have `id' = `id' + `response_id_offset'
-
-	--| ---------------------------------------------------------------------------
-	--| Internal error parameters number
-	--| ---------------------------------------------------------------------------
-	internal_error_parnum:                       INTEGER = 2
-
 
 	--| ---------------------------------------------------------------------------
 	--| LOGIN request and response constants

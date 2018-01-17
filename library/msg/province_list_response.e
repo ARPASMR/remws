@@ -1,8 +1,10 @@
 note
-	description: "Summary description for {PROVINCE_LIST_RESPONSE}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description : "Summary description for {PROVINCE_LIST_RESPONSE}."
+	copyright   : "$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"
+	license     : "$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"
+	author      : "$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"
+	date        : "$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"
+	revision    : "$Revision 48 $"
 
 --| ----------------------------------------------------------------------------
 --| This is the message structure for the province_list response message,
@@ -123,11 +125,15 @@ feature -- Conversion
 				from provinces_list.start
 				until provinces_list.after
 				loop
-					Result.append (left_brace + double_quotes + json_id_tag + double_quotes + colon + space + double_quotes+ provinces_list.item.id.out + double_quotes +
+					if attached provinces_list.item then
+						Result.append (left_brace + double_quotes + json_id_tag + double_quotes + colon + space + double_quotes+ provinces_list.item.id.out + double_quotes +
 					               comma + double_quotes + json_name_tag + double_quotes + colon + space + double_quotes + provinces_list.item.name + double_quotes + right_brace)
-					provinces_list.forth
-					if attached provinces_list.item and not provinces_list.islast then
-						Result.append (comma)
+						if not provinces_list.islast then
+							Result.append (comma)
+						end
+						provinces_list.forth
+					else
+						provinces_list.forth
 					end
 				end
 				Result.append (right_bracket)

@@ -1,8 +1,8 @@
 note
 	description: "Summary description for {MSG}."
 	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"
+	revision: "$Revision 48 $"
 
 --| ----------------------------------------------------------------------------
 --| This is the message structure for an input message, for the time being only
