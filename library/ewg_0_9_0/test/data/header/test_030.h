@@ -1,6 +1,0 @@
-
-
-struct foo
-{
-  int* pi;
-};

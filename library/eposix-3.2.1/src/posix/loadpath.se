@@ -1,5 +1,0 @@
-${EPOSIX}/src/standardc/loadpath.se
-${EPOSIX}/src/abstract/
-${EPOSIX}/src/papi/
-${EPOSIX}/src/posix/
-${EPOSIX}/src/epxp/
