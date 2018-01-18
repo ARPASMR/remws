@@ -3,8 +3,8 @@
 <META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
 <meta name="description" content="Summary description for {MSG}."/>
 <meta name="author" content=""/>
-<meta name="date" content="$Date$"/>
-<meta name="revision" content="$Revision$"/>
+<meta name="date" content="$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"/>
+<meta name="revision" content="$Revision 48 $"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <TITLE>msg Contracts</TITLE>
@@ -28,8 +28,8 @@
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
 	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/msg_short.html">MSG</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
 	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
-	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
-	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision 48 $&quot;</SPAN>
 
 <SPAN CLASS="ekeyword">deferred</SPAN> <SPAN CLASS="ekeyword">class</SPAN> <SPAN CLASS="ekeyword">interface</SPAN>
 	<A CLASS="eclass" HREF="../msg/msg_short.html">MSG</A>
@@ -40,7 +40,7 @@
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Conversion</SPAN>
 
-	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_PARSER</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse json message</SPAN>
 
 	<A NAME="f_to_xml"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_to_xml">to_xml</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
@@ -49,7 +49,7 @@
 	<A NAME="f_to_json"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_to_json">to_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json representation</SPAN>
 
-	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_STANDARD_PARSER</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse XML message</SPAN>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Logging</SPAN>
@@ -60,11 +60,15 @@
 	<A NAME="f_log"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_log">log</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_string</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">priority</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Logs </SPAN>`a_string'
 	
-<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Implementation</SPAN>
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> &nbsp;</SPAN><SPAN CLASS="neclass">DISPOSABLE</SPAN>
 
-	<A NAME="f_json_representation"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_json_representation">json_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-
-	<A NAME="f_xml_representation"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_xml_representation">xml_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+	<A NAME="f_dispose"></A><A CLASS="efeature" HREF="../msg/msg_short.html#f_dispose">dispose</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Action to be executed just before garbage collection</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> reclaims an object.</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Effect it in descendants to perform specific dispose</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> actions. Those actions should only take care of freeing</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> external resources; they should not perform remote calls</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> on other objects since these may also be dead and reclaimed.</SPAN>
 	
 <SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../msg/msg_short.html">MSG</A><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
 <TABLE CELLSPACING="5" CELLPADDING="4"><TR>

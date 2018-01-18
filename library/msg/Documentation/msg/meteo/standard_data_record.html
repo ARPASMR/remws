@@ -1,0 +1,132 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="Summary description for {STANDARD_DATA_RECORD}."/>
+<meta name="copyright" content="$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"/>
+<meta name="license" content="$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"/>
+<meta name="author" content="$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"/>
+<meta name="date" content="$Date 2017-12-10 19:44:21 (dom 10 dic 2017, 19.44.21, CET) buck $"/>
+<meta name="revision" content="$Revision 48 $"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>standard_data_record Text</TITLE>
+<LINK REL="stylesheet" HREF="../../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="standard_data_record"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/meteo/standard_data_record.html">STANDARD_DATA_RECORD</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">copyright</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Copyright Copyright (c) 2015-2017 ARPA Lombardia $&quot;</SPAN>
+	<SPAN CLASS="eitag">license</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$License General Public License v2 (see </SPAN><A CLASS="estring" HREF="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</A><SPAN CLASS="estring">) $&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Author Luca Paganotti &lt; luca.paganotti (at) gmail.com &gt; $&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date 2017-12-10 19:44:21 (dom 10 dic 2017, 19.44.21, CET) buck $&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision 48 $&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> 
+	<A CLASS="eclass" HREF="../../msg/meteo/standard_data_record.html">STANDARD_DATA_RECORD</A>
+
+<SPAN CLASS="ekeyword">inherit</SPAN>
+	<A CLASS="eclass" HREF="../../msg/constants/defaults.html">DEFAULTS</A>
+		<SPAN CLASS="ekeyword">redefine</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_out">out</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<SPAN CLASS="neclass">ANY</SPAN>
+		<SPAN CLASS="ekeyword">redefine</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_out">out</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_make">make</A><SPAN CLASS="esymbol">,</SPAN>
+	<A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_make_from_parameters">make_from_parameters</A>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+
+	<A NAME="f_d"></A><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_d">d</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Data </SPAN>`DATE_TIME'
+
+	<A NAME="f_v"></A><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_v">v</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Data value</SPAN>
+
+	<A NAME="f_s"></A><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_s">s</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Data status</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+
+	<A NAME="f_set_dt"></A><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_set_dt">set_dt</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_dt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_d">d</A><SPAN CLASS="ecomment"> from string</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_d">d</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">date_time_valid</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_dt</SPAN><SPAN CLASS="esymbol">,</SPAN> <A CLASS="efeature" HREF="../../msg/constants/defaults.html#f_default_date_time_format">Default_date_time_format</A><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_d">d</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_dt</SPAN><SPAN CLASS="esymbol">,</SPAN> <A CLASS="efeature" HREF="../../msg/constants/defaults.html#f_default_date_time_format">Default_date_time_format</A><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_value"></A><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_set_value">set_value</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_v">v</A><SPAN CLASS="ecomment"> to </SPAN>`a_value'
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_v">v</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_value</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_set_status"></A><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_set_status">set_status</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_status</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_s">s</A><SPAN CLASS="ecomment"> to </SPAN>`a_status'
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_s">s</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_status</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization</SPAN>
+
+	<A NAME="f_make"></A><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_make">make</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization for </SPAN>`Current'<SPAN CLASS="ecomment">.</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_d">d</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_now</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_make_from_parameters"></A><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_make_from_parameters">make_from_parameters</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_date_time</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REAL_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_status</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization of </SPAN>`Current'<SPAN CLASS="ecomment"> with parameters</SPAN>
+		<SPAN CLASS="ekeyword">require</SPAN>
+			<SPAN CLASS="etag">attached_date_time</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_date_time</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_d">d</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_by_date_time</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_date_time</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">date</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">a_date_time</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">time</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_v">v</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_value</SPAN>
+			<A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_s">s</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">a_status</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Representation</SPAN>
+
+	<A NAME="f_out"></A><A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_out">out</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> `Current` </SPAN>`STRING'<SPAN CLASS="ecomment"> representation</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;[&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_d">d</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">formatted_out</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../../msg/constants/defaults.html#f_default_date_time_format">Default_date_time_format</A><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_v">v</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../../msg/meteo/standard_data_record.html#f_s">s</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;]&quot;
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../../msg/meteo/standard_data_record.html">STANDARD_DATA_RECORD</A><FORM ONSUBMIT="go_to('../../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="standard_data_record_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="standard_data_record"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

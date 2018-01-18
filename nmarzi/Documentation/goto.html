@@ -1,0 +1,27 @@
+<!--
+	classList = new Array (
+		"NMARZI_APPLICATION",
+		"SENSOR_PARAMETERS"
+	);
+
+	locationList = new Array (
+		"nmarzi/nmarzi_application_chart.html",
+		"nmarzi/sensor_parameters_chart.html"
+	);
+
+	function indexOfClass (name) {
+		for (i = 0; i < classList.length; i++) {
+			if (name == classList[i]) return i;
+		}
+		return -1;
+	};
+
+	function go_to (baseLocation, className) {
+		var index = indexOfClass (className.toUpperCase ());
+		if (index >= 0) {
+			window.location = baseLocation + locationList[index];
+		} else {
+			alert ("Class " + className.toUpperCase () + " does not exist in system");
+		}
+	}
+// -->

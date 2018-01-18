@@ -24,11 +24,11 @@
 			debug_implementation
 			scoop
 		scoop
-	curl
-		curl
 	default_nino
 		default_nino
 	http
+		src
+	http_client
 		src
 	json
 		json
@@ -41,14 +41,21 @@
 		json_utility
 	logging
 		logging
-	<A CLASS="ecluster" HREF="msg/index.html">msg</A>
-		<A CLASS="ecluster" HREF="msg/constants/index.html">constants</A>
-		<A CLASS="ecluster" HREF="msg/interfaces/index.html">interfaces</A>
-		<A CLASS="ecluster" HREF="msg/meteo/index.html">meteo</A>
-		<A CLASS="ecluster" HREF="msg/index.html">msg</A>
-			<A CLASS="ecluster" HREF="msg/constants/index.html">constants</A>
-			<A CLASS="ecluster" HREF="msg/interfaces/index.html">interfaces</A>
-			<A CLASS="ecluster" HREF="msg/meteo/index.html">meteo</A>
+	msg
+		constants
+		interfaces
+		meteo
+		msg
+			constants
+			interfaces
+			meteo
+	net
+		abstract
+		local
+		mail
+		network
+		polling
+		transfer
 	preferences_xml
 		interface
 		interface_batch
@@ -56,6 +63,11 @@
 		preference_batch
 		preferences
 		storage
+	process
+		classic_mswin
+		classic_unix
+		dotnet
+		process
 	time
 		time
 	wsf
@@ -69,7 +81,6 @@
 			xml_utility_implementation
 		xml_utility_implementation
 	<A CLASS="ecluster" HREF="collect/index.html">collect</A>
-		common
 	base_pre
 <FORM ONSUBMIT="go_to('',this.c.value);return false;">
 <TABLE CELLSPACING="5" CELLPADDING="4"><TR>

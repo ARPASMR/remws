@@ -2,9 +2,11 @@
 <HEAD>
 <META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
 <meta name="description" content="Summary description for {TOKEN}."/>
-<meta name="author" content=""/>
-<meta name="date" content="$Date$"/>
-<meta name="revision" content="$Revision$"/>
+<meta name="copyright" content="$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"/>
+<meta name="license" content="$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"/>
+<meta name="author" content="$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"/>
+<meta name="date" content="$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"/>
+<meta name="revision" content="$Revision 48 $"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <TITLE>token Flat</TITLE>
@@ -27,9 +29,11 @@
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="token"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
 	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/token_flat.html">TOKEN</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
-	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
-	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
-	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+	<SPAN CLASS="eitag">copyright</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Copyright Copyright (c) 2015-2017 ARPA Lombardia $&quot;</SPAN>
+	<SPAN CLASS="eitag">license</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$License General Public License v2 (see </SPAN><A CLASS="estring" HREF="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</A><SPAN CLASS="estring">) $&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Author Luca Paganotti &lt; luca.paganotti (at) gmail.com &gt; $&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision 48 $&quot;</SPAN>
 
 <SPAN CLASS="ekeyword">class</SPAN> 
 	<A CLASS="eclass" HREF="../msg/token_flat.html">TOKEN</A>
@@ -200,14 +204,14 @@
 		<SPAN CLASS="ekeyword">require</SPAN>
 			<SPAN CLASS="etag">dt_attached</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">dt</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<A CLASS="efeature" HREF="../msg/token_flat.html#f_expiry">expiry</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">dt</SPAN>
+			<A CLASS="efeature" HREF="../msg/token_flat.html#f_expiry">expiry</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">dt</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">twin</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_set_id"></A><A CLASS="efeature" HREF="../msg/token_flat.html#f_set_id">set_id</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">require</SPAN>
 			<SPAN CLASS="etag">attached_i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">i</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<A CLASS="efeature" HREF="../msg/token_flat.html#f_id">id</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">i</SPAN>
+			<A CLASS="efeature" HREF="../msg/token_flat.html#f_id">id</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">i</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">twin</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Duplication</SPAN>

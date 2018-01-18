@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="Summary description for {RT10_SENSOR}."/>
+<meta name="copyright" content="$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"/>
+<meta name="license" content="$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"/>
+<meta name="author" content="$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"/>
+<meta name="date" content="$Date 2017-12-10 19:44:21 (dom 10 dic 2017, 19.44.21, CET) buck $"/>
+<meta name="revision" content="$Revision 48 $"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>rt10_sensor Contracts</TITLE>
+<LINK REL="stylesheet" HREF="../../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="rt10_sensor"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../../msg/meteo/rt10_sensor_short.html">RT10_SENSOR</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
+	<SPAN CLASS="eitag">copyright</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Copyright Copyright (c) 2015-2017 ARPA Lombardia $&quot;</SPAN>
+	<SPAN CLASS="eitag">license</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$License General Public License v2 (see </SPAN><A CLASS="estring" HREF="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</A><SPAN CLASS="estring">) $&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Author Luca Paganotti &lt; luca.paganotti (at) gmail.com &gt; $&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date 2017-12-10 19:44:21 (dom 10 dic 2017, 19.44.21, CET) buck $&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision 48 $&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> <SPAN CLASS="ekeyword">interface</SPAN>
+	<A CLASS="eclass" HREF="../../msg/meteo/rt10_sensor_short.html">RT10_SENSOR</A>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_make">make</A>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
+
+	<A NAME="f_sensor_id"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_sensor_id">sensor_id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor identifier</SPAN>
+
+	<A NAME="f_destination"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_destination">destination</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Destination</SPAN>
+
+	<A NAME="f_time_granularity"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_time_granularity">time_granularity</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Time granularity</SPAN>
+
+	<A NAME="f_typology"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_typology">typology</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensor typology</SPAN>
+
+	<A NAME="f_last_dates"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_last_dates">last_dates</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">]</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Last acquisition date time</SPAN>
+
+	<A NAME="f_table"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_table">table</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Referenced table</SPAN>
+
+	<A NAME="f_operators"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_operators">operators</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">]</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Applied operators</SPAN>
+
+	<A NAME="f_measures"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_measures">measures</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><A CLASS="eclass" HREF="../../msg/meteo/measure_short.html">MEASURE</A><SPAN CLASS="esymbol">]</SPAN><SPAN CLASS="esymbol">]</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Operator related measures</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
+
+	<A NAME="f_set_sensor_id"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_set_sensor_id">set_sensor_id</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_sensor_id">sensor_id</A>
+
+	<A NAME="f_set_destination"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_set_destination">set_destination</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">dest</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_destination">destination</A>
+		<SPAN CLASS="ekeyword">require</SPAN>
+			<SPAN CLASS="etag">dest_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">dest</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+
+	<A NAME="f_set_time_granularity"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_set_time_granularity">set_time_granularity</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">granularity</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_time_granularity">time_granularity</A>
+
+	<A NAME="f_set_typology"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_set_typology">set_typology</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">t</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_typology">typology</A>
+		<SPAN CLASS="ekeyword">require</SPAN>
+			<SPAN CLASS="etag">t_not_void</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="elocal">t</SPAN> <SPAN CLASS="esymbol">/=</SPAN> <SPAN CLASS="ekeyword">Void</SPAN>
+
+	<A NAME="f_set_table"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_set_table">set_table</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">tbl</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_table">table</A>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Representation</SPAN>
+
+	<A NAME="f_out"></A><A CLASS="efeature" HREF="../../msg/meteo/rt10_sensor_short.html#f_out">out</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> String representation</SPAN>
+	
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../../msg/meteo/rt10_sensor_short.html">RT10_SENSOR</A><FORM ONSUBMIT="go_to('../../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_sensor_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="rt10_sensor"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

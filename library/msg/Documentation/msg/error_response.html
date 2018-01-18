@@ -2,9 +2,11 @@
 <HEAD>
 <META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
 <meta name="description" content="Summary description for {ERROR_RESPONSE}."/>
-<meta name="author" content=""/>
-<meta name="date" content="$Date$"/>
-<meta name="revision" content="$Revision$"/>
+<meta name="copyright" content="$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"/>
+<meta name="license" content="$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"/>
+<meta name="author" content="$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"/>
+<meta name="date" content="$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"/>
+<meta name="revision" content="$Revision 48 $"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <TITLE>error_response Text</TITLE>
@@ -27,9 +29,11 @@
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="error_response"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
 	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/error_response.html">ERROR_RESPONSE</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
-	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
-	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
-	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+	<SPAN CLASS="eitag">copyright</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Copyright Copyright (c) 2015-2017 ARPA Lombardia $&quot;</SPAN>
+	<SPAN CLASS="eitag">license</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$License General Public License v2 (see </SPAN><A CLASS="estring" HREF="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</A><SPAN CLASS="estring">) $&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Author Luca Paganotti &lt; luca.paganotti (at) gmail.com &gt; $&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision 48 $&quot;</SPAN>
 
 <SPAN CLASS="ekeyword">class</SPAN> 
 	<A CLASS="eclass" HREF="../msg/error_response.html">ERROR_RESPONSE</A>
@@ -45,45 +49,41 @@
 	<A NAME="f_make"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_make">make</A>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization for </SPAN>`Current'<SPAN CLASS="ecomment">.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
-			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_xml_representation">xml_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_current_tag">current_tag</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_content">content</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
 
-	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_id">Id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
-		<SPAN CLASS="ekeyword">once</SPAN>
+	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_id">id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_err_internal">Err_internal</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
-	<A NAME="f_parameters_number"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_parameters_number">Parameters_number</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="enumber">0</SPAN>
-
-	<A NAME="f_outcome"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_outcome">Outcome</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
-		<SPAN CLASS="ekeyword">once</SPAN>
+	<A NAME="f_outcome"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_outcome">outcome</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_err_internal">Err_internal</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
-	<A NAME="f_message"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_message">Message</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-		<SPAN CLASS="ekeyword">once</SPAN>
+	<A NAME="f_message"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_message">message</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
 			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/constants/error_codes.html#f_msg_internal">Msg_internal</A>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Status setting</SPAN>
 
 	<A NAME="f_set_parameters_number"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_set_parameters_number">set_parameters_number</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">pn</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/error_response.html#f_parameters_number">Parameters_number</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN>`parameters_number'
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_set_outcome"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_set_outcome">set_outcome</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/error_response.html#f_outcome">Outcome</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/error_response.html#f_outcome">outcome</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_set_message"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_set_message">set_message</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">m</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/error_response.html#f_message">Message</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sets </SPAN><A CLASS="efeature" HREF="../msg/error_response.html#f_message">message</A>
 		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
@@ -115,31 +115,25 @@
 	<A NAME="f_to_json"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_to_json">to_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json representation</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{&quot;<SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;header%&quot;: {&quot;<SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;id%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_id">Id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,%&quot;parameters_number%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_internal_error_parnum">Internal_error_parnum</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;},&quot;<SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;data%&quot;: {&quot;<SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;outcome%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_outcome">Outcome</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,%&quot;message%&quot;: %&quot;&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_message">Message</A> <SPAN CLASS="esymbol">+</SPAN> &quot;%&quot;&quot;<SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
-			<A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;{&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;header%&quot;: {&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;id%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_id">id</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;},&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;data%&quot;: {&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;%&quot;outcome%&quot;: &quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_outcome">outcome</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;,%&quot;message%&quot;: %&quot;&quot; <SPAN CLASS="esymbol">+</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_message">message</A> <SPAN CLASS="esymbol">+</SPAN> &quot;%&quot;&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">append</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;}&quot;<SPAN CLASS="esymbol">)</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
-	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_STANDARD_PARSER</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse XML message</SPAN>
-		<SPAN CLASS="ekeyword">local</SPAN>
-			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_STANDARD_PARSER</SPAN>
-			<SPAN CLASS="elocal">factory</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_PARSER_FACTORY</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">factory</SPAN>
-			<SPAN CLASS="elocal">parser</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">factory</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">new_standard_parser</SPAN>
 			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">set_callbacks</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Current</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="nefeature">set_associated_parser</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parse_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">reset</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_to_xml"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_to_xml">to_xml</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
@@ -148,31 +142,29 @@
 			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
-	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_PARSER</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse json message</SPAN>
 		<SPAN CLASS="ekeyword">require else</SPAN>
 			<SPAN CLASS="etag">json_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="elocal">json</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
-		<SPAN CLASS="ekeyword">local</SPAN>
-			<SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_STRING</SPAN>
-			<SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_PARSER</SPAN>
+			<SPAN CLASS="etag">json_parser_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">parser</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_valid</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_with_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="elocal">key</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;header&quot;<SPAN CLASS="esymbol">)</SPAN>
-			<SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parse_content</SPAN>
-			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_valid</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json_parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parsed_json_value</SPAN> <SPAN CLASS="ekeyword">as</SPAN> jv <SPAN CLASS="ekeyword">then</SPAN>
-				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">jv</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_object <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_object</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_header <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_NUMBER</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_header</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;id&quot;<SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_id <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_NUMBER</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_header</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;parameters_number&quot;<SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_parnum <SPAN CLASS="ekeyword">then</SPAN>
-					<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Message: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">j_id</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">integer_64_item</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;, &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">j_parnum</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">integer_64_item</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;%N&quot;<SPAN CLASS="esymbol">)</SPAN>
-				<SPAN CLASS="ekeyword">else</SPAN>
+			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">set_representation</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parse_content</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_valid</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">parsed_json_value</SPAN> <SPAN CLASS="ekeyword">as</SPAN> jv <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">jv</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_object <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_object</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/constants/json_constants.html#f_json_header_tag">Json_header_tag</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_header <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_NUMBER</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_header</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/constants/json_constants.html#f_json_id_tag">Json_id_tag</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_id<SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
 					<SPAN CLASS="nefeature">print</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;The header was not found!%N&quot;<SPAN CLASS="esymbol">)</SPAN>
 				<SPAN CLASS="ekeyword">end</SPAN>
-				<SPAN CLASS="elocal">key</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;data&quot;<SPAN CLASS="esymbol">)</SPAN>
-				<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../msg/error_response.html#f_parameters_number">Parameters_number</A> <SPAN CLASS="esymbol">=</SPAN> <A CLASS="efeature" HREF="../msg/constants/msg_constants.html#f_login_response_success_parnum">Login_response_success_parnum</A> <SPAN CLASS="ekeyword">then</SPAN>
-					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">jv</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_object <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_object</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_data <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_NUMBER</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_data</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;outcome&quot;<SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_outcome <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_data</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;message&quot;<SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_message <SPAN CLASS="ekeyword">then</SPAN>
-						<A CLASS="efeature" HREF="../msg/error_response.html#f_set_outcome">set_outcome</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">j_outcome</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">integer_64_item</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer</SPAN><SPAN CLASS="esymbol">)</SPAN>
-						<A CLASS="efeature" HREF="../msg/error_response.html#f_set_message">set_message</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">j_message</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol">)</SPAN>
-					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">jv</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_object <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_OBJECT</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_object</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/constants/json_constants.html#f_json_data_tag">Json_data_tag</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_data <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_NUMBER</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_data</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/constants/json_constants.html#f_json_outcome_tag">Json_outcome_tag</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_outcome <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="elocal">j_data</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">JSON_STRING</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_from_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../msg/constants/json_constants.html#f_json_message_tag">Json_message_tag</A><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">as</SPAN> j_message <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../msg/error_response.html#f_set_outcome">set_outcome</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">j_outcome</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">integer_64_item</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_integer</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<A CLASS="efeature" HREF="../msg/error_response.html#f_set_message">set_message</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">j_message</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">item</SPAN><SPAN CLASS="esymbol">)</SPAN>
 				<SPAN CLASS="ekeyword">end</SPAN>
 			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="neclass">DISPOSABLE</SPAN>
+
+	<A NAME="f_dispose"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_dispose">dispose</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML Callbacks</SPAN>
@@ -190,12 +182,6 @@
 	<A NAME="f_on_xml_declaration"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_on_xml_declaration">on_xml_declaration</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_version</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">an_encoding</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_standalone</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML declaration.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_version</SPAN> <SPAN CLASS="ekeyword">as</SPAN> version <SPAN CLASS="ekeyword">then</SPAN>
-			<SPAN CLASS="ekeyword">end</SPAN>
-			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">an_encoding</SPAN> <SPAN CLASS="ekeyword">as</SPAN> encoding <SPAN CLASS="ekeyword">then</SPAN>
-			<SPAN CLASS="ekeyword">end</SPAN>
-			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_standalone</SPAN> <SPAN CLASS="ekeyword">as</SPAN> standalone <SPAN CLASS="ekeyword">then</SPAN>
-			<SPAN CLASS="ekeyword">end</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_error"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_on_error">on_error</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_message</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
@@ -217,19 +203,11 @@
 	<A NAME="f_on_start_tag"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_on_start_tag">on_start_tag</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Start of start tag.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_namespace</SPAN> <SPAN CLASS="ekeyword">as</SPAN> namespace <SPAN CLASS="ekeyword">then</SPAN>
-			<SPAN CLASS="ekeyword">end</SPAN>
-			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myprefix <SPAN CLASS="ekeyword">then</SPAN>
-			<SPAN CLASS="ekeyword">end</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_attribute"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_on_attribute">on_attribute</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_namespace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_local_part</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">a_value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_32</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Start of attribute.</SPAN>
 		<SPAN CLASS="ekeyword">do</SPAN>
-			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_namespace</SPAN> <SPAN CLASS="ekeyword">as</SPAN> namespace <SPAN CLASS="ekeyword">then</SPAN>
-			<SPAN CLASS="ekeyword">end</SPAN>
-			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_prefix</SPAN> <SPAN CLASS="ekeyword">as</SPAN> myprefix <SPAN CLASS="ekeyword">then</SPAN>
-			<SPAN CLASS="ekeyword">end</SPAN>
 		<SPAN CLASS="ekeyword">end</SPAN>
 
 	<A NAME="f_on_start_tag_finish"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_on_start_tag_finish">on_start_tag_finish</A>
@@ -251,16 +229,10 @@
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Implementation</SPAN>
 
-	<A NAME="f_json_representation"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_json_representation">json_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message json representation</SPAN>
-
-	<A NAME="f_xml_representation"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_xml_representation">xml_representation</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> message xml representation</SPAN>
-
-	<A NAME="f_current_tag"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_current_tag">current_tag</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+	<A NAME="f_current_tag"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_current_tag">current_tag</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> used by </SPAN>`XML_CALLBACKS'<SPAN CLASS="ecomment"> features</SPAN>
 
-	<A NAME="f_content"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_content">content</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+	<A NAME="f_content"></A><A CLASS="efeature" HREF="../msg/error_response.html#f_content">content</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> used by </SPAN>`XML_CALLBACKS'<SPAN CLASS="ecomment"> features</SPAN>
 	
 <SPAN CLASS="ekeyword">invariant</SPAN>

@@ -1,0 +1,319 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="Trt10 application root class     Acts as a client asking sensors' realtime data to collect."/>
+<meta name="copyright" content="$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"/>
+<meta name="license" content="$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"/>
+<meta name="author" content="$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"/>
+<meta name="source" content="Luca Paganotti <luca.paganotti (at) gmail.com> Via dei Giardini, 9 21035 Cunardo (VA)"/>
+<meta name="date" content="$Date 2017-12-10 19:16:00 (dom 10 dic 2017, 19.16.00, CET) buck $"/>
+<meta name="revision" content="$Revision 48 $"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>rt10 Chart</TITLE>
+<LINK REL="stylesheet" HREF="../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="nolink2">Chart</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="rt10"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">class</SPAN>
+	<A CLASS="eclass" HREF="../rt10/rt10_chart.html">RT10</A>
+
+<SPAN CLASS="ekeyword">General</SPAN>
+	<SPAN CLASS="eitag">cluster</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="ecluster" HREF="../rt10/index.html">rt10</A>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> 
+		<SPAN CLASS="estring">&quot;rt10 application root class</SPAN>
+		<SPAN CLASS="estring"> &nbsp;&nbsp;&nbsp;Acts as a client asking sensors' realtime data to collect.&quot;</SPAN>
+	<SPAN CLASS="eitag">create</SPAN><SPAN CLASS="esymbol">:</SPAN> <A CLASS="efeature" HREF="../rt10/rt10.html#f_make">make</A>
+
+<SPAN CLASS="ekeyword">Ancestors</SPAN>
+	<SPAN CLASS="neclass">ARGUMENTS</SPAN>
+	<SPAN CLASS="neclass">DEFAULTS</SPAN>
+	<SPAN CLASS="neclass">EXCEPTIONS</SPAN>
+	<SPAN CLASS="neclass">EXECUTION_ENVIRONMENT</SPAN>
+	<SPAN CLASS="neclass">MEMORY</SPAN>
+	<A CLASS="eclass" HREF="../handle/rdb_handle_chart.html">RDB_HANDLE</A>
+	<SPAN CLASS="neclass">SYSLOG_UNIX_OS</SPAN>
+	<SPAN CLASS="neclass">UNIX_SIGNALS</SPAN>
+
+<SPAN CLASS="ekeyword">Queries</SPAN>
+	<SPAN TITLE="`app_name' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_app_name">app_name</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`argument' was declared in ARGUMENTS"><SPAN CLASS="nefeature">argument</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">i</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`argument_array' was declared in ARGUMENTS"><SPAN CLASS="nefeature">Argument_array</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAY</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`argument_count' was declared in ARGUMENTS"><SPAN CLASS="nefeature">argument_count</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`arguments' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">Arguments</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARGUMENTS_32</SPAN></SPAN>
+	<SPAN TITLE="`ask_sensor' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_ask_sensor">ask_sensor</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`assertion_violation' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">assertion_violation</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`c_memory' was declared in MEM_CONST"><SPAN CLASS="nefeature">C_memory</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`check_day_light_time_saving' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_check_day_light_time_saving">check_day_light_time_saving</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">dt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN></SPAN>
+	<SPAN TITLE="`check_instruction' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Check_instruction</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`chunk_size' was declared in MEMORY"><SPAN CLASS="nefeature">chunk_size</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`class_invariant' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Class_invariant</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`class_name' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">class_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`coalesce_period' was declared in MEMORY"><SPAN CLASS="nefeature">coalesce_period</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`coalesced_character_option_value' was declared in ARGUMENTS"><SPAN CLASS="nefeature">coalesced_character_option_value</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CHARACTER_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`coalesced_word_option_value' was declared in ARGUMENTS"><SPAN CLASS="nefeature">coalesced_word_option_value</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">opt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`collect_host' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_collect_host">collect_host</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`collect_host_pref' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_collect_host_pref">collect_host_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN></SPAN>
+	<SPAN TITLE="`collect_port' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_collect_port">collect_port</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`collect_port_pref' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_collect_port_pref">collect_port_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_PREFERENCE</SPAN></SPAN>
+	<SPAN TITLE="`collecting' was declared in MEMORY"><SPAN CLASS="nefeature">collecting</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`collection_period' was declared in MEMORY"><SPAN CLASS="nefeature">collection_period</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`com_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Com_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`command_line' was declared in ARGUMENTS"><SPAN CLASS="nefeature">Command_line</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`command_name' was declared in ARGUMENTS"><SPAN CLASS="nefeature">Command_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`create_on_deferred' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Create_on_deferred</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`current_working_path' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">current_working_path</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PATH</SPAN></SPAN>
+	<SPAN TITLE="`database_pref' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_database_pref">database_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN></SPAN>
+	<SPAN TITLE="`db' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_db">db</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`db_host' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_db_host">db_host</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`db_password' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_db_password">db_password</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`db_spec' was declared in HANDLE_SPEC"><SPAN CLASS="nefeature">db_spec</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATABASE</SPAN></SPAN>
+	<SPAN TITLE="`db_user' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_db_user">db_user</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`dbpwd_pref' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_dbpwd_pref">dbpwd_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN></SPAN>
+	<SPAN TITLE="`dbusr_pref' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_dbusr_pref">dbusr_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN></SPAN>
+	<SPAN TITLE="`default_date_time_format' was declared in DEFAULTS"><SPAN CLASS="nefeature">Default_date_time_format</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`default_gc_coalesce_period' was declared in DEFAULTS"><SPAN CLASS="nefeature">Default_gc_coalesce_period</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`default_gc_collection_period' was declared in DEFAULTS"><SPAN CLASS="nefeature">Default_gc_collection_period</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`default_gc_memory_threshold' was declared in DEFAULTS"><SPAN CLASS="nefeature">Default_gc_memory_threshold</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`default_gc_monitoring_message_number' was declared in DEFAULTS"><SPAN CLASS="nefeature">Default_gc_monitoring_message_number</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`default_port' was declared in DEFAULTS"><SPAN CLASS="nefeature">Default_port</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`default_runtime_max_memory' was declared in DEFAULTS"><SPAN CLASS="nefeature">Default_runtime_max_memory</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`default_shell' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">Default_shell</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_32</SPAN></SPAN>
+	<SPAN TITLE="`developer_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Developer_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`developer_exception_name' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">developer_exception_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`dollar_applied_to_melted_feature' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Dollar_applied_to_melted_feature</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`eiffel_memory' was declared in MEM_CONST"><SPAN CLASS="nefeature">Eiffel_memory</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`eiffel_runtime_fatal_error' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Eiffel_runtime_fatal_error</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`eiffel_runtime_panic' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Eiffel_runtime_panic</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`end_date' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_end_date">end_date</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN></SPAN>
+	<SPAN TITLE="`exception' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`exception_in_signal_handler' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Exception_in_signal_handler</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`exception_manager' was declared in EXCEPTION_MANAGER_FACTORY"><SPAN CLASS="nefeature">Exception_manager</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">EXCEPTION_MANAGER</SPAN></SPAN>
+	<SPAN TITLE="`exception_trace' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">exception_trace</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`external_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">External_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`factory' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_factory">factory</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BASIC_PREFERENCE_FACTORY</SPAN></SPAN>
+	<SPAN TITLE="`five_minutes' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_five_minutes">five_minutes</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN></SPAN>
+	<SPAN TITLE="`floating_point_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Floating_point_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`full_collector' was declared in MEM_CONST"><SPAN CLASS="nefeature">Full_collector</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`gc_statistics' was declared in MEMORY"><SPAN CLASS="nefeature">gc_statistics</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">collector_type</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">GC_INFO</SPAN></SPAN>
+	<SPAN TITLE="`generation_object_limit' was declared in MEMORY"><SPAN CLASS="nefeature">generation_object_limit</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`home_directory_path' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">Home_directory_path</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">PATH</SPAN></SPAN>
+	<SPAN TITLE="`home_folder' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_home_folder">Home_folder</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_32</SPAN></SPAN>
+	<SPAN TITLE="`host_pref' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_host_pref">host_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN></SPAN>
+	<SPAN TITLE="`incorrect_inspect_value' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Incorrect_inspect_value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`incremental_collector' was declared in MEM_CONST"><SPAN CLASS="nefeature">Incremental_collector</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`index_of_beginning_with_word_option' was declared in ARGUMENTS"><SPAN CLASS="nefeature">index_of_beginning_with_word_option</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">opt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`index_of_character_option' was declared in ARGUMENTS"><SPAN CLASS="nefeature">index_of_character_option</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CHARACTER_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`index_of_word_option' was declared in ARGUMENTS"><SPAN CLASS="nefeature">index_of_word_option</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">opt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`io_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Io_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`is_database_set' was declared in HANDLE_USE"><SPAN CLASS="nefeature">is_database_set</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`is_defined' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">is_defined</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sig</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`is_developer_exception' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">is_developer_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`is_developer_exception_of_name' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">is_developer_exception_of_name</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`is_ignored' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">is_ignored</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sig</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`is_logged_to_base' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">is_logged_to_base</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`is_measure_already_present' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_is_measure_already_present">is_measure_already_present</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor_id</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">operator</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">typology</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`is_signal' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">is_signal</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`is_system_exception' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">is_system_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`item' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">item</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">s</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_GENERAL</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_32</SPAN></SPAN>
+	<SPAN TITLE="`json_parser' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_json_parser">json_parser</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_PARSER</SPAN></SPAN>
+	<SPAN TITLE="`largest_coalesced_block' was declared in MEMORY"><SPAN CLASS="nefeature">largest_coalesced_block</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`loop_invariant' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Loop_invariant</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`loop_variant' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Loop_variant</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`make_exists_measure_query' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_make_exists_measure_query">make_exists_measure_query</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">s</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">t</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">d</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`make_insert_into_data' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_make_insert_into_data">make_insert_into_data</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">s</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">t</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">m</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">MEASURE</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`make_last_dates_queries' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_make_last_dates_queries">make_last_dates_queries</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">TUPLE</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`make_last_dates_queries1' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_make_last_dates_queries1">make_last_dates_queries1</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`manager' was declared in DATABASE_SESSION_MANAGER_ACCESS"><SPAN CLASS="nefeature">Manager</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATABASE_SESSION_MANAGER</SPAN></SPAN>
+	<SPAN TITLE="`max_mem' was declared in MEMORY"><SPAN CLASS="nefeature">max_mem</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`meaning' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">meaning</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">except</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`memory_count_map' was declared in MEMORY"><SPAN CLASS="nefeature">memory_count_map</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">HASH_TABLE</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`memory_map' was declared in MEMORY"><SPAN CLASS="nefeature">memory_map</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">HASH_TABLE</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">]</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`memory_statistics' was declared in MEMORY"><SPAN CLASS="nefeature">memory_statistics</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">memory_type</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">MEM_INFO</SPAN></SPAN>
+	<SPAN TITLE="`memory_threshold' was declared in MEMORY"><SPAN CLASS="nefeature">memory_threshold</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`modification' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_modification">modification</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DB_CHANGE</SPAN></SPAN>
+	<SPAN TITLE="`new_cursor' was declared in ARGUMENTS"><SPAN CLASS="nefeature">new_cursor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ITERATION_CURSOR</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`no_more_memory' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">No_more_memory</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`now' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_now">now</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN></SPAN>
+	<SPAN TITLE="`number_of_codes' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Number_of_codes</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`objects_instance_of' was declared in MEMORY"><SPAN CLASS="nefeature">objects_instance_of</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">an_object</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">SPECIAL</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`objects_instance_of_type' was declared in MEMORY"><SPAN CLASS="nefeature">objects_instance_of_type</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_type_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">SPECIAL</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`old_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Old_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`one_day' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_one_day">one_day</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN></SPAN>
+	<SPAN TITLE="`one_hour' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_one_hour">one_hour</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN></SPAN>
+	<SPAN TITLE="`one_minute' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_one_minute">one_minute</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN></SPAN>
+	<SPAN TITLE="`one_month' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_one_month">one_month</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN></SPAN>
+	<SPAN TITLE="`one_week' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_one_week">one_week</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN></SPAN>
+	<SPAN TITLE="`operating_system_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Operating_system_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`option_sign' was declared in ARGUMENTS"><SPAN CLASS="nefeature">Option_sign</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CHARACTER_8_REF</SPAN></SPAN>
+	<SPAN TITLE="`original_class_name' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">original_class_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`original_exception' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">original_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`original_recipient_name' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">original_recipient_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`original_tag_name' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">original_tag_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`out_of_memory' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Out_of_memory</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`post' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_post">post</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_msg</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`postcondition' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Postcondition</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`precondition' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Precondition</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`preference_manager' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_preference_manager">preference_manager</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PREFERENCE_MANAGER</SPAN></SPAN>
+	<SPAN TITLE="`preferences' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_preferences">preferences</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PREFERENCES</SPAN></SPAN>
+	<SPAN TITLE="`preferences_folder' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_preferences_folder">Preferences_folder</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_32</SPAN></SPAN>
+	<SPAN TITLE="`preferences_storage' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_preferences_storage">preferences_storage</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PREFERENCES_STORAGE_DEFAULT</SPAN></SPAN>
+	<SPAN TITLE="`realtime_data_request_nmarzi_template' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_realtime_data_request_nmarzi_template">realtime_data_request_nmarzi_template</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`realtime_data_res' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_realtime_data_res">realtime_data_res</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REALTIME_DATA_RESPONSE</SPAN></SPAN>
+	<SPAN TITLE="`recipient_name' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">recipient_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`referers' was declared in MEMORY"><SPAN CLASS="nefeature">referers</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">an_object</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">SPECIAL</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`reqs_number' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_reqs_number">reqs_number</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`rescue_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Rescue_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`response' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_response">response</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`results' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_results">results</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">DB_RESULT</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`resumption_failed' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Resumption_failed</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`retrieve_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Retrieve_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`return_code' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">return_code</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`root_directory_name' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">Root_directory_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`routine_failure' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Routine_failure</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`runtime_check_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Runtime_check_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`runtime_io_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Runtime_io_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`scavenge_zone_size' was declared in MEMORY"><SPAN CLASS="nefeature">scavenge_zone_size</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`selection' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_selection">selection</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DB_SELECTION</SPAN></SPAN>
+	<SPAN TITLE="`sensors' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_sensors">sensors</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`separate_character_option_value' was declared in ARGUMENTS"><SPAN CLASS="nefeature">separate_character_option_value</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CHARACTER_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`separate_word_option_value' was declared in ARGUMENTS"><SPAN CLASS="nefeature">separate_word_option_value</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">opt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`serialization_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Serialization_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`session' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_session">session</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LIBCURL_HTTP_CLIENT_SESSION</SPAN></SPAN>
+	<SPAN TITLE="`session_control' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_session_control">session_control</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DB_CONTROL</SPAN></SPAN>
+	<SPAN TITLE="`sig_meaning' was declared in UNIX_SIGNALS as `meaning'"><SPAN CLASS="nefeature">sig_meaning</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sig</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`sigabrt' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigabrt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigalrm' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigalrm</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigbus' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigbus</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigchld' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigchld</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigcld' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigcld</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigcont' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigcont</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigemt' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigemt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigfpe' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigfpe</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sighup' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sighup</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigill' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigill</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigint' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigint</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigio' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigio</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigiot' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigiot</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigkill' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigkill</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`siglost' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Siglost</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`signal' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">signal</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`signal_exception' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Signal_exception</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigphone' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigphone</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigpipe' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigpipe</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigpoll' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigpoll</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigprof' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigprof</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigpwr' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigpwr</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigquit' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigquit</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigsegv' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigsegv</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigstop' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigstop</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigsys' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigsys</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigterm' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigterm</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigtrap' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigtrap</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigtstp' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigtstp</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigttin' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigttin</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigttou' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigttou</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigurg' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigurg</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigusr1' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigusr1</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigusr2' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigusr2</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigvtalarm' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigvtalarm</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigwinch' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigwinch</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigwind' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigwind</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigxcpu' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigxcpu</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`sigxfsz' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">Sigxfsz</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`start_date' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_start_date">start_date</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN></SPAN>
+	<SPAN TITLE="`starting_environment' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">starting_environment</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">HASH_TABLE</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">STRING_32</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="neclass">STRING_32</SPAN><SPAN CLASS="esymbol">]</SPAN></SPAN>
+	<SPAN TITLE="`tag_name' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">tag_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN></SPAN>
+	<SPAN TITLE="`ten_minutes' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_ten_minutes">ten_minutes</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN></SPAN>
+	<SPAN TITLE="`tenure' was declared in MEMORY"><SPAN CLASS="nefeature">tenure</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`total_memory' was declared in MEM_CONST"><SPAN CLASS="nefeature">Total_memory</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`two_hours' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_two_hours">two_hours</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN></SPAN>
+	<SPAN TITLE="`user_directory_path' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">User_directory_path</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">PATH</SPAN></SPAN>
+	<SPAN TITLE="`valid_code' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">valid_code</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">c</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN></SPAN>
+	<SPAN TITLE="`void_assigned_to_expanded' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Void_assigned_to_expanded</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+	<SPAN TITLE="`void_call_target' was declared in EXCEP_CONST"><SPAN CLASS="nefeature">Void_call_target</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN></SPAN>
+
+<SPAN CLASS="ekeyword">Commands</SPAN>
+	<SPAN TITLE="`allocate_compact' was declared in MEMORY"><SPAN CLASS="nefeature">allocate_compact</SPAN></SPAN>
+	<SPAN TITLE="`allocate_fast' was declared in MEMORY"><SPAN CLASS="nefeature">allocate_fast</SPAN></SPAN>
+	<SPAN TITLE="`allocate_tiny' was declared in MEMORY"><SPAN CLASS="nefeature">allocate_tiny</SPAN></SPAN>
+	<SPAN TITLE="`catch' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">catch</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">code</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`change_working_path' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">change_working_path</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">path</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PATH</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`collect' was declared in MEMORY"><SPAN CLASS="nefeature">collect</SPAN></SPAN>
+	<SPAN TITLE="`collection_off' was declared in MEMORY"><SPAN CLASS="nefeature">collection_off</SPAN></SPAN>
+	<SPAN TITLE="`collection_on' was declared in MEMORY"><SPAN CLASS="nefeature">collection_on</SPAN></SPAN>
+	<SPAN TITLE="`delete_old_data' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_delete_old_data">delete_old_data</A></SPAN>
+	<SPAN TITLE="`die' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">die</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">code</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`disable_time_accounting' was declared in MEMORY"><SPAN CLASS="nefeature">disable_time_accounting</SPAN></SPAN>
+	<SPAN TITLE="`display_line' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_display_line">display_line</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_line</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">nl</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">to_syslog</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`dispose' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_dispose">dispose</A></SPAN>
+	<SPAN TITLE="`enable_time_accounting' was declared in MEMORY"><SPAN CLASS="nefeature">enable_time_accounting</SPAN></SPAN>
+	<SPAN TITLE="`execute_without_collection' was declared in MEMORY"><SPAN CLASS="nefeature">execute_without_collection</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_action</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PROCEDURE</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="neclass">TUPLE</SPAN><SPAN CLASS="esymbol">]</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`free' was declared in MEMORY"><SPAN CLASS="nefeature">free</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">object</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ANY</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`full_coalesce' was declared in MEMORY"><SPAN CLASS="nefeature">full_coalesce</SPAN></SPAN>
+	<SPAN TITLE="`full_collect' was declared in MEMORY"><SPAN CLASS="nefeature">full_collect</SPAN></SPAN>
+	<SPAN TITLE="`get_last_dates' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_get_last_dates">get_last_dates</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`ignore' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">ignore</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">code</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`init_preferences' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_init_preferences">init_preferences</A></SPAN>
+	<SPAN TITLE="`launch' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">launch</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">s</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_GENERAL</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`load_sensors' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_load_sensors">load_sensors</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">some_results</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">DB_RESULT</SPAN><SPAN CLASS="esymbol">]</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`login' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">login</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">user_name</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">password</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`login_and_connect' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">login_and_connect</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">user_name</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">password</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`login_with_connection_string' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">login_with_connection_string</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_connection_string</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`login_with_connection_string_and_connect' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">login_with_connection_string_and_connect</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_connection_string</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`message_on_failure' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">message_on_failure</SPAN></SPAN>
+	<SPAN TITLE="`no_message_on_failure' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">no_message_on_failure</SPAN></SPAN>
+	<SPAN TITLE="`print_data' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_print_data">print_data</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`put' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">put</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">value</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">key</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_GENERAL</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`raise' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">raise</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`raise_retrieval_exception' was declared in EXCEPTIONS"><SPAN CLASS="nefeature">raise_retrieval_exception</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`reset_all_default' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">reset_all_default</SPAN></SPAN>
+	<SPAN TITLE="`reset_default' was declared in UNIX_SIGNALS"><SPAN CLASS="nefeature">reset_default</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sig</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`reset_json_parser' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_reset_json_parser">reset_json_parser</A></SPAN>
+	<SPAN TITLE="`save_sensor_data' is declared in `Current'"><A CLASS="efeature" HREF="../rt10/rt10.html#f_save_sensor_data">save_sensor_data</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_application' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">set_application</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">application_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_base' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">set_base</SPAN></SPAN>
+	<SPAN TITLE="`set_coalesce_period' was declared in MEMORY"><SPAN CLASS="nefeature">set_coalesce_period</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_collection_period' was declared in MEMORY"><SPAN CLASS="nefeature">set_collection_period</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_data_source' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">set_data_source</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">dsn</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_group' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">set_group</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">groupid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_hostname' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">set_hostname</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">host_name</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_max_mem' was declared in MEMORY"><SPAN CLASS="nefeature">set_max_mem</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_memory_threshold' was declared in MEMORY"><SPAN CLASS="nefeature">set_memory_threshold</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">value</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_option_sign' was declared in ARGUMENTS"><SPAN CLASS="nefeature">set_option_sign</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">c</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">CHARACTER_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`set_role' was declared in DATABASE_APPL"><SPAN CLASS="nefeature">set_role</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">roleid</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">rolepasswd</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`sig_catch' was declared in UNIX_SIGNALS as `catch'"><SPAN CLASS="nefeature">sig_catch</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sig</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`sig_ignore' was declared in UNIX_SIGNALS as `ignore'"><SPAN CLASS="nefeature">sig_ignore</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sig</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`sleep' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">sleep</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">nanoseconds</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_64</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+	<SPAN TITLE="`system' was declared in EXECUTION_ENVIRONMENT"><SPAN CLASS="nefeature">system</SPAN> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">s</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">READABLE_STRING_GENERAL</SPAN><SPAN CLASS="esymbol">)</SPAN></SPAN>
+
+<FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="nolink2">Chart</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="rt10"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>

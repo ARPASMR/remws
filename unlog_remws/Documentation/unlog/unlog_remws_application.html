@@ -1,0 +1,264 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="unlog application root class"/>
+<meta name="copyright" content="$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"/>
+<meta name="license" content="$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"/>
+<meta name="author" content="$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"/>
+<meta name="date" content="$Date 2017-12-10 19:13:48 (dom 10 dic 2017, 19.13.48, CET) buck $"/>
+<meta name="revision" content="$Revision 48 $"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>unlog_remws_application Text</TITLE>
+<LINK REL="stylesheet" HREF="../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="unlog_remws_application"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;unlog application root class&quot;</SPAN>
+	<SPAN CLASS="eitag">copyright</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Copyright Copyright (c) 2015-2017 ARPA Lombardia $&quot;</SPAN>
+	<SPAN CLASS="eitag">license</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$License General Public License v2 (see </SPAN><A CLASS="estring" HREF="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</A><SPAN CLASS="estring">) $&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Author Luca Paganotti &lt; luca.paganotti (at) gmail.com &gt; $&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date 2017-12-10 19:13:48 (dom 10 dic 2017, 19.13.48, CET) buck $&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision 48 $&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> 
+	<A CLASS="eclass" HREF="../unlog/unlog_remws_application.html">UNLOG_REMWS_APPLICATION</A>
+
+<SPAN CLASS="ekeyword">inherit</SPAN>
+	<SPAN CLASS="neclass">ERROR_CODES</SPAN>
+
+	<A CLASS="eclass" HREF="../unlog/unlog_remws_constants.html">UNLOG_REMWS_CONSTANTS</A>
+
+	<SPAN CLASS="neclass">ARGUMENTS</SPAN>
+
+	<SPAN CLASS="neclass">EXECUTION_ENVIRONMENT</SPAN>
+		<SPAN CLASS="ekeyword">rename</SPAN>
+			<SPAN CLASS="nefeature">Command_line</SPAN> <SPAN CLASS="ekeyword">as</SPAN> <SPAN CLASS="nefeature">Env_command_line</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<SPAN CLASS="neclass">SYSLOG_UNIX_OS</SPAN>
+		<SPAN CLASS="ekeyword">export</SPAN>
+			<SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../unlog/unlog_remws_application.html">UNLOG_REMWS_APPLICATION</A><SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ekeyword">all</SPAN>
+		<SPAN CLASS="ekeyword">redefine</SPAN>
+			<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_dispose">dispose</A>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<SPAN CLASS="neclass">EXCEPTIONS</SPAN>
+
+	<SPAN CLASS="neclass">UNIX_SIGNALS</SPAN>
+		<SPAN CLASS="ekeyword">rename</SPAN>
+			<SPAN CLASS="nefeature">meaning</SPAN> <SPAN CLASS="ekeyword">as</SPAN> <SPAN CLASS="nefeature">sig_meaning</SPAN><SPAN CLASS="esymbol">,</SPAN>
+			<SPAN CLASS="nefeature">catch</SPAN> <SPAN CLASS="ekeyword">as</SPAN> <SPAN CLASS="nefeature">sig_catch</SPAN><SPAN CLASS="esymbol">,</SPAN>
+			<SPAN CLASS="nefeature">ignore</SPAN> <SPAN CLASS="ekeyword">as</SPAN> <SPAN CLASS="nefeature">sig_ignore</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_make">make</A>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Initialization</SPAN>
+
+	<A NAME="f_make"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_make">make</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Run application.</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">idx</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="nefeature">open_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../unlog/unlog_remws_constants.html#f_program_name">Program_name</A><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_pid</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="nefeature">log_user</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="nefeature">index_of_word_option</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;t&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="elocal">idx</SPAN> <SPAN CLASS="esymbol">&gt;</SPAN> <SPAN CLASS="enumber">0</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_use_remwstest">use_remwstest</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">True</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token">last_token</A> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_read_last_token">read_last_token</A>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_logout_request">logout_request</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_session">session</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_xml_parser_factory">xml_parser_factory</A>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_xml_parser_factory">xml_parser_factory</A> <SPAN CLASS="ekeyword">as</SPAN> l_factory <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_xml_parser">xml_parser</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_factory</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">new_standard_parser</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="nefeature">sys_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">log_emerg</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;UNLOGREMWS: unable to create xml parser&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="nefeature">die</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="enumber">1</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_do_logout">do_logout</A> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="nefeature">sys_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">log_notice</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;UNLOGREMWS: successfully logged out from remws&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="nefeature">sys_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">log_notice</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;UNLOGREMWS: unable to log out from remws&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Operations</SPAN>
+
+	<A NAME="f_read_last_token"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_read_last_token">read_last_token</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">like</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token">last_token</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Read </SPAN><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token">last_token</A><SPAN CLASS="ecomment"> from </SPAN><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token_file">last_token_file</A>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token_file_path">last_token_file_path</A> <SPAN CLASS="ekeyword">as</SPAN> l_path <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">create</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token_file">last_token_file</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_open_read</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_path</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token_file">last_token_file</A> <SPAN CLASS="ekeyword">as</SPAN> l_file <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_file</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">read_line</SPAN>
+					<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_file</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">laststring</SPAN>
+					<SPAN CLASS="elocal">l_file</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">close</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<SPAN CLASS="nefeature">sys_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">log_emerg</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;UNLOGREMWS: &quot; <SPAN CLASS="esymbol">+</SPAN> <SPAN CLASS="elocal">l_path</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot; doesn't exist&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="nefeature">sys_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">log_emerg</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;UNLOGREMWS: unable to read last token file&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_post"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_post">post</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_request</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">REQUEST_I</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Post </SPAN>`a_request'<SPAN CLASS="ecomment"> to remws using </SPAN>`LIBCURL_HTTP_CLIENT'
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_context</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">HTTP_CLIENT_REQUEST_CONTEXT</SPAN>
+			<SPAN CLASS="elocal">l_res</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">HTTP_CLIENT_RESPONSE</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> &quot;&quot;
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">a_request</SPAN> <SPAN CLASS="ekeyword">as</SPAN> l_request <SPAN CLASS="ekeyword">then</SPAN>
+				<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_session">session</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">headers</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">wipe_out</SPAN>
+				<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_session">session</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">add_header</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;content-type&quot;<SPAN CLASS="esymbol">,</SPAN> &quot;text/xml;charset=utf-8&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_session">session</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">add_header</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;SOAPAction&quot;<SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">l_request</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">soap_action_header</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_session">session</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">add_header</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN>&quot;Accept-Encoding&quot;<SPAN CLASS="esymbol">,</SPAN> &quot;gzip, deflate&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_use_remwstest">use_remwstest</A> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_session">session</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">post</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_request</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">ws_test_url</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">l_context</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">l_request</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_xml</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_request</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_xml</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<SPAN CLASS="elocal">l_res</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_session">session</A><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">post</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_request</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">ws_url</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">l_context</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">l_request</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">to_xml</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_res</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">body</SPAN> <SPAN CLASS="ekeyword">as</SPAN> r <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">r</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">as_string_8</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_string</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="nefeature">Io</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">put_new_line</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="nefeature">sys_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">log_emerg</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;UNLOGREMWS.post: trying to post a Void request&quot;<SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_do_logout"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_do_logout">do_logout</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Execute logout</SPAN>
+		<SPAN CLASS="ekeyword">local</SPAN>
+			<SPAN CLASS="elocal">l_xml_str</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token">last_token</A> <SPAN CLASS="ekeyword">as</SPAN> l_token <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_logout_request">logout_request</A> <SPAN CLASS="ekeyword">as</SPAN> l_request <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="elocal">l_request</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">set_token_id</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_token</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">as_string_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<SPAN CLASS="nefeature">sys_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">log_emerg</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;UNLOGREMWS: logout request not attached&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="elocal">l_xml_str</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_post">post</A><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_logout_request">logout_request</A><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">l_xml_str</SPAN> <SPAN CLASS="ekeyword">as</SPAN> l_xml <SPAN CLASS="ekeyword">then</SPAN>
+					<A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_logout_response">logout_response</A> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">create</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">LOGOUT_RESPONSE</SPAN><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make</SPAN>
+					<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_logout_response">logout_response</A> <SPAN CLASS="ekeyword">as</SPAN> l_response <SPAN CLASS="ekeyword">then</SPAN>
+						<SPAN CLASS="elocal">l_response</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">from_xml</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">l_xml</SPAN><SPAN CLASS="esymbol">,</SPAN> <A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_xml_parser">xml_parser</A><SPAN CLASS="esymbol">)</SPAN>
+						<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_response</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">outcome</SPAN> <SPAN CLASS="esymbol">=</SPAN> <SPAN CLASS="nefeature">Success</SPAN>
+					<SPAN CLASS="ekeyword">else</SPAN>
+						<SPAN CLASS="nefeature">sys_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">log_emerg</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;UNLOGREMWS: logout response not attached&quot;<SPAN CLASS="esymbol">)</SPAN>
+					<SPAN CLASS="ekeyword">end</SPAN>
+				<SPAN CLASS="ekeyword">else</SPAN>
+					<SPAN CLASS="nefeature">sys_log</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">log_emerg</SPAN><SPAN CLASS="esymbol">,</SPAN> &quot;UNLOGREMWS: Void response from server&quot;<SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">else</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="ekeyword">False</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Dispose</SPAN>
+
+	<A NAME="f_dispose"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_dispose">dispose</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Call </SPAN>`Precursor'
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<A CLASS="ekeyword" HREF="file#f_feature">Precursor</A> <SPAN CLASS="esymbol">{</SPAN><SPAN CLASS="neclass">SYSLOG_UNIX_OS</SPAN><SPAN CLASS="esymbol">}</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Signals</SPAN>
+
+	<A NAME="f_catch_signals"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_catch_signals">catch_signals</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Catch UNIX signals</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="nefeature">sig_catch</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sighup</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">sig_catch</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigint</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">sig_catch</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigsegv</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">sig_catch</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigkill</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="nefeature">sig_catch</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigterm</SPAN><SPAN CLASS="esymbol">)</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_handle_signals"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_handle_signals">handle_signals</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Handle UNIX signals</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="nefeature">is_signal</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="nefeature">is_caught</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sighup</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="nefeature">is_caught</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigint</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="nefeature">is_caught</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigsegv</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="nefeature">die</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigsegv</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="nefeature">is_caught</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigkill</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+					<SPAN CLASS="nefeature">die</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigkill</SPAN><SPAN CLASS="esymbol">)</SPAN>
+				<SPAN CLASS="ekeyword">elseif</SPAN> <SPAN CLASS="nefeature">is_caught</SPAN><SPAN CLASS="esymbol"> </SPAN><SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="nefeature">Sigterm</SPAN><SPAN CLASS="esymbol">)</SPAN> <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">end</SPAN>
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="esymbol">{</SPAN>NONE<SPAN CLASS="esymbol">}</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Implementation</SPAN>
+
+	<A NAME="f_use_remwstest"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_use_remwstest">use_remwstest</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Use remwstest WS</SPAN>
+
+	<A NAME="f_last_token_file_path"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token_file_path">last_token_file_path</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> last token file name full path</SPAN>
+		<SPAN CLASS="ekeyword">do</SPAN>
+			<SPAN CLASS="ekeyword">create</SPAN> <SPAN CLASS="ekeyword">Result</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">make_empty</SPAN>
+			<SPAN CLASS="ekeyword">if</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="nefeature">Home_directory_path</SPAN> <SPAN CLASS="ekeyword">as</SPAN> l_home <SPAN CLASS="ekeyword">then</SPAN>
+				<SPAN CLASS="ekeyword">Result</SPAN> <SPAN CLASS="esymbol">:=</SPAN> <SPAN CLASS="elocal">l_home</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">out</SPAN> <SPAN CLASS="esymbol">+</SPAN> &quot;/.collect/last_token&quot;
+			<SPAN CLASS="ekeyword">end</SPAN>
+		<SPAN CLASS="ekeyword">end</SPAN>
+
+	<A NAME="f_last_token_file"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token_file">last_token_file</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">PLAIN_TEXT_FILE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Text file containing the last remws token</SPAN>
+
+	<A NAME="f_last_token"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_last_token">last_token</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">READABLE_STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Last remws token</SPAN>
+
+	<A NAME="f_session"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_session">session</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LIBCURL_HTTP_CLIENT_SESSION</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> HTTP session</SPAN>
+
+	<A NAME="f_logout_request"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_logout_request">logout_request</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">LOGOUT_REQUEST</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> The logout request</SPAN>
+
+	<A NAME="f_logout_response"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_logout_response">logout_response</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">LOGOUT_RESPONSE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> The logout response</SPAN>
+
+	<A NAME="f_xml_parser_factory"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_xml_parser_factory">xml_parser_factory</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">XML_PARSER_FACTORY</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Global xml parser factory</SPAN>
+
+	<A NAME="f_xml_parser"></A><A CLASS="efeature" HREF="../unlog/unlog_remws_application.html#f_xml_parser">xml_parser</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_STANDARD_PARSER</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Global xml parser</SPAN>
+	
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../unlog/unlog_remws_application.html">UNLOG_REMWS_APPLICATION</A><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_links.html">Relations</A></TD>
+<TD CLASS="nolink2">Text</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_flat.html">Flat</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_short.html">Contracts</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="unlog_remws_application_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="unlog_remws_application"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

@@ -1,0 +1,241 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
+<meta name="description" content="Trt10 application root class     Acts as a client asking sensors' realtime data to collect."/>
+<meta name="copyright" content="$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"/>
+<meta name="license" content="$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"/>
+<meta name="author" content="$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"/>
+<meta name="source" content="Luca Paganotti <luca.paganotti (at) gmail.com> Via dei Giardini, 9 21035 Cunardo (VA)"/>
+<meta name="date" content="$Date 2017-12-10 19:16:00 (dom 10 dic 2017, 19.16.00, CET) buck $"/>
+<meta name="revision" content="$Revision 48 $"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<TITLE>rt10 Contracts</TITLE>
+<LINK REL="stylesheet" HREF="../default.css" TYPE="text/css">
+<SCRIPT TYPE="text/javascript" SRC="../goto.html"></SCRIPT>
+</HEAD>
+<BODY>
+<P ALIGN="CENTER">Automatic generation produced by ISE Eiffel</P>
+<pre><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="rt10"></TD>
+</TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
+	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;</SPAN><SPAN CLASS="estring">[</SPAN>
+		<SPAN CLASS="estring">	rt10 application root class</SPAN>
+		<SPAN CLASS="estring"> &nbsp;&nbsp;&nbsp;Acts as a client asking sensors' realtime data to collect.</SPAN>
+	<SPAN CLASS="estring">]</SPAN><SPAN CLASS="estring">&quot;</SPAN>
+	<SPAN CLASS="eitag">copyright</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Copyright Copyright (c) 2015-2017 ARPA Lombardia $&quot;</SPAN>
+	<SPAN CLASS="eitag">license</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$License General Public License v2 (see </SPAN><A CLASS="estring" HREF="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</A><SPAN CLASS="estring">) $&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Author Luca Paganotti &lt; luca.paganotti (at) gmail.com &gt; $&quot;</SPAN>
+	<SPAN CLASS="eitag">source</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;</SPAN><SPAN CLASS="estring">[</SPAN>
+		<SPAN CLASS="estring">Luca Paganotti &lt;luca.paganotti (at) gmail.com&gt;</SPAN>
+		<SPAN CLASS="estring">Via dei Giardini, 9</SPAN>
+		<SPAN CLASS="estring">21035 Cunardo (VA)</SPAN>
+	<SPAN CLASS="estring">]</SPAN><SPAN CLASS="estring">&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date 2017-12-10 19:16:00 (dom 10 dic 2017, 19.16.00, CET) buck $&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision 48 $&quot;</SPAN>
+
+<SPAN CLASS="ekeyword">class</SPAN> <SPAN CLASS="ekeyword">interface</SPAN>
+	<A CLASS="eclass" HREF="../rt10/rt10_short.html">RT10</A>
+
+<SPAN CLASS="ekeyword">create</SPAN> 
+	<A CLASS="efeature" HREF="../rt10/rt10_short.html#f_make">make</A>
+
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Process</SPAN>
+
+	<A NAME="f_print_data"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_print_data">print_data</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> displays sensor measures</SPAN>
+
+	<A NAME="f_make_last_dates_queries"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_make_last_dates_queries">make_last_dates_queries</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">TUPLE</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">]</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Construct query for last data</SPAN>
+
+	<A NAME="f_make_last_dates_queries1"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_make_last_dates_queries1">make_last_dates_queries1</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">]</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Construct query for last data</SPAN>
+
+	<A NAME="f_make_insert_into_data"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_make_insert_into_data">make_insert_into_data</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">s</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">t</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">m</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">MEASURE</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Construct insert into query string</SPAN>
+
+	<A NAME="f_make_exists_measure_query"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_make_exists_measure_query">make_exists_measure_query</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">s</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">o</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">t</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">d</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Constructs exists query for sensor </SPAN>`s'<SPAN CLASS="ecomment"> with operator </SPAN>`o'<SPAN CLASS="ecomment"> and typology </SPAN>`t'
+
+	<A NAME="f_get_last_dates"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_get_last_dates">get_last_dates</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Retrieve sensor's last date till current time</SPAN>
+
+	<A NAME="f_load_sensors"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_load_sensors">load_sensors</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">some_results</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">DB_RESULT</SPAN><SPAN CLASS="esymbol">]</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Load </SPAN><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_sensors">sensors</A>
+
+	<A NAME="f_check_day_light_time_saving"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_check_day_light_time_saving">check_day_light_time_saving</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">dt</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Check for day light time savin on </SPAN>`dt'
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Display</SPAN>
+
+	<A NAME="f_display_line"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_display_line">display_line</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_line</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">nl</SPAN><SPAN CLASS="esymbol">,</SPAN> <SPAN CLASS="elocal">to_syslog</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Display </SPAN>`a_line'<SPAN CLASS="ecomment"> on screen with a new line if </SPAN>`nl'<SPAN CLASS="ecomment"> is True</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Operations</SPAN>
+
+	<A NAME="f_post"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_post">post</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">a_msg</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Post </SPAN>`a_msg'<SPAN CLASS="ecomment"> to remws using </SPAN>`LIBCURL_HTTP_CLIENT'
+
+	<A NAME="f_ask_sensor"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_ask_sensor">ask_sensor</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">]</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Ask </SPAN>`sensor'<SPAN CLASS="ecomment"> data</SPAN>
+
+	<A NAME="f_save_sensor_data"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_save_sensor_data">save_sensor_data</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">)</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Save measures to database</SPAN>
+
+	<A NAME="f_delete_old_data"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_delete_old_data">delete_old_data</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Deletes data older than 30 days</SPAN>
+
+	<A NAME="f_is_measure_already_present"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_is_measure_already_present">is_measure_already_present</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">sensor_id</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">operator</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">typology</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN><SPAN CLASS="esymbol">)</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BOOLEAN</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Is measure already present in db</SPAN>
+
+	<A NAME="f_reset_json_parser"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_reset_json_parser">reset_json_parser</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Reset </SPAN><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_json_parser">json_parser</A>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> dispose</SPAN>
+
+	<A NAME="f_dispose"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_dispose">dispose</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_dispose">dispose</A><SPAN CLASS="ecomment"> redefinition</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Preferences</SPAN>
+
+	<A NAME="f_preferences"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_preferences">preferences</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PREFERENCES</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Preferences</SPAN>
+
+	<A NAME="f_preference_manager"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_preference_manager">preference_manager</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PREFERENCE_MANAGER</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Preference manager</SPAN>
+
+	<A NAME="f_preferences_storage"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_preferences_storage">preferences_storage</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">PREFERENCES_STORAGE_DEFAULT</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Preferences storage</SPAN>
+
+	<A NAME="f_host_pref"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_host_pref">host_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Host preference</SPAN>
+
+	<A NAME="f_database_pref"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_database_pref">database_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database name preference</SPAN>
+
+	<A NAME="f_dbusr_pref"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_dbusr_pref">dbusr_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database user preference</SPAN>
+
+	<A NAME="f_dbpwd_pref"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_dbpwd_pref">dbpwd_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database password preference</SPAN>
+
+	<A NAME="f_collect_host_pref"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_collect_host_pref">collect_host_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_PREFERENCE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Host running collect preference</SPAN>
+
+	<A NAME="f_collect_port_pref"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_collect_port_pref">collect_port_pref</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_PREFERENCE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Collect port preference</SPAN>
+
+	<A NAME="f_factory"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_factory">factory</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">BASIC_PREFERENCE_FACTORY</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Preferences factory</SPAN>
+
+	<A NAME="f_init_preferences"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_init_preferences">init_preferences</A>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Loads preferences</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Messages</SPAN>
+
+	<A NAME="f_realtime_data_res"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_realtime_data_res">realtime_data_res</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">REALTIME_DATA_RESPONSE</SPAN>
+
+	<A NAME="f_realtime_data_request_nmarzi_template"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_realtime_data_request_nmarzi_template">realtime_data_request_nmarzi_template</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Data request template</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Implementation</SPAN>
+
+	<A NAME="f_db_host"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_db_host">db_host</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database host</SPAN>
+
+	<A NAME="f_db_user"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_db_user">db_user</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database user</SPAN>
+
+	<A NAME="f_db_password"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_db_password">db_password</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database password</SPAN>
+
+	<A NAME="f_db"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_db">db</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database name</SPAN>
+
+	<A NAME="f_collect_host"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_collect_host">collect_host</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Collect host (IP or name)</SPAN>
+
+	<A NAME="f_collect_port"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_collect_port">collect_port</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+
+	<A NAME="f_session_control"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_session_control">session_control</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DB_CONTROL</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Session manager</SPAN>
+
+	<A NAME="f_selection"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_selection">selection</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DB_SELECTION</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database selection object</SPAN>
+
+	<A NAME="f_modification"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_modification">modification</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DB_CHANGE</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database modification tool</SPAN>
+
+	<A NAME="f_results"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_results">results</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">DB_RESULT</SPAN><SPAN CLASS="esymbol">]</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Database query results</SPAN>
+
+	<A NAME="f_sensors"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_sensors">sensors</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><SPAN CLASS="neclass">RT10_SENSOR</SPAN><SPAN CLASS="esymbol">]</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Sensors list</SPAN>
+
+	<A NAME="f_response"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_response">response</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+
+	<A NAME="f_session"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_session">session</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">LIBCURL_HTTP_CLIENT_SESSION</SPAN>
+
+	<A NAME="f_now"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_now">now</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN>
+
+	<A NAME="f_one_month"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_one_month">one_month</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+
+	<A NAME="f_one_week"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_one_week">one_week</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+
+	<A NAME="f_one_day"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_one_day">one_day</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+
+	<A NAME="f_one_hour"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_one_hour">one_hour</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+
+	<A NAME="f_two_hours"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_two_hours">two_hours</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+
+	<A NAME="f_one_minute"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_one_minute">one_minute</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+
+	<A NAME="f_five_minutes"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_five_minutes">five_minutes</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+
+	<A NAME="f_ten_minutes"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_ten_minutes">ten_minutes</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME_DURATION</SPAN>
+
+	<A NAME="f_json_parser"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_json_parser">json_parser</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_PARSER</SPAN>
+
+	<A NAME="f_reqs_number"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_reqs_number">reqs_number</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+
+	<A NAME="f_start_date"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_start_date">start_date</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN>
+
+	<A NAME="f_end_date"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_end_date">end_date</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">DATE_TIME</SPAN>
+
+	<A NAME="f_home_folder"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_home_folder">Home_folder</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Current user home folder</SPAN>
+
+	<A NAME="f_preferences_folder"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_preferences_folder">Preferences_folder</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_32</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Preferences folder</SPAN>
+
+	<A NAME="f_app_name"></A><A CLASS="efeature" HREF="../rt10/rt10_short.html#f_app_name">app_name</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
+			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN>`Current'<SPAN CLASS="ecomment"> application name</SPAN>
+	
+<SPAN CLASS="ekeyword">end</SPAN> <SPAN CLASS="ecomment">--</SPAN> <SPAN CLASS="ecomment">class </SPAN><A CLASS="eclass" HREF="../rt10/rt10_short.html">RT10</A><FORM ONSUBMIT="go_to('../',this.c.value);return false;">
+<TABLE CELLSPACING="5" CELLPADDING="4"><TR>
+<TD CLASS="link1"><A CLASS="link1" HREF="../class_list.html">Classes</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_list.html">Clusters</A></TD>
+<TD CLASS="link1"><A CLASS="link1" HREF="../cluster_hierarchy.html">Cluster hierarchy</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_chart.html">Chart</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_links.html">Relations</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10.html">Text</A></TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_flat.html">Flat</A></TD>
+<TD CLASS="nolink2">Contracts</TD>
+<TD CLASS="link2"><A CLASS="link2" HREF="rt10_flatshort.html">Flat contracts</A></TD>
+<TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="rt10"></TD>
+</TR></TABLE></FORM></pre>
+<P ALIGN="CENTER"> &#045;&#045; Generated by ISE Eiffel &#045;&#045; 
+<BR>For more details: <A HREF="http://www.eiffel.com">www.eiffel.com</A></P>
+</BODY>
+</HTML>
+

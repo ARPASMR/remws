@@ -2,9 +2,11 @@
 <HEAD>
 <META NAME="generator" CONTENT="ISE EiffelStudio version 15.01.9.6535 GPL Edition - linux-x86-64">
 <meta name="description" content="Summary description for {MUNICIPALITY_LIST_RESPONSE}."/>
-<meta name="author" content=""/>
-<meta name="date" content="$Date$"/>
-<meta name="revision" content="$Revision$"/>
+<meta name="copyright" content="$Copyright Copyright (c) 2015-2017 ARPA Lombardia $"/>
+<meta name="license" content="$License General Public License v2 (see http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt) $"/>
+<meta name="author" content="$Author Luca Paganotti < luca.paganotti (at) gmail.com > $"/>
+<meta name="date" content="$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $"/>
+<meta name="revision" content="$Revision 48 $"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <TITLE>municipality_list_response Contracts</TITLE>
@@ -27,9 +29,11 @@
 <TD CLASS="link2">Go to: <INPUT NAME="c" VALUE="municipality_list_response"></TD>
 </TR></TABLE></FORM><SPAN CLASS="ekeyword">note</SPAN>
 	<SPAN CLASS="eitag">description</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;Summary description for </SPAN><SPAN CLASS="esymbol">{</SPAN><A CLASS="eclass" HREF="../msg/municipality_list_response_short.html">MUNICIPALITY_LIST_RESPONSE</A><SPAN CLASS="esymbol">}</SPAN><SPAN CLASS="estring">.&quot;</SPAN>
-	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;&quot;</SPAN>
-	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date$&quot;</SPAN>
-	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision$&quot;</SPAN>
+	<SPAN CLASS="eitag">copyright</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Copyright Copyright (c) 2015-2017 ARPA Lombardia $&quot;</SPAN>
+	<SPAN CLASS="eitag">license</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$License General Public License v2 (see </SPAN><A CLASS="estring" HREF="http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt">http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</A><SPAN CLASS="estring">) $&quot;</SPAN>
+	<SPAN CLASS="eitag">author</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Author Luca Paganotti &lt; luca.paganotti (at) gmail.com &gt; $&quot;</SPAN>
+	<SPAN CLASS="eitag">date</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Date 2017-12-10 19:44:33 (dom 10 dic 2017, 19.44.33, CET) buck $&quot;</SPAN>
+	<SPAN CLASS="eitag">revision</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="estring">&quot;$Revision 48 $&quot;</SPAN>
 
 <SPAN CLASS="ekeyword">class</SPAN> <SPAN CLASS="ekeyword">interface</SPAN>
 	<A CLASS="eclass" HREF="../msg/municipality_list_response_short.html">MUNICIPALITY_LIST_RESPONSE</A>
@@ -39,13 +43,11 @@
 
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Access</SPAN>
 
-	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_id">Id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
+	<A NAME="f_id"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_id">id</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 
 	<A NAME="f_outcome"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_outcome">outcome</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">INTEGER_32</SPAN>
 
-	<A NAME="f_message"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_message">message</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
-
-	<A NAME="f_token"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_token">token</A><SPAN CLASS="esymbol">:</SPAN> <A CLASS="eclass" HREF="../msg/token_short.html">TOKEN</A>
+	<A NAME="f_message"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_message">message</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">detachable</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 
 	<A NAME="f_municipalities_list"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_municipalities_list">municipalities_list</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">ARRAYED_LIST</SPAN> <SPAN CLASS="esymbol">[</SPAN><A CLASS="eclass" HREF="../msg/meteo/municipality_short.html">MUNICIPALITY</A><SPAN CLASS="esymbol">]</SPAN>
 	
@@ -77,16 +79,21 @@
 	<A NAME="f_to_json"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_to_json">to_json</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> json representation</SPAN>
 
-	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+	<A NAME="f_from_xml"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_from_xml">from_xml</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">xml</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">XML_STANDARD_PARSER</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse XML message</SPAN>
 
 	<A NAME="f_to_xml"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_to_xml">to_xml</A><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> xml representation</SPAN>
 
-	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">)</SPAN>
+	<A NAME="f_from_json"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_from_json">from_json</A> <SPAN CLASS="esymbol">(</SPAN><SPAN CLASS="elocal">json</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">STRING_8</SPAN><SPAN CLASS="esymbol">;</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="neclass">JSON_PARSER</SPAN><SPAN CLASS="esymbol">)</SPAN>
 			<SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> Parse json message</SPAN>
 		<SPAN CLASS="ekeyword">require else</SPAN>
 			<SPAN CLASS="etag">json_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">json</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="ekeyword">not</SPAN> <SPAN CLASS="elocal">json</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_empty</SPAN>
+			<SPAN CLASS="etag">json_parser_valid</SPAN><SPAN CLASS="esymbol">:</SPAN> <SPAN CLASS="ekeyword">attached</SPAN> <SPAN CLASS="elocal">parser</SPAN> <SPAN CLASS="ekeyword">and then</SPAN> <SPAN CLASS="elocal">parser</SPAN><SPAN CLASS="edot">.</SPAN><SPAN CLASS="nefeature">is_valid</SPAN>
+	
+<SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> </SPAN><SPAN CLASS="neclass">DISPOSABLE</SPAN>
+
+	<A NAME="f_dispose"></A><A CLASS="efeature" HREF="../msg/municipality_list_response_short.html#f_dispose">dispose</A>
 	
 <SPAN CLASS="ekeyword">feature</SPAN> <SPAN CLASS="ecomment">--</SPAN><SPAN CLASS="ecomment"> XML Callbacks</SPAN>
 
