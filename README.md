@@ -1,5 +1,4 @@
 # eiffel
-My eiffel code
+REMWS eiffel code
 
-This repository contains my public eiffel code. Enjoy!
-If interested have a look at [my wiki pages](https://github.com/lucapaganotti/eiffel/wiki)
+This repository contains remws public eiffel code. Enjoy!
