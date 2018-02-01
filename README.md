@@ -13,7 +13,7 @@ Per lanciarlo
 ```
 # service remwsgwyd start
 ```
-prima di lanciare ip precedente comando eseguire l'applicativo che effettua il logout dell'utente meteo dal remws, tale comando è 
+prima di lanciare il precedente comando eseguire l'applicativo che effettua il logout dell'utente meteo dal remws, tale comando è 
 ```
 # /sbin/unlogremws
 ```
