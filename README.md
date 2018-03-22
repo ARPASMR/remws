@@ -30,4 +30,4 @@ oppure è possibile utilizzare il seguente script che esegue le operazioni neces
 
 -h help
 
-Per una lista completa di tuttle le opzioni consultare la relativa pagina del man.
+Per una lista completa di tuttle le opzioni consultare la relativa pagina del man. Il file di configurazione delle opzioni attualmente utilizzate a riga di comando si trova in /etc/sysconfig e sichiama remwsgwyd.
